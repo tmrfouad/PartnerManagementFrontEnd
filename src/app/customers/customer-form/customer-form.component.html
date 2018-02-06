@@ -1,0 +1,121 @@
+<div class="container"> 
+            <form #f="ngForm" (submit)="logForm(f.value)" > 
+                    <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <span class="required">*</span>
+                            <input 
+                            id="firstName" name="firstName"
+                            ngModel required
+                            minlength="5"
+                            #FirstName="ngModel"
+                            type="text" class="form-control">
+                            <div class="alert alert-danger" 
+                            *ngIf="FirstName.touched && !FirstName.valid">
+                                <div *ngIf="FirstName.errors?.required">
+                                        First name is required
+                                </div>  
+                                <div *ngIf="FirstName.errors?.minlength">
+                                        minmum {{ FirstName.errors.minlength.requiredLength }} characters
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label> 
+                            <span class="required">*</span>
+                            <input
+                            id="lastName" name="lastName"
+                            ngModel required
+                            minlength="5"
+                            #lastName="ngModel"
+                            type="text" class="form-control">
+                            <div class="alert alert-danger" 
+                            *ngIf="lastName.touched && !lastName.valid">
+                                <div *ngIf="lastName.errors?.required">
+                                        last name is required
+                                </div>  
+                                <div *ngIf="lastName.errors?.minlength">
+                                        minmum {{ lastName.errors.minlength.requiredLength }} characters
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="companyName">Company Name</label>
+                            <span class="required">*</span>
+                            <input 
+                            id="companyName" name="companyName"
+                            type="text" 
+                            ngModel  
+                            #companyName="ngModel"
+                            class="form-control" required >
+                            <div 
+                            class="alert alert-danger"
+                            *ngIf="companyName.touched && !companyName.valid">
+                                    Comapny Name is required
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <span class="required">*</span>
+                            <input
+                             id="email" name="email"
+                             placeholder="Name@email.com"
+                             type="email" class="form-control"
+                             ngModel #Email="ngModel"
+                             [email]="true" required >
+                            <div class="alert alert-danger" *ngIf="Email.touched && !Email.valid">
+                                   <div *ngIf="Email.errors.required">
+                                        Email is required
+                                   </div> 
+                                   <div *ngIf="!Email.errors.valid">
+                                        Enter valid mail
+                                   </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                        <label for="phoneNumber">Phone Number</label>
+                        <span class="required">*</span>
+                        <div class="input-group">
+                                <div class="input-group-prepend">
+                                  <div class="input-group-text">+20</div>
+                                </div>
+                                <input 
+                                pattern="[0-9]+" 
+                                required 
+                                minlength="11" (change)="log(phoneNumber)"
+                                id="phoneNumber" name="phoneNumber"
+                                type="text" class="form-control"
+                                ngModel #phoneNumber="ngModel" >
+                        </div> 
+                        <div class="alert alert-danger" *ngIf="phoneNumber.touched && !phoneNumber.valid">
+                                <div *ngIf="phoneNumber.errors?.required">
+                                        phone number is required
+                                </div>
+                                <div *ngIf="phoneNumber.errors?.pattern && phoneNumber.errors?.pattern">
+                                        Enter valid phone number
+                                </div>
+                                <div *ngIf="phoneNumber.errors?.minlength">
+                                       minmum {{ phoneNumber.errors.minlength.requiredLength }} numbers
+                                </div>
+                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="products">Product</label>
+                        <select
+                        name="products"
+                        id="products"
+                        ngModel
+                        #products="ngModel"
+                        class="form-control">
+                            <option value="1">Product 1</option>
+                            <option value="2">Product 2</option>
+                            <option value="3">Product 3</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                      <re-captcha name="captcha"  ngModel  #captcha="ngModel" required siteKey="6Ldk7D4UAAAAAPJpIWo0uqnitrcZGVyJOGg2BE3w"></re-captcha>
+                    </div>
+                     
+                    <button class="btn btn-primary" [disabled]="f.invalid">Submit</button>
+                    <button class="btn btn-danger" type="reset">Reset</button>
+            </form>      
+</div>
