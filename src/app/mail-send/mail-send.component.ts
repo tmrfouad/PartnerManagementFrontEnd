@@ -1,8 +1,10 @@
 import { MainService } from './../services/main-service.service';
-import { Component} from '@angular/core'; 
+import { Component} from '@angular/core';
+import * as email from 'emailjs/email';
 
 
 @Component({
+  // tslint:disable-next-line:component-selector
   selector: 'mail-send',
   templateUrl: './mail-send.component.html',
   styleUrls: ['./mail-send.component.css']
@@ -10,7 +12,7 @@ import { Component} from '@angular/core';
 
 export class MailSendComponent {
 
-  constructor(item? : MainService) {  
+  constructor(item?: MainService) {
   }
 
   serverContent = {
@@ -18,8 +20,8 @@ export class MailSendComponent {
   password: '123456789@acs',
   host: 'smtp.gmail.com',
   ssl: true,
-  Port: 2525 
-   //587 465
+  Port: 2525
+   // 587 465
 };
    message = {
     text: 'Hey from angular',
@@ -29,13 +31,33 @@ export class MailSendComponent {
     subject: 'Greetings'
   } ;
 
-  sendMail() {  
+  sendMail() {
 
-     var email = require('emailjs'); 
-     var server = email.server.connect(this.serverContent); 
+    // mail body
+    // {
+    //   "SMTP": {
+    //     "Domain": "",
+    //     "Port": ,
+    //     "EnableSsl": false,
+    //     "Timeout": ,
+    //     "DeliveryMethod": "",
+    //     "UseDefaultCredentials": false,
+    //     "UserName": "",
+    //     "Password": ""
+    //   },
+    //   "Message": {
+    //     "To": [""],
+    //     "From": "",
+    //     "Subject": "",
+    //   "Body": "",
+    //   "IsBodyHtml": false
+    //   }
+    // }
+
+     // var email = require('./emailjs/email');
+
+     const server = email.server.connect(this.serverContent);
      server.send(this.message , function (err, message) { console.log(err || message); });
-
-   
   }
 
 }
