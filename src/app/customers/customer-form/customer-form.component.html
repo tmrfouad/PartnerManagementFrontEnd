@@ -1,6 +1,4 @@
-
-<div class="row">
-<div class="col-6">
+<div class="container"> 
             <form #f="ngForm" (submit)="logForm(f.value)" > 
                     <div class="form-group">
                             <label for="firstName">First Name</label>
@@ -120,8 +118,4 @@
                     <button class="btn btn-primary" [disabled]="f.invalid">Submit</button>
                     <button class="btn btn-danger" type="reset">Reset</button>
             </form>      
-</div>
-<div class="col-6">
-        <cutomer-cart></cutomer-cart>
-</div>
 </div>
