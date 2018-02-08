@@ -14,18 +14,9 @@ export class CustomerFormComponent implements OnInit {
   ngOnInit() {
   }
 
-  resolved(captchaResponse: string) {
-    console.log(`Resolved captcha with response ${captchaResponse}:`);
-}
-
-log(f) { 
-  console.log(f);
-}
 
 logForm(f) { 
   console.log(f);
 }
-
-
 
 }
