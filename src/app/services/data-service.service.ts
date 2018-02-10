@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class DataService {
 
   url: string ;
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
   }
   get() {
     return this.http.get(this.url) ;
