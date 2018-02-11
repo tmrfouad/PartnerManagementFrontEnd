@@ -14,6 +14,8 @@ import { AppComponent } from './app.component';
 import { CustomerFormComponent } from './customers/customer-form/customer-form.component';
 import { MailSendComponent } from './mail-send/mail-send.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { HomeComponent } from './home/home.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -21,17 +23,19 @@ import { NavbarComponent } from './navbar/navbar.component';
     AppComponent,
     CustomerFormComponent,
     MailSendComponent,
-    NavbarComponent
+    NavbarComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     RecaptchaModule.forRoot(), // Keep in mind the "forRoot"-magic nuances!
     RecaptchaFormsModule,
-    HttpModule ,
-    RouterModule.forRoot([ {
-      path : 'Customer' , component: CustomerFormComponent
-    }])
+    HttpClientModule,
+    RouterModule.forRoot([
+      { path : '' , component: HomeComponent },
+      { path : 'customer' , component: CustomerFormComponent }
+    ])
   ],
   providers: [
     DataService,

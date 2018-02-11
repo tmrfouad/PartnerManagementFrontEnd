@@ -30,7 +30,7 @@ export class MailSendComponent {
         Password: '123456789@acs'
       },
       Message: {
-        To: ['abdomohamed2222@gmail.com'],
+        To: ['hammerknight@gmail.com'],
         From: 'angulartesting2022@gmail.com',
         Subject: 'Sending For Test from angular...',
       Body: 'Hello From Angular',
