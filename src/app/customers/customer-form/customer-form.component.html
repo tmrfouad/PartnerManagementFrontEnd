@@ -32,11 +32,11 @@
                             type="text" class="form-control">
                             <div class="alert alert-danger" 
                             *ngIf="LastName.touched && !LastName.valid">
-                                <div *ngIf="lastName.errors?.required">
+                                <div *ngIf="LastName.errors?.required">
                                         last name is required
                                 </div>  
-                                <div *ngIf="lastName.errors?.minlength">
-                                        minmum {{ lastName.errors.minlength.requiredLength }} characters
+                                <div *ngIf="LastName.errors?.minlength">
+                                        minmum {{ LastName.errors.minlength.requiredLength }} characters
                                 </div>
                             </div>
                         </div>
@@ -85,7 +85,6 @@
                                 required 
                                 minlength="11" 
                                 maxlength="20"
-                                (change)="log(phoneNumber)"
                                 id="phoneNumber" name="phoneNumber"
                                 type="text" class="form-control"
                                 [(ngModel)]="phoneNumber" #PhoneNumber="ngModel" >

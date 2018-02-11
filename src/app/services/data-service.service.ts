@@ -1,27 +1,34 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class DataService {
 
-  url: string ;
-  constructor(private http: HttpClient) {
+  baseUrl: string ;
+  private headers: HttpHeaders;
+
+  constructor(private url:string, private http: HttpClient) {
+    this.headers = new HttpHeaders()
+    .set('Content-Type', 'application/json')
+    .set('Access-Control-Allow-Origin', '*');
+
+    this.baseUrl = "http://localhost:5000/api";
   }
+
   get() {
-    return this.http.get(this.url) ;
+    return this.http.get(this.baseUrl + this.url, {headers: this.headers}) ;
   }
 
   Post(item) {
-    return this.http.post(this.url, item) ;
+    return this.http.post(this.baseUrl + this.url, {headers: this.headers}, item) ;
   }
 
   Put(item) {
-    return this.http.put(this.url + '/' + item.id , item) ;
+    return this.http.put(this.baseUrl  + this.url + '/' + item.id, {headers: this.headers} , item) ;
   }
 
   Delete(id) {
-    return this.http.delete(this.url + '/' + id) ;
+    return this.http.delete(this.baseUrl + this.url + '/' + id, {headers: this.headers}) ;
   }
 
 }

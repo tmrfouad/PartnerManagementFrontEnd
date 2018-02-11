@@ -1,5 +1,5 @@
 import { MailService } from './services/mail.service';
-import { DataService } from './services/data-service.service';
+import { OrderService } from './services/order-service.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule} from '@angular/router';
@@ -38,7 +38,7 @@ import { HttpClientModule } from '@angular/common/http';
     ])
   ],
   providers: [
-    DataService,
+    OrderService,
     MailService
   ],
   bootstrap: [AppComponent]
