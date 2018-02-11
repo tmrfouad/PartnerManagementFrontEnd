@@ -1,12 +1,14 @@
-<div class="container"> 
+        <div class="row"> 
+          <div class="col-6">
+
             <form #f="ngForm" (submit)="logForm(f.value)" > 
                     <div class="form-group">
                             <label for="firstName">First Name</label>
                             <span class="required">*</span>
                             <input 
                             id="firstName" name="firstName"
-                            ngModel required
-                            minlength="4"
+                            [(ngModel)]="firstName" required
+                            minlength="3"
                             #FirstName="ngModel"
                             type="text" class="form-control">
                             <div class="alert alert-danger" 
@@ -24,12 +26,12 @@
                             <span class="required">*</span>
                             <input
                             id="lastName" name="lastName"
-                            ngModel required
-                            minlength="4"
-                            #lastName="ngModel"
+                            [(ngModel)]="lastName" required
+                            minlength="3"
+                            #LastName="ngModel"
                             type="text" class="form-control">
                             <div class="alert alert-danger" 
-                            *ngIf="lastName.touched && !lastName.valid">
+                            *ngIf="LastName.touched && !LastName.valid">
                                 <div *ngIf="lastName.errors?.required">
                                         last name is required
                                 </div>  
@@ -44,12 +46,12 @@
                             <input 
                             id="companyName" name="companyName"
                             type="text" 
-                            ngModel  
-                            #companyName="ngModel"
+                            [(ngModel)]="companyName"
+                            #CompanyName="ngModel"
                             class="form-control" required >
                             <div 
                             class="alert alert-danger"
-                            *ngIf="companyName.touched && !companyName.valid">
+                            *ngIf="CompanyName.touched && !CompanyName.valid">
                                     Comapny Name is required
                             </div>
                         </div>
@@ -60,7 +62,7 @@
                              id="email" name="email"
                              placeholder="email@domain.com"
                              type="email" class="form-control"
-                             ngModel #Email="ngModel"
+                             [(ngModel)]="email" #Email="ngModel"
                              [email]="true" required >
                             <div class="alert alert-danger" *ngIf="Email.touched && !Email.valid">
                                    <div *ngIf="Email.errors.required">
@@ -81,20 +83,22 @@
                                 <input 
                                 pattern="[0-9]+" 
                                 required 
-                                minlength="11" (change)="log(phoneNumber)"
+                                minlength="11" 
+                                maxlength="20"
+                                (change)="log(phoneNumber)"
                                 id="phoneNumber" name="phoneNumber"
                                 type="text" class="form-control"
-                                ngModel #phoneNumber="ngModel" >
+                                [(ngModel)]="phoneNumber" #PhoneNumber="ngModel" >
                         </div> 
-                        <div class="alert alert-danger" *ngIf="phoneNumber.touched && !phoneNumber.valid">
-                                <div *ngIf="phoneNumber.errors?.required">
+                        <div class="alert alert-danger" *ngIf="PhoneNumber.touched && !PhoneNumber.valid">
+                                <div *ngIf="PhoneNumber.errors?.required">
                                         phone number is required
                                 </div>
-                                <div *ngIf="phoneNumber.errors?.pattern && phoneNumber.errors?.pattern">
+                                <div *ngIf="PhoneNumber.errors?.pattern && PhoneNumber.errors?.pattern">
                                         Enter valid phone number
                                 </div>
-                                <div *ngIf="phoneNumber.errors?.minlength">
-                                       minmum {{ phoneNumber.errors.minlength.requiredLength }} numbers
+                                <div *ngIf="PhoneNumber.errors?.minlength">
+                                       minmum {{ PhoneNumber.errors?.minlength.requiredLength }} numbers
                                 </div>
                             </div>
                     </div>
@@ -103,8 +107,8 @@
                         <select
                         name="products"
                         id="products"
-                        ngModel
-                        #products="ngModel"
+                        [(ngModel)]="products"
+                        #Products="ngModel"
                         class="form-control">
                             <option value="1">Product 1</option>
                             <option value="2">Product 2</option>
@@ -118,4 +122,15 @@
                     <button class="btn btn-primary" [disabled]="f.invalid">Submit</button>
                     <button class="btn btn-danger" type="reset">Reset</button>
             </form>      
+        </div>
+        <div class="col-6 fixed">
+          <div class="card" style="width: 18rem;">
+             <div class="card-body">
+               <h5 class="card-title">{{firstName}} {{lastName}}</h5>
+               <p class="card-text"> {{companyName}} </p>
+               <p class="card-text"> {{email}} </p> 
+               <p class="card-text"> {{phoneNumber}} </p>
+             </div>
+         </div>
+        </div>
 </div>
