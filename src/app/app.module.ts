@@ -1,3 +1,4 @@
+import { AcceptService } from './services/accept.service';
 import { MailService } from './services/mail.service';
 import { OrderService } from './services/order-service.service';
 import { BrowserModule } from '@angular/platform-browser';
@@ -38,6 +39,7 @@ import { HttpClientModule } from '@angular/common/http';
     ])
   ],
   providers: [
+    AcceptService,
     OrderService,
     MailService
   ],

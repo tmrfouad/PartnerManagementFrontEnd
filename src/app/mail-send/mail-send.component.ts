@@ -11,10 +11,7 @@ import { Component} from '@angular/core';
 
 export class MailSendComponent {
 
-  constructor(
-    private service: DataService,
-    private mailService: MailService) { }
-
+  constructor(private mailService: MailService) { }
 
   sendMail() {
 
