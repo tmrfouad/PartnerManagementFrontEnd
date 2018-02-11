@@ -1,6 +1,5 @@
         <div class="row"> 
-          <div class="col-6">
-
+          <div class="col-sm-6">
             <form #f="ngForm" (submit)="logForm(f.value)" > 
                     <div class="form-group">
                             <label for="firstName">First Name</label>
@@ -121,10 +120,13 @@
                     <button class="btn btn-primary" [disabled]="f.invalid">Submit</button>
                     <button class="btn btn-danger" type="reset">Reset</button>
             </form>      
-        </div>
-        <div class="col-6 fixed">
-          <div class="card" style="width: 18rem;">
+        </div>     
+
+        <div class="col-sm-6 col-hidden">
+          <div class="card card-fixed" >
              <div class="card-body">
+               <h5 class="card-title"> <u> Cart Details </u> </h5>
+
                <h5 class="card-title">{{firstName}} {{lastName}}</h5>
                <p class="card-text"> {{companyName}} </p>
                <p class="card-text"> {{email}} </p> 
