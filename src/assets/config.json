@@ -1,0 +1,5 @@
+{
+    "baseUrl": "https://accept.paymobsolutions.com/api",
+    "authUrl": "auth/tokens",
+    "orderUrl": "ecommerce/orders"
+}

@@ -23,9 +23,8 @@ export class AcceptService {
   userData;
 
   constructor(private http: HttpClient) {
-    http.get(this.configUrl, { headers: { 'Content-Type': 'application/json' } }).subscribe(config => {
-      console.log(config);
-      const jsonConfig = JSON.parse(config.toString());
+    http.get(this.configUrl).subscribe((config: any) => {
+      const jsonConfig = config;
       const baseUrl = jsonConfig.baseUrl;
       const conf = {
         authUrl: baseUrl + '/' + jsonConfig.authUrl,
@@ -51,7 +50,7 @@ export class AcceptService {
 
   authRequest() {
     return this.http.post(this.config.authUrl, user).map(response => {
-      this.userData = response.json();
+      this.userData = response;
       localStorage.setItem('userData', JSON.stringify(this.userData));
       console.log(this.userData);
       return this.userData;
@@ -60,7 +59,6 @@ export class AcceptService {
 
   orderRegRequest(order: Order) {
     return this.getUserData().switchMap(userData => {
-      console.log('test');
       // const order: Order = {
       //   delivery_needed: false,
       //   merchant_id: userData.id,
