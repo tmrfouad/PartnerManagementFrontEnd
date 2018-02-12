@@ -25,7 +25,7 @@ export class CustomerFormComponent implements OnInit {
           delivery_needed: false,
           merchant_id: user.id,
           amount_cents: 100,
-          currency: 'EGP',
+          currency: 'TEST',
           items: [],
           shipping_data: {
             apartment: '803',

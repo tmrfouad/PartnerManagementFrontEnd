@@ -20,11 +20,11 @@ export class DataService {
   }
 
   Post(item) {
-    return this.http.post(this.baseUrl + this.url, {headers: this.headers}, item) ;
+    return this.http.post(this.baseUrl + this.url, item, {headers: this.headers}) ;
   }
 
   Put(item) {
-    return this.http.put(this.baseUrl  + this.url + '/' + item.id, {headers: this.headers} , item) ;
+    return this.http.put(this.baseUrl  + this.url + '/' + item.id, item, {headers: this.headers} ) ;
   }
 
   Delete(id) {
