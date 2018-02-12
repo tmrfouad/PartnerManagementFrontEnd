@@ -7,12 +7,12 @@ export class DataService {
   baseUrl: string ;
   private headers: HttpHeaders;
 
-  constructor(private url:string, private http: HttpClient) {
+  constructor(private url: string, private http: HttpClient) {
     this.headers = new HttpHeaders()
     .set('Content-Type', 'application/json')
     .set('Access-Control-Allow-Origin', '*');
 
-    this.baseUrl = "http://localhost:5000/api";
+    this.baseUrl = 'http://localhost:5000/api';
   }
 
   get() {
