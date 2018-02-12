@@ -1,6 +1,5 @@
 import { AcceptService } from './../../services/accept.service';
 import { Component, OnInit } from '@angular/core';
-
 import { OrderService } from '../../services/order-service.service';
 
 @Component({
@@ -17,34 +16,36 @@ export class CustomerFormComponent implements OnInit {
 
   ngOnInit() {
   }
-  
- paymentItem : {} ;
 
- logForm(f) {
-  this.paymentItem = {
-    "delivery_needed": "false",
-    "merchant_id": "28",     
-    "amount_cents": "100",
-    "currency": "EGP",  
-    "shipping_dataId": 1,
-    "items": [],
-    "shipping_data": {
-      "apartment": "803", 
-      "email": f.email, 
-      "floor": "42", 
-      "first_name": f.firstName, 
-      "street": "Ethan Land", 
-      "building": "8028", 
-      "phone_number": f.phoneNumber, 
-      "postal_code": "01898", 
-      "city": "Jaskolskiburgh", 
-      "country": "CR", 
-      "last_name": f.lastName, 
-      "state": "Utah"
-    }
-  }
-  this.orderService.Post(f).subscribe( () => console.log("sucess") );
- 
+  logForm(f) {
+    this.acceptService.getUserData()
+      .subscribe(user => {
+        const order = {
+          delivery_needed: false,
+          merchant_id: user.id,
+          amount_cents: 100,
+          currency: 'TEST',
+          items: [],
+          shipping_data: {
+            apartment: '803',
+            email: f.email,
+            floor: '42',
+            first_name: f.firstName,
+            street: 'Ethan Land',
+            building: '8028',
+            phone_number: f.phoneNumber,
+            postal_code: '01898',
+            city: 'Jaskolskiburgh',
+            country: 'CR',
+            last_name: f.lastName,
+            state: 'Utah'
+          }
+        };
+        console.log(order);
+        this.orderService.Post(order)
+        .subscribe(() => console.log('sucess'))
+        ;
+      });
   }
 
 }
