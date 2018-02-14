@@ -1,9 +1,3 @@
 .required{
     color: red;
 }
-
-
-.card-fixed{ 
-    position: fixed;
-    width:40%;
-}

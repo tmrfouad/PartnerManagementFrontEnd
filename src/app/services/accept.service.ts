@@ -39,7 +39,6 @@ export class AcceptService {
     if (userData) {
       return new Observable(observer => {
         this.userData = JSON.parse(userData);
-        console.log(this.userData);
         observer.next(this.userData);
         observer.complete();
       });
@@ -52,7 +51,6 @@ export class AcceptService {
     return this.http.post(this.config.authUrl, user).map(response => {
       this.userData = response;
       localStorage.setItem('userData', JSON.stringify(this.userData));
-      console.log(this.userData);
       return this.userData;
     });
   }

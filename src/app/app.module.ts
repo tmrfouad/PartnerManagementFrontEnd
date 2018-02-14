@@ -17,7 +17,8 @@ import { MailSendComponent } from './mail-send/mail-send.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -30,9 +31,11 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     FormsModule,
+    BrowserAnimationsModule,
     RecaptchaModule.forRoot(), // Keep in mind the "forRoot"-magic nuances!
     RecaptchaFormsModule,
     HttpClientModule,
+    MatDialogModule,
     RouterModule.forRoot([
       { path : '' , component: HomeComponent },
       { path : 'customer' , component: CustomerFormComponent }

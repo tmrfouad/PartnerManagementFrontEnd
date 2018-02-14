@@ -23,10 +23,7 @@ export class MailService {
     // headers.append('Access-Control-Allow-Origin', '*');
     // headers.append('Access-Control-Allow-Credentials', 'true');
 
-    console.log(headers);
-    console.log(mail);
-    this.http.post('http://localhost:5000/api/mail', mail, { headers: headers }).subscribe(() => console.log('success'));
-    // this.http.post('http://localhost:5000/api/mail', mail).subscribe(() => console.log('success'));
+    this.http.post('http://localhost:5000/api/mail', mail, { headers: headers }).subscribe();
   }
 
 }
