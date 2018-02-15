@@ -7,7 +7,7 @@ import { MatDialogRef } from '@angular/material';
   // tslint:disable-next-line:component-selector
   selector: 'customer-form',
   templateUrl: './customer-form.component.html',
-  styleUrls: ['./customer-form.component.css']
+  styleUrls: ['./customer-form.component.scss']
 })
 export class CustomerFormComponent implements OnInit {
   constructor(
