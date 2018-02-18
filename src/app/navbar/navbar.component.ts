@@ -10,9 +10,10 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit, OnDestroy {
-  dialogRefSub: Subscription;
-
   constructor(private dialog: MatDialog) { }
+  
+  dialogRef: MatDialogRef<CustomerFormComponent>;
+  dialogRefSub: Subscription;
 
   ngOnInit() {
   }
@@ -22,14 +23,20 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   openOrderDialog() {
-    let dialogRef = this.dialog.open(CustomerFormComponent, {
+
+    if(this.dialogRef == null){ 
+      this.dialogRef  = this.dialog.open(CustomerFormComponent, {
       width: '900px',
       height: '500px',
       position: { top: '100px' }
     });
 
-    this.dialogRefSub = dialogRef.afterClosed().subscribe(result => {
+
+    this.dialogRefSub = this.dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      this.dialogRef = null;
     });
+
+  }
   }
 }
