@@ -10,6 +10,13 @@ import { MatDialogRef } from '@angular/material';
   styleUrls: ['./customer-form.component.scss']
 })
 export class CustomerFormComponent implements OnInit {
+  firstName;
+  lastName;
+  companyName;
+  email;
+  phoneNumber;
+  products;
+
   constructor(
     private acceptService: AcceptService,
     private orderService: OrderService,
