@@ -73,38 +73,32 @@
                                                 </div>
                                         </div>
                                 </div>
-                                <div class="form-group radio-group row">
+                                <label for="products">Choose Your Bundle:</label>
+                                <span class="required">*</span>
+                                <div class="form-group radio-group row mt-auto mr-auto ml-auto mb-5">
                                         <div class="col-md-4 p-1">
-                                                <input type="radio" id="control_01" name="select" value="1" checked>
+                                                <input type="radio" id="control_01" required [(ngModel)]="products" name="products" value="1" checked>
                                                 <label for="control_01">
-                                                        <h4>Lite</h4>
-                                                        <p class="font-weight-bold">400 EGP <span class="bundle-feature">5 Users</span></p>
+                                                        <p class="bundle-title">Lite</p>
+                                                        <p class="bundle-price">400 EGP <span class="bundle-feature">5 Users</span></p>
                                                 </label>
                                         </div>
                                         <div class="col-md-4 p-1">
-                                                <input type="radio" id="control_02" name="select" value="2">
+                                                <input type="radio" id="control_02" [(ngModel)]="products" name="products" value="2">
                                                 <label for="control_02">
-                                                        <h4>Standard</h4>
-                                                        <p class="font-weight-bold">850 EGP <span class="bundle-feature">15 Users</span></p>
+                                                        <p class="bundle-title">Standard</p>
+                                                        <p class="bundle-price">850 EGP <span class="bundle-feature">15 Users</span></p>
                                                         <p class="bundle-footer">+ Lite edition features</p>
                                                 </label>
                                         </div>
                                         <div class="col-md-4 p-1">
-                                                <input type="radio" id="control_03" name="select" value="3">
+                                                <input type="radio" id="control_03" [(ngModel)]="products" name="products" value="3">
                                                 <label for="control_03">
-                                                        <h4>Enterprise</h4>
-                                                        <p class="font-weight-bold">Contact us</p>
+                                                        <p class="bundle-title">Enterprise</p>
+                                                        <p class="bundle-price">Contact us</p>
                                                         <p class="bundle-footer">+ standard edition features</p>
                                                 </label>
                                         </div>
-                                </div>
-                                <div class="form-group">
-                                        <label for="products">Product</label>
-                                        <select name="products" id="products" [(ngModel)]="products" #Products="ngModel" class="form-control">
-                                                <option value="1">Product 1</option>
-                                                <option value="2">Product 2</option>
-                                                <option value="3">Product 3</option>
-                                        </select>
                                 </div>
                                 <div class="form-group">
                                         <re-captcha name="captcha" ngModel #captcha="ngModel" required siteKey="6Ldk7D4UAAAAAPJpIWo0uqnitrcZGVyJOGg2BE3w"></re-captcha>

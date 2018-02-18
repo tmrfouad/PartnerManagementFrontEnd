@@ -8,15 +8,26 @@
 }
 
 div.radio-group {
+    height: 150px;
     display: flex;
     flex-flow: row wrap;
+    
+  .bundle-title {
+    font-size:18px;
+    font-weight: bold;
+  }
 
+  .bundle-price {
+    font-size:12px;
+    font-weight: bold;
+  }
+  
   .bundle-feature {
-    font-size:10px;
+    font-size:8px;
   }
 
   .bundle-footer {
-    font-size:12px;
+    font-size:10px;
   }
 
   div.radio-group > div {
@@ -70,10 +81,6 @@ div.radio-group {
       background: white;
       box-shadow: 0px 2px 5px -2px hsla(0, 0%, 0%, 0.25);
     }
-  }
-  input[type="radio"]#control_05:checked + label {
-    background: red;
-    border-color: red;
   }
 }
   
