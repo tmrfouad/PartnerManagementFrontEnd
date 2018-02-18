@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class NavbarComponent implements OnInit, OnDestroy {
   constructor(private dialog: MatDialog) { }
-  
+
   dialogRef: MatDialogRef<CustomerFormComponent>;
   dialogRefSub: Subscription;
 
@@ -24,7 +24,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   openOrderDialog() {
 
-    if(this.dialogRef == null){ 
+    if (this.dialogRef == null) {
       this.dialogRef  = this.dialog.open(CustomerFormComponent, {
       width: '900px',
       height: '500px',
