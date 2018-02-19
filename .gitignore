@@ -42,3 +42,4 @@ testem.log
 .DS_Store
 Thumbs.db
 .vscode/launch.json
+src/app/customers/customer-form/customer-form.component.ts
