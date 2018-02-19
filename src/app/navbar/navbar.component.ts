@@ -11,8 +11,8 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class NavbarComponent implements OnInit, OnDestroy {
   constructor(private dialog: MatDialog) { }
-
-  dialogRef: MatDialogRef<CustomerFormComponent>;
+  
+  dialogRef: MatDialogRef<CustomerFormComponent> ;
   dialogRefSub: Subscription;
 
   ngOnInit() {

@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
             position: { top: '100px' }
            },
         );
-        this.dialogRef.componentInstance.bundelVal = bundleVal ;
+        this.dialogRef.componentInstance.products = bundleVal ;
       }
 
       this.dialogRef.afterClosed().subscribe( () => this.dialogRef = null );
