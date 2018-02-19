@@ -1,11 +1,12 @@
-.required{
-    color: red;
+@import "~bootstrap/dist/css/bootstrap.css";
+@import "~font-awesome/css/font-awesome.css";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+
+body { 
+    padding-top: 90px;
 }
 
-.content{ 
-    height: 394px;;
-    overflow-y: scroll;
-}
 
 div.radio-group {
     height: 150px;
@@ -89,4 +90,3 @@ div.radio-group {
       flex-direction: column;
     }
   }
-  

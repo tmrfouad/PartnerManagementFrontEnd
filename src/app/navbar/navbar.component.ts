@@ -1,6 +1,6 @@
 import { CustomerFormComponent } from './../customers/customer-form/customer-form.component';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {MatDialog, MatDialogRef} from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
@@ -23,7 +23,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   openOrderDialog() {
-
     if (this.dialogRef == null) {
       this.dialogRef  = this.dialog.open(CustomerFormComponent, {
       width: '900px',
@@ -31,9 +30,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       position: { top: '100px' }
     });
 
-
     this.dialogRefSub = this.dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       this.dialogRef = null;
     });
 

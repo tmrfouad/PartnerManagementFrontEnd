@@ -77,14 +77,15 @@
                                 <span class="required">*</span>
                                 <div class="form-group radio-group row mt-auto mr-auto ml-auto mb-5">
                                         <div class="col-md-4 p-1">
-                                                <input type="radio" id="control_01" required [(ngModel)]="products" name="products" value="1" checked>
+                                               
+                                                <input type="radio" id="control_01" required [(ngModel)]="products" name="products" value="1" >
                                                 <label for="control_01">
                                                         <p class="bundle-title">Lite</p>
                                                         <p class="bundle-price">400 EGP <span class="bundle-feature">5 Users</span></p>
                                                 </label>
                                         </div>
                                         <div class="col-md-4 p-1">
-                                                <input type="radio" id="control_02" [(ngModel)]="products" name="products" value="2">
+                                                <input type="radio" id="control_02" [(ngModel)]="products" name="products" value="2" >
                                                 <label for="control_02">
                                                         <p class="bundle-title">Standard</p>
                                                         <p class="bundle-price">850 EGP <span class="bundle-feature">15 Users</span></p>
@@ -95,7 +96,7 @@
                                                 <input type="radio" id="control_03" [(ngModel)]="products" name="products" value="3">
                                                 <label for="control_03">
                                                         <p class="bundle-title">Enterprise</p>
-                                                        <p class="bundle-price">Contact us</p>
+                                                        <p class="bun'dle-price">Contact us</p>
                                                         <p class="bundle-footer">+ standard edition features</p>
                                                 </label>
                                         </div>
@@ -105,7 +106,7 @@
                                 </div>
                         </div>
                         <div class="p-1 pt-3">
-                                <button class="btn btn-primary" [disabled]="f.invalid">Submit</button>
+                                <button class="btn btn-primary">Submit</button>
                                 <button class="btn btn-danger" type="reset">Reset</button>
                                 <button class="btn btn-secondary float-right" type="button" (click)="closeDialog()">Cancel</button>
                         </div>

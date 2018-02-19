@@ -7,6 +7,15 @@ section.footer {
     background-color: #444;
 }
 
+.bundel{
+  margin: 0;
+  width: 100%;
+ 
+}
+
+.radio-group{ 
+  height: auto;
+}
 
 
 
