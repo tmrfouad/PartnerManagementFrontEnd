@@ -10,7 +10,6 @@ import { MatDialogRef } from '@angular/material';
   styleUrls: ['./customer-form.component.css']
 })
 export class CustomerFormComponent implements OnInit {
-<<<<<<< HEAD
   firstName;
   lastName;
   companyName;
@@ -18,9 +17,6 @@ export class CustomerFormComponent implements OnInit {
   phoneNumber;
   products;
 
-=======
-  
->>>>>>> Testing
   constructor(
     private acceptService: AcceptService,
     private orderService: OrderService,
@@ -29,8 +25,6 @@ export class CustomerFormComponent implements OnInit {
     
   }
   
-  products : number ;
-
   ngOnInit() {
     console.log(this.products);
   }
