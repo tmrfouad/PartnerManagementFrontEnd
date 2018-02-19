@@ -7,9 +7,10 @@ import { MatDialogRef } from '@angular/material';
   // tslint:disable-next-line:component-selector
   selector: 'customer-form',
   templateUrl: './customer-form.component.html',
-  styleUrls: ['./customer-form.component.scss']
+  styleUrls: ['./customer-form.component.css']
 })
 export class CustomerFormComponent implements OnInit {
+<<<<<<< HEAD
   firstName;
   lastName;
   companyName;
@@ -17,16 +18,27 @@ export class CustomerFormComponent implements OnInit {
   phoneNumber;
   products;
 
+=======
+  
+>>>>>>> Testing
   constructor(
     private acceptService: AcceptService,
     private orderService: OrderService,
     private dialogRef: MatDialogRef<CustomerFormComponent>
-  ) { }
+  ) {
+    
+  }
+  
+  products : number ;
 
   ngOnInit() {
+    console.log(this.products);
   }
+  
+  
 
   logForm(f) {
+
     this.acceptService.getUserData()
       .subscribe(user => {
         const order = {

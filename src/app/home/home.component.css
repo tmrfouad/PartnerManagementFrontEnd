@@ -7,6 +7,34 @@ section.footer {
     background-color: #444;
 }
 
+.bundel{
+  margin: 0;
+  width: 100%;
+  position: relative;
+  float: left;
+  transition: margin-top .5s linear;
+}
+.bundel:hover {
+  margin-top:-10px;
+  transition: margin-top .3s linear;
+  -webkit-transition: margin-top 0.3s linear;
+}
+
+.radio-group{ 
+  height: auto;
+}
+
+.btn-bundle { 
+  color: #fff;
+  background-color: #dc3545;
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+.btn-bundle:hover { 
+  color: #fff;
+  background-color: #bd2f3d;
+  border-color: rgba(0, 0, 0, 0.15);
+}
 
 
 

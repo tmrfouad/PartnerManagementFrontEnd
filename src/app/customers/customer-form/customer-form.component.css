@@ -1,0 +1,16 @@
+.required{
+    color: red;
+}
+
+.content{ 
+    height: 394px;;
+    overflow-y: scroll;
+}
+
+
+.form-control.ng-invalid.ng-touched{ 
+    border: 1px solid red ;
+}
+
+
+  

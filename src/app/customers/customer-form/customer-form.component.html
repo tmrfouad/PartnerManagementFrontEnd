@@ -8,10 +8,11 @@
                                         <input id="firstName" name="firstName" [(ngModel)]="firstName" required minlength="3" #FirstName="ngModel" type="text" class="form-control">
                                         <div class="alert alert-danger" *ngIf="FirstName.touched && !FirstName.valid">
                                                 <div *ngIf="FirstName.errors?.required">
-                                                        First name is required
+                                                        You can't leave this empty.
                                                 </div>
                                                 <div *ngIf="FirstName.errors?.minlength">
-                                                        minmum {{ FirstName.errors.minlength.requiredLength }} characters
+                                                        Please use at least {{ FirstName.errors.minlength.requiredLength }} characters. 
+                                                        
                                                 </div>
                                         </div>
                                 </div>
@@ -21,10 +22,10 @@
                                         <input id="lastName" name="lastName" [(ngModel)]="lastName" required minlength="3" #LastName="ngModel" type="text" class="form-control">
                                         <div class="alert alert-danger" *ngIf="LastName.touched && !LastName.valid">
                                                 <div *ngIf="LastName.errors?.required">
-                                                        last name is required
+                                                        You can't leave this empty.
                                                 </div>
                                                 <div *ngIf="LastName.errors?.minlength">
-                                                        minmum {{ LastName.errors.minlength.requiredLength }} characters
+                                                        Please use at least {{ LastName.errors.minlength.requiredLength }} characters. 
                                                 </div>
                                         </div>
                                 </div>
@@ -34,7 +35,7 @@
                                         <input id="companyName" name="companyName" type="text" [(ngModel)]="companyName" #CompanyName="ngModel" class="form-control"
                                                 required>
                                         <div class="alert alert-danger" *ngIf="CompanyName.touched && !CompanyName.valid">
-                                                Comapny Name is required
+                                                You can't leave this empty.
                                         </div>
                                 </div>
                                 <div class="form-group">
@@ -44,16 +45,37 @@
                                                 [email]="true" required>
                                         <div class="alert alert-danger" *ngIf="Email.touched && !Email.valid">
                                                 <div *ngIf="Email.errors.required">
-                                                        Email is required
+                                                         You can't leave this empty.
                                                 </div>
                                                 <div *ngIf="!Email.errors.valid">
-                                                        Enter valid mail
+                                                        Email is not valid
+                                                </div>
+                                        </div>
+                                </div>
+                                <div class="form-group">
+                                        <label for="phoneNumber">Personal Number</label>
+                                        <span class="required">*</span>
+                                        <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                        <div class="input-group-text">+20</div>
+                                                </div>
+                                                <input pattern="[0-9]+" required minlength="10" maxlength="20" id="personalNumber" name="personalNumber" type="text" class="form-control"
+                                                        [(ngModel)]="personalNumber" #PersonalNumber="ngModel">
+                                        </div>
+                                        <div class="alert alert-danger" *ngIf="PersonalNumber.touched && !PersonalNumber.valid">
+                                                <div *ngIf="PersonalNumber.errors?.required">
+                                                         You can't leave this empty.
+                                                </div>
+                                                <div *ngIf="PersonalNumber.errors?.pattern && PersonalNumber.errors?.pattern">
+                                                        This phone number format is not recognized
+                                                </div>
+                                                <div *ngIf="PersonalNumber.errors?.minlength">
+                                                        Please use at least {{ PersonalNumber.errors?.minlength.requiredLength }} characters. 
                                                 </div>
                                         </div>
                                 </div>
                                 <div class="form-group">
                                         <label for="phoneNumber">Phone Number</label>
-                                        <span class="required">*</span>
                                         <div class="input-group">
                                                 <div class="input-group-prepend">
                                                         <div class="input-group-text">+20</div>
@@ -61,42 +83,52 @@
                                                 <input pattern="[0-9]+" required minlength="10" maxlength="20" id="phoneNumber" name="phoneNumber" type="text" class="form-control"
                                                         [(ngModel)]="phoneNumber" #PhoneNumber="ngModel">
                                         </div>
-                                        <div class="alert alert-danger" *ngIf="PhoneNumber.touched && !PhoneNumber.valid">
-                                                <div *ngIf="PhoneNumber.errors?.required">
-                                                        phone number is required
-                                                </div>
-                                                <div *ngIf="PhoneNumber.errors?.pattern && PhoneNumber.errors?.pattern">
-                                                        Enter valid phone number
-                                                </div>
-                                                <div *ngIf="PhoneNumber.errors?.minlength">
-                                                        minmum {{ PhoneNumber.errors?.minlength.requiredLength }} numbers
-                                                </div>
+                                        <div class="alert alert-danger" *ngIf="PhoneNumber.errors?.pattern && PhoneNumber.errors?.pattern">
+                                                        This phone number format is not recognized
                                         </div>
                                 </div>
                                 <label for="products">Choose Your Bundle:</label>
                                 <span class="required">*</span>
                                 <div class="form-group radio-group row mt-auto mr-auto ml-auto mb-5">
+<<<<<<< HEAD
                                         <div class="col-md-4 p-1">
+=======
+                                        <div class="col-md-4 col-xs-12 p-1">
+>>>>>>> Testing
                                                 <input type="radio" id="control_01" required [(ngModel)]="products" name="products" [value]="1">
                                                 <label for="control_01">
                                                         <p class="bundle-title">Lite</p>
-                                                        <p class="bundle-price">400 EGP <span class="bundle-feature">5 Users</span></p>
+                                                        <p class="bundle-price">400 EGP
+                                                                <span class="bundle-feature">5 Users</span>
+                                                        </p>
+                                                        <p class="bundle-footer">+ Standard edition features</p>
                                                 </label>
                                         </div>
+<<<<<<< HEAD
                                         <div class="col-md-4 p-1">
+=======
+                                        <div class="col-md-4 col-xs-12 p-1">
+>>>>>>> Testing
                                                 <input type="radio" id="control_02" [(ngModel)]="products" name="products" [value]="2">
                                                 <label for="control_02">
                                                         <p class="bundle-title">Standard</p>
-                                                        <p class="bundle-price">850 EGP <span class="bundle-feature">15 Users</span></p>
+                                                        <p class="bundle-price">850 EGP
+                                                                <span class="bundle-feature">15 Users</span>
+                                                        </p>
                                                         <p class="bundle-footer">+ Lite edition features</p>
                                                 </label>
                                         </div>
+<<<<<<< HEAD
                                         <div class="col-md-4 p-1">
                                                 <input type="radio" id="control_03" [(ngModel)]="products" name="products" [value]="3" >
+=======
+                                        <div class="col-md-4 col-xs-12 p-1">
+                                                <input type="radio" id="control_03" [(ngModel)]="products" name="products" [value]="3">
+>>>>>>> Testing
                                                 <label for="control_03">
                                                         <p class="bundle-title">Enterprise</p>
                                                         <p class="bundle-price">Contact us</p>
-                                                        <p class="bundle-footer">+ standard edition features</p>
+                                                        <p class="bundle-footer">+ Enterprise edition features</p>
                                                 </label>
                                         </div>
                                 </div>
@@ -105,7 +137,7 @@
                                 </div>
                         </div>
                         <div class="p-1 pt-3">
-                                <button class="btn btn-primary" [disabled]="f.invalid">Submit</button>
+                                <button [disabled]="f.invalid" class="btn btn-primary">Submit</button>
                                 <button class="btn btn-danger" type="reset">Reset</button>
                                 <button class="btn btn-secondary float-right" type="button" (click)="closeDialog()">Cancel</button>
                         </div>
