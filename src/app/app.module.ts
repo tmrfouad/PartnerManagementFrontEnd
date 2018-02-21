@@ -19,6 +19,8 @@ import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
+import { AccountService } from './services/account.service';
+import { RfqService } from './services/rfq.service';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     ])
   ],
   providers: [
+    RfqService,
+    AccountService,
     AcceptService,
     OrderService,
     MailService

@@ -1,9 +1,9 @@
 import { AccountService } from './account.service';
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
-export class DataService implements OnInit {
+export class DataService {
   private configUrl = 'assets/config.json';
   private baseUrl: string;
   private headers: HttpHeaders;
@@ -14,9 +14,7 @@ export class DataService implements OnInit {
   constructor(
     private http: HttpClient,
     private accountService: AccountService
-  ) { }
-
-  ngOnInit(): void {
+  ) {
     this.http.get(this.configUrl).subscribe((config: any) => {
       const domainName = config.domainName;
       this.baseUrl = domainName + '/api';
@@ -28,27 +26,42 @@ export class DataService implements OnInit {
   }
 
   get() {
-    this.headers = new HttpHeaders()
-      .set('Authorization', 'bearer ' + this.accountService.userToken);
+    this.headers.set('Authorization', 'bearer ' + this.accountService.userToken);
     return this.http.get(this.baseUrl + this.url, { headers: this.headers });
   }
 
   Post(item) {
-    this.headers = new HttpHeaders()
-      .set('Authorization', 'bearer ' + this.accountService.userToken);
+    this.headers.set('Authorization', 'bearer ' + this.accountService.userToken);
     return this.http.post(this.baseUrl + this.url, item, { headers: this.headers });
   }
 
   Put(id, item) {
-    this.headers = new HttpHeaders()
-      .set('Authorization', 'bearer ' + this.accountService.userToken);
+    this.headers.set('Authorization', 'bearer ' + this.accountService.userToken);
     return this.http.put(this.baseUrl + this.url + '/' + id, item, { headers: this.headers });
   }
 
   Delete(id) {
-    this.headers = new HttpHeaders()
-      .set('Authorization', 'bearer ' + this.accountService.userToken);
+    this.headers.set('Authorization', 'bearer ' + this.accountService.userToken);
     return this.http.delete(this.baseUrl + this.url + '/' + id, { headers: this.headers });
   }
 
 }
+
+// const rfq = {
+//   CompanyEnglishName: '',
+//   ContactPersonEnglishName: f.firstName + ' ' + f.lastName,
+//   ContactPersonEmail: f.email,
+//   ContactPersonMobile: f.phoneNumber,
+//   PhoneNumber: '',
+//   TargetedProduct: '',
+//   SelectedBundle: '',
+//   CompanyArabicName: '',
+//   Website: '',
+//   Location: '',
+//   Address: '',
+//   ContactPersonArabicName: '',
+//   ContactPersonPosition: '',
+//   Status: '',
+//   SubmissionTime: '',
+//   UniversalIP: '' // https://jsonip.com/ OR https://api.ipify.org/?format=json
+// };
