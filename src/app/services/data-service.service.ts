@@ -1,34 +1,54 @@
-import { Injectable } from '@angular/core';
+import { AccountService } from './account.service';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
-export class DataService {
-
-  baseUrl: string ;
+export class DataService implements OnInit {
+  private configUrl = 'assets/config.json';
+  private baseUrl: string;
   private headers: HttpHeaders;
+  private token: string;
 
-  constructor(private url: string, private http: HttpClient) {
+  protected url: string;
+
+  constructor(
+    private http: HttpClient,
+    private accountService: AccountService
+  ) { }
+
+  ngOnInit(): void {
+    this.http.get(this.configUrl).subscribe((config: any) => {
+      const domainName = config.domainName;
+      this.baseUrl = domainName + '/api';
+    });
+
     this.headers = new HttpHeaders()
-    .set('Content-Type', 'application/json')
-    .set('Access-Control-Allow-Origin', '*');
-
-    this.baseUrl = 'http://localhost:5000/api';
+      .set('Content-Type', 'application/json')
+      .set('Access-Control-Allow-Origin', '*');
   }
 
   get() {
-    return this.http.get(this.baseUrl + this.url, {headers: this.headers}) ;
+    this.headers = new HttpHeaders()
+      .set('Authorization', 'bearer ' + this.accountService.userToken);
+    return this.http.get(this.baseUrl + this.url, { headers: this.headers });
   }
 
   Post(item) {
-    return this.http.post(this.baseUrl + this.url, item, {headers: this.headers}) ;
+    this.headers = new HttpHeaders()
+      .set('Authorization', 'bearer ' + this.accountService.userToken);
+    return this.http.post(this.baseUrl + this.url, item, { headers: this.headers });
   }
 
-  Put(item) {
-    return this.http.put(this.baseUrl  + this.url + '/' + item.id, item, {headers: this.headers} ) ;
+  Put(id, item) {
+    this.headers = new HttpHeaders()
+      .set('Authorization', 'bearer ' + this.accountService.userToken);
+    return this.http.put(this.baseUrl + this.url + '/' + id, item, { headers: this.headers });
   }
 
   Delete(id) {
-    return this.http.delete(this.baseUrl + this.url + '/' + id, {headers: this.headers}) ;
+    this.headers = new HttpHeaders()
+      .set('Authorization', 'bearer ' + this.accountService.userToken);
+    return this.http.delete(this.baseUrl + this.url + '/' + id, { headers: this.headers });
   }
 
 }

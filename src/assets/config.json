@@ -1,5 +1,8 @@
 {
-    "baseUrl": "https://accept.paymobsolutions.com/api",
-    "authUrl": "auth/tokens",
-    "orderUrl": "ecommerce/orders"
+    "accept": {
+        "baseUrl": "https://accept.paymobsolutions.com/api",
+        "authUrl": "auth/tokens",
+        "orderUrl": "ecommerce/orders"
+    },
+    "domainName": "http://localhost:5000"
 }

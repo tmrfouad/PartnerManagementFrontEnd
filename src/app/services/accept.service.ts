@@ -24,13 +24,12 @@ export class AcceptService {
 
   constructor(private http: HttpClient) {
     http.get(this.configUrl).subscribe((config: any) => {
-      const jsonConfig = config;
-      const baseUrl = jsonConfig.baseUrl;
-      const conf = {
-        authUrl: baseUrl + '/' + jsonConfig.authUrl,
-        orderUrl: baseUrl + '/' + jsonConfig.orderUrl
+      const acceptConfig = config.accept;
+      const baseUrl = acceptConfig.baseUrl;
+      this.config = {
+        authUrl: baseUrl + '/' + acceptConfig.authUrl,
+        orderUrl: baseUrl + '/' + acceptConfig.orderUrl
       };
-      this.config = conf;
     });
   }
 
