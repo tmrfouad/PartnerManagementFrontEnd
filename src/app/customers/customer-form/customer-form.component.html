@@ -11,8 +11,8 @@
                                                         You can't leave this empty.
                                                 </div>
                                                 <div *ngIf="FirstName.errors?.minlength">
-                                                        Please use at least {{ FirstName.errors.minlength.requiredLength }} characters. 
-                                                        
+                                                        Please use at least {{ FirstName.errors.minlength.requiredLength }} characters.
+
                                                 </div>
                                         </div>
                                 </div>
@@ -25,7 +25,7 @@
                                                         You can't leave this empty.
                                                 </div>
                                                 <div *ngIf="LastName.errors?.minlength">
-                                                        Please use at least {{ LastName.errors.minlength.requiredLength }} characters. 
+                                                        Please use at least {{ LastName.errors.minlength.requiredLength }} characters.
                                                 </div>
                                         </div>
                                 </div>
@@ -45,7 +45,7 @@
                                                 [email]="true" required>
                                         <div class="alert alert-danger" *ngIf="Email.touched && !Email.valid">
                                                 <div *ngIf="Email.errors.required">
-                                                         You can't leave this empty.
+                                                        You can't leave this empty.
                                                 </div>
                                                 <div *ngIf="!Email.errors.valid">
                                                         Email is not valid
@@ -57,20 +57,29 @@
                                         <span class="required">*</span>
                                         <div class="input-group">
                                                 <div class="input-group-prepend">
-                                                        <div class="input-group-text">+20</div>
+                                                        <div class="input-group-text">
+                                                                <select class="country-code">
+                                                                        <option value="+20" class="nav-link dropdown-toggle" selected style="background-image:url(/assets/images/country/egypt.png);">
+                                                                                +20
+                                                                        </option>
+                                                                        <option class="dropdown-item" href="#one"> +974</option>
+                                                                        <option class="dropdown-item" href="#two">+966 </option>
+                                                                        <option class="dropdown-item" href="#three">+213 </option>
+                                                                </select>
+                                                        </div>
                                                 </div>
                                                 <input pattern="[0-9]+" required minlength="10" maxlength="20" id="personalNumber" name="personalNumber" type="text" class="form-control"
                                                         [(ngModel)]="personalNumber" #PersonalNumber="ngModel">
                                         </div>
                                         <div class="alert alert-danger" *ngIf="PersonalNumber.touched && !PersonalNumber.valid">
                                                 <div *ngIf="PersonalNumber.errors?.required">
-                                                         You can't leave this empty.
+                                                        You can't leave this empty.
                                                 </div>
                                                 <div *ngIf="PersonalNumber.errors?.pattern && PersonalNumber.errors?.pattern">
                                                         This phone number format is not recognized
                                                 </div>
                                                 <div *ngIf="PersonalNumber.errors?.minlength">
-                                                        Please use at least {{ PersonalNumber.errors?.minlength.requiredLength }} characters. 
+                                                        Please use at least {{ PersonalNumber.errors?.minlength.requiredLength }} characters.
                                                 </div>
                                         </div>
                                 </div>
@@ -84,7 +93,7 @@
                                                         [(ngModel)]="phoneNumber" #PhoneNumber="ngModel">
                                         </div>
                                         <div class="alert alert-danger" *ngIf="PhoneNumber.errors?.pattern && PhoneNumber.errors?.pattern">
-                                                        This phone number format is not recognized
+                                                This phone number format is not recognized
                                         </div>
                                 </div>
                                 <label for="products">Choose Your Bundle:</label>
@@ -111,7 +120,7 @@
                                                 </label>
                                         </div>
                                         <div class="col-md-4 p-1">
-                                                <input type="radio" id="control_03" [(ngModel)]="products" name="products" [value]="3" >
+                                                <input type="radio" id="control_03" [(ngModel)]="products" name="products" [value]="3">
                                                 <label for="control_03">
                                                         <p class="bundle-title">Enterprise</p>
                                                         <p class="bundle-price">Contact us</p>
@@ -121,6 +130,23 @@
                                 </div>
                                 <div class="form-group">
                                         <re-captcha name="captcha" ngModel #captcha="ngModel" required siteKey="6Ldk7D4UAAAAAPJpIWo0uqnitrcZGVyJOGg2BE3w"></re-captcha>
+                                </div>
+                                <div class="form-group">
+                                   <div class="col-md-4 p-1">
+                                        <!-- <div class="nav-item dropdown">
+                                                <a class="nav-link dropdown-toggle"
+                                                   data-toggle="dropdown" href="#"
+                                                   role="button" aria-haspopup="true"
+                                                   aria-expanded="false"> Dropdown 
+                                                </a>
+                                                <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="#one">one</a>
+                                                        <a class="dropdown-item" href="#two">two</a>
+                                                        <div role="separator" class="dropdown-divider"></div>
+                                                        <a class="dropdown-item" href="#three">three</a>
+                                                </div>
+                                        </div> -->
+                                  </div>
                                 </div>
                         </div>
                         <div class="p-1 pt-3">
@@ -142,7 +168,7 @@
                                 <h5 class="card-title">{{firstName}} {{lastName}}</h5>
                                 <p class="card-text"> {{companyName}} </p>
                                 <p class="card-text"> {{email}} </p>
-                                <p class="card-text"> {{phoneNumber}} </p>
+                                <p class="card-text"> {{personalNumber}} </p>
                         </div>
                 </div>
         </div>

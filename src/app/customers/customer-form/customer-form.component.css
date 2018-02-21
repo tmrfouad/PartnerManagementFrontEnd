@@ -1,5 +1,5 @@
 .required{
-    color: red;
+    color: #ff0707;
 }
 
 .content{ 
@@ -9,8 +9,24 @@
 
 
 .form-control.ng-invalid.ng-touched{ 
-    border: 1px solid red ;
+    border: 1px solid #ff0707 ;
+}
+
+.alert-danger { 
+    color: #ff0707;
+    padding : 0px;
+    background-color: white;
+    border: 0px none white ;
+}
+  
+.country-code{ 
+    background-color: transparent;
+    border: 0px none white;
+    width: 100%;
+}
+
+select.country-code option[value="+20"] {
+    background-image: url('/assets/images/country/egypt.png')
 }
 
 
-  
