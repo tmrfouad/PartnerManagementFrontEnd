@@ -1,0 +1,13 @@
+
+
+<!-- The List Here --> 
+    <div class="list-group" *ngFor="let rfqItem of rfqList">
+        <a href="#"
+            class="list-group-item" 
+            routerLink="/Rfq" 
+            [class.active] = "orederId === 'ss' "
+            [queryParams]="{ orederId : 'ss' }" > 
+            {{ rfqItem.ContactPersonArabicName }}
+       </a>
+
+    </div>

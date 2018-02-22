@@ -5,7 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Injectable()
 export class DataService {
   private configUrl = 'assets/config.json';
-  private baseUrl: string;
+  public baseUrl: string;
   private headers: HttpHeaders;
   private token: string;
 
@@ -14,7 +14,9 @@ export class DataService {
   constructor(
     private http: HttpClient,
     private accountService: AccountService
-  ) {
+  )
+   {
+
     this.http.get(this.configUrl).subscribe((config: any) => {
       const domainName = config.domainName;
       this.baseUrl = domainName + '/api';
