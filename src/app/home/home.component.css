@@ -28,6 +28,7 @@ section.footer {
   color: #fff;
   background-color: #dc3545;
   border-color: rgba(0, 0, 0, 0.15);
+  margin-bottom: 27px;
 }
 
 .btn-bundle:hover { 
@@ -35,7 +36,6 @@ section.footer {
   background-color: #bd2f3d;
   border-color: rgba(0, 0, 0, 0.15);
 }
-
 
 
 
