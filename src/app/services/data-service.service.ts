@@ -5,8 +5,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Injectable()
 export class DataService {
   private configUrl = 'assets/config.json';
-  private baseUrl: string;
-  private headers: HttpHeaders;
+  protected baseUrl: string;
+  protected headers: HttpHeaders;
   private token: string;
 
   protected url: string;

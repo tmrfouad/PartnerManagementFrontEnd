@@ -1,0 +1,41 @@
+.login-link {
+    float:right;
+    font-size: 80%;
+    position: relative;
+    top:-10px;
+}
+
+.card-body {
+    padding-top:30px;
+}
+
+#login-alert {
+    display:none;
+}
+
+.control>div {
+    border-top: 1px solid#888;
+    padding-top:15px;
+    font-size:85%
+}
+
+#signupbox {
+    display:none;
+    margin-top:50px
+}
+
+.card-title~div {
+    float:right;
+    font-size: 85%;
+    position: relative;
+    top:-10px
+}
+
+#signupalert {
+    display:none;
+}
+
+.fbsignup {
+    border-top: 1px solid #999;
+    padding-top:20px;
+}

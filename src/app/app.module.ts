@@ -21,6 +21,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AccountService } from './services/account.service';
 import { RfqService } from './services/rfq.service';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { RfqService } from './services/rfq.service';
     CustomerFormComponent,
     MailSendComponent,
     NavbarComponent,
-    HomeComponent
+    HomeComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -39,8 +41,9 @@ import { RfqService } from './services/rfq.service';
     HttpClientModule,
     MatDialogModule,
     RouterModule.forRoot([
-      { path : '' , component: HomeComponent },
-      { path : 'customer' , component: CustomerFormComponent }
+      { path: '' , component: HomeComponent },
+      { path: 'customer' , component: CustomerFormComponent },
+      { path: 'login', component: LoginComponent }
     ])
   ],
   providers: [
