@@ -15,8 +15,11 @@ export class RfqService extends DataService {
     this.url = '/rfq';
   }
 
-  getStatus(id) {
-    this.headers.set('Authorization', 'bearer ' + this.accountService.userToken);
-    return this.http.get(`${this.baseUrl + this.url}/status/${id}`, { headers: this.headers });
+  async getStatus(id) {
+    await this.config;
+    if (this.accountService.userToken) {
+      this.headers.set('Authorization', 'bearer ' + this.accountService.userToken);
+    }
+    return this.http.get(`${this.baseUrl + this.url}/status/${id}`, { headers: this.headers }).toPromise();
   }
 }

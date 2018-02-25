@@ -22,19 +22,19 @@ export class CustomerFormComponent implements OnInit {
     private orderService: OrderService,
     private dialogRef: MatDialogRef<CustomerFormComponent>
   ) {
-    
+
   }
-  
+
   ngOnInit() {
     console.log(this.products);
   }
-  
-  
+
+
 
   logForm(f) {
 
     this.acceptService.getUserData()
-      .subscribe(user => {
+      .subscribe(async user => {
         const order = {
           delivery_needed: false,
           merchant_id: user.id,
@@ -57,7 +57,7 @@ export class CustomerFormComponent implements OnInit {
           }
         };
 
-        this.orderService.Post(order).subscribe(() => {
+        await this.orderService.Post(order).then(() => {
           this.dialogRef.close();
           alert('Order placed successfully.');
         }, error => {

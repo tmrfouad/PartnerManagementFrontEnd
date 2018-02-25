@@ -1,44 +1,44 @@
-import { AcceptService } from './accept.service';
-import { Injectable, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/empty';
+
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { JwtHelper } from 'angular2-jwt';
 
 @Injectable()
-export class AccountService implements OnInit {
+export class AccountService {
   private configUrl = 'assets/config.json';
   private baseUrl: string;
   private headers: HttpHeaders;
   private jwtHelper: JwtHelper;
+  config;
 
   constructor(
     private http: HttpClient
-  ) { }
-
-  ngOnInit(): void {
+  ) {
     this.jwtHelper = new JwtHelper();
 
-    this.http.get(this.configUrl).subscribe((config: any) => {
+    this.config = this.http.get(this.configUrl).toPromise();
+
+    this.config.then((config: any) => {
       const domainName = config.domainName;
       const dataServiceConfig = config.dataService;
       this.baseUrl = domainName + '/account';
+
+      this.headers = new HttpHeaders()
+        .set('Content-Type', 'application/json')
+        .set('Access-Control-Allow-Origin', '*');
     });
-
-    this.headers = new HttpHeaders()
-      .set('Content-Type', 'application/json')
-      .set('Access-Control-Allow-Origin', '*');
   }
 
-  register(userName, password): Observable<string> {
-    return this.http.post(this.baseUrl + '/register', { Email: userName, Password: password }, { headers: this.headers })
-      .map(token => token.toString());
+  async register(userName, password) {
+    await this.config;
+    return this.http.post(this.baseUrl + '/register', { Email: userName, Password: password }, { headers: this.headers });
   }
 
 
-  login(userName, password): Observable<string> {
-    return this.http.post(this.baseUrl + '/Login', { Email: userName, Password: password }, { headers: this.headers })
-      .map(token => token.toString());
+  async login(userName, password) {
+    await this.config;
+    return this.http.post(this.baseUrl + '/Login', { Email: userName, Password: password }, { headers: this.headers });
   }
 
   get userToken(): string {
