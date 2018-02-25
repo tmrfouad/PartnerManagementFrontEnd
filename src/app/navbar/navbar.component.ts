@@ -3,6 +3,7 @@ import { CustomerFormComponent } from './../customers/customer-form/customer-for
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
+import { Router } from '@angular/router';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -11,12 +12,17 @@ import { Subscription } from 'rxjs/Subscription';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit, OnDestroy {
-  constructor(private dialog: MatDialog, private accountService: AccountService) { }
-
   dialogRef: MatDialogRef<CustomerFormComponent>;
   dialogRefSub: Subscription;
+  isLoggedIn: boolean;
+
+  constructor(
+    private dialog: MatDialog,
+    public accountService: AccountService) { }
+
 
   ngOnInit() {
+    this.isLoggedIn = this.accountService.isLoggedIn;
   }
 
   ngOnDestroy() {
@@ -36,22 +42,5 @@ export class NavbarComponent implements OnInit, OnDestroy {
       });
 
     }
-  }
-
-  async login() {
-    const user = {
-      'Email': 'tabuhmead@acs-me.com',
-      'Password': '123456@AcsAcs',
-    };
-    const token$ = await this.accountService.login(user.Email, user.Password);
-
-    token$.subscribe(userToken => {
-      console.log('test');
-      localStorage.setItem('userToken', userToken.toString());
-      alert('Login Secceeded!');
-    }, error => {
-      console.log(error);
-    });
-
   }
 }

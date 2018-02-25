@@ -4,7 +4,7 @@ import { MailService } from './services/mail.service';
 import { OrderService } from './services/order-service.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { RouterModule} from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 
 import { RecaptchaModule } from 'ng-recaptcha';
@@ -25,6 +25,7 @@ import { RfqService } from './services/rfq.service';
 import { LoginComponent } from './login/login.component';
 import { RfqListComponent } from './RFQ/rfq-list/rfq-list.component';
 import { RfqContainarComponent } from './RFQ/rfq-containar/rfq-containar.component';
+import { AuthGuard } from './services/auth-guard.service';
 
 
 
@@ -49,11 +50,10 @@ import { RfqContainarComponent } from './RFQ/rfq-containar/rfq-containar.compone
     HttpClientModule,
     MatDialogModule,
     RouterModule.forRoot([
-      { path: '' , component: HomeComponent },
-      { path: 'customer' , component: CustomerFormComponent },
+      { path: '', component: HomeComponent },
+      { path: 'customer', component: CustomerFormComponent },
       { path: 'login', component: LoginComponent },
-      { path : 'Rfq/:rfqId' , component : RfqContainarComponent},
-      { path : 'Rfq' , component : RfqContainarComponent}
+      { path: 'Rfq', component: RfqContainarComponent, canActivate: [AuthGuard] }
     ])
   ],
   providers: [
@@ -61,7 +61,8 @@ import { RfqContainarComponent } from './RFQ/rfq-containar/rfq-containar.compone
     AccountService,
     AcceptService,
     OrderService,
-    MailService
+    MailService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

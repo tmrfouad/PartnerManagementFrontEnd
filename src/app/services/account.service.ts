@@ -3,6 +3,7 @@ import 'rxjs/add/observable/empty';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelper } from 'angular2-jwt';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AccountService {
@@ -13,8 +14,8 @@ export class AccountService {
   config;
 
   constructor(
-    private http: HttpClient
-  ) {
+    private http: HttpClient,
+    private router: Router) {
     this.jwtHelper = new JwtHelper();
 
     this.config = this.http.get(this.configUrl).toPromise();
@@ -40,6 +41,14 @@ export class AccountService {
     await this.config;
     return this.http.post(this.baseUrl + '/Login', { Email: userName, Password: password },
       { responseType: 'text', headers: this.headers });
+  }
+
+  logout() {
+    const userToken = localStorage.getItem('userToken');
+    if (userToken) {
+      localStorage.removeItem('userToken');
+      this.router.navigate(['/']);
+    }
   }
 
   get userToken() {
