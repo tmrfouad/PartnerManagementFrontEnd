@@ -1,18 +1,8 @@
-
-
-<!-- The List Here --> 
-    <div class="list-group" *ngFor="let rfqItem of rfqList$ | async; let i = index">
-        <a 
-            class="list-group-item list-group-item-action active" 
-            (click)="filter(rfqItem, i)" 
-            [class.active]= "selectedIndex == i"> 
-            <span class="font-weight-bold"> Name : </span>   {{ rfqItem.contactPersonEnglishName }} 
-            <br>
-            <span class="font-weight-bold"> Address : </span> 
-             {{ rfqItem.address }} 
-            <br>
-            <span class="font-weight-bold"> Company: </span> 
-              {{ rfqItem.companyEnglishName}}
-            <br>
-       </a>
+<h2>Requests Management</h2>
+<div *ngIf="rfqList$ | async as rfqList">
+    <div class="list-group" *ngFor="let rfqItem of rfqList; let i = index">
+        <a class="list-group-item list-group-item-action active" (click)="filter(rfqItem, i)" [class.active]="selectedIndex == i">
+            {{ rfqItem.contactPersonEnglishName }}; {{ rfqItem.address }}; {{ rfqItem.companyEnglishName}}
+        </a>
     </div>
+</div>
