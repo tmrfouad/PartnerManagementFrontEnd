@@ -13,9 +13,7 @@ export class HomeComponent implements OnInit {
   constructor(private dialog :MatDialog) { }
   dialogRef : MatDialogRef<CustomerFormComponent> ;
 
-  ngOnInit() {
-
-  }
+  ngOnInit() { }
 
   openDialog(bundleVal) { 
       if(this.dialogRef == null ) 

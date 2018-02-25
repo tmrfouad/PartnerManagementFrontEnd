@@ -31,7 +31,7 @@
                                         <span class="required">*</span>
                                         <input id="companyEnglishName" name="companyEnglishName" type="text" [(ngModel)]="companyEnglishName" #CompanyEnglishName="ngModel" class="form-control"
                                                 required>
-                                        <div class="alert alert-danger" *ngIf="companyEnglishName.touched && !companyEnglishName.valid">
+                                        <div class="alert alert-danger" *ngIf="CompanyEnglishName.touched && !CompanyEnglishName.valid">
                                                 <small>You can't leave this empty. </small>
                                         </div>
                                 </div>
@@ -117,20 +117,32 @@
                                         </div>
                                 </div>
 
+                                <div class="form-group">
+                                        <label for="website">Address</label>
+                                        <div class="input-group">
+                                            <input
+                                             id="address"
+                                             name="address"
+                                             type="text" 
+                                             class="form-control"
+                                             [(ngModel)]="address">
+                                        </div>
+                                </div>
+
                                 <div class="form-inline">
                                         <label for="product">Product :</label>
                                         &nbsp;&nbsp;
                                         <span class="font-weight-bold">
                                                 <input
                                                  type="text"
-                                                 name="product"
+                                                 name="targetedProduct"
                                                  readonly
                                                  class="form-control-plaintext font-weight-bold"
                                                  id="staticEmail" value="Process Perfect">
                                         </span>
                                 </div>
 
-                                <label for="targetedProduct">Choose Your Bundle:</label>
+                                <label for="selectedBundle">Choose Your Bundle:</label>
                                 <span class="required">*</span>
                                 <div class="form-group radio-group row mt-auto mr-auto ml-auto mb-5">
                                         <div class="col-md-4 p-1">
