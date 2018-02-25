@@ -23,47 +23,35 @@ export class DataService {
 
       this.headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
-      .set('Access-Control-Allow-Origin', '*');
+      .set('Access-Control-Allow-Origin', '*')
+      .set('Authorization', 'bearer ' + this.accountService.userToken);
+
+      console.log(this.headers);
     });
   }
 
   async get() {
     await this.config;
-    if (this.accountService.userToken) {
-      this.headers.set('Authorization', 'bearer ' + this.accountService.userToken);
-    }
     return this.http.get(this.baseUrl + this.url, { headers: this.headers });
   }
 
   async getById(Id) {
     await this.config;
-    if (this.accountService.userToken) {
-      this.headers.set('Authorization', 'bearer ' + this.accountService.userToken);
-    }
     return this.http.get(this.baseUrl + this.url + '/' + Id, { headers: this.headers });
   }
 
   async Post(item) {
     await this.config;
-    if (this.accountService.userToken) {
-      this.headers.set('Authorization', 'bearer ' + this.accountService.userToken);
-    }
     return this.http.post(this.baseUrl + this.url, item, { headers: this.headers });
   }
 
   async Put(id, item) {
     await this.config;
-    if (this.accountService.userToken) {
-      this.headers.set('Authorization', 'bearer ' + this.accountService.userToken);
-    }
     return this.http.put(this.baseUrl + this.url + '/' + id, item, { headers: this.headers });
   }
 
   async Delete(id) {
     await this.config;
-    if (this.accountService.userToken) {
-      this.headers.set('Authorization', 'bearer ' + this.accountService.userToken);
-    }
     return this.http.delete(this.baseUrl + this.url + '/' + id, { headers: this.headers });
   }
 

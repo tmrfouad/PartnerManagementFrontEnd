@@ -38,10 +38,11 @@ export class AccountService {
 
   async login(userName, password) {
     await this.config;
-    return this.http.post(this.baseUrl + '/Login', { Email: userName, Password: password }, { headers: this.headers });
+    return this.http.post(this.baseUrl + '/Login', { Email: userName, Password: password },
+      { responseType: 'text', headers: this.headers });
   }
 
-  get userToken(): string {
+  get userToken() {
     const userToken = localStorage.getItem('userToken');
     if (userToken) {
 

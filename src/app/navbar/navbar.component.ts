@@ -38,19 +38,20 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }
   }
 
-   async login() {
+  async login() {
     const user = {
       'Email': 'tabuhmead@acs-me.com',
       'Password': '123456@AcsAcs',
     };
-    this.accountService.login(user.Email, user.Password);
-    //  (await this.accountService.login(user.Email, user.Password)).subscribe(userToken => {
-    //   console.log('test');
-    //   localStorage.setItem('userToken', userToken.toString());
-    //   alert('Login Secceeded!');
-    // }, error => {
-    //   console.log(error);
-    // });
+    const token$ = await this.accountService.login(user.Email, user.Password);
+
+    token$.subscribe(userToken => {
+      console.log('test');
+      localStorage.setItem('userToken', userToken.toString());
+      alert('Login Secceeded!');
+    }, error => {
+      console.log(error);
+    });
 
   }
 }
