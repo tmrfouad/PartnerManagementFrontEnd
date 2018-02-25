@@ -1,6 +1,6 @@
+import { RfqService } from './../../services/rfq.service';
 import { AcceptService } from './../../services/accept.service';
 import { Component, OnInit } from '@angular/core';
-import { OrderService } from '../../services/order-service.service';
 import { MatDialogRef } from '@angular/material';
 
 @Component({
@@ -16,14 +16,12 @@ export class CustomerFormComponent implements OnInit {
   email;
   phoneNumber;
   products;
-
+  selectedBundle;
   constructor(
     private acceptService: AcceptService,
-    private orderService: OrderService,
+    private rfqService: RfqService,
     private dialogRef: MatDialogRef<CustomerFormComponent>
-  ) {
-    
-  }
+  ) {}
   
   ngOnInit() {
     console.log(this.products);
@@ -57,13 +55,14 @@ export class CustomerFormComponent implements OnInit {
           }
         };
 
-        this.orderService.Post(order).subscribe(() => {
+        this.rfqService.Post(order).subscribe(() => {
           this.dialogRef.close();
           alert('Order placed successfully.');
         }, error => {
           this.dialogRef.close();
           alert(error.message);
         });
+
       });
   }
 

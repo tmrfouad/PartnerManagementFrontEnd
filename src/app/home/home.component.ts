@@ -1,6 +1,6 @@
 import { CustomerFormComponent } from './../customers/customer-form/customer-form.component';
 import { Component, OnInit } from '@angular/core';
-import {MatDialog, MatDialogRef} from '@angular/material';
+import { MatDialog, MatDialogRef} from '@angular/material';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
 
   }
 
-  openDialog(bundleVal : number) { 
+  openDialog(bundleVal) { 
       if(this.dialogRef == null ) 
       {
         this.dialogRef = this.dialog.open(CustomerFormComponent, 
@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
             position: { top: '100px' }
            },
         );
-        this.dialogRef.componentInstance.products = bundleVal ;
+        this.dialogRef.componentInstance.selectedBundle = bundleVal ;
       }
 
       this.dialogRef.afterClosed().subscribe( () => this.dialogRef = null );

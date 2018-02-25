@@ -1,108 +1,140 @@
 <div class="row">
         <div class="col-sm-6">
                 <form #f="ngForm" (submit)="logForm(f.value)">
-                        <div class="content p-1 pr-2">
-                                <div class="form-group">
-                                        <label for="firstName">First Name</label>
-                                        <span class="required">*</span>
-                                        <input id="firstName" name="firstName" [(ngModel)]="firstName" required minlength="3" #FirstName="ngModel" type="text" class="form-control">
-                                        <div class="alert alert-danger" *ngIf="FirstName.touched && !FirstName.valid">
-                                                <div *ngIf="FirstName.errors?.required">
-                                                        You can't leave this empty.
-                                                </div>
-                                                <div *ngIf="FirstName.errors?.minlength">
-                                                        Please use at least {{ FirstName.errors.minlength.requiredLength }} characters.
 
+                        <div class="content p-1 pr-2">
+
+                                <div class="form-group">
+                                        <label class="col-form-label" for="contactPersonEnglishName">Name </label>
+                                        <span class="required">*</span>
+                                       
+                                        <input  id="contactPersonEnglishName"
+                                                name="contactPersonEnglishName"
+                                                [(ngModel)]="contactPersonEnglishName" 
+                                                required minlength="3"
+                                                #ContactPersonEnglishName="ngModel"
+                                                type="text"
+                                                class="form-control">
+
+                                        <div class="alert alert-danger" *ngIf="ContactPersonEnglishName.touched && !ContactPersonEnglishName.valid">
+                                                <div *ngIf="ContactPersonEnglishName.errors?.required">
+                                                <small>You can't leave this empty.</small>
+                                                </div>
+                                                <div *ngIf="ContactPersonEnglishName.errors?.minlength">
+                                                <small>Please use at least {{ ContactPersonEnglishName.errors.minlength.requiredLength }} characters. </small>
                                                 </div>
                                         </div>
                                 </div>
+
                                 <div class="form-group">
-                                        <label for="lastName">Last Name</label>
+                                        <label for="companyEnglishName">Company Name</label>
                                         <span class="required">*</span>
-                                        <input id="lastName" name="lastName" [(ngModel)]="lastName" required minlength="3" #LastName="ngModel" type="text" class="form-control">
-                                        <div class="alert alert-danger" *ngIf="LastName.touched && !LastName.valid">
-                                                <div *ngIf="LastName.errors?.required">
-                                                        You can't leave this empty.
-                                                </div>
-                                                <div *ngIf="LastName.errors?.minlength">
-                                                        Please use at least {{ LastName.errors.minlength.requiredLength }} characters.
-                                                </div>
-                                        </div>
-                                </div>
-                                <div class="form-group">
-                                        <label for="companyName">Company Name</label>
-                                        <span class="required">*</span>
-                                        <input id="companyName" name="companyName" type="text" [(ngModel)]="companyName" #CompanyName="ngModel" class="form-control"
+                                        <input id="companyEnglishName" name="companyEnglishName" type="text" [(ngModel)]="companyEnglishName" #CompanyEnglishName="ngModel" class="form-control"
                                                 required>
-                                        <div class="alert alert-danger" *ngIf="CompanyName.touched && !CompanyName.valid">
-                                                You can't leave this empty.
+                                        <div class="alert alert-danger" *ngIf="companyEnglishName.touched && !companyEnglishName.valid">
+                                                <small>You can't leave this empty. </small>
                                         </div>
                                 </div>
                                 <div class="form-group">
-                                        <label for="email">E-mail</label>
+                                        <label for="contactPersonEmail">E-mail</label>
                                         <span class="required">*</span>
-                                        <input id="email" name="email" placeholder="email@domain.com" type="email" class="form-control" [(ngModel)]="email" #Email="ngModel"
+                                        <input id="contactPersonEmail" name="contactPersonEmail" placeholder="email@domain.com" type="email" class="form-control" [(ngModel)]="contactPersonEmail" #Email="ngModel"
                                                 [email]="true" required>
                                         <div class="alert alert-danger" *ngIf="Email.touched && !Email.valid">
-                                                <div *ngIf="Email.errors.required">
-                                                        You can't leave this empty.
-                                                </div>
                                                 <div *ngIf="!Email.errors.valid">
-                                                        Email is not valid
+                                                        <small>    Email is not valid </small>
                                                 </div>
                                         </div>
                                 </div>
+
                                 <div class="form-group">
-                                        <label for="phoneNumber">Personal Number</label>
+                                        <label for="contactPersonMobile">Personal Number</label>
                                         <span class="required">*</span>
                                         <div class="input-group">
                                                 <div class="input-group-prepend">
                                                         <div class="input-group-text">
-                                                                        
                                                                 <select class="country-code">
-                                                                        <option value="+20" class="nav-link dropdown-toggle" selected style="background-image:url(/assets/images/country/egypt.png);">
-                                                                               
-                                                                                +20 
-                                                                        </option>
-                                                                        <option class="dropdown-item" href="#one"> +974</option>
-                                                                        <option class="dropdown-item" href="#two">+966 </option>
-                                                                        <option class="dropdown-item" href="#three">+213 </option>
+                                                                        <option class="dropdown-item" selected>+20</option>
+                                                                        <option class="dropdown-item"> +974</option>
+                                                                        <option class="dropdown-item">+966 </option>
+                                                                        <option class="dropdown-item">+213 </option>
                                                                 </select>
                                                         </div>
                                                 </div>
-                                                <input pattern="[0-9]+" required minlength="10" maxlength="20" id="personalNumber" name="personalNumber" type="text" class="form-control"
-                                                        [(ngModel)]="personalNumber" #PersonalNumber="ngModel">
+                                                <input pattern="[0-9]+"
+                                                 required minlength="10"
+                                                 maxlength="20" 
+                                                 id="contactPersonMobile"
+                                                 name="contactPersonMobile"
+                                                 type="text" class="form-control"
+                                                 [(ngModel)]="contactPersonMobile" #PersonMobile="ngModel">
                                         </div>
-                                        <div class="alert alert-danger" *ngIf="PersonalNumber.touched && !PersonalNumber.valid">
-                                                <div *ngIf="PersonalNumber.errors?.required">
-                                                        You can't leave this empty.
+                                        <div class="alert alert-danger" *ngIf="PersonMobile.touched && !PersonMobile.valid">
+                                                <div *ngIf="PersonMobile.errors?.required">
+                                                        <small>    You can't leave this empty. </small>
                                                 </div>
-                                                <div *ngIf="PersonalNumber.errors?.pattern && PersonalNumber.errors?.pattern">
-                                                        This phone number format is not recognized
+                                                <div *ngIf="PersonMobile.errors?.pattern && PersonMobile.errors?.pattern">
+                                                        <small>    This phone number format is not recognized. </small>
                                                 </div>
-                                                <div *ngIf="PersonalNumber.errors?.minlength">
-                                                        Please use at least {{ PersonalNumber.errors?.minlength.requiredLength }} characters.
+                                                <div *ngIf="PersonMobile.errors?.minlength">
+                                                        <small>  Please use at least {{ PersonMobile.errors?.minlength.requiredLength }} characters. </small>
                                                 </div>
                                         </div>
                                 </div>
+
                                 <div class="form-group">
                                         <label for="phoneNumber">Phone Number</label>
                                         <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                        <div class="input-group-text">+20</div>
-                                                </div>
-                                                <input pattern="[0-9]+" required minlength="10" maxlength="20" id="phoneNumber" name="phoneNumber" type="text" class="form-control"
-                                                        [(ngModel)]="phoneNumber" #PhoneNumber="ngModel">
-                                        </div>
-                                        <div class="alert alert-danger" *ngIf="PhoneNumber.errors?.pattern && PhoneNumber.errors?.pattern">
-                                                This phone number format is not recognized
+                                                        <div class="input-group-prepend">
+                                                                        <div class="input-group-text">
+                                                                                <select class="country-code">
+                                                                                        <option class="dropdown-item" selected>+20</option>
+                                                                                        <option class="dropdown-item"> +974</option>
+                                                                                        <option class="dropdown-item">+966 </option>
+                                                                                        <option class="dropdown-item">+213 </option>
+                                                                                </select>
+                                                                        </div>
+                                                                </div>
+                                                <input 
+                                                id="phoneNumber"
+                                                 name="phoneNumber"
+                                                  type="number" 
+                                                  class="form-control"
+                                                   [(ngModel)]="phoneNumber">
                                         </div>
                                 </div>
-                                <label for="products">Choose Your Bundle:</label>
+
+
+                                <div class="form-group">
+                                        <label for="website">Website</label>
+                                        <div class="input-group">
+                                            <input
+                                             id="website"
+                                             name="website"
+                                             type="text" 
+                                             class="form-control"
+                                             [(ngModel)]="website">
+                                        </div>
+                                </div>
+
+                                <div class="form-inline">
+                                        <label for="product">Product :</label>
+                                        &nbsp;&nbsp;
+                                        <span class="font-weight-bold">
+                                                <input
+                                                 type="text"
+                                                 name="product"
+                                                 readonly
+                                                 class="form-control-plaintext font-weight-bold"
+                                                 id="staticEmail" value="Process Perfect">
+                                        </span>
+                                </div>
+
+                                <label for="targetedProduct">Choose Your Bundle:</label>
                                 <span class="required">*</span>
                                 <div class="form-group radio-group row mt-auto mr-auto ml-auto mb-5">
                                         <div class="col-md-4 p-1">
-                                                <input type="radio" id="control_01" required [(ngModel)]="products" name="products" [value]="1">
+                                                <input type="radio" id="control_01" required [(ngModel)]="selectedBundle" name="selectedBundle" [value]="1">
                                                 <label for="control_01">
                                                         <p class="bundle-title">Lite</p>
                                                         <p class="bundle-price">400 EGP
@@ -112,7 +144,7 @@
                                                 </label>
                                         </div>
                                         <div class="col-md-4 p-1">
-                                                <input type="radio" id="control_02" [(ngModel)]="products" name="products" [value]="2">
+                                                <input type="radio" id="control_02" [(ngModel)]="selectedBundle" name="selectedBundle" [value]="2">
                                                 <label for="control_02">
                                                         <p class="bundle-title">Standard</p>
                                                         <p class="bundle-price">850 EGP
@@ -122,7 +154,7 @@
                                                 </label>
                                         </div>
                                         <div class="col-md-4 p-1">
-                                                <input type="radio" id="control_03" [(ngModel)]="products" name="products" [value]="3">
+                                                <input type="radio" id="control_03" [(ngModel)]="selectedBundle" name="selectedBundle" [value]="3">
                                                 <label for="control_03">
                                                         <p class="bundle-title">Enterprise</p>
                                                         <p class="bundle-price">Contact us</p>
@@ -130,25 +162,9 @@
                                                 </label>
                                         </div>
                                 </div>
+
                                 <div class="form-group">
                                         <re-captcha name="captcha" ngModel #captcha="ngModel" required siteKey="6Ldk7D4UAAAAAPJpIWo0uqnitrcZGVyJOGg2BE3w"></re-captcha>
-                                </div>
-                                <div class="form-group">
-                                   <div class="col-md-4 p-1">
-                                        <!-- <div class="nav-item dropdown">
-                                                <a class="nav-link dropdown-toggle"
-                                                   data-toggle="dropdown" href="#"
-                                                   role="button" aria-haspopup="true"
-                                                   aria-expanded="false"> Dropdown 
-                                                </a>
-                                                <div class="dropdown-menu">
-                                                        <a class="dropdown-item" href="#one">one</a>
-                                                        <a class="dropdown-item" href="#two">two</a>
-                                                        <div role="separator" class="dropdown-divider"></div>
-                                                        <a class="dropdown-item" href="#three">three</a>
-                                                </div>
-                                        </div> -->
-                                  </div>
                                 </div>
                         </div>
                         <div class="p-1 pt-3">
@@ -167,10 +183,10 @@
                                         <u> Cart Details </u>
                                 </h5>
 
-                                <h5 class="card-title">{{firstName}} {{lastName}}</h5>
-                                <p class="card-text"> {{companyName}} </p>
-                                <p class="card-text"> {{email}} </p>
-                                <p class="card-text"> {{personalNumber}} </p>
+                                <h5 class="card-title"> {{ contactPersonEnglishName }} </h5>
+                                <p class="card-text">   {{ companyEnglishName }} </p>
+                                <p class="card-text">   {{ contactPersonEmail }} </p>
+                                <p class="card-text">   {{ contactPersonMobile }} </p>
                         </div>
                 </div>
         </div>
