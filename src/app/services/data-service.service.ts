@@ -12,8 +12,8 @@ export class DataService {
   protected url: string;
 
   constructor(
-    private http: HttpClient,
-    private accountService: AccountService
+    protected http: HttpClient,
+    protected accountService: AccountService
   ) {
     this.http.get(this.configUrl).subscribe((config: any) => {
       const domainName = config.domainName;
