@@ -1,5 +1,6 @@
-import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { RFQ } from './../../models/RFQ';
+import { Component, OnInit, Input } from '@angular/core';
+import 'rxjs/add/operator/switchMap'
 
 @Component({
   selector: 'rfq-action-form',
@@ -8,12 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RfqActionFormComponent implements OnInit {
 
-  constructor(private activeRoute : ActivatedRoute) { }
+  @Input('rfq') rfq: RFQ;
+ 
 
-  ngOnInit() {
-    // this.activeRoute.queryParamMap.subscribe(param => {
-    //     alert(param.get("orederId"));
-    //  });
+  constructor() { 
   }
+
+
+  async ngOnInit() {
+
+  }
+
 
 }

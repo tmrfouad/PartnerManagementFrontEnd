@@ -1,28 +1,37 @@
-import { RFQ } from './../../models/RFQ';
-import { Component, OnInit, Input } from '@angular/core';
-import { RfqService } from '../../services/rfq.service';
 import { Subscription } from 'rxjs/Subscription';
+import { RFQ } from './../../models/RFQ';
+import { Component, OnInit, Input, OnDestroy, Output,EventEmitter } from '@angular/core';
+import { RfqService } from '../../services/rfq.service';
+import { Observable } from 'rxjs/Observable';
+
 
 @Component({
   selector: 'rfq-list',
   templateUrl: './rfq-list.component.html',
   styleUrls: ['./rfq-list.component.css']
 })
-export class RfqListComponent implements OnInit {
+export class RfqListComponent implements OnInit ,OnDestroy{
 
-  rfqList : RFQ [] = [] ;
-  constructor(private rfqService : RfqService) {   
+  rfqList$;
+  subscribtion: Subscription;
+  selectedIndex: number = null;
+  constructor(private rfqService : RfqService) { }
+
+  @Input('rfqId') rfqId : number;
+  @Output('change') change = new EventEmitter();
+
+
+   ngOnInit() {
+     this.rfqList$ = this.rfqService.get();
   }
 
-  @Input('orederId') orederId ;
+  ngOnDestroy() {}
+
+
+  filter(rfqItem, index) {
+    this.selectedIndex = index ;
+    this.change.emit(rfqItem);
+  }
+
   
-  async ngOnInit() {
-
-    await this.rfqService.get().subscribe(RFQItems => {
-       this.rfqList =RFQItems as (RFQ []) ;
-     }) ;
-
-  }
-
-
 }

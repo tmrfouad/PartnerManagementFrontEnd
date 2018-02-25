@@ -1,5 +1,8 @@
+import { RFQ } from './../../models/RFQ';
+import { RfqService } from './../../services/rfq.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
+import 'rxjs/add/operator/switchMap';
 
 @Component({
   selector: 'rfq-containar',
@@ -7,24 +10,28 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
   styleUrls: ['./rfq-containar.component.css']
 })
 export class RfqContainarComponent implements OnInit {
+ 
+  @Input('') rfqList : RFQ [] = [] ;
 
-  orederId;
+  rfqId;
+  rfq ;
 
-  constructor(private activatedRoute: ActivatedRoute) { 
 
-    activatedRoute.queryParamMap.subscribe(param => {
-        this.orederId = param.get("orederId");
-     });
-
+  constructor(private activeRoute: ActivatedRoute, private rfqService : RfqService) { 
+    //this.rfqList = 
   }
 
   orederIdparam : string;
 
-  ngOnInit() {
-
+ async ngOnInit() {
+ 
   }
 
   onclick() { 
+  }
+
+  onrfqChange(rfqItem){
+    this.rfq = rfqItem ;
   }
 
 }

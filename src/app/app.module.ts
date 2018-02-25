@@ -49,7 +49,7 @@ import { RfqContainarComponent } from './RFQ/rfq-containar/rfq-containar.compone
     RouterModule.forRoot([
       { path : '' , component: HomeComponent },
       { path : 'customer' , component: CustomerFormComponent },
-      { path : 'Rfq/:orederId' , component : RfqContainarComponent},
+      { path : 'Rfq/:rfqId' , component : RfqContainarComponent},
       { path : 'Rfq' , component : RfqContainarComponent}
     ])
   ],

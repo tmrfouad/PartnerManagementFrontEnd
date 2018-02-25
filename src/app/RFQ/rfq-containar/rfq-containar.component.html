@@ -1,13 +1,13 @@
 
 <div class="row align-items-start">
   <div class="col-4">
-    <rfq-list [orederId]="orederId"></rfq-list>
+    <rfq-list [rfqId]="rfqId" (change)="onrfqChange($event)"></rfq-list>
   </div>
 
   <div class="col">
     <div class="row">
       <div class="col-6">
-          <rfq-action-form ></rfq-action-form>
+          <rfq-action-form  [rfq]="rfq"></rfq-action-form>
       </div>
     </div>
   </div>
