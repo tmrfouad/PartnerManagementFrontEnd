@@ -1,0 +1,17 @@
+<!-- RFQ Details -->
+
+<div class="card-deck" *ngIf="rfq">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title"> {{ rfq.contactPersonEnglishName }} ( {{ rfq.companyEnglishName }} )</h5>
+            <p class="card-text"> {{ rfq.location }} </p>
+            <p class="card-text"> {{ rfq.contactPersonPosition }} </p>
+            <p class="card-text">
+                <small class="text-muted">{{ rfq.contactPersonEmail }}</small>
+            </p>
+            <p class="card-text">
+                <small class="text-muted">{{ rfq.phoneNumber }}</small>
+            </p>
+        </div>
+    </div>
+</div>

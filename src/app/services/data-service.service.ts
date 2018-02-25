@@ -30,6 +30,11 @@ export class DataService {
     return this.http.get(this.baseUrl + this.url, { headers: this.headers });
   }
 
+  getById(Id) {
+    this.headers.set('Authorization', 'bearer ' + this.accountService.userToken);
+    return this.http.get(this.baseUrl + this.url + '/' + Id , {headers : this.headers});
+  }
+
   Post(item) {
     this.headers.set('Authorization', 'bearer ' + this.accountService.userToken);
     return this.http.post(this.baseUrl + this.url, item, { headers: this.headers });

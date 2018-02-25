@@ -1,3 +1,4 @@
+import { RfqActionFormComponent } from './RFQ/rfq-action-form/rfq-action-form.component';
 import { AcceptService } from './services/accept.service';
 import { MailService } from './services/mail.service';
 import { OrderService } from './services/order-service.service';
@@ -22,6 +23,10 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { AccountService } from './services/account.service';
 import { RfqService } from './services/rfq.service';
 import { LoginComponent } from './login/login.component';
+import { RfqListComponent } from './RFQ/rfq-list/rfq-list.component';
+import { RfqContainarComponent } from './RFQ/rfq-containar/rfq-containar.component';
+
+
 
 @NgModule({
   declarations: [
@@ -30,7 +35,10 @@ import { LoginComponent } from './login/login.component';
     MailSendComponent,
     NavbarComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    RfqActionFormComponent,
+    RfqListComponent,
+    RfqContainarComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +51,9 @@ import { LoginComponent } from './login/login.component';
     RouterModule.forRoot([
       { path: '' , component: HomeComponent },
       { path: 'customer' , component: CustomerFormComponent },
-      { path: 'login', component: LoginComponent }
+      { path: 'login', component: LoginComponent },
+      { path : 'Rfq/:rfqId' , component : RfqContainarComponent},
+      { path : 'Rfq' , component : RfqContainarComponent}
     ])
   ],
   providers: [
