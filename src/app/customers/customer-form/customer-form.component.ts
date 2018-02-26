@@ -2,6 +2,7 @@ import { RfqService } from './../../services/rfq.service';
 import { AcceptService } from './../../services/accept.service';
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
+import { countries } from './../../models/countries';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -10,74 +11,65 @@ import { MatDialogRef } from '@angular/material';
   styleUrls: ['./customer-form.component.css']
 })
 export class CustomerFormComponent implements OnInit {
-  contactPersonEnglishName;
-  companyEnglishName;
-  contactPersonEmail;
-  contactPersonMobile;
-  phoneNumber;
-  selectedBundle;
-  contactPersonPosition: string;
-  address;
-  website: string;
-  targetedProduct: string;
+  countries = countries.items;
+  rfqItem =
+    {
+      ContactPersonEnglishName: '',
+      CompanyEnglishName: '',
+      ContactPersonEmail: '',
+      ContactPersonMobile: '',
+      PhoneNumber: '',
+      SelectedBundle: '',
+      ContactPersonPosition: '',
+      Address: '',
+      Website: '',
+      TargetedProduct: '',
+      Status: '',
+      RFQCode: 100,
+      CompanyArabicName: '',
+      ContactPersonArabicName: '',
+      Location: '',
+      UniversalIP: ''
 
+    };
+
+  phoneIntial = '';
+  phone = '';
+
+  mobilIntial = '';
+  mobilphone = '';
 
   constructor(
     private acceptService: AcceptService,
     private rfqService: RfqService,
     private dialogRef: MatDialogRef<CustomerFormComponent>
   ) {
-
+    this.rfqItem.TargetedProduct = 'Process Perfect';
   }
 
   ngOnInit() {
-
   }
 
 
 
-  async logForm(f) {
-    // #region for comment 
-    // comment
-    // this.acceptService.getUserData()
-    //   .subscribe(async user => {
-    //     const order = {
-    //       delivery_needed: false,
-    //       merchant_id: user.id,
-    //       amount_cents: 100,
-    //       currency: 'EGP',
-    //       items: [],
-    //       shipping_data: {
-    //         apartment: null,
-    //         email: f.email,
-    //         floor: null,
-    //         first_name: f.firstName,
-    //         street: null,
-    //         building: null,
-    //         phone_number: f.phoneNumber,
-    //         postal_code: null,
-    //         city: null,
-    //         country: null,
-    //         last_name: f.lastName,
-    //         state: null
-    //       }
-    //     };
-
-    //   });
-    // #endregion
-
-    // await this.rfqService.Post(order).then(() => {
-    //   this.dialogRef.close();
-    //   alert('Order placed successfully.');
-    // }, error => {
-    //   this.dialogRef.close();
-    //   alert(error.message);
-    // });
-
+  async logForm(rfqForm) {
+    (await this.rfqService.Post(rfqForm)).subscribe(() => {
+      alert('Order placed successfully.');
+    }, error => {
+      this.dialogRef.close();
+      alert(error.message);
+    });
+  this.dialogRef.close();
 
   }
 
   closeDialog() {
     this.dialogRef.close();
   }
+
+  countryChange() {
+    this.rfqItem.ContactPersonMobile = this.phoneIntial + this.phone;
+    this.rfqItem.PhoneNumber = this.mobilIntial + this.mobilphone;
+  }
+
 }
