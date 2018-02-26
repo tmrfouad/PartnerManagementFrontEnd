@@ -3,6 +3,6 @@
     <rfq-list [rfqId]="rfqId" (change)="onrfqChange($event)"></rfq-list>
   </div>
   <div class="col">
-    <rfq-action-form [rfq]="rfq" [rfqStatus]="rfqStatus"></rfq-action-form>
+    <rfq-action-form [rfq]="rfq" [rfqStatus]="rfqStatus$ | async"></rfq-action-form>
   </div>
 </div>

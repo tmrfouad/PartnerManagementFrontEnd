@@ -14,11 +14,13 @@ import { RfqService } from './../../services/rfq.service';
   styleUrls: ['./rfq-action-form.component.css']
 })
 export class RfqActionFormComponent {
-
+  private _rfqStatus: RFQAction;
   @Input('rfq') rfq: RFQ;
-  @Input('rfqStatus') rfqStatus: RFQAction;
-  rfqStatusSubscription: Subscription;
-
+  get rfqStatus(): RFQAction { return this._rfqStatus; }
+  @Input('rfqStatus') set rfqStatus(status: RFQAction) {
+    this._rfqStatus = status;
+    console.log(this._rfqStatus);
+  }
 
   constructor(private rfqService: RfqService) {
   }

@@ -2,7 +2,7 @@ import { RfqService } from './../../services/rfq.service';
 import { AcceptService } from './../../services/accept.service';
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
-import { countries } from './../../models/countries';
+import { Countries } from './../../models/countries';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -11,7 +11,7 @@ import { countries } from './../../models/countries';
   styleUrls: ['./customer-form.component.css']
 })
 export class CustomerFormComponent implements OnInit {
-  countries = countries.items;
+  countries = Countries.items;
   rfqItem =
     {
       ContactPersonEnglishName: '',

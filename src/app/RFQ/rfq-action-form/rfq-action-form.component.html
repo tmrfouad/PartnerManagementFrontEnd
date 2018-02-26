@@ -57,8 +57,30 @@
         <span class="card-text">{{ rfq.status }}</span>
       </div>
     </div>
-    <div class="card-footer">
-      <rfq-status [rfqAction]="rfqStatus"></rfq-status>
+    <div class="card-footer" *ngIf="rfqStatus">
+      <div class="card-body row" *ngIf="rfqStatus; else loading">
+        <div class="col-6">
+          <span class="card-subtitle font-weight-bold">Action Code :</span>
+          <span class="card-text">{{ rfqStatus.actionCode }}</span>
+        </div>
+        <div class="col-6">
+          <span class="card-subtitle font-weight-bold">Action Time :</span>
+          <span class="card-text">{{ rfqStatus.actionTime | date:'yyyy/MM/dd HH:mm:ss' }}</span>
+        </div>
+        <div class="col-6">
+          <span class="card-subtitle font-weight-bold">Action Type :</span>
+          <span class="card-text">{{ rfqStatus.actionType }}</span>
+        </div>
+        <div class="col-6">
+          <span class="card-subtitle font-weight-bold">Representative :</span>
+          <span class="card-text">{{ rfqStatus.companyRepresentative }}</span>
+        </div>
+        <div class="col-6">
+          <span class="card-subtitle font-weight-bold">Comments :</span>
+          <span class="card-text">{{ rfqStatus.comments }}</span>
+        </div>
+      </div>
+      <!-- <rfq-status [rfq]="rfq"></rfq-status> -->
     </div>
   </div>
 </div>
