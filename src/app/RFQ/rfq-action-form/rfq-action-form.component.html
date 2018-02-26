@@ -2,7 +2,18 @@
 <div class="card-deck">
   <div class="card">
     <div class="card-header bg-dark text-white">
-      <h3>Request Details</h3>
+      <h3 class="d-inline-block">Request Details</h3>
+      <div class="dropdown float-right">
+        <a class="btn btn-light btn-sm text-dark dropdown-toggle" matTooltip="Add Action" matTooltipPosition="left" id="addActionDropDownBtn"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-plus"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="addActionDropDownBtn">
+          <a class="dropdown-item" *ngFor="let item of actionTypeNames" (click)="addAction(item)">
+            {{ item }}
+          </a>
+        </div>
+      </div>
     </div>
     <ng-template #loading>
       <loading></loading>
@@ -57,7 +68,9 @@
         <span class="card-text">{{ rfq.status }}</span>
       </div>
     </div>
+
     <div class="card-footer" *ngIf="rfqStatus">
+      <!-- Status -->
       <div class="card-body row" *ngIf="rfqStatus; else loading">
         <div class="col-6">
           <span class="card-subtitle font-weight-bold">Action Code :</span>
@@ -69,7 +82,7 @@
         </div>
         <div class="col-6">
           <span class="card-subtitle font-weight-bold">Action Type :</span>
-          <span class="card-text">{{ rfqStatus.actionType }}</span>
+          <span class="card-text">{{ actionTypeNames[rfqStatus.actionType] }}</span>
         </div>
         <div class="col-6">
           <span class="card-subtitle font-weight-bold">Representative :</span>
@@ -81,6 +94,7 @@
         </div>
       </div>
       <!-- <rfq-status [rfq]="rfq"></rfq-status> -->
+      <!-- End of Status -->
     </div>
   </div>
 </div>

@@ -28,6 +28,8 @@ import { RfqContainarComponent } from './RFQ/rfq-containar/rfq-containar.compone
 import { AuthGuard } from './services/auth-guard.service';
 import { LoadingComponent } from './components/loading/loading.component';
 import { RfqStatusComponent } from './rfq/rfq-status/rfq-status.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { NetworkService } from './services/network.service';
 
 
 
@@ -53,6 +55,7 @@ import { RfqStatusComponent } from './rfq/rfq-status/rfq-status.component';
     RecaptchaFormsModule,
     HttpClientModule,
     MatDialogModule,
+    MatTooltipModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
       { path: 'customer', component: CustomerFormComponent },
@@ -66,7 +69,8 @@ import { RfqStatusComponent } from './rfq/rfq-status/rfq-status.component';
     AcceptService,
     OrderService,
     MailService,
-    AuthGuard
+    AuthGuard,
+    NetworkService
   ],
   bootstrap: [AppComponent]
 })
