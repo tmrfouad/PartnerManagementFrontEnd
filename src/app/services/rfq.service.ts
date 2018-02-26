@@ -20,6 +20,6 @@ export class RfqService extends DataService {
     if (this.accountService.userToken) {
       this.headers.set('Authorization', 'bearer ' + this.accountService.userToken);
     }
-    return this.http.get(`${this.baseUrl + this.url}/status/${id}`, { headers: this.headers }).toPromise();
+    return this.http.get(`${this.baseUrl + this.url}/status/${id}`, { headers: this.headers });
   }
 }

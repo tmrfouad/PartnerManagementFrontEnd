@@ -1,17 +1,64 @@
 <!-- RFQ Details -->
-
-<div class="card-deck" *ngIf="rfq">
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title"> {{ rfq.contactPersonEnglishName }} ( {{ rfq.companyEnglishName }} )</h5>
-            <p class="card-text"> {{ rfq.location }} </p>
-            <p class="card-text"> {{ rfq.contactPersonPosition }} </p>
-            <p class="card-text">
-                <small class="text-muted">{{ rfq.contactPersonEmail }}</small>
-            </p>
-            <p class="card-text">
-                <small class="text-muted">{{ rfq.phoneNumber }}</small>
-            </p>
-        </div>
+<div class="card-deck">
+  <div class="card">
+    <div class="card-header bg-dark text-white">
+      <h3>Request Details</h3>
     </div>
+    <ng-template #loading>
+      <loading></loading>
+    </ng-template>
+    <div class="card-body row" *ngIf="rfq; else loading">
+      <div class="col-6">
+        <span class="card-subtitle font-weight-bold">Request Code :</span>
+        <span class="card-text">{{ rfq.rfqCode }}</span>
+      </div>
+      <div class="col-6">
+        <span class="card-subtitle font-weight-bold">Company :</span>
+        <span class="card-text">{{ rfq.companyEnglishName }}</span>
+      </div>
+      <div class="col-6">
+        <span class="card-subtitle font-weight-bold">Contact Person :</span>
+        <span class="card-text">{{ rfq.contactPersonEnglishName }}</span>
+      </div>
+      <div class="col-6">
+        <span class="card-subtitle font-weight-bold">Email :</span>
+        <span class="card-text">{{ rfq.contactPersonEmail }}</span>
+      </div>
+      <div class="col-6">
+        <span class="card-subtitle font-weight-bold">Mobile No. :</span>
+        <span class="card-text">{{ rfq.contactPersonMobile }}</span>
+      </div>
+      <div class="col-6">
+        <span class="card-subtitle font-weight-bold">Phone No. :</span>
+        <span class="card-text">{{ rfq.phoneNumber }}</span>
+      </div>
+      <div class="col-6">
+        <span class="card-subtitle font-weight-bold">Product :</span>
+        <span class="card-text">{{ rfq.targetedProduct }}</span>
+      </div>
+      <div class="col-6">
+        <span class="card-subtitle font-weight-bold">Bundle :</span>
+        <span class="card-text">{{ rfq.selectedBundle }}</span>
+      </div>
+      <div class="col-6">
+        <span class="card-subtitle font-weight-bold">Website :</span>
+        <span class="card-text">{{ rfq.website }}</span>
+      </div>
+      <div class="col-6">
+        <span class="card-subtitle font-weight-bold">Location :</span>
+        <span class="card-text">{{ rfq.location }}</span>
+      </div>
+      <div class="col-6">
+        <span class="card-subtitle font-weight-bold">Address :</span>
+        <span class="card-text">{{ rfq.address }}</span>
+      </div>
+      <div class="col-6">
+        <span class="card-subtitle font-weight-bold">Current Status :</span>
+        <span class="card-text">{{ rfq.status }}</span>
+      </div>
+    </div>
+    <div class="card-footer">
+      <rfq-status [rfqAction]="rfqStatus"></rfq-status>
+    </div>
+  </div>
 </div>

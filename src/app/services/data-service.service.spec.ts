@@ -1,7 +1,7 @@
 import { Http, HttpModule } from '@angular/http';
 import { TestBed, inject } from '@angular/core/testing';
 
-import { DataService } from './main-service.service';
+import { DataService } from './data-service.service';
 
 describe('MainService', () => {
   beforeEach(() => {

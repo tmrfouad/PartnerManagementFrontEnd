@@ -1,0 +1,21 @@
+.list-group-item {
+    cursor: pointer;
+}
+
+.list-group-item.active {
+    background-color: dimgray;
+    border-color: dimgray;
+    color: white;
+}
+
+.list-group-item.active:hover {
+    background-color: dimgray;
+    border-color: dimgray;
+    color: white;
+}
+
+.card > .list-group:last-child .list-group-item:last-child,
+.list-group-item:first-child,
+.list-group-item:last-child {
+    border-radius: 0;
+}

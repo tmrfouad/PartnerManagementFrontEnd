@@ -1,23 +1,23 @@
 
 export interface RFQ {
-    contactPersonEnglishName : string,
-    contactPersonMobile : string,
-    contactPersonEmail: string,
-    contactPersonArabicName: string,
-    contactPersonPosition: string,
+    contactPersonEnglishName: string;
+    contactPersonMobile: string;
+    contactPersonEmail: string;
+    contactPersonArabicName: string;
+    contactPersonPosition: string;
 
-    companyEnglishName : string,
-    companyArabicName: string,
+    companyEnglishName: string;
+    companyArabicName: string;
 
-    address : string,
-    status : string,
-    submissionTime : Date,
-    location : string,
-    phoneNumber : string,
-    rfqCode : number,
-    selectedBundle: string,
-    website: string,
-    targetedProduct: string
+    address: string;
+    status: string;
+    submissionTime: Date;
+    location: string;
+    phoneNumber: string;
+    rfqCode: number;
+    selectedBundle: string;
+    website: string;
+    targetedProduct: string;
 
-    rfqId : number
-} 
+    rfqId: number;
+}

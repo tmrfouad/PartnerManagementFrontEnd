@@ -1,37 +1,47 @@
+import { Subscription } from 'rxjs/Subscription';
 import { RFQ } from './../../models/RFQ';
 import { RfqService } from './../../services/rfq.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 
 @Component({
+  // tslint:disable-next-line:component-selector
   selector: 'rfq-containar',
   templateUrl: './rfq-containar.component.html',
   styleUrls: ['./rfq-containar.component.css']
 })
-export class RfqContainarComponent implements OnInit {
- 
-  @Input('') rfqList : RFQ [] = [] ;
-
+export class RfqContainarComponent implements OnInit, OnDestroy {
   rfqId;
-  rfq ;
+  rfq;
+  rfqStatus;
+  rfqStatusSubscription: Subscription;
 
-
-  constructor(private activeRoute: ActivatedRoute, private rfqService : RfqService) { 
-    //this.rfqList = 
+  constructor(private activeRoute: ActivatedRoute, private rfqService: RfqService) {
   }
 
-  orederIdparam : string;
+  orederIdparam: string;
 
- async ngOnInit() {
- 
+  async ngOnInit() {
+
   }
 
-  onclick() { 
+  ngOnDestroy() {
+    this.rfqStatusSubscription.unsubscribe();
   }
 
-  onrfqChange(rfqItem){
-    this.rfq = rfqItem ;
+  async onrfqChange(rfqItem) {
+    if (rfqItem) {
+      this.rfq = rfqItem;
+      const status$ = await this.rfqService.getStatus(this.rfq.rfqId);
+      this.rfqStatusSubscription = status$.subscribe(status => {
+        if (status) {
+          this.rfqStatus = status;
+        } else {
+          this.rfqStatus = {};
+        }
+      });
+    }
   }
 
 }

@@ -1,14 +1,8 @@
-
 <div class="row align-items-start">
   <div class="col-4">
     <rfq-list [rfqId]="rfqId" (change)="onrfqChange($event)"></rfq-list>
   </div>
-
   <div class="col">
-    <div class="row">
-      <div class="col-6">
-          <rfq-action-form  [rfq]="rfq"></rfq-action-form>
-      </div>
-    </div>
+    <rfq-action-form [rfq]="rfq" [rfqStatus]="rfqStatus"></rfq-action-form>
   </div>
 </div>

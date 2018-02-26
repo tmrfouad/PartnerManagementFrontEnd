@@ -27,6 +27,7 @@ import { RfqListComponent } from './RFQ/rfq-list/rfq-list.component';
 import { RfqContainarComponent } from './RFQ/rfq-containar/rfq-containar.component';
 import { AuthGuard } from './services/auth-guard.service';
 import { LoadingComponent } from './components/loading/loading.component';
+import { RfqStatusComponent } from './rfq/rfq-status/rfq-status.component';
 
 
 
@@ -41,7 +42,8 @@ import { LoadingComponent } from './components/loading/loading.component';
     RfqActionFormComponent,
     RfqListComponent,
     RfqContainarComponent,
-    LoadingComponent
+    LoadingComponent,
+    RfqStatusComponent
   ],
   imports: [
     BrowserModule,

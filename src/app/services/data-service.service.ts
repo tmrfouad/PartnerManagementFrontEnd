@@ -25,8 +25,6 @@ export class DataService {
       .set('Content-Type', 'application/json')
       .set('Access-Control-Allow-Origin', '*')
       .set('Authorization', 'bearer ' + this.accountService.userToken);
-
-      console.log(this.headers);
     });
   }
 
