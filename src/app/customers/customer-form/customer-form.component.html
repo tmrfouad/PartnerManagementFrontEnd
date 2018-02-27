@@ -7,20 +7,16 @@
                                 <div class="form-group">
                                         <label class="col-form-label" for="EnglishName">Name </label>
                                         <span class="required">*</span>
-                                       
-                                        <input  id="contactPersonEnglishName"
-                                                name="ContactPersonEnglishName"
-                                                [(ngModel)]="rfqItem.ContactPersonEnglishName" 
-                                                required minlength="3"
-                                                #contactPersonEnglishName="ngModel"
-                                                type="text"
-                                                class="form-control">
+
+                                        <input id="contactPersonEnglishName" name="ContactPersonEnglishName" [(ngModel)]="rfqItem.ContactPersonEnglishName" required
+                                                minlength="3" #contactPersonEnglishName="ngModel" type="text" class="form-control">
                                         <div class="alert alert-danger" *ngIf="contactPersonEnglishName.touched && !contactPersonEnglishName.valid">
                                                 <div *ngIf="contactPersonEnglishName.errors?.required">
-                                                <small>You can't leave this empty.</small>
+                                                        <small>You can't leave this empty.</small>
                                                 </div>
                                                 <div *ngIf="contactPersonEnglishName.errors?.minlength">
-                                                <small>Please use at least {{ contactPersonEnglishName.errors.minlength.requiredLength }} characters. </small>
+                                                        <small>Please use at least {{ contactPersonEnglishName.errors.minlength.requiredLength
+                                                                }} characters. </small>
                                                 </div>
                                         </div>
                                 </div>
@@ -28,10 +24,7 @@
                                 <div class="form-group">
                                         <label for="companyEnglishName">Company Name</label>
                                         <span class="required">*</span>
-                                        <input id="companyEnglishName"
-                                                name="CompanyEnglishName" type="text"
-                                                [(ngModel)]="rfqItem.CompanyEnglishName" 
-                                                #companyEnglishName="ngModel"
+                                        <input id="companyEnglishName" name="CompanyEnglishName" type="text" [(ngModel)]="rfqItem.CompanyEnglishName" #companyEnglishName="ngModel"
                                                 class="form-control" required>
 
                                         <div class="alert alert-danger" *ngIf="companyEnglishName.touched && !companyEnglishName.valid">
@@ -41,17 +34,12 @@
                                 <div class="form-group">
                                         <label for="contactPersonEmail">E-mail</label>
                                         <span class="required">*</span>
-                                        <input id="contactPersonEmail"
-                                         name="ContactPersonEmail"
-                                         placeholder="email@domain.com"
-                                         type="email" class="form-control"
-                                         [(ngModel)]="rfqItem.ContactPersonEmail"
-                                         #Email="ngModel"
-                                         [email]="true" required>
+                                        <input id="contactPersonEmail" name="ContactPersonEmail" placeholder="email@domain.com" type="email" class="form-control"
+                                                [(ngModel)]="rfqItem.ContactPersonEmail" #Email="ngModel" [email]="true" required>
 
                                         <div class="alert alert-danger" *ngIf="Email.touched && !Email.valid">
                                                 <div *ngIf="!Email.errors.valid">
-                                                        <small>    Email is not valid </small>
+                                                        <small> Email is not valid </small>
                                                 </div>
                                         </div>
                                 </div>
@@ -62,42 +50,29 @@
                                         <div class="input-group">
                                                 <div class="input-group-prepend">
                                                         <div class="input-group-text">
-                                                                <select class="country-code" [(ngModel)]="phoneIntial" name="phoneIntial"  (change)="countryChange()">
-                                                                        <option 
-                                                                        class="dropdown-item"
-                                                                        *ngFor="let country of countries.countries" 
-                                                                        [value]="country.code">{{ country.code }}
-                                                                </option> 
+                                                                <input class="Searchtxt" type="text" (input)="Searchtxt($event.target.value)" placeholder="Your Country">
+                                                                <select class="country-code" [(ngModel)]="phoneIntial" name="phoneIntial" (change)="countryChange()">
+                                                                        <option class="dropdown-item" *ngFor="let country of countries.countries" [selected]="country.name.toLowerCase() === currentCuntry"
+                                                                                [value]="country.code">{{ country.code }}
+                                                                        </option>
                                                                 </select>
                                                         </div>
                                                 </div>
-                                                <input 
-                                                (change)="countryChange()"
-                                                [(ngModel)]="phone"
-                                                 id="Personphone"
-                                                 #PersonMobile="ngModel"
-                                                 pattern="[0-9]+"
-                                                 required
-                                                 minlength="10"
-                                                 maxlength="20"
-                                                 name="phone"
-                                                 type="text"
-                                                 class="form-control">
+                                                <input (change)="countryChange()" [(ngModel)]="phone" id="Personphone" #PersonMobile="ngModel" pattern="[0-9]+" required
+                                                        minlength="10" maxlength="20" name="phone" type="text" class="form-control">
 
-                                                 <input  
-                                                 name="ContactPersonMobile"
-                                                 type="hidden"
-                                                 [(ngModel)]="rfqItem.ContactPersonMobile">
+                                                <input name="ContactPersonMobile" type="hidden" [(ngModel)]="rfqItem.ContactPersonMobile">
                                         </div>
                                         <div class="alert alert-danger" *ngIf="PersonMobile.touched && !PersonMobile.valid">
                                                 <div *ngIf="PersonMobile.errors?.required">
-                                                        <small>    You can't leave this empty. </small>
+                                                        <small> You can't leave this empty. </small>
                                                 </div>
                                                 <div *ngIf="PersonMobile.errors?.pattern && PersonMobile.errors?.pattern">
-                                                        <small>    This phone number format is not recognized. </small>
+                                                        <small> This phone number format is not recognized. </small>
                                                 </div>
                                                 <div *ngIf="PersonMobile.errors?.minlength">
-                                                        <small>  Please use at least {{ PersonMobile.errors?.minlength.requiredLength }} characters. </small>
+                                                        <small> Please use at least {{ PersonMobile.errors?.minlength.requiredLength
+                                                                }} characters. </small>
                                                 </div>
                                         </div>
                                 </div>
@@ -105,34 +80,18 @@
                                 <div class="form-group">
                                         <label for="mobilphone">Phone Number</label>
                                         <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                                        <div class="input-group-text">
-                                                                                <select 
-                                                                                [(ngModel)]="mobilIntial" 
-                                                                                name="mobilIntial"  
-                                                                                (change)="countryChange()"
-                                                                                class="country-code">
-                                                                          <option 
-                                                                                class="dropdown-item"
-                                                                                *ngFor="let country of countries.countries" 
-                                                                                [value]="country.code">{{ country.code }}
-                                                                        </option>                                                                                
-                                                                                </select>
-                                                                        </div>
-                                                                </div>
-                                                   <input 
-                                                        id="mobilphone"
-                                                        name="mobilphone"
-                                                        type="number"
-                                                        (change)="countryChange()" 
-                                                        class="form-control"
-                                                        [(ngModel)]="mobilphone">
+                                                <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                                <input class="Searchtxt" type="text" (input)="Searchtxt2($event.target.value)" placeholder="Your Country">
+                                                                <select [(ngModel)]="mobilIntial" name="mobilIntial" (change)="countryChange()" class="country-code">
+                                                                        <option class="dropdown-item" *ngFor="let country of countries.countries" [value]="country.code" [selected]="country.name.toLowerCase() === currentCuntry2">{{ country.code }}
+                                                                        </option>
+                                                                </select>
+                                                        </div>
+                                                </div>
+                                                <input id="mobilphone" name="mobilphone" type="text" (change)="countryChange()" class="form-control" [(ngModel)]="mobilphone">
 
-                                                  <input 
-                                                        type="hidden" 
-                                                        class="form-control"
-                                                        name="PhoneNumber"
-                                                        [(ngModel)]="rfqItem.PhoneNumber">
+                                                <input type="hidden" class="form-control" name="PhoneNumber" [(ngModel)]="rfqItem.PhoneNumber">
                                         </div>
                                 </div>
 
@@ -140,24 +99,14 @@
                                 <div class="form-group">
                                         <label for="website">Website</label>
                                         <div class="input-group">
-                                            <input
-                                             id="website"
-                                             name="Website"
-                                             type="text" 
-                                             class="form-control"
-                                             [(ngModel)]="rfqItem.Website">
+                                                <input id="website" name="Website" type="text" class="form-control" [(ngModel)]="rfqItem.Website">
                                         </div>
                                 </div>
 
                                 <div class="form-group">
                                         <label for="website">Address</label>
                                         <div class="input-group">
-                                            <input
-                                             id="address"
-                                             name="Address"
-                                             type="text" 
-                                             class="form-control"
-                                             [(ngModel)]="rfqItem.Address">
+                                                <input id="address" name="Address" type="text" class="form-control" [(ngModel)]="rfqItem.Address">
                                         </div>
                                 </div>
 
@@ -165,13 +114,8 @@
                                         <label for="targetedProduct">Product :</label>
                                         &nbsp;&nbsp;
                                         <span class="font-weight-bold">
-                                                <input
-                                                 type="text"
-                                                 name="TargetedProduct"
-                                                 [(ngModel)]="rfqItem.TargetedProduct"
-                                                 readonly
-                                                 class="form-control-plaintext font-weight-bold"
-                                                 id="targetedProduct">
+                                                <input type="text" name="TargetedProduct" [(ngModel)]="rfqItem.TargetedProduct" readonly class="form-control-plaintext font-weight-bold"
+                                                        id="targetedProduct">
                                         </span>
                                 </div>
 
@@ -229,9 +173,9 @@
                                 </h5>
 
                                 <h5 class="card-title"> {{ rfqItem.ContactPersonEnglishName }} </h5>
-                                <p class="card-text">   {{ rfqItem.CompanyEnglishName }} </p>
-                                <p class="card-text">   {{ rfqItem.ContactPersonEmail }} </p>
-                                <p class="card-text">   {{ rfqItem.ContactPersonMobile }} </p>
+                                <p class="card-text"> {{ rfqItem.CompanyEnglishName }} </p>
+                                <p class="card-text"> {{ rfqItem.ContactPersonEmail }} </p>
+                                <p class="card-text"> {{ rfqItem.ContactPersonMobile }} </p>
                         </div>
                 </div>
         </div>

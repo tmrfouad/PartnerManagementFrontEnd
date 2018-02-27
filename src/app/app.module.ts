@@ -30,7 +30,7 @@ import { LoadingComponent } from './components/loading/loading.component';
 import { RfqStatusComponent } from './rfq/rfq-status/rfq-status.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NetworkService } from './services/network.service';
-
+import { CountryService } from './services/country.service';
 
 
 @NgModule({
@@ -70,7 +70,8 @@ import { NetworkService } from './services/network.service';
     OrderService,
     MailService,
     AuthGuard,
-    NetworkService
+    NetworkService,
+    CountryService
   ],
   bootstrap: [AppComponent]
 })
