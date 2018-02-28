@@ -30,8 +30,12 @@ import { LoadingComponent } from './components/loading/loading.component';
 import { RfqStatusComponent } from './rfq/rfq-status/rfq-status.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NetworkService } from './services/network.service';
+<<<<<<< HEAD
 import { RfqStatusListComponent } from './rfq/rfq-status-list/rfq-status-list.component';
 
+=======
+import { CountryService } from './services/country.service';
+>>>>>>> e9b77496bcf0ffe01589e8d966e82813c64de831
 
 
 @NgModule({
@@ -72,7 +76,8 @@ import { RfqStatusListComponent } from './rfq/rfq-status-list/rfq-status-list.co
     OrderService,
     MailService,
     AuthGuard,
-    NetworkService
+    NetworkService,
+    CountryService
   ],
   bootstrap: [AppComponent]
 })
