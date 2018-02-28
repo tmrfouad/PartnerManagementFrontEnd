@@ -1,3 +1,4 @@
+import { RfqActionEditFormComponent } from './../rfq-action-edit-form/rfq-action-edit-form.component';
 import 'rxjs/add/operator/switchMap';
 
 import { Component, Input } from '@angular/core';
@@ -8,6 +9,7 @@ import { RFQ } from './../../models/RFQ';
 import { RFQAction } from './../../models/RFQAction';
 import { RfqService } from './../../services/rfq.service';
 import { NetworkService } from '../../services/network.service';
+import { MatDialog, MatDialogRef } from '@angular/material';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -23,6 +25,7 @@ export class RfqActionFormComponent {
   actionTypeValues: string[];
   statusListHidden = true;
   reloadActions = false;
+  dialogRef: MatDialogRef<RfqActionEditFormComponent>;
 
   @Input('rfq') rfq: RFQ;
   get rfqStatus(): RFQAction {
@@ -34,7 +37,8 @@ export class RfqActionFormComponent {
 
   constructor(
     private rfqService: RfqService,
-    private netService: NetworkService) {
+    private netService: NetworkService,
+    private dialog: MatDialog) {
 
     const types = Object.keys(ActionType);
     this.actionType_Names = types.slice(types.length / 2);
@@ -66,5 +70,15 @@ export class RfqActionFormComponent {
 
   toggleStatusList() {
     this.statusListHidden = !this.statusListHidden;
+  }
+
+  editRfq() {
+    const dialogRef = this.dialog.open(RfqActionEditFormComponent, {
+      width: '250px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 }

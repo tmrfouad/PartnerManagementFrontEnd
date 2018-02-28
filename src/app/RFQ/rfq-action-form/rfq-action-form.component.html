@@ -20,7 +20,9 @@
     </ng-template>
     <div class="card-body row" *ngIf="rfq; else loading">
       <div class="col-12">
-        <a class="btn btn-link float-right" matTooltip="Edit Request" matTooltipPosition="above">
+        <a class="btn btn-link float-right"
+          matTooltip="Edit Request" matTooltipPosition="above"
+          (click)="editRfq()">
           <i class="fa fa-edit"></i>
         </a>
       </div>

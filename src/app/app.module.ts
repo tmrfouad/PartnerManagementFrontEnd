@@ -1,42 +1,35 @@
-import { RfqActionFormComponent } from './RFQ/rfq-action-form/rfq-action-form.component';
-import { AcceptService } from './services/accept.service';
-import { MailService } from './services/mail.service';
-import { OrderService } from './services/order-service.service';
-import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-import { HttpModule } from '@angular/http';
-
 import { RecaptchaModule } from 'ng-recaptcha';
 import { RecaptchaFormsModule } from 'ng-recaptcha/forms';
 
-import { FormsModule } from '@angular/forms';
-
 import { AppComponent } from './app.component';
+import { LoadingComponent } from './components/loading/loading.component';
 import { CustomerFormComponent } from './customers/customer-form/customer-form.component';
+import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
 import { MailSendComponent } from './mail-send/mail-send.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { HomeComponent } from './home/home.component';
-import { HttpClientModule } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDialogModule } from '@angular/material/dialog';
-import { AccountService } from './services/account.service';
-import { RfqService } from './services/rfq.service';
-import { LoginComponent } from './login/login.component';
-import { RfqListComponent } from './RFQ/rfq-list/rfq-list.component';
-import { RfqContainarComponent } from './RFQ/rfq-containar/rfq-containar.component';
-import { AuthGuard } from './services/auth-guard.service';
-import { LoadingComponent } from './components/loading/loading.component';
-import { RfqStatusComponent } from './rfq/rfq-status/rfq-status.component';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { NetworkService } from './services/network.service';
-<<<<<<< HEAD
-import { RfqStatusListComponent } from './rfq/rfq-status-list/rfq-status-list.component';
 import { RfqActionEditFormComponent } from './rfq/rfq-action-edit-form/rfq-action-edit-form.component';
-
-=======
+import { RfqActionFormComponent } from './RFQ/rfq-action-form/rfq-action-form.component';
+import { RfqContainarComponent } from './RFQ/rfq-containar/rfq-containar.component';
+import { RfqListComponent } from './RFQ/rfq-list/rfq-list.component';
+import { RfqStatusListComponent } from './rfq/rfq-status-list/rfq-status-list.component';
+import { RfqStatusComponent } from './rfq/rfq-status/rfq-status.component';
+import { AcceptService } from './services/accept.service';
+import { AccountService } from './services/account.service';
+import { AuthGuard } from './services/auth-guard.service';
 import { CountryService } from './services/country.service';
->>>>>>> e9b77496bcf0ffe01589e8d966e82813c64de831
+import { MailService } from './services/mail.service';
+import { NetworkService } from './services/network.service';
+import { OrderService } from './services/order-service.service';
+import { RfqService } from './services/rfq.service';
 
 
 @NgModule({
