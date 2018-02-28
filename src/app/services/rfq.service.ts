@@ -29,4 +29,9 @@ export class RfqService extends DataService {
     await this.config;
     return this.http.post(`${this.baseUrl + this.url}/addStatus/${id}`, action, { headers: this.headers });
   }
+
+  async updateStatus(id, actionId, action) {
+    await this.config;
+    return this.http.post(`${this.baseUrl + this.url}/updateStatus/${id}/${actionId}`, action, { headers: this.headers });
+  }
 }
