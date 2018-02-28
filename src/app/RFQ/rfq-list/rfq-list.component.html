@@ -9,6 +9,6 @@
         <a class="list-group-item card-text" (click)="filter(rfqItem, i)" *ngFor="let rfqItem of rfqList; let i = index"
             [class.active]="selectedIndex == i">
             {{ rfqItem.contactPersonEnglishName }}; {{ rfqItem.companyEnglishName}}; {{ rfqItem.contactPersonMobile }}
-        </a>
+        </a>  
     </div>
 </div>

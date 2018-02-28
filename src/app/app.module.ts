@@ -31,6 +31,7 @@ import { RfqStatusComponent } from './rfq/rfq-status/rfq-status.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NetworkService } from './services/network.service';
 import { CountryService } from './services/country.service';
+import { TestComponent } from './test/test.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { CountryService } from './services/country.service';
     RfqListComponent,
     RfqContainarComponent,
     LoadingComponent,
-    RfqStatusComponent
+    RfqStatusComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,
@@ -60,6 +62,7 @@ import { CountryService } from './services/country.service';
       { path: '', component: HomeComponent },
       { path: 'customer', component: CustomerFormComponent },
       { path: 'login', component: LoginComponent },
+      { path: 'test', component: TestComponent },
       { path: 'Rfq', component: RfqContainarComponent, canActivate: [AuthGuard] }
     ])
   ],

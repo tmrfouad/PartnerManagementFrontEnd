@@ -3,6 +3,8 @@ import { RFQ } from './../../models/RFQ';
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { RfqService } from '../../services/rfq.service';
 import { Observable } from 'rxjs/Observable';
+import { TestComponent } from '../../test/test.component';
+import { MatDialogRef, MatDialog } from '@angular/material';
 
 
 @Component({
@@ -17,6 +19,7 @@ export class RfqListComponent implements OnInit, OnDestroy {
   rfqListSubscription: Subscription;
   selectedIndex: number = null;
   constructor(private rfqService: RfqService) { }
+
 
   @Input('rfqId') rfqId: number;
   @Output('change') change = new EventEmitter();
@@ -40,6 +43,6 @@ export class RfqListComponent implements OnInit, OnDestroy {
     this.selectedIndex = index;
     this.change.emit(rfqItem);
   }
-
-
 }
+
+

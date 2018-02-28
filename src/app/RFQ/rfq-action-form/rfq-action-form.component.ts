@@ -8,6 +8,8 @@ import { RFQ } from './../../models/RFQ';
 import { RFQAction } from './../../models/RFQAction';
 import { RfqService } from './../../services/rfq.service';
 import { NetworkService } from '../../services/network.service';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { TestComponent } from '../../test/test.component';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -30,13 +32,15 @@ export class RfqActionFormComponent {
 
   constructor(
     private rfqService: RfqService,
-    private netService: NetworkService) {
+    private netService: NetworkService,
+    private dialog: MatDialog) {
 
     const types = Object.keys(ActionType);
     this.actionTypeNames = types.slice(types.length / 2).filter(a => a !== 'None');
     this.actionTypeValues = types.slice(0, types.length / 2).filter(a => a !== '0');
   }
 
+  dialogRef: MatDialogRef<TestComponent>;
   async addAction(actionTypeName: string) {
     const actionType: ActionType = ActionType[actionTypeName];
     const universalIP = await this.netService.getIp();
@@ -52,5 +56,19 @@ export class RfqActionFormComponent {
       .subscribe(newStatus => {
         this.rfqStatus = JSON.parse(newStatus);
       });
+  }
+
+  onClick(rfqItem) {
+    if (this.dialogRef == null) {
+      this.dialogRef = this.dialog.open(TestComponent,
+        {
+          width: '900px',
+          height: '600px',
+          position: { top: '80px' }
+        },
+      );
+      this.dialogRef.componentInstance.rfq = rfqItem;
+    }
+    this.dialogRef.afterClosed().subscribe(() => this.dialogRef = null);
   }
 }
