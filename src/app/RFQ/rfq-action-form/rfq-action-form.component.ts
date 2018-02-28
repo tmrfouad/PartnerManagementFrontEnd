@@ -25,6 +25,7 @@ export class RfqActionFormComponent {
   actionTypeValues: string[];
   statusListHidden = true;
   reloadActions = false;
+  dialogRef: MatDialogRef<RfqEditFormComponent>;
 
   @Input('rfq') rfq: RFQ;
   get rfqStatus(): RFQAction {
@@ -73,26 +74,12 @@ export class RfqActionFormComponent {
   }
 
   openDialog() {
-    const dialogRef = this.dialog.open(RfqEditFormComponent, {
-      width: '250px'
+    this.dialogRef = this.dialog.open(RfqEditFormComponent, {
+      width: '800px',
+      height: '550px',
+      position: { top: '100px' }
     });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
+    this.dialogRef.componentInstance.rfqParameterItem = this.rfq;
+    this.dialogRef.afterClosed().subscribe(() => this.dialogRef = null);
   }
-
-  // onClick(rfqItem) {
-  //   if (this.dialogRef == null) {
-  //     this.dialogRef = this.dialog.open(TestComponent,
-  //       {
-  //         width: '900px',
-  //         height: '600px',
-  //         position: { top: '80px' }
-  //       },
-  //     );
-  //     this.dialogRef.componentInstance.rfqParameterItem = rfqItem;
-  //   }
-  //   this.dialogRef.afterClosed().subscribe(() => this.dialogRef = null);
-  // }
 }

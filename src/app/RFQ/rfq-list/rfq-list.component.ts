@@ -3,7 +3,6 @@ import { RFQ } from './../../models/RFQ';
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { RfqService } from '../../services/rfq.service';
 import { Observable } from 'rxjs/Observable';
-import { TestComponent } from '../../test/test.component';
 import { MatDialogRef, MatDialog } from '@angular/material';
 
 

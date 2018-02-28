@@ -1,4 +1,3 @@
-import { RfqEditFormComponent } from './RFQ/rfq-edit-form/rfq-edit-form.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -19,6 +18,7 @@ import { MailSendComponent } from './mail-send/mail-send.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { RfqActionFormComponent } from './RFQ/rfq-action-form/rfq-action-form.component';
 import { RfqContainarComponent } from './RFQ/rfq-containar/rfq-containar.component';
+import { RfqEditFormComponent } from './RFQ/rfq-edit-form/rfq-edit-form.component';
 import { RfqListComponent } from './RFQ/rfq-list/rfq-list.component';
 import { RfqStatusListComponent } from './rfq/rfq-status-list/rfq-status-list.component';
 import { RfqStatusComponent } from './rfq/rfq-status/rfq-status.component';
@@ -61,7 +61,8 @@ import { RfqService } from './services/rfq.service';
       { path: '', component: HomeComponent },
       { path: 'customer', component: CustomerFormComponent },
       { path: 'login', component: LoginComponent },
-      { path: 'Rfq', component: RfqContainarComponent, canActivate: [AuthGuard] }
+      { path: 'Rfq', component: RfqContainarComponent, canActivate: [AuthGuard] },
+      { path: 'RfqEdit', component: RfqEditFormComponent, canActivate: [AuthGuard] }
     ])
   ],
   providers: [
