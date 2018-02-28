@@ -46,6 +46,7 @@ export class RfqActionFormComponent {
     this.actionTypeValues = types.slice(0, types.length / 2).filter(a => a !== '0');
   }
 
+  // dialogRef: MatDialogRef<TestComponent>;
   async addAction(actionTypeName: string) {
     const actionType: ActionType = ActionType[actionTypeName];
     const universalIP = await this.netService.getIp();
@@ -80,4 +81,18 @@ export class RfqActionFormComponent {
       console.log('The dialog was closed');
     });
   }
+
+  // onClick(rfqItem) {
+  //   if (this.dialogRef == null) {
+  //     this.dialogRef = this.dialog.open(TestComponent,
+  //       {
+  //         width: '900px',
+  //         height: '600px',
+  //         position: { top: '80px' }
+  //       },
+  //     );
+  //     this.dialogRef.componentInstance.rfqParameterItem = rfqItem;
+  //   }
+  //   this.dialogRef.afterClosed().subscribe(() => this.dialogRef = null);
+  // }
 }
