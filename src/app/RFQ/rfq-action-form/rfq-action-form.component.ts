@@ -67,7 +67,7 @@ export class RfqActionFormComponent {
           position: { top: '80px' }
         },
       );
-      this.dialogRef.componentInstance.rfq = rfqItem;
+      this.dialogRef.componentInstance.rfqParameterItem = rfqItem;
     }
     this.dialogRef.afterClosed().subscribe(() => this.dialogRef = null);
   }

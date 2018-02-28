@@ -16,25 +16,25 @@ import { MatDialogRef, MatDialog } from '@angular/material';
 })
 export class TestComponent implements OnInit {
   countries = Countries.items;
+  rfqParameterItem: RFQ = <RFQ> {};
   rfq: RFQ = <RFQ> {};
-  getedItem: RFQ = <RFQ> {};
 
   constructor(private rfqService: RfqService, private dialogRef: MatDialogRef<TestComponent>) {
   }
 
   ngOnInit() {
+    this.rfq = Object.assign({}, this.rfqParameterItem);
   }
 
   async submit(f) {
-    console.log(f);
-
-    // const rfqItem$ = await this.rfqService.Put(this.rfq.rfqId, f);
-    // rfqItem$.subscribe(() => {
-    //   alert('mission accomplished');
-    //   this.dialogRef.close();
-    // }, (error) => {
-    //   alert(error);
-    // });
+    const rfqItem$ = await this.rfqService.Put(this.rfq.rfqId, f);
+    rfqItem$.subscribe(() => {
+      this.rfqParameterItem = Object.assign(this.rfqParameterItem, this.rfq);
+      alert('request saved');
+      this.dialogRef.close();
+    }, (error) => {
+      alert(error.message);
+    });
 
   }
 
