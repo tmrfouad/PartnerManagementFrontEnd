@@ -1,3 +1,4 @@
+import { RfqEditFormComponent } from './RFQ/rfq-edit-form/rfq-edit-form.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -16,7 +17,6 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { MailSendComponent } from './mail-send/mail-send.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { RfqActionEditFormComponent } from './rfq/rfq-action-edit-form/rfq-action-edit-form.component';
 import { RfqActionFormComponent } from './RFQ/rfq-action-form/rfq-action-form.component';
 import { RfqContainarComponent } from './RFQ/rfq-containar/rfq-containar.component';
 import { RfqListComponent } from './RFQ/rfq-list/rfq-list.component';
@@ -46,7 +46,7 @@ import { RfqService } from './services/rfq.service';
     LoadingComponent,
     RfqStatusComponent,
     RfqStatusListComponent,
-    RfqActionEditFormComponent
+    RfqEditFormComponent
   ],
   imports: [
     BrowserModule,

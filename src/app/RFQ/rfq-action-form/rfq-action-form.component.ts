@@ -1,4 +1,3 @@
-import { RfqActionEditFormComponent } from './../rfq-action-edit-form/rfq-action-edit-form.component';
 import 'rxjs/add/operator/switchMap';
 
 import { Component, Input } from '@angular/core';
@@ -10,6 +9,7 @@ import { RFQAction } from './../../models/RFQAction';
 import { RfqService } from './../../services/rfq.service';
 import { NetworkService } from '../../services/network.service';
 import { MatDialog, MatDialogRef } from '@angular/material';
+import { RfqEditFormComponent } from '../rfq-edit-form/rfq-edit-form.component';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -25,7 +25,6 @@ export class RfqActionFormComponent {
   actionTypeValues: string[];
   statusListHidden = true;
   reloadActions = false;
-  dialogRef: MatDialogRef<RfqActionEditFormComponent>;
 
   @Input('rfq') rfq: RFQ;
   get rfqStatus(): RFQAction {
@@ -72,8 +71,8 @@ export class RfqActionFormComponent {
     this.statusListHidden = !this.statusListHidden;
   }
 
-  editRfq() {
-    const dialogRef = this.dialog.open(RfqActionEditFormComponent, {
+  openDialog() {
+    const dialogRef = this.dialog.open(RfqEditFormComponent, {
       width: '250px'
     });
 

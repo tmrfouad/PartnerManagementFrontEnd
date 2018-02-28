@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RfqActionEditFormComponent } from './rfq-action-edit-form.component';
+import { RfqEditFormComponent } from './rfq-edit-form.component';
 
-describe('RfqActionEditFormComponent', () => {
-  let component: RfqActionEditFormComponent;
-  let fixture: ComponentFixture<RfqActionEditFormComponent>;
+describe('RfqEditFormComponent', () => {
+  let component: RfqEditFormComponent;
+  let fixture: ComponentFixture<RfqEditFormComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RfqActionEditFormComponent ]
+      declarations: [ RfqEditFormComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RfqActionEditFormComponent);
+    fixture = TestBed.createComponent(RfqEditFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
