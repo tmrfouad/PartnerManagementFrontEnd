@@ -1,0 +1,110 @@
+<!-- RFQ Details -->
+<div class="card-deck">
+  <div class="card">
+    <div class="card-header bg-dark text-white">
+      <h3 class="d-inline-block">Request Details</h3>
+    </div>
+    <form #f="ngForm" (submit)="submit(f.value)">
+      <div class="card-body row">
+
+        <div class="col-6">
+          <span class="card-subtitle font-weight-bold">Request Code :</span>
+          <input type="text" readonly name="rfqCode" [value]="rfq.rfqCode" class="form-control">
+        </div>
+
+        <div class="col-6">
+          <span class="card-subtitle font-weight-bold">Company :</span>
+          <input type="text" name="companyEnglishName" [(ngModel)]="rfq.companyEnglishName" [value]="rfq.companyEnglishName" class="form-control">
+        </div>
+
+        <div class="col-6">
+          <span class="card-subtitle font-weight-bold">Contact Person :</span>
+          <input type="text" name="contactPersonEnglishName" [(ngModel)]="rfq.contactPersonEnglishName" [value]="rfq.contactPersonEnglishName"
+            class="form-control">
+        </div>
+
+        <div class="col-6">
+          <span class="card-subtitle font-weight-bold">Email :</span>
+          <input type="text" name="contactPersonEmail" [(ngModel)]="rfq.contactPersonEmail" [value]="rfq.contactPersonEmail" class="form-control">
+        </div>
+
+        <div class="col-6">
+          <span class="card-subtitle font-weight-bold">Mobile No. :</span>
+          <input type="text" name="contactPersonMobile" [(ngModel)]="rfq.contactPersonMobile" [value]="rfq.contactPersonMobile" class="form-control">
+        </div>
+
+        <div class="col-6">
+          <span class="card-subtitle font-weight-bold">Phone No. :</span>
+          <input type="text" name="phoneNumber" [(ngModel)]="rfq.phoneNumber" [value]="rfq.phoneNumber" class="form-control">
+        </div>
+
+        <div class="col-6">
+          <span class="card-subtitle font-weight-bold">Product :</span>
+          <input type="text" name="targetedProduct" [(ngModel)]="rfq.targetedProduct" [value]="rfq.targetedProduct" class="form-control">
+        </div>
+
+        <div class="col-6">
+          <span class="card-subtitle font-weight-bold">Bundle :</span>
+          <input type="text" name="selectedBundle" [(ngModel)]="rfq.selectedBundle" [value]="rfq.selectedBundle" class="form-control">
+        </div>
+
+        <div class="col-6">
+          <span class="card-subtitle font-weight-bold">Website :</span>
+          <input type="text" name="website" [(ngModel)]="rfq.website" [value]="rfq.website" class="form-control">
+        </div>
+
+        <div class="col-6">
+          <span class="card-subtitle font-weight-bold">Location :</span>
+          <input type="text" name="location" [(ngModel)]="rfq.location" [value]="rfq.location" class="form-control">
+        </div>
+
+        <div class="col-6">
+          <span class="card-subtitle font-weight-bold">Address :</span>
+          <input type="text" name="address" [(ngModel)]="rfq.address" [value]="rfq.address" class="form-control">
+        </div>
+
+        <div class="col-6">
+          <span class="card-subtitle font-weight-bold">Current Status :</span>
+          <input type="text" name="status" [(ngModel)]="rfq.status" [value]="rfq.status" class="form-control">
+        </div>
+
+        <div class="col-6 offset-6">
+          <div style="margin: 2px;">
+            <button type="submit" class="btn btn-primary">
+              Edit
+            </button>
+            <button type="button" class="btn btn-dark" (click)="closeDialog()">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <!-- <div class="card-footer" *ngIf="rfqStatus">
+      <div class="card-body row" *ngIf="rfqStatus; else loading">
+        <div class="col-6">
+          <span class="card-subtitle font-weight-bold">Action Code :</span>
+          <span class="card-text">{{ rfqStatus.actionCode }}</span>
+        </div>
+        <div class="col-6">
+          <span class="card-subtitle font-weight-bold">Action Time :</span>
+          <span class="card-text">{{ rfqStatus.actionTime | date:'yyyy/MM/dd HH:mm:ss' }}</span>
+        </div>
+        <div class="col-6">
+          <span class="card-subtitle font-weight-bold">Action Type :</span>
+          <span class="card-text">{{ actionTypeNames[rfqStatus.actionType] }}</span>
+        </div>
+        <div class="col-6">
+          <span class="card-subtitle font-weight-bold">Representative :</span>
+          <span class="card-text">{{ rfqStatus.companyRepresentative }}</span>
+        </div>
+        <div class="col-6">
+          <span class="card-subtitle font-weight-bold">Comments :</span>
+          <span class="card-text">{{ rfqStatus.comments }}</span>
+        </div>
+      </div>
+    </div> -->
+
+  </div>
+</div>

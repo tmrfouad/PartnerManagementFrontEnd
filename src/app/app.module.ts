@@ -32,6 +32,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { NetworkService } from './services/network.service';
 <<<<<<< HEAD
 import { RfqStatusListComponent } from './rfq/rfq-status-list/rfq-status-list.component';
+import { RfqActionEditFormComponent } from './rfq/rfq-action-edit-form/rfq-action-edit-form.component';
 
 =======
 import { CountryService } from './services/country.service';
@@ -51,7 +52,8 @@ import { CountryService } from './services/country.service';
     RfqContainarComponent,
     LoadingComponent,
     RfqStatusComponent,
-    RfqStatusListComponent
+    RfqStatusListComponent,
+    RfqActionEditFormComponent
   ],
   imports: [
     BrowserModule,
