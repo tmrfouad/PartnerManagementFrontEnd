@@ -17,8 +17,12 @@ import { NetworkService } from '../../services/network.service';
 })
 export class RfqActionFormComponent {
   private _rfqStatus: RFQAction;
+  actionType_Names: string[];
+  actionType_Values: string[];
   actionTypeNames: string[];
   actionTypeValues: string[];
+  statusListHidden = true;
+  reloadActions = false;
 
   @Input('rfq') rfq: RFQ;
   get rfqStatus(): RFQAction {
@@ -33,6 +37,8 @@ export class RfqActionFormComponent {
     private netService: NetworkService) {
 
     const types = Object.keys(ActionType);
+    this.actionType_Names = types.slice(types.length / 2);
+    this.actionType_Values = types.slice(0, types.length / 2);
     this.actionTypeNames = types.slice(types.length / 2).filter(a => a !== 'None');
     this.actionTypeValues = types.slice(0, types.length / 2).filter(a => a !== '0');
   }
@@ -48,9 +54,17 @@ export class RfqActionFormComponent {
       submissionTime: new Date(),
       universalIP: universalIP
     };
-    (await this.rfqService.addStatus(this.rfq.rfqId, action))
+    const addStatus$ = await this.rfqService.addStatus(this.rfq.rfqId, action);
+    await addStatus$.toPromise();
+    const getStatus$ = await this.rfqService.getStatus(this.rfq.rfqId);
+    getStatus$
       .subscribe(newStatus => {
-        this.rfqStatus = JSON.parse(newStatus);
+        this.rfqStatus = newStatus as RFQAction;
+        this.reloadActions = true;
       });
+  }
+
+  toggleStatusList() {
+    this.statusListHidden = !this.statusListHidden;
   }
 }

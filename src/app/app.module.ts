@@ -30,6 +30,7 @@ import { LoadingComponent } from './components/loading/loading.component';
 import { RfqStatusComponent } from './rfq/rfq-status/rfq-status.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NetworkService } from './services/network.service';
+import { RfqStatusListComponent } from './rfq/rfq-status-list/rfq-status-list.component';
 
 
 
@@ -45,7 +46,8 @@ import { NetworkService } from './services/network.service';
     RfqListComponent,
     RfqContainarComponent,
     LoadingComponent,
-    RfqStatusComponent
+    RfqStatusComponent,
+    RfqStatusListComponent
   ],
   imports: [
     BrowserModule,

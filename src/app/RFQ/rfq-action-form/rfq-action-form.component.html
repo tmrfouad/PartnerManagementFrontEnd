@@ -19,6 +19,11 @@
       <loading></loading>
     </ng-template>
     <div class="card-body row" *ngIf="rfq; else loading">
+      <div class="col-12">
+        <a class="btn btn-link float-right" matTooltip="Edit Request" matTooltipPosition="above">
+          <i class="fa fa-edit"></i>
+        </a>
+      </div>
       <div class="col-6">
         <span class="card-subtitle font-weight-bold">Request Code :</span>
         <span class="card-text">{{ rfq.rfqCode }}</span>
@@ -71,6 +76,10 @@
 
     <div class="card-footer" *ngIf="rfqStatus">
       <!-- Status -->
+      <h3 class="d-inline-block">Current Status :</h3>
+      <a class="btn btn-link float-right" matTooltip="Edit Status Action" matTooltipPosition="above">
+        <i class="fa fa-edit"></i>
+      </a>
       <div class="card-body row" *ngIf="rfqStatus; else loading">
         <div class="col-6">
           <span class="card-subtitle font-weight-bold">Action Code :</span>
@@ -82,7 +91,7 @@
         </div>
         <div class="col-6">
           <span class="card-subtitle font-weight-bold">Action Type :</span>
-          <span class="card-text">{{ actionTypeNames[rfqStatus.actionType] }}</span>
+          <span class="card-text">{{ actionType_Names[rfqStatus.actionType] }}</span>
         </div>
         <div class="col-6">
           <span class="card-subtitle font-weight-bold">Representative :</span>
@@ -95,6 +104,16 @@
       </div>
       <!-- <rfq-status [rfq]="rfq"></rfq-status> -->
       <!-- End of Status -->
+
+      <button class="btn btn-sm btn-outline-dark w-100" matTooltip="Show All Actions" matTooltipPosition="above" type="button"
+        (click)="toggleStatusList()">
+        <i class="fa fa-angle-double-down" *ngIf="statusListHidden"></i>
+        <i class="fa fa-angle-double-up" *ngIf="!statusListHidden"></i>
+      </button>
+
+      <!-- Status List -->
+      <rfq-status-list [rfq]="rfq" [reload]="reloadActions" [hidden]="statusListHidden"></rfq-status-list>
+      <!-- End of Status List -->
     </div>
   </div>
 </div>

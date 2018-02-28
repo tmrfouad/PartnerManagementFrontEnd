@@ -33,7 +33,8 @@ export class AccountService {
 
   async register(userName, password) {
     await this.config;
-    return this.http.post(this.baseUrl + '/register', { Email: userName, Password: password }, { headers: this.headers });
+    return this.http.post(this.baseUrl + '/register', { Email: userName, Password: password }, 
+      { responseType: 'text', headers: this.headers });
   }
 
 

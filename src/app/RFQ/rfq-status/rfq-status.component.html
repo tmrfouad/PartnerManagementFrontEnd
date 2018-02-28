@@ -1,25 +1,36 @@
 <ng-template #loading>
   <loading></loading>
 </ng-template>
-<div class="card-body row" *ngIf="rfqAction; else loading">
+<div class="card-body row" *ngIf="rfqStatus; else loading">
   <div class="col-6">
     <span class="card-subtitle font-weight-bold">Action Code :</span>
-    <span class="card-text">{{ rfqAction.ActionCode }}</span>
+    <span class="card-text">{{ rfqStatus.actionCode }}</span>
   </div>
   <div class="col-6">
     <span class="card-subtitle font-weight-bold">Action Time :</span>
-    <span class="card-text">{{ rfqAction.ActionTime }}</span>
+    <span class="card-text">{{ rfqStatus.actionTime | date:'yyyy/MM/dd HH:mm:ss' }}</span>
   </div>
   <div class="col-6">
     <span class="card-subtitle font-weight-bold">Action Type :</span>
-    <span class="card-text">{{ rfqAction.ActionType }}</span>
+    <span class="card-text">{{ actionType_Names[rfqStatus.actionType] }}</span>
   </div>
   <div class="col-6">
     <span class="card-subtitle font-weight-bold">Representative :</span>
-    <span class="card-text">{{ rfqAction.CompanyRepresentative }}</span>
+    <span class="card-text">{{ rfqStatus.companyRepresentative }}</span>
   </div>
   <div class="col-6">
     <span class="card-subtitle font-weight-bold">Comments :</span>
-    <span class="card-text">{{ rfqAction.Comments }}</span>
+    <span class="card-text">{{ rfqStatus.comments }}</span>
   </div>
 </div>
+<!-- End of Status -->
+
+<button class="btn btn-sm btn-primary"
+type="button" (click)="toggleStatusList()">
+<i class="fa fa-angle-down" *ngIf="statusListHidden"></i>
+<i class="fa fa-angle-up" *ngIf="!statusListHidden"></i>
+</button>
+
+<!-- Status List -->
+<rfq-status-list [rfq]="rfq" [hidden]="statusListHidden"></rfq-status-list>
+<!-- End of Status List -->

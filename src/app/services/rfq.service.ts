@@ -20,8 +20,13 @@ export class RfqService extends DataService {
     return this.http.get(`${this.baseUrl + this.url}/status/${id}`, { headers: this.headers });
   }
 
+  async getActions(id) {
+    await this.config;
+    return this.http.get(`${this.baseUrl + this.url}/actions/${id}`, { headers: this.headers });
+  }
+
   async addStatus(id, action) {
     await this.config;
-    return this.http.post(`${this.baseUrl + this.url}/addStatus/${id}`, action, { responseType: 'text', headers: this.headers });
+    return this.http.post(`${this.baseUrl + this.url}/addStatus/${id}`, action, { headers: this.headers });
   }
 }
