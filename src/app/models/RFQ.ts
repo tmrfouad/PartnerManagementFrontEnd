@@ -12,6 +12,7 @@ export interface RFQ {
     address: string;
     status: string;
     submissionTime: Date;
+    universalIP: string;
     location: string;
     phoneNumber: string;
     rfqCode: number;

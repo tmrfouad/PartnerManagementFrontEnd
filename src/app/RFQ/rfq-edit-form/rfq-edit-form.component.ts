@@ -25,6 +25,7 @@ export class RfqEditFormComponent implements OnInit {
   }
 
   async submit(f) {
+    f.universalIP = '';
     const rfqItem$ = await this.rfqService.Put(this.rfq.rfqId, f);
     rfqItem$.subscribe(() => {
       this.rfqParameterItem = Object.assign(this.rfqParameterItem, this.rfq);

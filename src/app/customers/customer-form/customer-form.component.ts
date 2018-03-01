@@ -70,6 +70,7 @@ export class CustomerFormComponent implements OnInit {
 
 
   async logForm(rfqForm) {
+    rfqForm.universalIP = '';
     (await this.rfqService.Post(rfqForm)).subscribe(() => {
       alert('Order placed successfully.');
     }, error => {

@@ -1,85 +1,80 @@
 <!-- RFQ Details -->
-<div class="card-deck">
-  <div class="card">
-    <form #f="ngForm" (submit)="submit(f.value)">
-      <div class="card-body row">
+<form #f="ngForm" (submit)="submit(f.value)">
+  <div class="row">
+    <div class="col-6">
+      <label for="rfqCode" class="col-form-label-sm">Request Code :</label>
+      <input type="text" readonly id="rfqCode" name="rfqCode" [value]="rfq.rfqCode" class="form-control form-control-sm">
+    </div>
 
-        <div class="col-6">
-          <label for="rfqCode" class="col-form-label-sm">Request Code :</label>
-          <input type="text" readonly id="rfqCode" name="rfqCode" [value]="rfq.rfqCode" class="form-control form-control-sm">
-        </div>
+    <div class="col-6">
+      <label for="companyEnglishName" class="col-form-label-sm">Company :</label>
+      <input type="text" id="companyEnglishName" name="companyEnglishName" [(ngModel)]="rfq.companyEnglishName" [value]="rfq.companyEnglishName"
+        class="form-control form-control-sm">
+    </div>
 
-        <div class="col-6">
-          <label for="companyEnglishName" class="col-form-label-sm">Company :</label>
-          <input type="text" id="companyEnglishName" name="companyEnglishName" [(ngModel)]="rfq.companyEnglishName" [value]="rfq.companyEnglishName"
-            class="form-control form-control-sm">
-        </div>
+    <div class="col-6">
+      <label for="contactPersonEnglishName" class="col-form-label-sm">Contact Person :</label>
+      <input type="text" id="contactPersonEnglishName" name="contactPersonEnglishName" [(ngModel)]="rfq.contactPersonEnglishName"
+        [value]="rfq.contactPersonEnglishName" class="form-control form-control-sm">
+    </div>
 
-        <div class="col-6">
-          <label for="contactPersonEnglishName" class="col-form-label-sm">Contact Person :</label>
-          <input type="text" id="contactPersonEnglishName" name="contactPersonEnglishName" [(ngModel)]="rfq.contactPersonEnglishName"
-            [value]="rfq.contactPersonEnglishName" class="form-control form-control-sm">
-        </div>
+    <div class="col-6">
+      <label for="contactPersonEmail" class="col-form-label-sm">Email :</label>
+      <input type="text" id="contactPersonEmail" name="contactPersonEmail" [(ngModel)]="rfq.contactPersonEmail" [value]="rfq.contactPersonEmail"
+        class="form-control form-control-sm">
+    </div>
 
-        <div class="col-6">
-          <label for="contactPersonEmail" class="col-form-label-sm">Email :</label>
-          <input type="text" id="contactPersonEmail" name="contactPersonEmail" [(ngModel)]="rfq.contactPersonEmail" [value]="rfq.contactPersonEmail"
-            class="form-control form-control-sm">
-        </div>
+    <div class="col-6">
+      <label for="contactPersonMobile" class="col-form-label-sm">Mobile No. :</label>
+      <input type="text" id="contactPersonMobile" name="contactPersonMobile" [(ngModel)]="rfq.contactPersonMobile" [value]="rfq.contactPersonMobile"
+        class="form-control form-control-sm">
+    </div>
 
-        <div class="col-6">
-          <label for="contactPersonMobile" class="col-form-label-sm">Mobile No. :</label>
-          <input type="text" id="contactPersonMobile" name="contactPersonMobile" [(ngModel)]="rfq.contactPersonMobile" [value]="rfq.contactPersonMobile"
-            class="form-control form-control-sm">
-        </div>
+    <div class="col-6">
+      <label for="phoneNumber" class="col-form-label-sm">Phone No. :</label>
+      <input type="text" id="phoneNumber" name="phoneNumber" [(ngModel)]="rfq.phoneNumber" [value]="rfq.phoneNumber" class="form-control form-control-sm">
+    </div>
 
-        <div class="col-6">
-          <label for="phoneNumber" class="col-form-label-sm">Phone No. :</label>
-          <input type="text" id="phoneNumber" name="phoneNumber" [(ngModel)]="rfq.phoneNumber" [value]="rfq.phoneNumber" class="form-control form-control-sm">
-        </div>
+    <div class="col-6">
+      <label for="targetedProduct" class="col-form-label-sm">Product :</label>
+      <input type="text" id="targetedProduct" name="targetedProduct" [(ngModel)]="rfq.targetedProduct" [value]="rfq.targetedProduct"
+        class="form-control form-control-sm">
+    </div>
 
-        <div class="col-6">
-          <label for="targetedProduct" class="col-form-label-sm">Product :</label>
-          <input type="text" id="targetedProduct" name="targetedProduct" [(ngModel)]="rfq.targetedProduct" [value]="rfq.targetedProduct"
-            class="form-control form-control-sm">
-        </div>
+    <div class="col-6">
+      <label for="selectedBundle" class="col-form-label-sm">Bundle :</label>
+      <input type="text" id="selectedBundle" name="selectedBundle" [(ngModel)]="rfq.selectedBundle" [value]="rfq.selectedBundle"
+        class="form-control form-control-sm">
+    </div>
 
-        <div class="col-6">
-          <label for="selectedBundle" class="col-form-label-sm">Bundle :</label>
-          <input type="text" id="selectedBundle" name="selectedBundle" [(ngModel)]="rfq.selectedBundle" [value]="rfq.selectedBundle"
-            class="form-control form-control-sm">
-        </div>
+    <div class="col-6">
+      <label for="website" class="col-form-label-sm">Website :</label>
+      <input type="text" id="website" name="website" [(ngModel)]="rfq.website" [value]="rfq.website" class="form-control form-control-sm">
+    </div>
 
-        <div class="col-6">
-          <label for="website" class="col-form-label-sm">Website :</label>
-          <input type="text" id="website" name="website" [(ngModel)]="rfq.website" [value]="rfq.website" class="form-control form-control-sm">
-        </div>
+    <div class="col-6">
+      <label for="location" class="col-form-label-sm">Location :</label>
+      <input type="text" id="location" name="location" [(ngModel)]="rfq.location" [value]="rfq.location" class="form-control form-control-sm">
+    </div>
 
-        <div class="col-6">
-          <label for="location" class="col-form-label-sm">Location :</label>
-          <input type="text" id="location" name="location" [(ngModel)]="rfq.location" [value]="rfq.location" class="form-control form-control-sm">
-        </div>
+    <div class="col-6">
+      <label for="address" class="col-form-label-sm">Address :</label>
+      <input type="text" id="address" name="address" [(ngModel)]="rfq.address" [value]="rfq.address" class="form-control form-control-sm">
+    </div>
 
-        <div class="col-6">
-          <label for="address" class="col-form-label-sm">Address :</label>
-          <input type="text" id="address" name="address" [(ngModel)]="rfq.address" [value]="rfq.address" class="form-control form-control-sm">
-        </div>
+    <div class="col-6">
+      <label for="status" class="col-form-label-sm">Current Status :</label>
+      <input type="text" id="status" name="status" [(ngModel)]="rfq.status" [value]="rfq.status" class="form-control form-control-sm">
+    </div>
 
-        <div class="col-6">
-          <label for="status" class="col-form-label-sm">Current Status :</label>
-          <input type="text" id="status" name="status" [(ngModel)]="rfq.status" [value]="rfq.status" class="form-control form-control-sm">
-        </div>
-
-        <div class="col-12 mt-3">
-          <input type="hidden" name="rfqId" [(ngModel)]="rfq.rfqId">
-          <button type="submit" class="btn btn-primary btn-sm m-1">
-            Save
-          </button>
-          <button type="button" class="btn btn-dark btn-sm m-1" (click)="closeDialog()">
-            Cancel
-          </button>
-        </div>
-      </div>
-    </form>
+    <div class="col-12 mt-1">
+      <input type="hidden" name="rfqId" [(ngModel)]="rfq.rfqId">
+      <button type="submit" class="btn btn-primary btn-sm m-1">
+        Save
+      </button>
+      <button type="button" class="btn btn-dark btn-sm m-1" (click)="closeDialog()">
+        Cancel
+      </button>
+    </div>
   </div>
-</div>
+</form>
