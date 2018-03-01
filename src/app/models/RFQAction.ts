@@ -1,7 +1,7 @@
 import { ActionType } from './ActionType';
 
 export interface RFQAction {
-    actionId?: number;
+    id?: number;
     actionCode?: string;
     actionTime: Date;
     actionType: ActionType;
