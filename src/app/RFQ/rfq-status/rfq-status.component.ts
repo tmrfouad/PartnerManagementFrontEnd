@@ -13,6 +13,7 @@ import { ActionType } from '../../models/ActionType';
 export class RfqStatusComponent implements OnInit, OnDestroy {
   private _rfq;
   rfqAction;
+  rfqStatus;
   actionType_Names: string[];
   actionType_Values: string[];
   statusListHidden = true;

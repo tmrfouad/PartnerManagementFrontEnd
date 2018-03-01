@@ -32,6 +32,7 @@ import { MailService } from './services/mail.service';
 import { NetworkService } from './services/network.service';
 import { OrderService } from './services/order-service.service';
 import { RfqService } from './services/rfq.service';
+import { StatusEditFormComponent } from './rfq/status-edit-form/status-edit-form.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { RfqService } from './services/rfq.service';
     RfqStatusListComponent,
     RfqEditFormComponent,
     StatusEditComponent,
-    StatusLisEditComponent
+    StatusLisEditComponent,
+    StatusEditFormComponent
   ],
   imports: [
     BrowserModule,
