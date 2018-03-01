@@ -10,6 +10,7 @@ import { RfqService } from './../../services/rfq.service';
 import { NetworkService } from '../../services/network.service';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { RfqEditFormComponent } from '../rfq-edit-form/rfq-edit-form.component';
+import { StatusEditComponent } from '../status-edit/status-edit.component';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -25,7 +26,8 @@ export class RfqActionFormComponent {
   actionTypeValues: string[];
   statusListHidden = true;
   reloadActions = false;
-  dialogRef: MatDialogRef<RfqEditFormComponent>;
+  rfqDialogRef: MatDialogRef<RfqEditFormComponent>;
+  StatusDialogRef: MatDialogRef<StatusEditComponent>;
 
   @Input('rfq') rfq: RFQ;
   get rfqStatus(): RFQAction {
@@ -73,13 +75,23 @@ export class RfqActionFormComponent {
     this.statusListHidden = !this.statusListHidden;
   }
 
-  openDialog() {
-    this.dialogRef = this.dialog.open(RfqEditFormComponent, {
+  openRfqEditDialog() {
+    this.rfqDialogRef = this.dialog.open(RfqEditFormComponent, {
       width: '800px',
-      height: '550px',
+      height: '530px',
       position: { top: '100px' }
     });
-    this.dialogRef.componentInstance.rfqParameterItem = this.rfq;
-    this.dialogRef.afterClosed().subscribe(() => this.dialogRef = null);
+    this.rfqDialogRef.componentInstance.rfqParameterItem = this.rfq;
+    this.rfqDialogRef.afterClosed().subscribe(() => this.rfqDialogRef = null);
+  }
+
+  openStatusEditDialog(action: RFQAction) {
+    this.StatusDialogRef = this.dialog.open(StatusEditComponent, {
+      width: '800px',
+      height: '530px',
+      position: { top: '100px' }
+    });
+    this.StatusDialogRef.componentInstance.action = action;
+    this.StatusDialogRef.afterClosed().subscribe(() => this.rfqDialogRef = null);
   }
 }

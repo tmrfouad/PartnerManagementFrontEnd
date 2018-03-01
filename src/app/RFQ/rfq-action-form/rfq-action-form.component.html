@@ -22,7 +22,7 @@
       <div class="col-12">
         <a class="btn btn-link float-right"
           matTooltip="Edit Request" matTooltipPosition="above"
-          (click)="openDialog()">
+          (click)="openRfqEditDialog()">
           <i class="fa fa-edit"></i>
         </a>
       </div>
@@ -79,7 +79,8 @@
     <div class="card-footer" *ngIf="rfqStatus">
       <!-- Status -->
       <h3 class="d-inline-block">Current Status :</h3>
-      <a class="btn btn-link float-right" matTooltip="Edit Status Action" matTooltipPosition="above">
+      <a class="btn btn-link float-right" (click)="openStatusEditDialog()"
+        matTooltip="Edit Status Action" matTooltipPosition="above">
         <i class="fa fa-edit"></i>
       </a>
       <div class="card-body row" *ngIf="rfqStatus; else loading">

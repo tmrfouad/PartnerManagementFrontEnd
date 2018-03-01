@@ -30,7 +30,7 @@ import { MailService } from './services/mail.service';
 import { NetworkService } from './services/network.service';
 import { OrderService } from './services/order-service.service';
 import { RfqService } from './services/rfq.service';
-
+import { StatusEditComponent } from './RFQ/status-edit/status-edit.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +46,8 @@ import { RfqService } from './services/rfq.service';
     LoadingComponent,
     RfqStatusComponent,
     RfqStatusListComponent,
-    RfqEditFormComponent
+    RfqEditFormComponent,
+    StatusEditComponent
   ],
   imports: [
     BrowserModule,
@@ -61,9 +62,12 @@ import { RfqService } from './services/rfq.service';
       { path: '', component: HomeComponent },
       { path: 'customer', component: CustomerFormComponent },
       { path: 'login', component: LoginComponent },
-      { path: 'Rfq', component: RfqContainarComponent, canActivate: [AuthGuard] },
-      { path: 'RfqEdit', component: RfqEditFormComponent, canActivate: [AuthGuard] }
+      { path: 'Rfq', component: RfqContainarComponent, canActivate: [AuthGuard] }
     ])
+  ],
+  entryComponents: [
+    RfqEditFormComponent,
+    StatusEditComponent
   ],
   providers: [
     RfqService,

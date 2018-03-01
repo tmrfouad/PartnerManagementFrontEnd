@@ -15,7 +15,9 @@ export class RfqEditFormComponent implements OnInit {
   rfqParameterItem: RFQ = <RFQ> {};
   rfq: RFQ = <RFQ> {};
 
-  constructor(private rfqService: RfqService, private dialogRef: MatDialogRef<RfqEditFormComponent>) {
+  constructor(
+    private rfqService: RfqService,
+    private dialogRef: MatDialogRef<RfqEditFormComponent>) {
   }
 
   ngOnInit() {
