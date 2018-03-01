@@ -13,7 +13,7 @@
       <td>{{ action.actionTime | date:'yyyy/MM/dd HH:mm:ss' }}</td>
       <td>{{ actionType_Names[action.actionType] }}</td>
       <td>
-        <a class="btn btn-link" matTooltip="Edit Action" matTooltipPosition="above">
+        <a class="btn btn-link" matTooltip="Edit Action" matTooltipPosition="above" (click)="openStatusEditDialog(action)">
           <i class="fa fa-edit"></i>
         </a>
       </td>

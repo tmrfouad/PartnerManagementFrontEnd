@@ -1,7 +1,10 @@
+import { StatusEditComponent } from './../status-edit/status-edit.component';
 import { RfqService } from './../../services/rfq.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { RFQ } from '../../models/RFQ';
 import { ActionType } from './../../models/ActionType';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { RFQAction } from '../../models/RFQAction';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -15,7 +18,7 @@ export class RfqStatusListComponent implements OnInit {
   rfqActions$;
   actionType_Names: string[];
   actionType_Values: string[];
-
+  StatusDialogRef: MatDialogRef<StatusEditComponent>;
   get rfq(): RFQ {
     return this._rfq;
   }
@@ -41,13 +44,23 @@ export class RfqStatusListComponent implements OnInit {
     }
   }
 
-  constructor(private rfqService: RfqService) {
+  constructor(private rfqService: RfqService, private dialog: MatDialog) {
     const types = Object.keys(ActionType);
     this.actionType_Names = types.slice(types.length / 2);
     this.actionType_Values = types.slice(0, types.length / 2);
   }
 
   ngOnInit() {
+  }
+
+  openStatusEditDialog(action: RFQAction) {
+    // this.StatusDialogRef = this.dialog.open(StatusEditComponent, {
+    //   width: '800px',
+    //   height: '530px',
+    //   position: { top: '100px' }
+    // });
+    // this.StatusDialogRef.componentInstance.action = action;
+    // this.StatusDialogRef.afterClosed().subscribe(() => this.StatusDialogRef = null);
   }
 
 }
