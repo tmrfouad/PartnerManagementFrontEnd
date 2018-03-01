@@ -15,7 +15,8 @@ export class StatusEditComponent implements OnInit {
   rfqStatus: RFQAction = <RFQAction> {};
 
   constructor(private rfqService: RfqService,
-    private dialogRef: MatDialogRef<RfqEditFormComponent>) {
+              private dialogRef: MatDialogRef<StatusEditComponent>
+    ) {
     }
 
   ngOnInit() {

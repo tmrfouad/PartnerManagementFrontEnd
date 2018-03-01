@@ -22,6 +22,8 @@ import { RfqEditFormComponent } from './RFQ/rfq-edit-form/rfq-edit-form.componen
 import { RfqListComponent } from './RFQ/rfq-list/rfq-list.component';
 import { RfqStatusListComponent } from './rfq/rfq-status-list/rfq-status-list.component';
 import { RfqStatusComponent } from './rfq/rfq-status/rfq-status.component';
+import { StatusEditComponent } from './RFQ/status-edit/status-edit.component';
+import { StatusLisEditComponent } from './rfq/status-lis-edit/status-lis-edit.component';
 import { AcceptService } from './services/accept.service';
 import { AccountService } from './services/account.service';
 import { AuthGuard } from './services/auth-guard.service';
@@ -30,7 +32,6 @@ import { MailService } from './services/mail.service';
 import { NetworkService } from './services/network.service';
 import { OrderService } from './services/order-service.service';
 import { RfqService } from './services/rfq.service';
-import { StatusEditComponent } from './RFQ/status-edit/status-edit.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { StatusEditComponent } from './RFQ/status-edit/status-edit.component';
     RfqStatusComponent,
     RfqStatusListComponent,
     RfqEditFormComponent,
-    StatusEditComponent
+    StatusEditComponent,
+    StatusLisEditComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +69,8 @@ import { StatusEditComponent } from './RFQ/status-edit/status-edit.component';
   ],
   entryComponents: [
     RfqEditFormComponent,
-    StatusEditComponent
+    StatusEditComponent,
+    StatusLisEditComponent
   ],
   providers: [
     RfqService,
