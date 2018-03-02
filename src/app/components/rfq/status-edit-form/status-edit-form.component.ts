@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { RFQAction } from '../../models/RFQAction';
-import { RfqService } from '../../services/rfq.service';
+import { RFQAction } from '../../../models/RFQAction';
+import { RfqService } from '../../../services/rfq.service';
 
 @Component({
   // tslint:disable-next-line:component-selector

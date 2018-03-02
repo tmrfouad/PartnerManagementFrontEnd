@@ -1,6 +1,6 @@
 import { Subscription } from 'rxjs/Subscription';
-import { RFQ } from './../../models/RFQ';
-import { RfqService } from './../../services/rfq.service';
+import { RFQ } from './../../../models/RFQ';
+import { RfqService } from './../../../services/rfq.service';
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import 'rxjs/add/operator/switchMap';

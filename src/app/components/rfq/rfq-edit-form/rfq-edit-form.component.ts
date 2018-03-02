@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
-import { Countries } from '../../models/countries';
-import { RFQ } from '../../models/RFQ';
-import { RfqService } from '../../services/rfq.service';
+import { Countries } from '../../../models/countries';
+import { RFQ } from '../../../models/RFQ';
+import { RfqService } from '../../../services/rfq.service';
 
 @Component({
   // tslint:disable-next-line:component-selector

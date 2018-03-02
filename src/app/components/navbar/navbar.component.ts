@@ -1,5 +1,5 @@
-import { AccountService } from './../services/account.service';
-import { CustomerFormComponent } from './../customers/customer-form/customer-form.component';
+import { AccountService } from '../../services/account.service';
+import { CustomerFormComponent } from '../customer-form/customer-form.component';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';

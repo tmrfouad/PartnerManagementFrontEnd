@@ -1,7 +1,7 @@
 import { Subscription } from 'rxjs/Subscription';
-import { RFQ } from './../../models/RFQ';
+import { RFQ } from './../../../models/RFQ';
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { RfqService } from '../../services/rfq.service';
+import { RfqService } from '../../../services/rfq.service';
 import { Observable } from 'rxjs/Observable';
 import { MatDialogRef, MatDialog } from '@angular/material';
 

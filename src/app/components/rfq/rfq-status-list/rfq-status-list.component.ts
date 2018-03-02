@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 
-import { RFQ } from '../../models/RFQ';
-import { RFQAction } from '../../models/RFQAction';
+import { RFQ } from '../../../models/RFQ';
+import { RFQAction } from '../../../models/RFQAction';
 import { StatusLisEditComponent } from '../status-lis-edit/status-lis-edit.component';
-import { ActionType } from './../../models/ActionType';
-import { RfqService } from './../../services/rfq.service';
+import { ActionType } from './../../../models/ActionType';
+import { RfqService } from './../../../services/rfq.service';
 
 @Component({
   // tslint:disable-next-line:component-selector

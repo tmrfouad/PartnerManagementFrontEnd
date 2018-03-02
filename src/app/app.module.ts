@@ -11,19 +11,19 @@ import { RecaptchaFormsModule } from 'ng-recaptcha/forms';
 
 import { AppComponent } from './app.component';
 import { LoadingComponent } from './components/loading/loading.component';
-import { CustomerFormComponent } from './customers/customer-form/customer-form.component';
-import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
-import { MailSendComponent } from './mail-send/mail-send.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { RfqActionFormComponent } from './RFQ/rfq-action-form/rfq-action-form.component';
-import { RfqContainarComponent } from './RFQ/rfq-containar/rfq-containar.component';
-import { RfqEditFormComponent } from './RFQ/rfq-edit-form/rfq-edit-form.component';
-import { RfqListComponent } from './RFQ/rfq-list/rfq-list.component';
-import { RfqStatusListComponent } from './rfq/rfq-status-list/rfq-status-list.component';
-import { RfqStatusComponent } from './rfq/rfq-status/rfq-status.component';
-import { StatusEditComponent } from './RFQ/status-edit/status-edit.component';
-import { StatusLisEditComponent } from './rfq/status-lis-edit/status-lis-edit.component';
+import { CustomerFormComponent } from './components/customer-form/customer-form.component';
+import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './components/login/login.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { RfqActionFormComponent } from './components/rfq/rfq-action-form/rfq-action-form.component';
+import { RfqContainarComponent } from './components/rfq/rfq-containar/rfq-containar.component';
+import { RfqEditFormComponent } from './components/rfq/rfq-edit-form/rfq-edit-form.component';
+import { RfqListComponent } from './components/rfq/rfq-list/rfq-list.component';
+import { RfqStatusListComponent } from './components/rfq/rfq-status-list/rfq-status-list.component';
+import { RfqStatusComponent } from './components/rfq/rfq-status/rfq-status.component';
+import { StatusEditFormComponent } from './components/rfq/status-edit-form/status-edit-form.component';
+import { StatusEditComponent } from './components/rfq/status-edit/status-edit.component';
+import { StatusLisEditComponent } from './components/rfq/status-lis-edit/status-lis-edit.component';
 import { AcceptService } from './services/accept.service';
 import { AccountService } from './services/account.service';
 import { AuthGuard } from './services/auth-guard.service';
@@ -32,13 +32,11 @@ import { MailService } from './services/mail.service';
 import { NetworkService } from './services/network.service';
 import { OrderService } from './services/order-service.service';
 import { RfqService } from './services/rfq.service';
-import { StatusEditFormComponent } from './rfq/status-edit-form/status-edit-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CustomerFormComponent,
-    MailSendComponent,
     NavbarComponent,
     HomeComponent,
     LoginComponent,

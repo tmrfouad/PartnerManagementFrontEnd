@@ -1,4 +1,4 @@
-import { CustomerFormComponent } from './../customers/customer-form/customer-form.component';
+import { CustomerFormComponent } from '../customer-form/customer-form.component';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 

@@ -1,10 +1,10 @@
-import { Country } from './../../models/Country';
-import { CountryService } from './../../services/country.service';
-import { RfqService } from './../../services/rfq.service';
-import { AcceptService } from './../../services/accept.service';
+import { Country } from '../../models/Country';
+import { CountryService } from '../../services/country.service';
+import { RfqService } from '../../services/rfq.service';
+import { AcceptService } from '../../services/accept.service';
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
-import { Countries } from './../../models/countries';
+import { Countries } from '../../models/countries';
 
 @Component({
   // tslint:disable-next-line:component-selector
