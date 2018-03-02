@@ -14,7 +14,9 @@
     </div>
     <div class="col-6">
       <span class="card-subtitle font-weight-bold">Action Type :</span>
-      <input type="text" [(ngModel)]="rfqStatus.actionType" name="actionType" class="form-control">
+      <select name="actionType" id="actionType" class="form-control" [(ngModel)]="rfqStatus.actionType">
+        <option *ngFor="let type of action_Types" [value]="type.value">{{ type.name }}</option>
+      </select>
     </div>
     <div class="col-6">
       <span class="card-subtitle font-weight-bold">Representative :</span>
