@@ -19,7 +19,8 @@ export class StatusEditFormComponent implements OnInit {
 
   @Input('action') action: RFQAction = <RFQAction>{};
   rfqStatus: RFQAction = <RFQAction>{};
-
+  @Input('rfqOptions') rfqOptions: { rfqId: number, addStatus: boolean } =
+    { rfqId: 0, addStatus: false } ;
   @Output('closed') closed = new EventEmitter();
 
   constructor(private rfqService: RfqService) {
@@ -43,11 +44,22 @@ export class StatusEditFormComponent implements OnInit {
   }
 
   async logForm(f: RFQAction) {
-    const rfq$ = await this.rfqService.updateStatus(this.action.rfqId, this.action.id, f);
-    rfq$.toPromise().then(() => {
-      this.action = Object.assign(this.action, this.rfqStatus);
-      this.closed.emit();
-    });
+    if (!this.rfqOptions.addStatus) {
+      const rfq$ = await this.rfqService.updateStatus(this.action.rfqId, this.action.id, f);
+      rfq$.toPromise().then(() => {
+        this.action = Object.assign(this.action, this.rfqStatus);
+        this.closed.emit();
+      });
+    } else {
+      const addStatus$ = await this.rfqService.addStatus(this.rfqOptions.rfqId, f);
+      await addStatus$.toPromise();
+      const getStatus$ = await this.rfqService.getStatus(this.rfqOptions.rfqId);
+      getStatus$.subscribe(newStatus => {
+          this.rfqStatus = newStatus as RFQAction;
+          this.action = Object.assign(this.action, newStatus);
+          this.closed.emit();
+        });
+    }
   }
 
   closeForm() {

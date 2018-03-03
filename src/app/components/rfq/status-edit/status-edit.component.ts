@@ -11,7 +11,8 @@ import { RFQAction } from '../../../models/RFQAction';
 })
 export class StatusEditComponent implements OnInit {
   action: RFQAction = <RFQAction>{};
-
+ rfqOptions: { rfqId: number, addStatus: boolean } =
+  { rfqId: 0, addStatus: false } ;
   constructor(private dialogRef: MatDialogRef<StatusEditComponent>) {
   }
 

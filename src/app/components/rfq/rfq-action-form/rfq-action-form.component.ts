@@ -2,7 +2,6 @@ import 'rxjs/add/operator/switchMap';
 
 import { Component, Input } from '@angular/core';
 import { isNumber } from 'util';
-
 import { ActionType } from './../../../models/ActionType';
 import { RFQ } from './../../../models/RFQ';
 import { RFQAction } from './../../../models/RFQAction';
@@ -37,7 +36,6 @@ export class RfqActionFormComponent {
 
   constructor(
     private rfqService: RfqService,
-    private netService: NetworkService,
     private dialog: MatDialog) {
 
     const types = Object.keys(ActionType);
@@ -50,23 +48,32 @@ export class RfqActionFormComponent {
   // dialogRef: MatDialogRef<TestComponent>;
   async addAction(actionTypeName: string) {
     const actionType: ActionType = ActionType[actionTypeName];
-    const universalIP = await this.netService.getIp();
     const action: RFQAction = {
       actionTime: new Date(),
-      actionType: actionType,
+      submissionTime: new Date(),
       companyRepresentative: '',
       comments: '',
-      submissionTime: new Date(),
-      universalIP: universalIP
+      actionType: actionType
     };
-    const addStatus$ = await this.rfqService.addStatus(this.rfq.rfqId, action);
-    await addStatus$.toPromise();
-    const getStatus$ = await this.rfqService.getStatus(this.rfq.rfqId);
-    getStatus$
-      .subscribe(newStatus => {
-        this.rfqStatus = newStatus as RFQAction;
+    const StatusDialogRef = this.dialog.open(StatusEditComponent, {
+      width: '800px',
+      height: '530px',
+      position: { top: '100px' }
+    });
+    this.reloadActions = false;
+    StatusDialogRef.componentInstance.action = action;
+    StatusDialogRef.componentInstance.rfqOptions = {
+      rfqId: this.rfq.rfqId,
+      addStatus: true
+    };
+
+    StatusDialogRef.afterClosed()
+      .subscribe(() => {
         this.reloadActions = true;
+        this.rfqStatus = StatusDialogRef.componentInstance.action;
+        console.log(this.reloadActions);
       });
+
   }
 
   toggleStatusList() {
