@@ -50,7 +50,6 @@ export class RfqActionFormComponent {
     const actionType: ActionType = ActionType[actionTypeName];
     const action: RFQAction = {
       actionTime: new Date(),
-      submissionTime: new Date(),
       companyRepresentative: '',
       comments: '',
       actionType: actionType

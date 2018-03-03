@@ -56,13 +56,13 @@ export class RfqStatusListComponent implements OnInit {
 
   openStatusEditDialog(action: RFQAction) {
 
-      this.StatusDialogRef = this.dialog.open(StatusLisEditComponent, {
-        width: '800px',
-        height: '530px',
-        position: { top: '100px' }
-      });
-       this.StatusDialogRef.componentInstance.action = action ;
-     this.StatusDialogRef.afterClosed().subscribe(() => this.StatusDialogRef = null);
+    this.StatusDialogRef = this.dialog.open(StatusLisEditComponent, {
+      width: '800px',
+      height: '530px',
+      position: { top: '100px' }
+    });
+    this.StatusDialogRef.componentInstance.action = action;
+    this.StatusDialogRef.afterClosed().subscribe(() => this.StatusDialogRef = null);
   }
 
 }

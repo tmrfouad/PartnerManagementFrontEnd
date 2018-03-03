@@ -8,6 +8,6 @@ export interface RFQAction {
     companyRepresentative: string;
     comments: string;
     rfqId?: number;
-    submissionTime: Date;
+    submissionTime?: Date;
     universalIP?: string;
 }
