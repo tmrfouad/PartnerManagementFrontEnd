@@ -56,7 +56,7 @@
                                                                         type="text"
                                                                         name="phoneIntial"
                                                                         (change)="countryChange()"
-                                                                        placeholder="Code">
+                                                                        placeholder="Country Code">
                                                         </div>
                                                 </div>
                                                 <input (change)="countryChange()" [(ngModel)]="phone" id="Personphone" #PersonMobile="ngModel" pattern="[0-9]+" required
@@ -88,7 +88,7 @@
                                                                        class="Searchtxt"
                                                                        (change)="countryChange()"
                                                                        type="text"
-                                                                       placeholder="Code">
+                                                                       placeholder="Country Code">
                                                         </div>
                                                 </div>
                                                 <input id="mobilphone" name="mobilphone" type="text" (change)="countryChange()" class="form-control" [(ngModel)]="mobilphone">
@@ -171,7 +171,7 @@
                 <div class="card card-fixed sticky-top">
                         <div class="card-body">
                                 <h5 class="card-title">
-                                        <u> Cart Details </u>
+                                        <u> Request Information </u>
                                 </h5>
 
                                 <h5 class="card-title"> {{ rfqItem.ContactPersonEnglishName }} </h5>

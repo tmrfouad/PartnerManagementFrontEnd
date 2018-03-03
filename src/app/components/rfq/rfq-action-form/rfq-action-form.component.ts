@@ -60,16 +60,19 @@ export class RfqActionFormComponent {
       height: '530px',
       position: { top: '100px' }
     });
+    this.reloadActions = false;
     StatusDialogRef.componentInstance.action = action;
     StatusDialogRef.componentInstance.rfqOptions = {
       rfqId: this.rfq.rfqId,
       addStatus: true
     };
 
-    const getStatus$ = await StatusDialogRef.afterClosed();
-    getStatus$.subscribe(() => {
-      this.reloadActions = true;
-      console.log(this.reloadActions); });
+    StatusDialogRef.afterClosed()
+      .subscribe(() => {
+        this.reloadActions = true;
+        this.rfqStatus = StatusDialogRef.componentInstance.action;
+        console.log(this.reloadActions);
+      });
 
   }
 

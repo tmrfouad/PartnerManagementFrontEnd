@@ -22,7 +22,6 @@ export class StatusEditFormComponent implements OnInit {
   @Input('rfqOptions') rfqOptions: { rfqId: number, addStatus: boolean } =
     { rfqId: 0, addStatus: false } ;
   @Output('closed') closed = new EventEmitter();
-  @Output('reload') reload = new EventEmitter();
 
   constructor(private rfqService: RfqService) {
     const types = Object.keys(ActionType);
@@ -57,7 +56,7 @@ export class StatusEditFormComponent implements OnInit {
       const getStatus$ = await this.rfqService.getStatus(this.rfqOptions.rfqId);
       getStatus$.subscribe(newStatus => {
           this.rfqStatus = newStatus as RFQAction;
-          this.reload.emit();
+          this.action = Object.assign(this.action, newStatus);
           this.closed.emit();
         });
     }
