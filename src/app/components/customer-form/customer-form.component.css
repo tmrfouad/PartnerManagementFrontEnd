@@ -26,20 +26,11 @@
 }
 
 .Searchtxt {
-    width: 50px;
+    width: 108px;
     transition: all .7s ease 0s;
-    -moz-transition: all .7s ease 0s;
-    -o-transition: all .7s ease 0s;
-    -webkit-transition: all .7s ease 0s;
-    /* background-image: url('/assets/images/searchicon.png'); */
-    background-repeat:no-repeat; 
-    /* background-position: 2px 2px; */
     padding: 0px 0px 0px 4px;
 }
 
-.Searchtxt:focus { 
-    width: 135px;
-}
 
 
 
