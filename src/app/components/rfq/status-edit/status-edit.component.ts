@@ -11,10 +11,9 @@ import { RFQAction } from '../../../models/RFQAction';
 })
 export class StatusEditComponent implements OnInit {
   action: RFQAction = <RFQAction>{};
- rfqOptions: { rfqId: number, reloadActions: boolean, addStatus: boolean } =
-  { rfqId: 0, reloadActions: false, addStatus: false } ;
+ rfqOptions: { rfqId: number, addStatus: boolean } =
+  { rfqId: 0, addStatus: false } ;
   constructor(private dialogRef: MatDialogRef<StatusEditComponent>) {
-   // this.rfqOptions.addStatus = false;
   }
 
   ngOnInit() {
@@ -22,9 +21,5 @@ export class StatusEditComponent implements OnInit {
 
   dialogClosed() {
     this.dialogRef.close();
-  }
-
-  reload() {
-    this.rfqOptions.reloadActions = true;
   }
 }

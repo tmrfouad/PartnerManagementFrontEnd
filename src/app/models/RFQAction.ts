@@ -9,5 +9,5 @@ export interface RFQAction {
     comments: string;
     rfqId?: number;
     submissionTime: Date;
-    universalIP: string;
+    universalIP?: string;
 }

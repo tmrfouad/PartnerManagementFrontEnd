@@ -2,7 +2,6 @@ import 'rxjs/add/operator/switchMap';
 
 import { Component, Input } from '@angular/core';
 import { isNumber } from 'util';
-
 import { ActionType } from './../../../models/ActionType';
 import { RFQ } from './../../../models/RFQ';
 import { RFQAction } from './../../../models/RFQAction';
@@ -37,7 +36,6 @@ export class RfqActionFormComponent {
 
   constructor(
     private rfqService: RfqService,
-    private netService: NetworkService,
     private dialog: MatDialog) {
 
     const types = Object.keys(ActionType);
@@ -50,28 +48,28 @@ export class RfqActionFormComponent {
   // dialogRef: MatDialogRef<TestComponent>;
   async addAction(actionTypeName: string) {
     const actionType: ActionType = ActionType[actionTypeName];
-    const universalIP = await this.netService.getIp();
     const action: RFQAction = {
       actionTime: new Date(),
-      actionType: actionType,
+      submissionTime: new Date(),
       companyRepresentative: '',
       comments: '',
-      submissionTime: new Date(),
-      universalIP: universalIP
+      actionType: actionType
+    };
+    const StatusDialogRef = this.dialog.open(StatusEditComponent, {
+      width: '800px',
+      height: '530px',
+      position: { top: '100px' }
+    });
+    StatusDialogRef.componentInstance.action = action;
+    StatusDialogRef.componentInstance.rfqOptions = {
+      rfqId: this.rfq.rfqId,
+      addStatus: true
     };
 
-     const StatusDialogRef = this.dialog.open(StatusEditComponent, {
-       width: '800px',
-       height: '530px',
-       position: { top: '100px' }
-     });
-     StatusDialogRef.componentInstance.action = action;
-     StatusDialogRef.componentInstance.rfqOptions = {
-       'rfqId' : this.rfq.rfqId,
-       'reloadActions' : this.reloadActions = false,
-       'addStatus' : true
-   };
-     StatusDialogRef.afterClosed().subscribe();
+    const getStatus$ = await StatusDialogRef.afterClosed();
+    getStatus$.subscribe(() => {
+      this.reloadActions = true;
+      console.log(this.reloadActions); });
 
   }
 
