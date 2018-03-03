@@ -59,14 +59,20 @@ export class RfqActionFormComponent {
       submissionTime: new Date(),
       universalIP: universalIP
     };
-    const addStatus$ = await this.rfqService.addStatus(this.rfq.rfqId, action);
-    await addStatus$.toPromise();
-    const getStatus$ = await this.rfqService.getStatus(this.rfq.rfqId);
-    getStatus$
-      .subscribe(newStatus => {
-        this.rfqStatus = newStatus as RFQAction;
-        this.reloadActions = true;
-      });
+
+     const StatusDialogRef = this.dialog.open(StatusEditComponent, {
+       width: '800px',
+       height: '530px',
+       position: { top: '100px' }
+     });
+     StatusDialogRef.componentInstance.action = action;
+     StatusDialogRef.componentInstance.rfqOptions = {
+       'rfqId' : this.rfq.rfqId,
+       'reloadActions' : this.reloadActions = false,
+       'addStatus' : true
+   };
+     StatusDialogRef.afterClosed().subscribe();
+
   }
 
   toggleStatusList() {
