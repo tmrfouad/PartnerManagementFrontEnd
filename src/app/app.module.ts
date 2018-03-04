@@ -32,6 +32,7 @@ import { MailService } from './services/mail.service';
 import { NetworkService } from './services/network.service';
 import { OrderService } from './services/order-service.service';
 import { RfqService } from './services/rfq.service';
+import { SubscribeComponent } from './components/subscribe/subscribe.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { RfqService } from './services/rfq.service';
     RfqEditFormComponent,
     StatusEditComponent,
     StatusLisEditComponent,
-    StatusEditFormComponent
+    StatusEditFormComponent,
+    SubscribeComponent
   ],
   imports: [
     BrowserModule,
@@ -62,15 +64,17 @@ import { RfqService } from './services/rfq.service';
     MatTooltipModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
-      { path: 'customer', component: CustomerFormComponent },
+      { path: 'subscribe', component: SubscribeComponent },
       { path: 'login', component: LoginComponent },
       { path: 'Rfq', component: RfqContainarComponent, canActivate: [AuthGuard] }
     ])
   ],
   entryComponents: [
+    CustomerFormComponent,
     RfqEditFormComponent,
     StatusEditComponent,
-    StatusLisEditComponent
+    StatusLisEditComponent,
+    LoadingComponent
   ],
   providers: [
     RfqService,

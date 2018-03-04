@@ -9,6 +9,8 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  email;
+  password;
 
   constructor(
     private accountService: AccountService,
@@ -20,15 +22,15 @@ export class LoginComponent implements OnInit {
 
   async login() {
     const user = {
-      'Email': 'tabuhmead@acs-me.com',
-      'Password': '123456@AcsAcs',
+      'Email': this.email,
+      'Password': this.password
     };
     const token$ = await this.accountService.login(user.Email, user.Password);
 
     token$.subscribe(userToken => {
       localStorage.setItem('userToken', userToken.toString());
-        const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
-        this.router.navigate([returnUrl || '/']);
+      const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+      this.router.navigate([returnUrl || '/']);
     }, error => {
       alert(error.message);
     });

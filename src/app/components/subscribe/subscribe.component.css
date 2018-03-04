@@ -1,0 +1,34 @@
+.required{
+    color: #ff0707;
+}
+
+.form-control.ng-invalid.ng-touched{ 
+    border: 1px solid #ff0707 ;
+}
+
+.alert-danger { 
+    color: #ff0707;
+    padding : 0px;
+    background-color: white;
+    border: 0px none white ;
+}
+  
+.country-code{ 
+    background-color: transparent;
+    border: 0px none white;
+    width: 100%;
+}
+
+.Searchtxt {
+    width: 108px;
+    transition: all .7s ease 0s;
+    padding: 0px 0px 0px 4px;
+}
+
+.sticky-top {
+    position: relative;
+}
+
+
+
+

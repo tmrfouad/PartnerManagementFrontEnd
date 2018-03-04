@@ -1,184 +1,171 @@
 <div class="row">
-        <div class="col-sm-6">
-                <form #f="ngForm" (submit)="logForm(rfqItem)">
+  <div class="col-sm-6">
+    <form #f="ngForm" (submit)="logForm(rfqItem)">
 
-                        <div class="content p-1 pr-2">
+      <div class="content p-1 pr-2">
 
-                                <div class="form-group">
-                                        <label class="col-form-label" for="EnglishName">Name </label>
-                                        <span class="required">*</span>
+        <div class="form-group">
+          <label class="col-form-label" for="EnglishName">Name </label>
+          <span class="required">*</span>
 
-                                        <input id="contactPersonEnglishName" name="ContactPersonEnglishName" [(ngModel)]="rfqItem.ContactPersonEnglishName" required
-                                                minlength="3" #contactPersonEnglishName="ngModel" type="text" class="form-control">
-                                        <div class="alert alert-danger" *ngIf="contactPersonEnglishName.touched && !contactPersonEnglishName.valid">
-                                                <div *ngIf="contactPersonEnglishName.errors?.required">
-                                                        <small>You can't leave this empty.</small>
-                                                </div>
-                                                <div *ngIf="contactPersonEnglishName.errors?.minlength">
-                                                        <small>Please use at least {{ contactPersonEnglishName.errors.minlength.requiredLength
-                                                                }} characters. </small>
-                                                </div>
-                                        </div>
-                                </div>
-
-                                <div class="form-group">
-                                        <label for="companyEnglishName">Company Name</label>
-                                        <span class="required">*</span>
-                                        <input id="companyEnglishName" name="CompanyEnglishName" type="text" [(ngModel)]="rfqItem.CompanyEnglishName" #companyEnglishName="ngModel"
-                                                class="form-control" required>
-
-                                        <div class="alert alert-danger" *ngIf="companyEnglishName.touched && !companyEnglishName.valid">
-                                                <small>You can't leave this empty. </small>
-                                        </div>
-                                </div>
-                                <div class="form-group">
-                                        <label for="contactPersonEmail">E-mail</label>
-                                        <span class="required">*</span>
-                                        <input id="contactPersonEmail" name="ContactPersonEmail" placeholder="email@domain.com" type="email" class="form-control"
-                                                [(ngModel)]="rfqItem.ContactPersonEmail" #Email="ngModel" [email]="true" required>
-
-                                        <div class="alert alert-danger" *ngIf="Email.touched && !Email.valid">
-                                                <div *ngIf="!Email.errors.valid">
-                                                        <small> Email is not valid </small>
-                                                </div>
-                                        </div>
-                                </div>
-
-                                <div class="form-group">
-                                        <label for="Personphone">Personal Number</label>
-                                        <span class="required">*</span>
-                                        <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                        <div class="input-group-text">
-                                                                <input 
-                                                                        class="Searchtxt"
-                                                                        [(ngModel)]="phoneIntial"
-                                                                        type="text"
-                                                                        name="phoneIntial"
-                                                                        (change)="countryChange()"
-                                                                        placeholder="Country Code">
-                                                        </div>
-                                                </div>
-                                                <input (change)="countryChange()" [(ngModel)]="phone" id="Personphone" #PersonMobile="ngModel" pattern="[0-9]+" required
-                                                        minlength="10" maxlength="20" name="phone" type="text" class="form-control">
-
-                                                <input name="ContactPersonMobile" type="hidden" [(ngModel)]="rfqItem.ContactPersonMobile">
-                                        </div>
-                                        <div class="alert alert-danger" *ngIf="PersonMobile.touched && !PersonMobile.valid">
-                                                <div *ngIf="PersonMobile.errors?.required">
-                                                        <small> You can't leave this empty. </small>
-                                                </div>
-                                                <div *ngIf="PersonMobile.errors?.pattern && PersonMobile.errors?.pattern">
-                                                        <small> This phone number format is not recognized. </small>
-                                                </div>
-                                                <div *ngIf="PersonMobile.errors?.minlength">
-                                                        <small> Please use at least {{ PersonMobile.errors?.minlength.requiredLength
-                                                                }} characters. </small>
-                                                </div>
-                                        </div>
-                                </div>
-
-                                <div class="form-group">
-                                        <label for="mobilphone">Phone Number</label>
-                                        <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                        <div class="input-group-text">
-                                                                <input [(ngModel)]="mobilIntial"
-                                                                       name="mobilIntial"
-                                                                       class="Searchtxt"
-                                                                       (change)="countryChange()"
-                                                                       type="text"
-                                                                       placeholder="Country Code">
-                                                        </div>
-                                                </div>
-                                                <input id="mobilphone" name="mobilphone" type="text" (change)="countryChange()" class="form-control" [(ngModel)]="mobilphone">
-
-                                                <input type="hidden" class="form-control" name="PhoneNumber" [(ngModel)]="rfqItem.PhoneNumber">
-                                        </div>
-                                </div>
-
-
-                                <div class="form-group">
-                                        <label for="website">Website</label>
-                                        <div class="input-group">
-                                                <input id="website" name="Website" type="text" class="form-control" [(ngModel)]="rfqItem.Website">
-                                        </div>
-                                </div>
-
-                                <div class="form-group">
-                                        <label for="website">Location</label>
-                                        <div class="input-group">
-                                                <input id="location" name="Location" type="text" class="form-control" [(ngModel)]="rfqItem.Location">
-                                        </div>
-                                </div>
-
-                                <div class="form-inline">
-                                        <label for="targetedProduct">Product :</label>
-                                        &nbsp;&nbsp;
-                                        <span class="font-weight-bold">
-                                                <input type="text" name="TargetedProduct" [(ngModel)]="rfqItem.TargetedProduct" readonly class="form-control-plaintext font-weight-bold"
-                                                        id="targetedProduct">
-                                        </span>
-                                </div>
-
-                                <label for="selectedBundle">Choose Your Bundle:</label>
-                                <span class="required">*</span>
-                                <div class="form-group radio-group row mt-auto mr-auto ml-auto mb-5">
-                                        <div class="col-md-4 p-1">
-                                                <input type="radio" id="control_01" required [(ngModel)]="rfqItem.SelectedBundle" name="selectedBundle" [value]="'Lite'">
-                                                <label for="control_01">
-                                                        <p class="bundle-title">Lite</p>
-                                                        <p class="bundle-price">400 EGP
-                                                                <span class="bundle-feature">5 Users</span>
-                                                        </p>
-                                                        <p class="bundle-footer">+ Standard edition features</p>
-                                                </label>
-                                        </div>
-                                        <div class="col-md-4 p-1">
-                                                <input type="radio" id="control_02" [(ngModel)]="rfqItem.SelectedBundle" name="selectedBundle" [value]="'Standard'">
-                                                <label for="control_02">
-                                                        <p class="bundle-title">Standard</p>
-                                                        <p class="bundle-price">850 EGP
-                                                                <span class="bundle-feature">15 Users</span>
-                                                        </p>
-                                                        <p class="bundle-footer">+ Lite edition features</p>
-                                                </label>
-                                        </div>
-                                        <div class="col-md-4 p-1">
-                                                <input type="radio" id="control_03" [(ngModel)]="rfqItem.SelectedBundle" name="selectedBundle" [value]="'Enterprise'">
-                                                <label for="control_03">
-                                                        <p class="bundle-title">Enterprise</p>
-                                                        <p class="bundle-price">Contact us</p>
-                                                        <p class="bundle-footer">+ Enterprise edition features</p>
-                                                </label>
-                                        </div>
-                                </div>
-
-                                <div class="form-group">
-                                        <re-captcha name="captcha" ngModel #captcha="ngModel" required siteKey="6Ldk7D4UAAAAAPJpIWo0uqnitrcZGVyJOGg2BE3w"></re-captcha>
-                                </div>
-                        </div>
-                        <div class="p-1 pt-3">
-                                <button [disabled]="f.invalid" class="btn btn-primary">Submit</button>
-                                <button class="btn btn-danger" type="reset">Reset</button>
-                                <button class="btn btn-secondary float-right" type="button" (click)="closeDialog()">Cancel</button>
-                        </div>
-                </form>
-
+          <input id="contactPersonEnglishName" name="ContactPersonEnglishName" [(ngModel)]="rfqItem.ContactPersonEnglishName" required
+            minlength="3" #contactPersonEnglishName type="text" class="form-control">
+          <div class="alert alert-danger" *ngIf="contactPersonEnglishName.touched && !contactPersonEnglishName.valid">
+            <div *ngIf="contactPersonEnglishName.errors?.required">
+              <small>You can't leave this empty.</small>
+            </div>
+            <div *ngIf="contactPersonEnglishName.errors?.minlength">
+              <small>Please use at least {{ contactPersonEnglishName.errors.minlength.requiredLength }} characters. </small>
+            </div>
+          </div>
         </div>
 
-        <div class="col-sm-6 col-hidden">
-                <div class="card card-fixed sticky-top">
-                        <div class="card-body">
-                                <h5 class="card-title">
-                                        <u> Request Information </u>
-                                </h5>
+        <div class="form-group">
+          <label for="companyEnglishName">Company Name</label>
+          <span class="required">*</span>
+          <input id="companyEnglishName" name="CompanyEnglishName" type="text" [(ngModel)]="rfqItem.CompanyEnglishName" #companyEnglishName="ngModel"
+            class="form-control" required>
 
-                                <h5 class="card-title"> {{ rfqItem.ContactPersonEnglishName }} </h5>
-                                <p class="card-text"> {{ rfqItem.CompanyEnglishName }} </p>
-                                <p class="card-text"> {{ rfqItem.ContactPersonEmail }} </p>
-                                <p class="card-text"> {{ rfqItem.ContactPersonMobile }} </p>
-                        </div>
-                </div>
+          <div class="alert alert-danger" *ngIf="companyEnglishName.touched && !companyEnglishName.valid">
+            <small>You can't leave this empty. </small>
+          </div>
         </div>
+        <div class="form-group">
+          <label for="contactPersonEmail">E-mail</label>
+          <span class="required">*</span>
+          <input id="contactPersonEmail" name="ContactPersonEmail" placeholder="email@domain.com" type="email" class="form-control"
+            [(ngModel)]="rfqItem.ContactPersonEmail" #Email="ngModel" [email]="true" required>
+
+          <div class="alert alert-danger" *ngIf="Email.touched && !Email.valid">
+            <div *ngIf="!Email.errors.valid">
+              <small> Email is not valid </small>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="Personphone">Personal Number</label>
+          <span class="required">*</span>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <input class="Searchtxt" [(ngModel)]="phoneIntial" type="text" name="phoneIntial" (change)="countryChange()" placeholder="Country Code">
+              </div>
+            </div>
+            <input (change)="countryChange()" [(ngModel)]="phone" id="Personphone" #PersonMobile pattern="[0-9]+" required
+              minlength="10" maxlength="20" name="phone" type="text" class="form-control">
+
+            <input name="ContactPersonMobile" type="hidden" [(ngModel)]="rfqItem.ContactPersonMobile">
+          </div>
+          <div class="alert alert-danger" *ngIf="PersonMobile.touched && !PersonMobile.valid">
+            <div *ngIf="PersonMobile.errors?.required">
+              <small> You can't leave this empty. </small>
+            </div>
+            <div *ngIf="PersonMobile.errors?.pattern && PersonMobile.errors?.pattern">
+              <small> This phone number format is not recognized. </small>
+            </div>
+            <div *ngIf="PersonMobile.errors?.minlength">
+              <small> Please use at least {{ PersonMobile.errors?.minlength.requiredLength }} characters. </small>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="mobilphone">Phone Number</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <input [(ngModel)]="mobilIntial" name="mobilIntial" class="Searchtxt" (change)="countryChange()" type="text" placeholder="Country Code">
+              </div>
+            </div>
+            <input id="mobilphone" name="mobilphone" type="text" (change)="countryChange()" class="form-control" [(ngModel)]="mobilphone">
+
+            <input type="hidden" class="form-control" name="PhoneNumber" [(ngModel)]="rfqItem.PhoneNumber">
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label for="website">Website</label>
+          <div class="input-group">
+            <input id="website" name="Website" type="text" class="form-control" [(ngModel)]="rfqItem.Website">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="website">Location</label>
+          <div class="input-group">
+            <input id="location" name="Location" type="text" class="form-control" [(ngModel)]="rfqItem.Location">
+          </div>
+        </div>
+
+        <div class="form-inline">
+          <label for="targetedProduct">Product :</label>
+          &nbsp;&nbsp;
+          <span class="font-weight-bold">
+            <input type="text" name="TargetedProduct" [(ngModel)]="rfqItem.TargetedProduct" readonly class="form-control-plaintext font-weight-bold"
+              id="targetedProduct">
+          </span>
+        </div>
+
+        <label for="selectedBundle">Choose Your Bundle:</label>
+        <span class="required">*</span>
+        <div class="form-group radio-group row mt-auto mr-auto ml-auto mb-5">
+          <div class="col-md-4 p-1">
+            <input type="radio" id="control_01" required [(ngModel)]="rfqItem.SelectedBundle" name="selectedBundle" [value]="'Lite'">
+            <label for="control_01">
+              <p class="bundle-title">Lite</p>
+              <p class="bundle-price">400 EGP
+                <span class="bundle-feature">5 Users</span>
+              </p>
+              <p class="bundle-footer">+ Standard edition features</p>
+            </label>
+          </div>
+          <div class="col-md-4 p-1">
+            <input type="radio" id="control_02" [(ngModel)]="rfqItem.SelectedBundle" name="selectedBundle" [value]="'Standard'">
+            <label for="control_02">
+              <p class="bundle-title">Standard</p>
+              <p class="bundle-price">850 EGP
+                <span class="bundle-feature">15 Users</span>
+              </p>
+              <p class="bundle-footer">+ Lite edition features</p>
+            </label>
+          </div>
+          <div class="col-md-4 p-1">
+            <input type="radio" id="control_03" [(ngModel)]="rfqItem.SelectedBundle" name="selectedBundle" [value]="'Enterprise'">
+            <label for="control_03">
+              <p class="bundle-title">Enterprise</p>
+              <p class="bundle-price">Contact us</p>
+              <p class="bundle-footer">+ Enterprise edition features</p>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <re-captcha name="captcha" ngModel #captcha="ngModel" required siteKey="6Ldk7D4UAAAAAPJpIWo0uqnitrcZGVyJOGg2BE3w"></re-captcha>
+        </div>
+      </div>
+      <div class="p-1 pt-3">
+        <button [disabled]="f.invalid" class="btn btn-primary">Submit</button>
+        <button class="btn btn-danger" type="reset">Reset</button>
+        <button class="btn btn-secondary float-right" type="button" (click)="closeDialog()">Cancel</button>
+      </div>
+    </form>
+
+  </div>
+
+  <div class="col-sm-6 col-hidden">
+    <div class="card card-fixed sticky-top">
+      <div class="card-body">
+        <h5 class="card-title">
+          <u> Request Information </u>
+        </h5>
+
+        <h5 class="card-title"> {{ rfqItem.ContactPersonEnglishName }} </h5>
+        <p class="card-text"> {{ rfqItem.CompanyEnglishName }} </p>
+        <p class="card-text"> {{ rfqItem.ContactPersonEmail }} </p>
+        <p class="card-text"> {{ rfqItem.ContactPersonMobile }} </p>
+      </div>
+    </div>
+  </div>
 </div>
