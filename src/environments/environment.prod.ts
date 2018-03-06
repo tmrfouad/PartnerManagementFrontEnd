@@ -1,3 +1,9 @@
 export const environment = {
-  production: true
+  production: true,
+  accept: {
+    baseUrl: 'https://accept.paymobsolutions.com/api',
+    authUrl: 'auth/tokens',
+    orderUrl: 'ecommerce/orders'
+  },
+  domainName: './api'
 };

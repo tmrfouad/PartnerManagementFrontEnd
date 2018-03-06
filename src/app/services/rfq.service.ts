@@ -19,29 +19,22 @@ export class RfqService extends DataService {
   }
 
   async getStatus(id) {
-    await this.config;
     return this.http.get(`${this.baseUrl + this.url}/status/${id}`, { headers: this.headers });
   }
 
   async getActions(id) {
-    await this.config;
     return this.http.get(`${this.baseUrl + this.url}/actions/${id}`, { headers: this.headers });
   }
 
   async addStatus(id, action: RFQAction) {
-    await this.config;
     const universalIP = await this.netService.getIp();
     action.universalIP = universalIP;
     return this.http.post(`${this.baseUrl + this.url}/addStatus/${id}`, action, { headers: this.headers });
   }
 
   async updateStatus(id, actionId, action: RFQAction) {
-    await this.config;
     const universalIP = await this.netService.getIp();
     action.universalIP = universalIP;
-    console.log(action.universalIP);
-    console.log('id', id);
-    console.log('actionId', actionId);
     return this.http.post(`${this.baseUrl + this.url}/updateStatus/${id}/${actionId}`, action, { headers: this.headers });
   }
 }

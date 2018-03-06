@@ -30,7 +30,6 @@ import { AuthGuard } from './services/auth-guard.service';
 import { CountryService } from './services/country.service';
 import { MailService } from './services/mail.service';
 import { NetworkService } from './services/network.service';
-import { OrderService } from './services/order-service.service';
 import { RfqService } from './services/rfq.service';
 
 @NgModule({
@@ -77,7 +76,6 @@ import { RfqService } from './services/rfq.service';
     RfqService,
     AccountService,
     AcceptService,
-    OrderService,
     MailService,
     AuthGuard,
     NetworkService,

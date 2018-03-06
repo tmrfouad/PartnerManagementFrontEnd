@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../../services/account.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { BaseComponent } from '../base-component';
+import { MatDialog, MatSnackBar } from '@angular/material';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -8,14 +10,19 @@ import { Router, ActivatedRoute } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent extends BaseComponent implements OnInit {
   email;
   password;
 
   constructor(
+    dialog: MatDialog,
+    snackBar: MatSnackBar,
     private accountService: AccountService,
     private router: Router,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute) {
+
+    super(snackBar, dialog);
+  }
 
   ngOnInit() {
   }
@@ -32,7 +39,7 @@ export class LoginComponent implements OnInit {
       const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
       this.router.navigate([returnUrl || '/']);
     }, error => {
-      alert(error.message);
+      this.showSnackBar(error.message, 'Error', true);
     });
 
   }

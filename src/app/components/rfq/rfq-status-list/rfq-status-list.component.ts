@@ -3,7 +3,6 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 
 import { RFQ } from '../../../models/RFQ';
 import { RFQAction } from '../../../models/RFQAction';
-import { StatusLisEditComponent } from '../status-lis-edit/status-lis-edit.component';
 import { ActionType } from './../../../models/ActionType';
 import { RfqService } from './../../../services/rfq.service';
 import { StatusEditFormComponent } from '../status-edit-form/status-edit-form.component';

@@ -4,5 +4,11 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  accept: {
+    baseUrl: 'https://accept.paymobsolutions.com/api',
+    authUrl: 'auth/tokens',
+    orderUrl: 'ecommerce/orders'
+  },
+  domainName: 'http://localhost:5000'
 };
