@@ -39,6 +39,9 @@ export class RfqService extends DataService {
     await this.config;
     const universalIP = await this.netService.getIp();
     action.universalIP = universalIP;
+    console.log(action.universalIP);
+    console.log('id', id);
+    console.log('actionId', actionId);
     return this.http.post(`${this.baseUrl + this.url}/updateStatus/${id}/${actionId}`, action, { headers: this.headers });
   }
 }

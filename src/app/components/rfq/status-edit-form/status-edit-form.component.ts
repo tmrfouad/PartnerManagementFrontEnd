@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { RFQAction } from '../../../models/RFQAction';
 import { RfqService } from '../../../services/rfq.service';
 import { ActionType } from '../../../models/ActionType';
+import { MatDialogRef } from '@angular/material';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -10,6 +11,7 @@ import { ActionType } from '../../../models/ActionType';
   styleUrls: ['./status-edit-form.component.css']
 })
 export class StatusEditFormComponent implements OnInit {
+
   action_Types: {value: string, name: string}[] = [];
   actionTypes: {[key: string]: string} = {};
   actionType_Names: string[];
@@ -17,13 +19,14 @@ export class StatusEditFormComponent implements OnInit {
   actionTypeNames: string[];
   actionTypeValues: string[];
 
-  @Input('action') action: RFQAction = <RFQAction>{};
+  action: RFQAction = <RFQAction>{};
+  actualAction: RFQAction = <RFQAction>{};
   rfqStatus: RFQAction = <RFQAction>{};
-  @Input('rfqOptions') rfqOptions: { rfqId: number, addStatus: boolean } =
+   rfqOptions: { rfqId: number, addStatus: boolean } =
     { rfqId: 0, addStatus: false } ;
-  @Output('closed') closed = new EventEmitter();
 
-  constructor(private rfqService: RfqService) {
+
+  constructor(private rfqService: RfqService, private dialogRef: MatDialogRef<StatusEditFormComponent>) {
     const types = Object.keys(ActionType);
     this.actionType_Names = types.slice(types.length / 2);
     this.actionType_Values = types.slice(0, types.length / 2);
@@ -40,15 +43,20 @@ export class StatusEditFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.rfqStatus = Object.assign({}, this.action);
+   this.rfqStatus = Object.assign({}, this.action);
+   // tslint:disable-next-line:curly
+   if ( Object.keys(this.actualAction).length > 0) {
+     this.action = Object.assign({}, this.actualAction);
+    }
   }
 
   async logForm(f: RFQAction) {
     if (!this.rfqOptions.addStatus) {
+    console.log(this.action);
       const rfq$ = await this.rfqService.updateStatus(this.action.rfqId, this.action.id, f);
       rfq$.toPromise().then(() => {
         this.action = Object.assign(this.action, this.rfqStatus);
-        this.closed.emit();
+        this.dialogRef.close();
       });
     } else {
       const addStatus$ = await this.rfqService.addStatus(this.rfqOptions.rfqId, f);
@@ -57,12 +65,17 @@ export class StatusEditFormComponent implements OnInit {
       getStatus$.subscribe(newStatus => {
           this.rfqStatus = newStatus as RFQAction;
           this.action = Object.assign(this.action, newStatus);
-          this.closed.emit();
+          this.dialogRef.close();
         });
     }
   }
 
   closeForm() {
-    this.closed.emit();
+    // tslint:disable-next-line:curly
+    if (this.actualAction)
+      this.action = Object.assign({}, this.actualAction);
+
+    this.dialogRef.close();
   }
+
 }

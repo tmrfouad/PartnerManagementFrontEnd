@@ -22,8 +22,6 @@ import { RfqListComponent } from './components/rfq/rfq-list/rfq-list.component';
 import { RfqStatusListComponent } from './components/rfq/rfq-status-list/rfq-status-list.component';
 import { RfqStatusComponent } from './components/rfq/rfq-status/rfq-status.component';
 import { StatusEditFormComponent } from './components/rfq/status-edit-form/status-edit-form.component';
-import { StatusEditComponent } from './components/rfq/status-edit/status-edit.component';
-import { StatusLisEditComponent } from './components/rfq/status-lis-edit/status-lis-edit.component';
 import { AcceptService } from './services/accept.service';
 import { AccountService } from './services/account.service';
 import { AuthGuard } from './services/auth-guard.service';
@@ -48,8 +46,6 @@ import { SubscribeComponent } from './components/subscribe/subscribe.component';
     RfqStatusComponent,
     RfqStatusListComponent,
     RfqEditFormComponent,
-    StatusEditComponent,
-    StatusLisEditComponent,
     StatusEditFormComponent,
     SubscribeComponent
   ],
@@ -72,9 +68,8 @@ import { SubscribeComponent } from './components/subscribe/subscribe.component';
   entryComponents: [
     CustomerFormComponent,
     RfqEditFormComponent,
-    StatusEditComponent,
-    StatusLisEditComponent,
-    LoadingComponent
+    LoadingComponent,
+    StatusEditFormComponent
   ],
   providers: [
     RfqService,
