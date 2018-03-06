@@ -2,6 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -10,9 +11,9 @@ import { RecaptchaModule } from 'ng-recaptcha';
 import { RecaptchaFormsModule } from 'ng-recaptcha/forms';
 
 import { AppComponent } from './app.component';
-import { LoadingComponent } from './components/loading/loading.component';
 import { CustomerFormComponent } from './components/customer-form/customer-form.component';
 import { HomeComponent } from './components/home/home.component';
+import { LoadingComponent } from './components/loading/loading.component';
 import { LoginComponent } from './components/login/login.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { RfqActionFormComponent } from './components/rfq/rfq-action-form/rfq-action-form.component';
@@ -24,6 +25,7 @@ import { RfqStatusComponent } from './components/rfq/rfq-status/rfq-status.compo
 import { StatusEditFormComponent } from './components/rfq/status-edit-form/status-edit-form.component';
 import { StatusEditComponent } from './components/rfq/status-edit/status-edit.component';
 import { StatusLisEditComponent } from './components/rfq/status-lis-edit/status-lis-edit.component';
+import { SubscribeComponent } from './components/subscribe/subscribe.component';
 import { AcceptService } from './services/accept.service';
 import { AccountService } from './services/account.service';
 import { AuthGuard } from './services/auth-guard.service';
@@ -32,7 +34,6 @@ import { MailService } from './services/mail.service';
 import { NetworkService } from './services/network.service';
 import { OrderService } from './services/order-service.service';
 import { RfqService } from './services/rfq.service';
-import { SubscribeComponent } from './components/subscribe/subscribe.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { SubscribeComponent } from './components/subscribe/subscribe.component';
     SubscribeComponent
   ],
   imports: [
+    MatSnackBarModule,
     BrowserModule,
     FormsModule,
     BrowserAnimationsModule,

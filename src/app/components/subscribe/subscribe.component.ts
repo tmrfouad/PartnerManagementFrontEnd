@@ -1,12 +1,12 @@
+import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatSnackBar } from '@angular/material';
+import { Router } from '@angular/router';
+
 import { Country } from '../../models/Country';
+import { AcceptService } from '../../services/accept.service';
 import { CountryService } from '../../services/country.service';
 import { RfqService } from '../../services/rfq.service';
-import { AcceptService } from '../../services/accept.service';
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef, MatDialog } from '@angular/material';
-import { Countries } from '../../models/countries';
-import { LoadingComponent } from '../loading/loading.component';
-import { Router } from '@angular/router';
+import { BaseComponent } from '../base-component';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
   templateUrl: './subscribe.component.html',
   styleUrls: ['./subscribe.component.css']
 })
-export class SubscribeComponent implements OnInit {
+export class SubscribeComponent extends BaseComponent implements OnInit {
   loading = false;
   rfqItem =
     {
@@ -45,11 +45,14 @@ export class SubscribeComponent implements OnInit {
   currentCuntry2: string;
 
   constructor(
+    snackBar: MatSnackBar,
+    dialog: MatDialog,
     private acceptService: AcceptService,
     private rfqService: RfqService,
     private countryService: CountryService,
-    private dialog: MatDialog,
     private router: Router) {
+
+    super(snackBar, dialog);
     this.rfqItem.TargetedProduct = 'Process Perfect';
     this.countryService.getCurrentCountry().subscribe((item: Country) => {
       this.currentCuntry = item.country.toLowerCase();
@@ -71,18 +74,14 @@ export class SubscribeComponent implements OnInit {
 
 
   async logForm(rfqForm) {
-    const dialogRef = this.dialog.open(LoadingComponent, {
-      width: '300',
-      height: '150',
-      disableClose: false
-    });
+    this.showLoading('Please wait ...');
     (await this.rfqService.Post(rfqForm)).subscribe(() => {
-      dialogRef.close();
-      alert('Order placed successfully.');
+      this.closeLoading();
+      this.showSnackBar('Order placed successfully.', 'Success');
       this.router.navigate(['/']);
     }, error => {
-      dialogRef.close();
-      alert(error.message);
+      this.closeLoading();
+      this.showSnackBar(error.message, 'Error', true);
     });
 
   }
