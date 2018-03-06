@@ -6,6 +6,7 @@ import { RFQAction } from '../../../models/RFQAction';
 import { StatusLisEditComponent } from '../status-lis-edit/status-lis-edit.component';
 import { ActionType } from './../../../models/ActionType';
 import { RfqService } from './../../../services/rfq.service';
+import { StatusEditFormComponent } from '../status-edit-form/status-edit-form.component';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -19,7 +20,7 @@ export class RfqStatusListComponent implements OnInit {
   rfqActions$;
   actionType_Names: string[];
   actionType_Values: string[];
-  StatusDialogRef: MatDialogRef<StatusLisEditComponent>;
+  StatusDialogRef: MatDialogRef<StatusEditFormComponent>;
   get rfq(): RFQ {
     return this._rfq;
   }
@@ -56,9 +57,9 @@ export class RfqStatusListComponent implements OnInit {
 
   openStatusEditDialog(action: RFQAction) {
 
-    this.StatusDialogRef = this.dialog.open(StatusLisEditComponent, {
+    this.StatusDialogRef = this.dialog.open(StatusEditFormComponent, {
       width: '800px',
-      height: '530px',
+      height: '380px',
       position: { top: '100px' }
     });
     this.StatusDialogRef.componentInstance.action = action;

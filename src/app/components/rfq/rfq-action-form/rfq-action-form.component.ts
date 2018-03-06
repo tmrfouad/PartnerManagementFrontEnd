@@ -9,7 +9,7 @@ import { RfqService } from './../../../services/rfq.service';
 import { NetworkService } from '../../../services/network.service';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { RfqEditFormComponent } from '../rfq-edit-form/rfq-edit-form.component';
-import { StatusEditComponent } from '../status-edit/status-edit.component';
+import { StatusEditFormComponent } from '../status-edit-form/status-edit-form.component';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -54,12 +54,13 @@ export class RfqActionFormComponent {
       comments: '',
       actionType: actionType
     };
-    const StatusDialogRef = this.dialog.open(StatusEditComponent, {
+    const StatusDialogRef = this.dialog.open(StatusEditFormComponent, {
       width: '800px',
-      height: '530px',
+      height: '380px',
       position: { top: '100px' }
     });
     this.reloadActions = false;
+    StatusDialogRef.componentInstance.actualAction = this.rfqStatus;
     StatusDialogRef.componentInstance.action = action;
     StatusDialogRef.componentInstance.rfqOptions = {
       rfqId: this.rfq.rfqId,
@@ -70,9 +71,7 @@ export class RfqActionFormComponent {
       .subscribe(() => {
         this.reloadActions = true;
         this.rfqStatus = StatusDialogRef.componentInstance.action;
-        console.log(this.reloadActions);
       });
-
   }
 
   toggleStatusList() {
@@ -90,9 +89,9 @@ export class RfqActionFormComponent {
   }
 
   openStatusEditDialog(action: RFQAction) {
-    const StatusDialogRef = this.dialog.open(StatusEditComponent, {
+    const StatusDialogRef = this.dialog.open(StatusEditFormComponent, {
       width: '800px',
-      height: '530px',
+      height: '380px',
       position: { top: '100px' }
     });
     StatusDialogRef.componentInstance.action = action;
