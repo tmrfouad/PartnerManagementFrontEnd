@@ -49,7 +49,7 @@
                                                             <p class="bundle-footer">
                                                                 Standered edition features
                                                             </p>
-                                                            <button class="btn btn-bundle" value="1" (click)="openDialog('Lite')">Subscribe</button>
+                                                            <button class="btn btn-bundle" value="1" [routerLink]="['/subscribe', 'Lite']">Subscribe</button>
                                                         </label>
                                                     </div>
                                                 </div>
@@ -61,7 +61,7 @@
                                                                 <span class="bundle-feature">15 Users</span>
                                                             </p>
                                                             <p class="bundle-footer">+ Lite edition features</p>
-                                                            <button class="btn btn-bundle" (click)="openDialog('Standard')">Subscribe</button>
+                                                            <button class="btn btn-bundle" [routerLink]="['/subscribe', 'Standard']">Subscribe</button>
                                                         </label>
                                                     </div>
                                                 </div>
@@ -71,7 +71,7 @@
                                                             <p class="bundle-title">Enterprise</p>
                                                             <p class="bundle-price"> 1000 EGP </p>
                                                             <p class="bundle-footer">+ Enterprise edition features</p>
-                                                            <button class="btn btn-bundle" (click)="openDialog('Enterprise')">Subscribe</button>
+                                                            <button class="btn btn-bundle" [routerLink]="['/subscribe', 'Enterprise']">Subscribe</button>
                                                         </label>
                                                     </div>
                                                 </div>
@@ -83,7 +83,7 @@
                                         <section class="sppb-section " style="padding:50px 0px 10px 0px;">
                                             <div class="sppb-row">
                                                 <div class="sppb-col-sm-12">
-                                                    <div class="sppb-addon-container" style="" data-sppb-wow-duration="300ms">
+                                                    <div class="sppb-addon-container" data-sppb-wow-duration="300ms">
                                                         <div class="sppb-addon sppb-addon-text-block sppb-text-left ">
                                                             <h1 class="sppb-addon-title" style="color:#1b3e6c;">About Process Perfect©</h1>
                                                             <div class="sppb-addon-content">
@@ -106,10 +106,10 @@
 
 
 
-                                        <section class="sppb-section " style="">
+                                        <section class="sppb-section ">
                                             <div class="sppb-row">
                                                 <div class="sppb-col-sm-4">
-                                                    <div class="sppb-addon-container" style="" data-sppb-wow-duration="300ms">
+                                                    <div class="sppb-addon-container" data-sppb-wow-duration="300ms">
                                                         <div class="sppb-addon sppb-addon-single-image sppb-text-center ">
                                                             <div class="sppb-addon-content">
                                                                 <img class="sppb-img-responsive" src="/assets/images/h03.png" alt="" style="opacity: 1; visibility: visible;">
@@ -120,7 +120,7 @@
 
 
                                                 <div class="sppb-col-sm-8">
-                                                    <div class="sppb-addon-container" style="">
+                                                    <div class="sppb-addon-container">
                                                         <div class="sppb-addon sppb-addon-text-block sppb-text-left       System     Users     Menus     Content     Components     Extensions     Help     SJ Help     Clean cache: CSS, JS  ACS ACS Edit Message Item successfully saved. Title * Alias      Basic     Open Graph Settings     Publishing  Add Container Column text_block Text Block Addon Options Column image Image empty_space Empty Space text_block Text Block Addon Options image Image empty_space Empty Space text_block Text Block Addon Options image Image empty_space Empty Space text_block Text Block Addon Options image Image empty_space Empty Space text_block Text Block Addon Options Column image Image empty_space Empty Space image Image Addon Options text_block Text Block empty_space Empty Space text_block Text Block Addon Options Text Block Addon Title  Enter text which will be used as addon title. Leave blank if no title is needed. Heading  Select Title Headling from the list Title Font Size  Title Font Size Title Font Weight  Set font weight for this selector. e.g. bold Title Color  Title Text Color Title Margin Top  Set a optimum distance from the Top element Title Margin Bottom  Set a optimum distance from the Bottom element Content span  Insert Content Here Content Alignment  Set alignment for this addon content. CSS Class  If you wish to style particular content element differently, then use this field to add a class name and then refer to it in your css file.  SP Page Builder Free | Copyright © 2010-2015 | JoomShaper  © 2016 ACS View Site 0 Visitors 1 Administrator 0 Log out">
                                                             <div class="sppb-addon-content">
                                                                 <span style="font-size: 14px;">
@@ -139,10 +139,10 @@
                                                 </div>
                                             </div>
                                         </section>
-                                        <section class="sppb-section " style="">
+                                        <section class="sppb-section ">
                                             <div class="sppb-row">
                                                 <div class="sppb-col-sm-4">
-                                                    <div class="sppb-addon-container" style="" data-sppb-wow-duration="300ms">
+                                                    <div class="sppb-addon-container" data-sppb-wow-duration="300ms">
                                                         <div class="sppb-addon sppb-addon-single-image sppb-text-center ">
                                                             <div class="sppb-addon-content">
                                                                 <img class="sppb-img-responsive" src="/assets/images/h08.png" alt="" style="opacity: 1; visibility: visible;">
@@ -151,7 +151,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="sppb-col-sm-8">
-                                                    <div class="sppb-addon-container" style="">
+                                                    <div class="sppb-addon-container">
                                                         <div class="sppb-addon sppb-addon-text-block sppb-text-left ">
                                                             <div class="sppb-addon-content">
                                                                 <span style="font-size: 14px;">

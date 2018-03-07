@@ -18,11 +18,11 @@ export class RfqService extends DataService {
     this.url = '/rfq';
   }
 
-  async getStatus(id) {
+  getStatus(id) {
     return this.http.get(`${this.baseUrl + this.url}/status/${id}`, { headers: this.headers });
   }
 
-  async getActions(id) {
+  getActions(id) {
     return this.http.get(`${this.baseUrl + this.url}/actions/${id}`, { headers: this.headers });
   }
 

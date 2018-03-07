@@ -1,9 +1,7 @@
+import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import { RFQ } from './../../../models/RFQ';
-import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
+
 import { RfqService } from '../../../services/rfq.service';
-import { Observable } from 'rxjs/Observable';
-import { MatDialogRef, MatDialog } from '@angular/material';
 
 
 @Component({
@@ -12,26 +10,20 @@ import { MatDialogRef, MatDialog } from '@angular/material';
   templateUrl: './rfq-list.component.html',
   styleUrls: ['./rfq-list.component.css']
 })
-export class RfqListComponent implements OnInit, OnDestroy {
-
+export class RfqListComponent implements OnDestroy {
   rfqList;
   rfqListSubscription: Subscription;
   selectedIndex: number = null;
-  constructor(private rfqService: RfqService) { }
-
-
-  @Input('rfqId') rfqId: number;
   @Output('change') change = new EventEmitter();
 
-
-  async ngOnInit() {
-    const rfqList = await this.rfqService.get();
-    this.rfqListSubscription = rfqList.subscribe(rfqs => {
-      if (rfqs) {
-        this.rfqList = rfqs;
-        this.filter(rfqs[0], 0);
-      }
-    });
+  constructor(private rfqService: RfqService) {
+    this.rfqListSubscription = this.rfqService.get()
+      .subscribe(rfqs => {
+        if (rfqs) {
+          this.rfqList = rfqs;
+          this.filter(rfqs[0], 0);
+        }
+      });
   }
 
   ngOnDestroy() {

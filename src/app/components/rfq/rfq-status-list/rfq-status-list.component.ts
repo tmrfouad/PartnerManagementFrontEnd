@@ -6,6 +6,7 @@ import { RFQAction } from '../../../models/RFQAction';
 import { ActionType } from './../../../models/ActionType';
 import { RfqService } from './../../../services/rfq.service';
 import { StatusEditFormComponent } from '../status-edit-form/status-edit-form.component';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -20,14 +21,15 @@ export class RfqStatusListComponent implements OnInit {
   actionType_Names: string[];
   actionType_Values: string[];
   StatusDialogRef: MatDialogRef<StatusEditFormComponent>;
+  rfqActionsSub: Subscription;
+
   get rfq(): RFQ {
     return this._rfq;
   }
   @Input('rfq') set rfq(rfq: RFQ) {
     this._rfq = rfq;
     if (rfq) {
-      this.rfqService.getActions(rfq.rfqId)
-        .then(rfqActions$ => this.rfqActions$ = rfqActions$);
+      this.rfqActions$ = this.rfqService.getActions(rfq.rfqId);
     }
   }
 
@@ -37,11 +39,8 @@ export class RfqStatusListComponent implements OnInit {
   @Input('reload') set reload(reload: boolean) {
     this._reload = reload;
     if (reload) {
-      this.rfqService.getActions(this.rfq.rfqId)
-        .then(rfqActions$ => {
-          this.rfqActions$ = rfqActions$;
-          this.reload = false;
-        });
+      this.rfqActions$ = this.rfqService.getActions(this.rfq.rfqId);
+      this.reload = false;
     }
   }
 

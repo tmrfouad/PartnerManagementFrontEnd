@@ -24,43 +24,24 @@ export class DataService {
       .set('Authorization', 'bearer ' + this.accountService.userToken);
   }
 
-  async get() {
+  get() {
     return this.http.get(this.baseUrl + this.url + '/get', { headers: this.headers });
   }
 
-  async getById(Id) {
+  getById(Id) {
     return this.http.get(this.baseUrl + this.url + '/get/' + Id, { headers: this.headers });
   }
 
-  async Post(item) {
+  Post(item) {
     return this.http.post(this.baseUrl + this.url + '/post', item, { headers: this.headers });
   }
 
-  async Put(id, item) {
+  Put(id, item) {
     return this.http.put(this.baseUrl + this.url + '/put/' + id, item, { headers: this.headers });
   }
 
-  async Delete(id) {
+  Delete(id) {
     return this.http.delete(this.baseUrl + this.url + '/delete/' + id, { headers: this.headers });
   }
 
 }
-
-// const rfq = {
-//   CompanyEnglishName: '',
-//   ContactPersonEnglishName: f.firstName + ' ' + f.lastName,
-//   ContactPersonEmail: f.email,
-//   ContactPersonMobile: f.phoneNumber,
-//   PhoneNumber: '',
-//   TargetedProduct: '',
-//   SelectedBundle: '',
-//   CompanyArabicName: '',
-//   Website: '',
-//   Location: '',
-//   Address: '',
-//   ContactPersonArabicName: '',
-//   ContactPersonPosition: '',
-//   Status: '',
-//   SubmissionTime: '',
-//   UniversalIP: '' // https://jsonip.com/ OR https://api.ipify.org/?format=json
-// };

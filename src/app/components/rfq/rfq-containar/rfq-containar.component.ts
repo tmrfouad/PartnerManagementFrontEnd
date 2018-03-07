@@ -12,7 +12,6 @@ import 'rxjs/add/operator/switchMap';
   styleUrls: ['./rfq-containar.component.css']
 })
 export class RfqContainarComponent implements OnInit, OnDestroy {
-  rfqId;
   rfq;
   rfqStatus$;
 
@@ -28,10 +27,10 @@ export class RfqContainarComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
   }
 
-  async onrfqChange(rfqItem) {
+  onrfqChange(rfqItem) {
     if (rfqItem) {
       this.rfq = rfqItem;
-      this.rfqStatus$ = await this.rfqService.getStatus(this.rfq.rfqId);
+      this.rfqStatus$ = this.rfqService.getStatus(this.rfq.rfqId);
     }
   }
 

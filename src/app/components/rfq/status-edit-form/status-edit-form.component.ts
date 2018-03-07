@@ -2,7 +2,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { RFQAction } from '../../../models/RFQAction';
 import { RfqService } from '../../../services/rfq.service';
 import { ActionType } from '../../../models/ActionType';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef, MatSnackBar, MatDialog } from '@angular/material';
+import { BaseComponent } from '../../base-component';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -10,10 +11,10 @@ import { MatDialogRef } from '@angular/material';
   templateUrl: './status-edit-form.component.html',
   styleUrls: ['./status-edit-form.component.css']
 })
-export class StatusEditFormComponent implements OnInit {
+export class StatusEditFormComponent extends BaseComponent implements OnInit {
 
-  action_Types: {value: string, name: string}[] = [];
-  actionTypes: {[key: string]: string} = {};
+  action_Types: { value: string, name: string }[] = [];
+  actionTypes: { [key: string]: string } = {};
   actionType_Names: string[];
   actionType_Values: string[];
   actionTypeNames: string[];
@@ -22,11 +23,17 @@ export class StatusEditFormComponent implements OnInit {
   action: RFQAction = <RFQAction>{};
   actualAction: RFQAction = <RFQAction>{};
   rfqStatus: RFQAction = <RFQAction>{};
-   rfqOptions: { rfqId: number, addStatus: boolean } =
-    { rfqId: 0, addStatus: false } ;
+  rfqOptions: { rfqId: number, addStatus: boolean } =
+    { rfqId: 0, addStatus: false };
+  dialogResult = 'cancel';
 
+  constructor(
+    snackBar: MatSnackBar,
+    dialog: MatDialog,
+    private rfqService: RfqService,
+    private dialogRef: MatDialogRef<StatusEditFormComponent>) {
+    super(snackBar, dialog);
 
-  constructor(private rfqService: RfqService, private dialogRef: MatDialogRef<StatusEditFormComponent>) {
     const types = Object.keys(ActionType);
     this.actionType_Names = types.slice(types.length / 2);
     this.actionType_Values = types.slice(0, types.length / 2);
@@ -38,36 +45,46 @@ export class StatusEditFormComponent implements OnInit {
       const typeValue = this.actionType_Values[i];
 
       this.actionTypes[typeName] = typeValue;
-      this.action_Types.push({value: typeValue, name: typeName});
+      this.action_Types.push({ value: typeValue, name: typeName });
     }
   }
 
   ngOnInit() {
-   this.rfqStatus = Object.assign({}, this.action);
-   // tslint:disable-next-line:curly
-   if ( Object.keys(this.actualAction).length > 0) {
-     this.action = Object.assign({}, this.actualAction);
+    this.rfqStatus = Object.assign({}, this.action);
+    // tslint:disable-next-line:curly
+    if (Object.keys(this.actualAction).length > 0) {
+      this.action = Object.assign({}, this.actualAction);
     }
   }
 
   async logForm(f: RFQAction) {
+    this.dialogResult = 'save';
+    this.showLoading('Please wait ...');
+
     if (!this.rfqOptions.addStatus) {
-    console.log(this.action);
       const rfq$ = await this.rfqService.updateStatus(this.action.rfqId, this.action.id, f);
-      rfq$.toPromise().then(() => {
+      await rfq$.toPromise().then(() => {
         this.action = Object.assign(this.action, this.rfqStatus);
+        this.showSnackBar('Action added successfully.', 'Success');
         this.dialogRef.close();
+      }).catch(error => {
+        this.showSnackBar(error.message, 'Error', true);
       });
     } else {
       const addStatus$ = await this.rfqService.addStatus(this.rfqOptions.rfqId, f);
-      await addStatus$.toPromise();
-      const getStatus$ = await this.rfqService.getStatus(this.rfqOptions.rfqId);
-      getStatus$.subscribe(newStatus => {
-          this.rfqStatus = newStatus as RFQAction;
-          this.action = Object.assign(this.action, newStatus);
-          this.dialogRef.close();
-        });
+      await addStatus$.toPromise().then(() => {
+        this.showSnackBar('Action updated successfully.', 'Success');
+        this.dialogRef.close();
+      }).catch(error => {
+        this.showSnackBar(error.message, 'Error', true);
+      });
     }
+    const getStatus$ = this.rfqService.getStatus(this.rfqOptions.rfqId);
+    getStatus$.subscribe(newStatus => {
+      this.rfqStatus = newStatus as RFQAction;
+      this.action = Object.assign(this.action, newStatus);
+    });
+    this.closeLoading();
   }
 
   closeForm() {

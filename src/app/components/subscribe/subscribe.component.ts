@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatSnackBar } from '@angular/material';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { Country } from '../../models/Country';
 import { AcceptService } from '../../services/accept.service';
@@ -50,7 +50,8 @@ export class SubscribeComponent extends BaseComponent implements OnInit {
     private acceptService: AcceptService,
     private rfqService: RfqService,
     private countryService: CountryService,
-    private router: Router) {
+    private router: Router,
+    private route: ActivatedRoute) {
 
     super(snackBar, dialog);
     this.rfqItem.TargetedProduct = 'Process Perfect';
@@ -58,6 +59,10 @@ export class SubscribeComponent extends BaseComponent implements OnInit {
       this.currentCuntry = item.country.toLowerCase();
       this.currentCuntry2 = item.country.toLowerCase();
     });
+    const edition = route.snapshot.paramMap.get('bundle');
+    if (edition) {
+      this.rfqItem.SelectedBundle = edition;
+    }
   }
 
   ngOnInit() {
@@ -75,7 +80,7 @@ export class SubscribeComponent extends BaseComponent implements OnInit {
 
   async logForm(rfqForm) {
     this.showLoading('Please wait ...');
-    (await this.rfqService.Post(rfqForm)).subscribe(() => {
+    this.rfqService.Post(rfqForm).subscribe(() => {
       this.closeLoading();
       this.showSnackBar('Order placed successfully.', 'Success');
       this.router.navigate(['/']);

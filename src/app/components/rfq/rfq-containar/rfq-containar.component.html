@@ -1,6 +1,6 @@
 <div class="row align-items-start">
   <div class="col-4">
-    <rfq-list [rfqId]="rfqId" (change)="onrfqChange($event)"></rfq-list>
+    <rfq-list (change)="onrfqChange($event)"></rfq-list>
   </div>
   <div class="col">
     <rfq-action-form [rfq]="rfq" [rfqStatus]="rfqStatus$ | async"></rfq-action-form>

@@ -11,7 +11,7 @@ export class BaseComponent {
 
     showSnackBar(message: string, action?: string, isError?: boolean) {
         const snackBarRef = this.snackBar.open(message, action, {
-            duration: 1000,
+            duration: 2000,
             panelClass: isError ? 'snack-bar-error' : 'snack-bar'
         });
     }

@@ -3,8 +3,9 @@ import { CountryService } from '../../services/country.service';
 import { RfqService } from '../../services/rfq.service';
 import { AcceptService } from '../../services/accept.service';
 import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef, MatDialog, MatSnackBar } from '@angular/material';
 import { Countries } from '../../models/countries';
+import { BaseComponent } from '../base-component';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -12,7 +13,7 @@ import { Countries } from '../../models/countries';
   templateUrl: './customer-form.component.html',
   styleUrls: ['./customer-form.component.css']
 })
-export class CustomerFormComponent implements OnInit {
+export class CustomerFormComponent extends BaseComponent {
   countries = Countries.items;
   rfqItem =
     {
@@ -43,20 +44,19 @@ export class CustomerFormComponent implements OnInit {
   currentCuntry: string;
   currentCuntry2: string;
   constructor(
+    dialog: MatDialog,
+    snackBar: MatSnackBar,
     private acceptService: AcceptService,
     private rfqService: RfqService,
     private countryService: CountryService,
     private dialogRef: MatDialogRef<CustomerFormComponent>
   ) {
+    super(snackBar, dialog);
     this.rfqItem.TargetedProduct = 'Process Perfect';
     this.countryService.getCurrentCountry().subscribe((item: Country) => {
       this.currentCuntry = item.country.toLowerCase();
       this.currentCuntry2 = item.country.toLowerCase();
     });
-  }
-
-  ngOnInit() {
-
   }
 
   Searchtxt(Srchtxt) {
@@ -67,17 +67,15 @@ export class CustomerFormComponent implements OnInit {
     this.currentCuntry2 = Srchtxt.toLowerCase();
   }
 
-
-
-  async logForm(rfqForm) {
-    rfqForm.universalIP = '';
-    (await this.rfqService.Post(rfqForm)).subscribe(() => {
-      alert('Order placed successfully.');
+  logForm(rfqForm) {
+    this.showLoading('Please wait ...');
+    this.rfqService.Post(rfqForm).subscribe(() => {
+      this.showSnackBar('Request sent successfully', 'Success');
     }, error => {
-      this.dialogRef.close();
-      alert(error.message);
+      this.showSnackBar(error.message, 'Error', true);
     });
-  this.dialogRef.close();
+    this.closeLoading();
+    this.dialogRef.close();
 
   }
 

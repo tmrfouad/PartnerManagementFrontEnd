@@ -46,7 +46,7 @@ export class RfqActionFormComponent {
   }
 
   // dialogRef: MatDialogRef<TestComponent>;
-  async addAction(actionTypeName: string) {
+  addAction(actionTypeName: string) {
     const actionType: ActionType = ActionType[actionTypeName];
     const action: RFQAction = {
       actionTime: new Date(),
@@ -69,8 +69,10 @@ export class RfqActionFormComponent {
 
     StatusDialogRef.afterClosed()
       .subscribe(() => {
-        this.reloadActions = true;
-        this.rfqStatus = StatusDialogRef.componentInstance.action;
+        if (StatusDialogRef.componentInstance.dialogResult === 'save') {
+          this.reloadActions = true;
+          this.rfqStatus = StatusDialogRef.componentInstance.action;
+        }
       });
   }
 

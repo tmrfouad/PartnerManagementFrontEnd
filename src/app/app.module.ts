@@ -61,7 +61,7 @@ import { RfqService } from './services/rfq.service';
     MatTooltipModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
-      { path: 'subscribe', component: SubscribeComponent },
+      { path: 'subscribe/:bundle', component: SubscribeComponent },
       { path: 'login', component: LoginComponent },
       { path: 'Rfq', component: RfqContainarComponent, canActivate: [AuthGuard] }
     ])
