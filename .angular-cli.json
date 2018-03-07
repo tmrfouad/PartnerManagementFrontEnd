@@ -9,7 +9,7 @@
       "outDir": "dist",
       "assets": [
         "assets",
-        "favicon.ico",
+        "acs.ico",
         "web.config"
       ],
       "index": "index.html",
