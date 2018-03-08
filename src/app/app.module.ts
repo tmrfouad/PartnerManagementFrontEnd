@@ -31,6 +31,7 @@ import { CountryService } from './services/country.service';
 import { MailService } from './services/mail.service';
 import { NetworkService } from './services/network.service';
 import { RfqService } from './services/rfq.service';
+import { SummeryComponent } from './components/rfq/summery/summery.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { RfqService } from './services/rfq.service';
     RfqStatusListComponent,
     RfqEditFormComponent,
     StatusEditFormComponent,
-    SubscribeComponent
+    SubscribeComponent,
+    SummeryComponent
   ],
   imports: [
     MatSnackBarModule,
@@ -62,6 +64,7 @@ import { RfqService } from './services/rfq.service';
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
       { path: 'subscribe/:bundle', component: SubscribeComponent },
+      { path: 'Summery', component: SummeryComponent },
       { path: 'login', component: LoginComponent },
       { path: 'Rfq', component: RfqContainarComponent, canActivate: [AuthGuard] }
     ])
