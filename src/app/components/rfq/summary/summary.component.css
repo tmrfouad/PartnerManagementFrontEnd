@@ -1,0 +1,48 @@
+.plus{
+    cursor: pointer;
+    font-size: 24px;
+    color: rgba(37, 37, 255, 0.829);
+}
+
+.remove{
+    cursor: pointer;
+    color: #e03b3b;
+    font-size: 26px;
+    margin-top: -3px;    
+}
+
+.attendItem{
+    /* position: fixed; */
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 170px;
+    /* padding-top: 6px;
+    width: 14.6%; */
+}
+
+.list-group > li { 
+    padding: 3px 0px 0px 5px;
+    width: 100%;
+}
+
+.form-control { 
+    padding: 0.375rem;
+    font-size: 1rem; 
+     color: black;
+    border-radius: 0.25rem;
+}
+
+.control-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  border-radius: 0.2rem;
+}
+
+.input-group-text {
+    padding: 3px 5px;
+}
+
+.form-group {
+    margin-bottom: 0px;
+  }

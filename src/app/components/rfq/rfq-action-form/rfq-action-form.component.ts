@@ -49,14 +49,11 @@ export class RfqActionFormComponent {
   addAction(actionTypeName: string) {
     const actionType: ActionType = ActionType[actionTypeName];
     const action: RFQAction = {
-      actionTime: new Date(),
-      companyRepresentative: '',
-      comments: '',
       actionType: actionType
     };
     const StatusDialogRef = this.dialog.open(StatusEditFormComponent, {
       width: '800px',
-      height: '380px',
+      height: '530px',
       position: { top: '100px' }
     });
     this.reloadActions = false;
@@ -93,7 +90,7 @@ export class RfqActionFormComponent {
   openStatusEditDialog(action: RFQAction) {
     const StatusDialogRef = this.dialog.open(StatusEditFormComponent, {
       width: '800px',
-      height: '380px',
+      height: '530px',
       position: { top: '100px' }
     });
     StatusDialogRef.componentInstance.action = action;

@@ -19,6 +19,13 @@ export class StatusEditFormComponent extends BaseComponent implements OnInit {
   actionType_Values: string[];
   actionTypeNames: string[];
   actionTypeValues: string[];
+  actionTypeDialog = {
+    attende: [] ,
+    where: '',
+    visitReason: '',
+    comment: '',
+    };
+
 
   action: RFQAction = <RFQAction>{};
   actualAction: RFQAction = <RFQAction>{};
@@ -58,6 +65,14 @@ export class StatusEditFormComponent extends BaseComponent implements OnInit {
   }
 
   async logForm(f: RFQAction) {
+    f.comments = ' Where: '
+                + this.actionTypeDialog.where +
+                ' Visit Reason: ' + this.actionTypeDialog.visitReason +
+                ' Comments: ' + this.actionTypeDialog.comment + ' Attended: ';
+    for (const Attended of this.actionTypeDialog.attende) {
+      f.comments += ' ' + Attended + ', ';
+    }
+    f.comments = f.comments.substring(0, f.comments.length - 2 );
     this.dialogResult = 'save';
     this.showLoading('Please wait ...');
 

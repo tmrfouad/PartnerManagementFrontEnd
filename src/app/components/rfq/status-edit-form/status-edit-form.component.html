@@ -1,35 +1,36 @@
 <form #f="ngForm" (submit)="logForm(f.value)">
-  <h3 class="d-inline-block">Status Edit:</h3>
   <div class="card-body row" *ngIf="rfqStatus">
     <div class="col-6">
-      <span class="card-subtitle font-weight-bold">Action Code :</span>
-      <input type="text" readonly [(ngModel)]=" rfqStatus.actionCode" name="actionCode" class="form-control">
+      <span class="font-weight-bold col-form-label-sm">Action Code :</span>
+      <input type="text" readonly [(ngModel)]=" rfqStatus.actionCode" name="actionCode" class="form-control form-control-sm">
 
     </div>
     <div class="col-6">
-      <span class="card-subtitle font-weight-bold">Action Time :</span>
-      <input type="text" readonly [(ngModel)]="rfqStatus.actionTime" name="actionTime" class="form-control">
+      <span class="font-weight-bold col-form-label-sm">Action Time :</span>
+      <input type="text" readonly [(ngModel)]="rfqStatus.actionTime" name="actionTime" class="form-control form-control-sm">
 
     </div>
     <div class="col-6">
-      <span class="card-subtitle font-weight-bold">Action Type :</span>
-      <select name="actionType" id="actionType" class="form-control" [(ngModel)]="rfqStatus.actionType">
-        <option *ngFor="let type of action_Types" [value]="type.value">{{ type.name }}</option>
+      <span class="font-weight-bold col-form-label-sm">Action Type :</span>
+      <select name="actionType" id="actionType" class="form-control form-control-sm" [(ngModel)]="rfqStatus.actionType">
+        <option *ngFor="let type of action_Types" [value]="type.value"> {{ type.name }} </option>
       </select>
     </div>
     <div class="col-6">
-      <span class="card-subtitle font-weight-bold">Representative :</span>
-      <input type="text" [(ngModel)]="rfqStatus.companyRepresentative" name="companyRepresentative" class="form-control">
+      <span class="font-weight-bold col-form-label-sm">Representative :</span>
+      <input type="text" [(ngModel)]="rfqStatus.companyRepresentative" name="companyRepresentative" class="form-control form-control-sm">
     </div>
-    <div class="col-6">
-      <span class="card-subtitle font-weight-bold">Comments :</span>
-      <input type="text" [(ngModel)]="rfqStatus.comments" name="comments" class="form-control">
+    <div class="col-12" *ngIf="rfqStatus.actionType != 0">
+      <summary [actionType]="actionTypeDialog"></summary>
+    </div>
+    <div class="col-12">
+      <span class="font-weight-bold col-form-label-sm"> {{ action_Types[rfqStatus.actionType].name }} Summary :</span>
+      <textarea type="text" [(ngModel)]="rfqStatus.comments" name="comments" class="form-control form-control-sm">
+      </textarea>
+    </div>
+    <div class="col-12 buttons">
+        <button class="btn btn-primary btn-sm" type="submit">Save</button>
+        <button class="btn btn-danger btn-sm" type="button" (click)="closeForm()">Cancel</button>
     </div>
   </div>
-
-  <button class="btn btn-primary btn-sm" type="submit">Save</button>
-  <button class="btn btn-danger btn-sm" type="button" (click)="closeForm()">Cancel</button>
-
-
-
 </form>
