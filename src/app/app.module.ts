@@ -11,7 +11,6 @@ import { RecaptchaModule } from 'ng-recaptcha';
 import { RecaptchaFormsModule } from 'ng-recaptcha/forms';
 
 import { AppComponent } from './app.component';
-import { CustomerFormComponent } from './components/customer-form/customer-form.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { LoginComponent } from './components/login/login.component';
@@ -31,11 +30,11 @@ import { CountryService } from './services/country.service';
 import { MailService } from './services/mail.service';
 import { NetworkService } from './services/network.service';
 import { RfqService } from './services/rfq.service';
+import { CustomerFormComponent } from './components/customer-form/customer-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CustomerFormComponent,
     NavbarComponent,
     HomeComponent,
     LoginComponent,
@@ -47,7 +46,8 @@ import { RfqService } from './services/rfq.service';
     RfqStatusListComponent,
     RfqEditFormComponent,
     StatusEditFormComponent,
-    SubscribeComponent
+    SubscribeComponent,
+    CustomerFormComponent
   ],
   imports: [
     MatSnackBarModule,
@@ -67,10 +67,9 @@ import { RfqService } from './services/rfq.service';
     ])
   ],
   entryComponents: [
-    CustomerFormComponent,
     RfqEditFormComponent,
     LoadingComponent,
-    StatusEditFormComponent
+    StatusEditFormComponent,
   ],
   providers: [
     RfqService,

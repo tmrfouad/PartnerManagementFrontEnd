@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 import { Order } from '../models/order';
+import { environment } from '../../environments/environment.prod';
 
 const user = {
   username: 'tmrfouad',
@@ -15,7 +16,6 @@ const user = {
 
 @Injectable()
 export class AcceptService {
-  configUrl = 'assets/config.json';
   config: {
     authUrl: string,
     orderUrl: string
@@ -23,14 +23,12 @@ export class AcceptService {
   userData;
 
   constructor(private http: HttpClient) {
-    http.get(this.configUrl).subscribe((config: any) => {
-      const acceptConfig = config.accept;
+      const acceptConfig = environment.accept;
       const baseUrl = acceptConfig.baseUrl;
       this.config = {
         authUrl: baseUrl + '/' + acceptConfig.authUrl,
         orderUrl: baseUrl + '/' + acceptConfig.orderUrl
       };
-    });
   }
 
   getUserData(): Observable<any> {

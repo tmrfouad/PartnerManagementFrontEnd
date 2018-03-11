@@ -84,10 +84,10 @@ export class RfqActionFormComponent {
     const rfqDialogRef = this.dialog.open(RfqEditFormComponent, {
       width: '800px',
       height: '530px',
-      position: { top: '100px' }
+      position: { top: '100px' },
+      data: 'edit'
     });
     rfqDialogRef.componentInstance.rfqParameterItem = this.rfq;
-    rfqDialogRef.afterClosed().subscribe();
   }
 
   openStatusEditDialog(action: RFQAction) {

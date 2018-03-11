@@ -4,6 +4,7 @@ import { RfqService } from './../../../services/rfq.service';
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -30,7 +31,11 @@ export class RfqContainarComponent implements OnInit, OnDestroy {
   onrfqChange(rfqItem) {
     if (rfqItem) {
       this.rfq = rfqItem;
-      this.rfqStatus$ = this.rfqService.getStatus(this.rfq.rfqId);
+      if (rfqItem.rfqId != null) {
+        this.rfqStatus$ = this.rfqService.getStatus(this.rfq.rfqId);
+      } else {
+        this.rfqStatus$ = Observable.empty();
+      }
     }
   }
 

@@ -1,10 +1,10 @@
 <div class="card">
-  <div class="card-header">
-    <h2>Subscribtion</h2>
+  <div class="card-header bg-dark text-white">
+    <h2>Request For Quotations</h2>
   </div>
   <div class="card-body">
     <div class="row">
-      <div class="col-sm-6">
+      <div class="col">
         <form #f="ngForm" (submit)="logForm(rfqItem)">
           <div class="content p-1 pr-2">
             <div class="form-group">
@@ -46,8 +46,8 @@
               <span class="required">*</span>
               <div class="input-group">
                 <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <input class="Searchtxt" [(ngModel)]="phoneIntial" type="text" name="phoneIntial" (change)="countryChange()" placeholder="Country Code">
+                  <div class="country-code input-group-text">
+                    <input class="Searchtxt" [(ngModel)]="phoneIntial" type="text" name="phoneIntial" (change)="countryChange()" placeholder="+20">
                   </div>
                 </div>
                 <input (change)="countryChange()" [(ngModel)]="phone" id="Personphone" #PersonMobile pattern="[0-9]+" required minlength="10"
@@ -70,8 +70,8 @@
               <label for="mobilphone">Phone Number</label>
               <div class="input-group">
                 <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <input [(ngModel)]="mobilIntial" name="mobilIntial" class="Searchtxt" (change)="countryChange()" type="text" placeholder="Country Code">
+                  <div class="country-code input-group-text">
+                    <input [(ngModel)]="mobilIntial" name="mobilIntial" class="Searchtxt" (change)="countryChange()" type="text" placeholder="+20">
                   </div>
                 </div>
                 <input id="mobilphone" name="mobilphone" type="text" (change)="countryChange()" class="form-control" [(ngModel)]="mobilphone">
@@ -101,7 +101,7 @@
             <label for="selectedBundle">Choose Your Bundle:</label>
             <span class="required">*</span>
             <div class="form-group radio-group row mt-auto mr-auto ml-auto mb-5">
-              <div class="col-md-4 p-1">
+              <div class="col p-1">
                 <input type="radio" id="control_01" required [(ngModel)]="rfqItem.SelectedBundle" name="selectedBundle" [value]="'Lite'">
                 <label for="control_01">
                   <p class="bundle-title">Lite</p>
@@ -111,7 +111,7 @@
                   <p class="bundle-footer">+ Standard edition features</p>
                 </label>
               </div>
-              <div class="col-md-4 p-1">
+              <div class="col p-1">
                 <input type="radio" id="control_02" [(ngModel)]="rfqItem.SelectedBundle" name="selectedBundle" [value]="'Standard'">
                 <label for="control_02">
                   <p class="bundle-title">Standard</p>
@@ -121,7 +121,7 @@
                   <p class="bundle-footer">+ Lite edition features</p>
                 </label>
               </div>
-              <div class="col-md-4 p-1">
+              <div class="col p-1">
                 <input type="radio" id="control_03" [(ngModel)]="rfqItem.SelectedBundle" name="selectedBundle" [value]="'Enterprise'">
                 <label for="control_03">
                   <p class="bundle-title">Enterprise</p>
@@ -140,12 +140,12 @@
           </div>
         </form>
       </div>
-      <div class="col-sm-6 col-hidden">
-        <div class="card card-fixed sticky-top">
+      <div class="col d-none d-md-block">
+        <div class="card position-fixed summary-card">
+          <div class="card-header bg-light">
+            <h5 class="card-title">Request Information</h5>
+          </div>
           <div class="card-body">
-            <h5 class="card-title">
-              <u> Request Information </u>
-            </h5>
             <h5 class="card-title"> {{ rfqItem.ContactPersonEnglishName }} </h5>
             <p class="card-text"> {{ rfqItem.CompanyEnglishName }} </p>
             <p class="card-text"> {{ rfqItem.ContactPersonEmail }} </p>

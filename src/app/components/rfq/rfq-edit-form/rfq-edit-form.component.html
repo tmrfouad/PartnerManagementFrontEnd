@@ -2,11 +2,6 @@
 <form #f="ngForm" (submit)="submit(f.value)">
   <div class="row">
     <div class="col-6">
-      <label for="rfqCode" class="col-form-label-sm">Request Code :</label>
-      <input type="text" readonly id="rfqCode" name="rfqCode" [value]="rfq.rfqCode" class="form-control form-control-sm">
-    </div>
-
-    <div class="col-6">
       <label for="companyEnglishName" class="col-form-label-sm">Company :</label>
       <input type="text" id="companyEnglishName" name="companyEnglishName" [(ngModel)]="rfq.companyEnglishName" [value]="rfq.companyEnglishName"
         class="form-control form-control-sm">
@@ -37,14 +32,18 @@
 
     <div class="col-6">
       <label for="targetedProduct" class="col-form-label-sm">Product :</label>
-      <input type="text" id="targetedProduct" name="targetedProduct" [(ngModel)]="rfq.targetedProduct" [value]="rfq.targetedProduct"
-        class="form-control form-control-sm">
+      <select name="targetedProduct" id="targetedProduct" required class="custom-select form-control form-control-sm" [(ngModel)]="rfq.targetedProduct">
+        <option value="Process Perfect">Process Perfect</option>
+      </select>
     </div>
 
     <div class="col-6">
       <label for="selectedBundle" class="col-form-label-sm">Bundle :</label>
-      <input type="text" id="selectedBundle" name="selectedBundle" [(ngModel)]="rfq.selectedBundle" [value]="rfq.selectedBundle"
-        class="form-control form-control-sm">
+      <select name="selectedBundle" id="selectedBundle" required class="custom-select form-control form-control-sm" [(ngModel)]="rfq.selectedBundle">
+        <option value="Lite">Lite</option>
+        <option value="Standard">Standard</option>
+        <option value="Enterprise">Enterprise</option>
+      </select>
     </div>
 
     <div class="col-6">
@@ -64,7 +63,18 @@
 
     <div class="col-6">
       <label for="status" class="col-form-label-sm">Current Status :</label>
-      <input type="text" id="status" name="status" [(ngModel)]="rfq.status" [value]="rfq.status" class="form-control form-control-sm">
+      <select name="status" id="status" required class="custom-select form-control form-control-sm" [(ngModel)]="rfq.status">
+        <option value="New">New</option>
+      </select>
+    </div>
+
+    <div class="col-6" *ngIf="dialogData === 'new'">
+      <div class="form-check mt-5">
+        <input class="form-check-input" type="checkbox" checked="true" id="send-email">
+        <label class="form-check-label" for="send-email">
+            Send welcome email?
+        </label>
+      </div>
     </div>
 
     <div class="col-12 mt-1">

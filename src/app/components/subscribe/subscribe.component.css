@@ -12,23 +12,22 @@
     background-color: white;
     border: 0px none white ;
 }
-  
-.country-code{ 
-    background-color: transparent;
-    border: 0px none white;
-    width: 100%;
+
+.input-group-prepend {
+    width: 20%;
+}
+
+.country-code.input-group-text{ 
+    background-color: white !important;
 }
 
 .Searchtxt {
-    width: 108px;
-    transition: all .7s ease 0s;
-    padding: 0px 0px 0px 4px;
+    border: 0;
+    width: 100%;
 }
 
-.sticky-top {
-    position: relative;
+.summary-card {
+    top: 190px;
+    width: 32%;
+    box-shadow: 2px 2px 2px;
 }
-
-
-
-
