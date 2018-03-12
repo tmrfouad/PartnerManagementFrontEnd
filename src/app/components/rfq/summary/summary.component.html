@@ -4,20 +4,34 @@
           <label class="col-form-label-sm"> Where</label>
           <input 
           type="text"
+          #Where="ngModel"
           class="form-control control-sm"
           name="where"
+          (blur)="changeItem()"
           [(ngModel)]="actionType.where">
       </div>
       <div class="form-group">
         <label for="">
             <small>Visit Reason</small>  
         </label>
-        <input type="text" name="visitReason" [(ngModel)]="actionType.visitReason" class="form-control control-sm">
+        <input
+         type="text"
+         name="visitReason" 
+         #VisitReason="ngModel"
+         (blur)="changeItem()"
+         [(ngModel)]="actionType.visitReason"
+         class="form-control control-sm">
       </div>
       <div class="form-group">
         <div class="input-group-sm mb-3">
             <label class="col-form-label-sm"> Comments </label>
-            <input type="text" class="form-control control-sm" name="comment" [(ngModel)]="actionType.comment">
+            <input 
+            type="text" 
+            class="form-control control-sm" 
+            #Comment="ngModel"
+            (blur)="changeItem()"
+            name="comment" 
+            [(ngModel)]="actionType.comment">
         </div>
       </div>
 
@@ -33,7 +47,7 @@
             class="form-control control-sm">
             <div class="input-group-append">
                 <div class="input-group-text"
-                (click)="addItem(Attend.value)">
+                (click)="addItem(Attend)">
                 <a matTooltip="Add Person" matTooltipPosition="right">
                     <i class="fa fa-plus text-info"></i>
                 </a>
