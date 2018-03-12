@@ -18,9 +18,9 @@
     </div>
     <div class="col-6">
       <span class="font-weight-bold col-form-label-sm">Representative <span class="text-danger">*</span>: </span>
-      <input type="text" required [(ngModel)]="rfqStatus.companyRepresentative" #CompanyRepresentative="ngModel" name="companyRepresentative" class="form-control form-control-sm">
-      <div class="alert-danger" *ngIf="CompanyRepresentative.touched && CompanyRepresentative.invalid">
-        <div *ngIf="CompanyRepresentative.errors.required">
+      <input type="text" required [(ngModel)]="rfqStatus.companyRepresentative" #companyRepresentative="ngModel" name="companyRepresentative" class="form-control form-control-sm">
+      <div class="alert-danger" *ngIf="companyRepresentative.touched && companyRepresentative.invalid">
+        <div *ngIf="companyRepresentative.errors.required">
           <small>You can't leave this empty.</small>
         </div>
       </div>

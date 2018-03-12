@@ -5,6 +5,9 @@ import { RFQ } from '../../../models/RFQ';
 import { RfqService } from '../../../services/rfq.service';
 import { BaseComponent } from '../../base-component';
 import { NetworkService } from '../../../services/network.service';
+import { StatusService } from '../../../services/status.service';
+import { Status } from '../../../models/Status';
+import { ActionType } from '../../../models/ActionType';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -17,15 +20,19 @@ export class RfqEditFormComponent extends BaseComponent implements OnInit {
   rfqParameterItem: RFQ = <RFQ>{};
   rfq: RFQ = <RFQ>{};
   sendEmail = false;
+  statuses: { value: string, name: string }[] = [];
 
   constructor(
     snackBar: MatSnackBar,
     dialog: MatDialog,
     private rfqService: RfqService,
     private netService: NetworkService,
+    private statusService: StatusService,
     private dialogRef: MatDialogRef<RfqEditFormComponent>,
     @Inject(MAT_DIALOG_DATA) public dialogData) {
     super(snackBar, dialog);
+
+    this.statuses = this.statusService.getArray();
   }
 
   ngOnInit() {

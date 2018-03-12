@@ -34,6 +34,8 @@ import { CustomerFormComponent } from './components/customer-form/customer-form.
 import { ConfirmComponent } from './components/confirm/confirm.component';
 import { MessageComponent } from './components/message/message.component';
 import { SummaryComponent } from './components/rfq/summary/summary.component';
+import { StatusService } from './services/status.service';
+import { ActionTypeService } from './services/action-type.service';
 
 @NgModule({
   declarations: [
@@ -86,7 +88,9 @@ import { SummaryComponent } from './components/rfq/summary/summary.component';
     MailService,
     AuthGuard,
     NetworkService,
-    CountryService
+    CountryService,
+    StatusService,
+    ActionTypeService
   ],
   bootstrap: [AppComponent]
 })

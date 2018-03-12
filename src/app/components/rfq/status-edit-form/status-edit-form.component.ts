@@ -18,8 +18,6 @@ export class StatusEditFormComponent extends BaseComponent implements OnInit {
   actionTypes: { [key: string]: string } = {};
   actionType_Names: string[];
   actionType_Values: string[];
-  actionTypeNames: string[];
-  actionTypeValues: string[];
   actionTypeDialog: ActionTypeComment = <ActionTypeComment>{};
 
 
@@ -39,8 +37,6 @@ export class StatusEditFormComponent extends BaseComponent implements OnInit {
     const types = Object.keys(ActionType);
     this.actionType_Names = types.slice(types.length / 2);
     this.actionType_Values = types.slice(0, types.length / 2);
-    this.actionTypeNames = types.slice(types.length / 2).filter(a => a !== 'None');
-    this.actionTypeValues = types.slice(0, types.length / 2).filter(a => a !== '0');
 
     for (let i = 0; i < this.actionType_Names.length; i++) {
       const typeName = this.actionType_Names[i];
@@ -55,7 +51,6 @@ export class StatusEditFormComponent extends BaseComponent implements OnInit {
     this.rfqStatus = Object.assign({}, this.action);
     // tslint:disable-next-line:curly
     this.rfqStatus.comments = ' ';
-    console.log(this.rfqStatus);
     if (Object.keys(this.actualAction).length > 0) {
       this.action = Object.assign({}, this.actualAction);
     }

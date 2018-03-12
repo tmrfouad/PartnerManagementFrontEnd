@@ -10,6 +10,7 @@ import { NetworkService } from '../../../services/network.service';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { RfqEditFormComponent } from '../rfq-edit-form/rfq-edit-form.component';
 import { StatusEditFormComponent } from '../status-edit-form/status-edit-form.component';
+import { StatusService } from '../../../services/status.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -25,6 +26,7 @@ export class RfqActionFormComponent {
   actionTypeValues: string[];
   statusListHidden = true;
   reloadActions = false;
+  statusesMap: { [key: string]: string } = {};
 
   @Input('rfq') rfq: RFQ;
   get rfqStatus(): RFQAction {
@@ -36,13 +38,16 @@ export class RfqActionFormComponent {
 
   constructor(
     private rfqService: RfqService,
-    private dialog: MatDialog) {
+    private dialog: MatDialog,
+    private statusService: StatusService) {
 
     const types = Object.keys(ActionType);
     this.actionType_Names = types.slice(types.length / 2);
     this.actionType_Values = types.slice(0, types.length / 2);
     this.actionTypeNames = types.slice(types.length / 2).filter(a => a !== 'None');
     this.actionTypeValues = types.slice(0, types.length / 2).filter(a => a !== '0');
+
+    this.statusesMap = this.statusService.getMapByValue();
   }
 
   // dialogRef: MatDialogRef<TestComponent>;

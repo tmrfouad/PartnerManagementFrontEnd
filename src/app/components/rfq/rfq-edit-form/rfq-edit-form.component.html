@@ -64,7 +64,7 @@
     <div class="col-6">
       <label for="status" class="col-form-label-sm">Current Status :</label>
       <select name="status" id="status" required class="custom-select form-control form-control-sm" [(ngModel)]="rfq.status">
-        <option value="New">New</option>
+        <option *ngFor="let status of statuses" [value]="status.value">{{ status.name }}</option>
       </select>
     </div>
 
