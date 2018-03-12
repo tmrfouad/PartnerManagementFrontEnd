@@ -1,3 +1,4 @@
+import { RepService } from './services/rep.service';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -34,6 +35,7 @@ import { CustomerFormComponent } from './components/customer-form/customer-form.
 import { ConfirmComponent } from './components/confirm/confirm.component';
 import { MessageComponent } from './components/message/message.component';
 import { SummaryComponent } from './components/rfq/summary/summary.component';
+import { RepFormComponent } from './components/rep/rep-form/rep-form.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,8 @@ import { SummaryComponent } from './components/rfq/summary/summary.component';
     CustomerFormComponent,
     ConfirmComponent,
     MessageComponent,
-    SummaryComponent
+    SummaryComponent,
+    RepFormComponent
   ],
   imports: [
     MatSnackBarModule,
@@ -69,6 +72,7 @@ import { SummaryComponent } from './components/rfq/summary/summary.component';
       { path: '', component: HomeComponent },
       { path: 'subscribe/:bundle', component: SubscribeComponent },
       { path: 'login', component: LoginComponent },
+      { path: 'rep', component: RepFormComponent },
       { path: 'Rfq', component: RfqContainarComponent, canActivate: [AuthGuard] }
     ])
   ],
@@ -86,7 +90,8 @@ import { SummaryComponent } from './components/rfq/summary/summary.component';
     MailService,
     AuthGuard,
     NetworkService,
-    CountryService
+    CountryService,
+    RepService
   ],
   bootstrap: [AppComponent]
 })

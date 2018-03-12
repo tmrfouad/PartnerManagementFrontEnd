@@ -1,8 +1,8 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, Inject } from '@angular/core';
 import { RFQAction } from '../../../models/RFQAction';
 import { RfqService } from '../../../services/rfq.service';
 import { ActionType } from '../../../models/ActionType';
-import { MatDialogRef, MatSnackBar, MatDialog } from '@angular/material';
+import { MatDialogRef, MatSnackBar, MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 import { BaseComponent } from '../../base-component';
 import { ActionTypeComment } from '../../../models/ActionTypeComment';
 
@@ -34,7 +34,8 @@ export class StatusEditFormComponent extends BaseComponent implements OnInit {
     snackBar: MatSnackBar,
     dialog: MatDialog,
     private rfqService: RfqService,
-    private dialogRef: MatDialogRef<StatusEditFormComponent>) {
+    private dialogRef: MatDialogRef<StatusEditFormComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: string) {
     super(snackBar, dialog);
     const types = Object.keys(ActionType);
     this.actionType_Names = types.slice(types.length / 2);
@@ -53,9 +54,6 @@ export class StatusEditFormComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     this.rfqStatus = Object.assign({}, this.action);
-    // tslint:disable-next-line:curly
-    this.rfqStatus.comments = ' ';
-    console.log(this.rfqStatus);
     if (Object.keys(this.actualAction).length > 0) {
       this.action = Object.assign({}, this.actualAction);
     }
@@ -65,7 +63,6 @@ export class StatusEditFormComponent extends BaseComponent implements OnInit {
     this.dialogResult = 'save';
     this.showLoading('Please wait ...');
     if (!this.rfqOptions.addStatus) {
-      // f.comments = this.addSummery();
       const rfq$ = await this.rfqService.updateStatus(this.action.rfqId, this.action.id, f);
       await rfq$.toPromise().then(() => {
         this.action = Object.assign(this.action, this.rfqStatus);

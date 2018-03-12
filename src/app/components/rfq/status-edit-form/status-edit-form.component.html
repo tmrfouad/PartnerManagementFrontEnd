@@ -1,15 +1,5 @@
 <form #f="ngForm" (submit)="logForm(f.value)">
-  <div class="card-body row" *ngIf="rfqStatus">
-    <div class="col-6">
-      <span class="font-weight-bold col-form-label-sm">Action Code :</span>
-      <input type="text" readonly [(ngModel)]=" rfqStatus.actionCode" name="actionCode" class="form-control form-control-sm">
-
-    </div>
-    <div class="col-6">
-      <span class="font-weight-bold col-form-label-sm">Action Time :</span>
-      <input type="text" readonly [(ngModel)]="rfqStatus.actionTime" name="actionTime" class="form-control form-control-sm">
-
-    </div>
+  <div class="card-body row" *ngIf="rfqStatus">    
     <div class="col-6">
       <span class="font-weight-bold col-form-label-sm">Action Type :</span>
       <select name="actionType" id="actionType" class="form-control form-control-sm" [(ngModel)]="rfqStatus.actionType">
@@ -17,7 +7,7 @@
       </select>
     </div>
     <div class="col-6">
-      <span class="font-weight-bold col-form-label-sm">Representative <span class="text-danger">*</span>: </span>
+      <span class="font-weight-bold col-form-label-sm">Representative : <span class="text-danger">*</span> </span>
       <input type="text" required [(ngModel)]="rfqStatus.companyRepresentative" #CompanyRepresentative="ngModel" name="companyRepresentative" class="form-control form-control-sm">
       <div class="alert-danger" *ngIf="CompanyRepresentative.touched && CompanyRepresentative.invalid">
         <div *ngIf="CompanyRepresentative.errors.required">
@@ -25,15 +15,21 @@
         </div>
       </div>
     </div>
-    <div class="col-12" *ngIf="rfqStatus.actionType != 0">
+    <div class="col-12" *ngIf="rfqStatus.actionType != 0 && data == 'new' ">
       <summary-info [actionType]="actionTypeDialog" (addSummary)="addSummary($event)"></summary-info>
     </div>
     <div class="col-12">
-      <span class="font-weight-bold col-form-label-sm"> {{ action_Types[rfqStatus.actionType].name }} Summary :</span>
+      <span class="font-weight-bold col-form-label-sm"> {{ action_Types[rfqStatus.actionType].name }} Summary : <span class="text-danger">*</span></span>
       
-      <textarea type="text" [(ngModel)]="rfqStatus.comments" required name="comments" class="form-control form-control-sm">
+      <textarea type="text" #Comments="ngModel" [(ngModel)]="rfqStatus.comments"  [readOnly]="data == 'new'" required name="comments" class="form-control form-control-sm">
       </textarea>
-      
+
+      <div class="alert-danger" *ngIf="Comments.touched && Comments.invalid">
+          <div *ngIf="Comments.errors.required">
+            <small>You can't leave this empty.</small>
+          </div>
+      </div>
+
     </div>
     <div class="col-12 buttons">
         <button class="btn btn-primary btn-sm" type="submit" [disabled]="f.invalid">Save</button>
