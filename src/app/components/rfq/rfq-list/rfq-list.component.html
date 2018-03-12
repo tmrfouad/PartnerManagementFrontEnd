@@ -1,11 +1,14 @@
 <div class="card">
     <div class="card-header bg-dark text-white">
         <h3>RFQ Management</h3>
-        <div>
-            <button class="btn btn-light btn-sm float-right m-1" (click)="refresh()">
+        <div class="row">
+            <div class="col">
+                <input type="text" name="search" id="search" class="form-control form-control-sm m-1" placeholder="Search...">
+            </div>
+            <button class="btn btn-light btn-sm m-1 col-1" (click)="refresh()">
                 <i class="fa fa-refresh" aria-hidden="true"></i>
             </button>
-            <button class="btn btn-light btn-sm float-right m-1" (click)="addRfq()">
+            <button class="btn btn-light btn-sm m-1 col-1" (click)="addRfq()">
                 <i class="fa fa-plus" aria-hidden="true"></i>
             </button>
         </div>

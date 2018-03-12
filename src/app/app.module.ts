@@ -31,6 +31,8 @@ import { MailService } from './services/mail.service';
 import { NetworkService } from './services/network.service';
 import { RfqService } from './services/rfq.service';
 import { CustomerFormComponent } from './components/customer-form/customer-form.component';
+import { ConfirmComponent } from './components/confirm/confirm.component';
+import { MessageComponent } from './components/message/message.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,9 @@ import { CustomerFormComponent } from './components/customer-form/customer-form.
     RfqEditFormComponent,
     StatusEditFormComponent,
     SubscribeComponent,
-    CustomerFormComponent
+    CustomerFormComponent,
+    ConfirmComponent,
+    MessageComponent
   ],
   imports: [
     MatSnackBarModule,
@@ -70,6 +74,8 @@ import { CustomerFormComponent } from './components/customer-form/customer-form.
     RfqEditFormComponent,
     LoadingComponent,
     StatusEditFormComponent,
+    ConfirmComponent,
+    MessageComponent
   ],
   providers: [
     RfqService,

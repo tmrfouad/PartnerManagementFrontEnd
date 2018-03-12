@@ -1,6 +1,8 @@
 import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 
+import { ConfirmComponent } from './confirm/confirm.component';
 import { LoadingComponent } from './loading/loading.component';
+import { MessageComponent } from './message/message.component';
 
 export class BaseComponent {
     private loadingDialogRef: MatDialogRef<LoadingComponent>;
@@ -26,5 +28,25 @@ export class BaseComponent {
 
     protected closeLoading() {
         this.loadingDialogRef.close();
+    }
+
+    protected showMessage(message: string, title?: string) {
+        const confirmDialog = this.dialog.open(MessageComponent, {
+            data: {
+                title: title,
+                message: message
+            }
+        });
+    }
+
+    protected showConfirm(message: string, title?: string) {
+        const confirmDialog = this.dialog.open(ConfirmComponent, {
+            data: {
+                title: title,
+                message: message
+            }
+        });
+
+        return confirmDialog.afterClosed();
     }
 }

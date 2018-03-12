@@ -1,9 +1,10 @@
 import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
 
 import { RfqService } from '../../../services/rfq.service';
 import { RfqEditFormComponent } from '../rfq-edit-form/rfq-edit-form.component';
+import { BaseComponent } from '../../base-component';
 
 
 @Component({
@@ -12,15 +13,19 @@ import { RfqEditFormComponent } from '../rfq-edit-form/rfq-edit-form.component';
   templateUrl: './rfq-list.component.html',
   styleUrls: ['./rfq-list.component.css']
 })
-export class RfqListComponent implements OnDestroy {
+export class RfqListComponent extends BaseComponent implements OnDestroy {
   rfqList;
   rfqListSubscription: Subscription;
   selectedIndex: number = null;
   @Output('change') change = new EventEmitter();
 
   constructor(
-    private dialog: MatDialog,
+    snackBar: MatSnackBar,
+    public dialog: MatDialog,
     private rfqService: RfqService) {
+
+    super(snackBar, dialog);
+
     this.rfqListSubscription = this.rfqService.get()
       .subscribe(rfqs => {
         if (rfqs) {
@@ -66,10 +71,15 @@ export class RfqListComponent implements OnDestroy {
   }
 
   deleteRfq(rfqId) {
-    this.rfqService.Delete(rfqId).subscribe(() => {
-      this.refresh();
-      this.filter({}, -1);
-    });
+    this.showConfirm('Are you sure you want to delete this request?', 'Delete Request')
+      .subscribe(result => {
+        if (result === 'ok') {
+          this.rfqService.Delete(rfqId).subscribe(() => {
+            this.refresh();
+            this.filter({}, -1);
+          });
+        }
+      });
   }
 }
 
