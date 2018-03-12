@@ -1,0 +1,8 @@
+.buttons {
+    padding-top: 3px;
+}
+
+.alert-danger {
+    border: 1px solid transparent;
+    background-color: transparent;
+}

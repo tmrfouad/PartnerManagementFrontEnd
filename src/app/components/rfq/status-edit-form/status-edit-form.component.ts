@@ -4,6 +4,7 @@ import { RfqService } from '../../../services/rfq.service';
 import { ActionType } from '../../../models/ActionType';
 import { MatDialogRef, MatSnackBar, MatDialog } from '@angular/material';
 import { BaseComponent } from '../../base-component';
+import { ActionTypeComment } from '../../../models/ActionTypeComment';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -19,6 +20,8 @@ export class StatusEditFormComponent extends BaseComponent implements OnInit {
   actionType_Values: string[];
   actionTypeNames: string[];
   actionTypeValues: string[];
+  actionTypeDialog: ActionTypeComment = <ActionTypeComment>{};
+
 
   action: RFQAction = <RFQAction>{};
   actualAction: RFQAction = <RFQAction>{};
@@ -33,7 +36,6 @@ export class StatusEditFormComponent extends BaseComponent implements OnInit {
     private rfqService: RfqService,
     private dialogRef: MatDialogRef<StatusEditFormComponent>) {
     super(snackBar, dialog);
-
     const types = Object.keys(ActionType);
     this.actionType_Names = types.slice(types.length / 2);
     this.actionType_Values = types.slice(0, types.length / 2);
@@ -52,6 +54,8 @@ export class StatusEditFormComponent extends BaseComponent implements OnInit {
   ngOnInit() {
     this.rfqStatus = Object.assign({}, this.action);
     // tslint:disable-next-line:curly
+    this.rfqStatus.comments = ' ';
+    console.log(this.rfqStatus);
     if (Object.keys(this.actualAction).length > 0) {
       this.action = Object.assign({}, this.actualAction);
     }
@@ -60,8 +64,8 @@ export class StatusEditFormComponent extends BaseComponent implements OnInit {
   async logForm(f: RFQAction) {
     this.dialogResult = 'save';
     this.showLoading('Please wait ...');
-
     if (!this.rfqOptions.addStatus) {
+      // f.comments = this.addSummery();
       const rfq$ = await this.rfqService.updateStatus(this.action.rfqId, this.action.id, f);
       await rfq$.toPromise().then(() => {
         this.action = Object.assign(this.action, this.rfqStatus);
@@ -93,6 +97,10 @@ export class StatusEditFormComponent extends BaseComponent implements OnInit {
       this.action = Object.assign({}, this.actualAction);
 
     this.dialogRef.close();
+  }
+
+  addSummary(summery: string) {
+    this.rfqStatus.comments = summery;
   }
 
 }

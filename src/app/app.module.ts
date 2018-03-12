@@ -33,6 +33,7 @@ import { RfqService } from './services/rfq.service';
 import { CustomerFormComponent } from './components/customer-form/customer-form.component';
 import { ConfirmComponent } from './components/confirm/confirm.component';
 import { MessageComponent } from './components/message/message.component';
+import { SummaryComponent } from './components/rfq/summary/summary.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { MessageComponent } from './components/message/message.component';
     SubscribeComponent,
     CustomerFormComponent,
     ConfirmComponent,
-    MessageComponent
+    MessageComponent,
+    SummaryComponent
   ],
   imports: [
     MatSnackBarModule,
