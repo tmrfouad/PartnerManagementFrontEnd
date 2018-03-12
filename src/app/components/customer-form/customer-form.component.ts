@@ -68,6 +68,7 @@ export class CustomerFormComponent extends BaseComponent {
   }
 
   logForm(rfqForm) {
+    rfqForm.sendEmail = true;
     this.showLoading('Please wait ...');
     this.rfqService.Post(rfqForm).subscribe(() => {
       this.showSnackBar('Request sent successfully', 'Success');

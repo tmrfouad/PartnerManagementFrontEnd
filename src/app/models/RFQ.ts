@@ -21,4 +21,6 @@ export interface RFQ {
     targetedProduct?: string;
 
     rfqId?: number;
+
+    sendEmail?: boolean;
 }

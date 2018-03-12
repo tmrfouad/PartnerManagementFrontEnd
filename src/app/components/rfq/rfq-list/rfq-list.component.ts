@@ -19,7 +19,7 @@ export class RfqListComponent extends BaseComponent implements OnDestroy {
   rfqList: RFQ[] = [];
   rfqListSubscription: Subscription;
   selectedIndex: number = null;
-  searchFilter: string;
+  searchFilter = '';
 
   @Output('change') change = new EventEmitter();
 
@@ -34,7 +34,7 @@ export class RfqListComponent extends BaseComponent implements OnDestroy {
       .subscribe(rfqs => {
         if (rfqs) {
           this.rfqs = rfqs as RFQ[];
-          this.rfqList = this.rfqs;
+          this.applyFilter();
           this.selectRfq(rfqs[0], 0);
         }
       });
@@ -50,7 +50,13 @@ export class RfqListComponent extends BaseComponent implements OnDestroy {
   }
 
   applyFilter() {
-    this.rfqList = this.rfqs.filter(r => r.companyEnglishName.includes(this.searchFilter));
+    const srchFltr = this.searchFilter.toLowerCase();
+    this.rfqList = this.rfqs.filter(r =>
+      r.companyEnglishName.toLowerCase().includes(srchFltr) ||
+      r.contactPersonEnglishName.toLowerCase().includes(srchFltr) ||
+      r.contactPersonEmail.toLowerCase().includes(srchFltr) ||
+      r.contactPersonMobile.toLowerCase().includes(srchFltr)
+    );
   }
 
   refresh() {
@@ -58,7 +64,7 @@ export class RfqListComponent extends BaseComponent implements OnDestroy {
       .subscribe(rfqs => {
         if (rfqs) {
           this.rfqs = rfqs as RFQ[];
-          this.rfqList = this.rfqs;
+          this.applyFilter();
           this.selectRfq(rfqs[0], 0);
         }
       });

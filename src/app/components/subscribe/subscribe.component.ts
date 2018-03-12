@@ -7,6 +7,7 @@ import { AcceptService } from '../../services/accept.service';
 import { CountryService } from '../../services/country.service';
 import { RfqService } from '../../services/rfq.service';
 import { BaseComponent } from '../base-component';
+import { RFQ } from '../../models/RFQ';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -16,31 +17,14 @@ import { BaseComponent } from '../base-component';
 })
 export class SubscribeComponent extends BaseComponent implements OnInit {
   loading = false;
-  rfqItem =
-    {
-      ContactPersonEnglishName: '',
-      CompanyEnglishName: '',
-      ContactPersonEmail: '',
-      ContactPersonMobile: '',
-      PhoneNumber: '',
-      SelectedBundle: '',
-      ContactPersonPosition: '',
-      Address: '',
-      Website: '',
-      TargetedProduct: '',
-      Status: '',
-      RFQCode: 100,
-      CompanyArabicName: '',
-      ContactPersonArabicName: '',
-      Location: '',
-      UniversalIP: ''
+  rfqItem: RFQ = {};
 
-    };
   phoneIntial = '';
   phone = '';
 
   mobilIntial = '';
   mobilphone = '';
+
   currentCuntry: string;
   currentCuntry2: string;
 
@@ -54,14 +38,14 @@ export class SubscribeComponent extends BaseComponent implements OnInit {
     private route: ActivatedRoute) {
 
     super(snackBar, dialog);
-    this.rfqItem.TargetedProduct = 'Process Perfect';
+    this.rfqItem.targetedProduct = 'Process Perfect';
     this.countryService.getCurrentCountry().subscribe((item: Country) => {
       this.currentCuntry = item.country.toLowerCase();
       this.currentCuntry2 = item.country.toLowerCase();
     });
     const edition = route.snapshot.paramMap.get('bundle');
     if (edition) {
-      this.rfqItem.SelectedBundle = edition;
+      this.rfqItem.selectedBundle = edition;
     }
   }
 
@@ -92,7 +76,7 @@ export class SubscribeComponent extends BaseComponent implements OnInit {
   }
 
   countryChange() {
-    this.rfqItem.ContactPersonMobile = this.phoneIntial + this.phone;
-    this.rfqItem.PhoneNumber = this.mobilIntial + this.mobilphone;
+    this.rfqItem.contactPersonMobile = this.phoneIntial + this.phone;
+    this.rfqItem.phoneNumber = this.mobilIntial + this.mobilphone;
   }
 }

@@ -57,7 +57,7 @@ export class RfqStatusListComponent implements OnInit {
 
     this.StatusDialogRef = this.dialog.open(StatusEditFormComponent, {
       width: '800px',
-      height: '380px',
+      height: '530px',
       position: { top: '100px' }
     });
     this.StatusDialogRef.componentInstance.action = action;

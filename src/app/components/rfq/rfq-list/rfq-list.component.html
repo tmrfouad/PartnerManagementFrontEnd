@@ -1,27 +1,28 @@
 <div class="card">
-    <div class="card-header bg-dark text-white">
-        <h3>RFQ Management</h3>
-        <div class="row">
-            <div class="col">
-                <input type="text" name="search" id="search" class="form-control form-control-sm m-1" placeholder="Search..." [(ngModel)]="searchFilter" (change)="applyFilter()">
-            </div>
-            <button class="btn btn-light btn-sm m-1 col-1" (click)="refresh()">
-                <i class="fa fa-refresh" aria-hidden="true"></i>
-            </button>
-            <button class="btn btn-light btn-sm m-1 col-1" (click)="addRfq()">
-                <i class="fa fa-plus" aria-hidden="true"></i>
-            </button>
-        </div>
+  <div class="card-header bg-dark text-white">
+    <h3>RFQ Management</h3>
+    <div class="row">
+      <div class="col">
+        <input type="text" name="search" id="search" class="form-control form-control-sm m-1" placeholder="Search..." [(ngModel)]="searchFilter"
+          (keyup)="applyFilter()">
+      </div>
+      <button class="btn btn-light btn-sm m-1 col-1" (click)="refresh()">
+        <i class="fa fa-refresh" aria-hidden="true"></i>
+      </button>
+      <button class="btn btn-light btn-sm m-1 col-1" (click)="addRfq()">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+      </button>
     </div>
-    <ng-template #loading>
-        <loading></loading>
-    </ng-template>
-    <div class="list-group" *ngIf="rfqList; else loading">
-        <a class="list-group-item card-text" (click)="selectRfq(rfqItem, i)" *ngFor="let rfqItem of rfqList; let i = index" [class.active]="selectedIndex == i">
-            {{ rfqItem.contactPersonEnglishName }}; {{ rfqItem.companyEnglishName}}; {{ rfqItem.contactPersonMobile }}
-            <a class="float-right" (click)="deleteRfq(rfqItem.rfqId)">
-                <i class="fa fa-trash" aria-hidden="true"></i>
-            </a>
-        </a>
-    </div>
+  </div>
+  <ng-template #loading>
+    <loading></loading>
+  </ng-template>
+  <div class="list-group" *ngIf="rfqList; else loading">
+    <a class="list-group-item card-text" (click)="selectRfq(rfqItem, i)" *ngFor="let rfqItem of rfqList; let i = index" [class.active]="selectedIndex == i">
+      {{ rfqItem.contactPersonEnglishName }}; {{ rfqItem.companyEnglishName}}; {{ rfqItem.contactPersonMobile }}
+      <a class="float-right" (click)="deleteRfq(rfqItem.rfqId)">
+        <i class="fa fa-trash" aria-hidden="true"></i>
+      </a>
+    </a>
+  </div>
 </div>

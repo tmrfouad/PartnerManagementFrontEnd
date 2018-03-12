@@ -16,6 +16,7 @@ export class RfqEditFormComponent extends BaseComponent implements OnInit {
   countries = Countries.items;
   rfqParameterItem: RFQ = <RFQ>{};
   rfq: RFQ = <RFQ>{};
+  sendEmail = false;
 
   constructor(
     snackBar: MatSnackBar,
@@ -40,6 +41,7 @@ export class RfqEditFormComponent extends BaseComponent implements OnInit {
     this.showLoading('Please wait ...');
     f.universalIP = await this.netService.getIp();
     if (this.dialogData === 'new') {
+      f.sendEmail = this.sendEmail;
       const rfqItem$ = this.rfqService.Post(f);
       rfqItem$.subscribe(() => {
         this.rfqParameterItem = Object.assign(this.rfqParameterItem, this.rfq);
