@@ -1,11 +1,10 @@
-import { Component, Inject, ViewEncapsulation } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-confirm',
   templateUrl: './confirm.component.html',
-  styleUrls: ['./confirm.component.css'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./confirm.component.css']
 })
 export class ConfirmComponent {
 
