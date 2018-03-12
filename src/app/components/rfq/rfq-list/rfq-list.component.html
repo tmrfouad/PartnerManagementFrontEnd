@@ -3,7 +3,7 @@
         <h3>RFQ Management</h3>
         <div class="row">
             <div class="col">
-                <input type="text" name="search" id="search" class="form-control form-control-sm m-1" placeholder="Search...">
+                <input type="text" name="search" id="search" class="form-control form-control-sm m-1" placeholder="Search..." [(ngModel)]="searchFilter" (change)="applyFilter()">
             </div>
             <button class="btn btn-light btn-sm m-1 col-1" (click)="refresh()">
                 <i class="fa fa-refresh" aria-hidden="true"></i>

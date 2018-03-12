@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { RfqService } from '../../../services/rfq.service';
 import { RfqEditFormComponent } from '../rfq-edit-form/rfq-edit-form.component';
 import { BaseComponent } from '../../base-component';
+import { RFQ } from '../../../models/RFQ';
 
 
 @Component({
@@ -14,9 +15,12 @@ import { BaseComponent } from '../../base-component';
   styleUrls: ['./rfq-list.component.css']
 })
 export class RfqListComponent extends BaseComponent implements OnDestroy {
-  rfqList;
+  rfqs: RFQ[] = [];
+  rfqList: RFQ[] = [];
   rfqListSubscription: Subscription;
   selectedIndex: number = null;
+  searchFilter: string;
+
   @Output('change') change = new EventEmitter();
 
   constructor(
@@ -29,8 +33,9 @@ export class RfqListComponent extends BaseComponent implements OnDestroy {
     this.rfqListSubscription = this.rfqService.get()
       .subscribe(rfqs => {
         if (rfqs) {
-          this.rfqList = rfqs;
-          this.filter(rfqs[0], 0);
+          this.rfqs = rfqs as RFQ[];
+          this.rfqList = this.rfqs;
+          this.selectRfq(rfqs[0], 0);
         }
       });
   }
@@ -39,16 +44,22 @@ export class RfqListComponent extends BaseComponent implements OnDestroy {
     this.rfqListSubscription.unsubscribe();
   }
 
-  filter(rfqItem, index) {
+  selectRfq(rfq, index) {
     this.selectedIndex = index;
-    this.change.emit(rfqItem);
+    this.change.emit(rfq);
+  }
+
+  applyFilter() {
+    this.rfqList = this.rfqs.filter(r => r.companyEnglishName.includes(this.searchFilter));
   }
 
   refresh() {
     this.rfqListSubscription = this.rfqService.get()
       .subscribe(rfqs => {
         if (rfqs) {
-          this.rfqList = rfqs;
+          this.rfqs = rfqs as RFQ[];
+          this.rfqList = this.rfqs;
+          this.selectRfq(rfqs[0], 0);
         }
       });
   }
@@ -76,7 +87,7 @@ export class RfqListComponent extends BaseComponent implements OnDestroy {
         if (result === 'ok') {
           this.rfqService.Delete(rfqId).subscribe(() => {
             this.refresh();
-            this.filter({}, -1);
+            this.selectRfq({}, -1);
           });
         }
       });
