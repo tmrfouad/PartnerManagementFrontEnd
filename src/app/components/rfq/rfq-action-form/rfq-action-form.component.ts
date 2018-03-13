@@ -59,7 +59,8 @@ export class RfqActionFormComponent {
     const StatusDialogRef = this.dialog.open(StatusEditFormComponent, {
       width: '800px',
       height: '530px',
-      position: { top: '100px' }
+      position: { top: '100px' },
+      data: 'new'
     });
     this.reloadActions = false;
     StatusDialogRef.componentInstance.actualAction = this.rfqStatus;
@@ -96,7 +97,8 @@ export class RfqActionFormComponent {
     const StatusDialogRef = this.dialog.open(StatusEditFormComponent, {
       width: '800px',
       height: '530px',
-      position: { top: '100px' }
+      position: { top: '100px' },
+      data: 'edit'
     });
     StatusDialogRef.componentInstance.action = action;
     StatusDialogRef.afterClosed().subscribe();

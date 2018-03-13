@@ -1,3 +1,4 @@
+import { RepService } from './services/rep.service';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -36,6 +37,7 @@ import { MessageComponent } from './components/message/message.component';
 import { SummaryComponent } from './components/rfq/summary/summary.component';
 import { StatusService } from './services/status.service';
 import { ActionTypeService } from './services/action-type.service';
+import { RepFormComponent } from './components/rep/rep-form/rep-form.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,8 @@ import { ActionTypeService } from './services/action-type.service';
     CustomerFormComponent,
     ConfirmComponent,
     MessageComponent,
-    SummaryComponent
+    SummaryComponent,
+    RepFormComponent
   ],
   imports: [
     MatSnackBarModule,
@@ -71,6 +74,7 @@ import { ActionTypeService } from './services/action-type.service';
       { path: '', component: HomeComponent },
       { path: 'subscribe/:bundle', component: SubscribeComponent },
       { path: 'login', component: LoginComponent },
+      { path: 'rep', component: RepFormComponent },
       { path: 'Rfq', component: RfqContainarComponent, canActivate: [AuthGuard] }
     ])
   ],
@@ -90,7 +94,8 @@ import { ActionTypeService } from './services/action-type.service';
     NetworkService,
     CountryService,
     StatusService,
-    ActionTypeService
+    ActionTypeService,
+    RepService
   ],
   bootstrap: [AppComponent]
 })
