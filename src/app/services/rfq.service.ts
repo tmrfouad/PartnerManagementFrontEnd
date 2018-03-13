@@ -18,11 +18,23 @@ export class RfqService extends DataService {
     this.url = '/rfq';
   }
 
-  getStatus(id) {
+  async post(item) {
+    const universalIP = await this.netService.getIp();
+    item.universalIP = universalIP;
+    return super.post(item);
+  }
+
+  async put(id, item) {
+    const universalIP = await this.netService.getIp();
+    item.universalIP = universalIP;
+    return super.put(id, item);
+  }
+
+  async getStatus(id) {
     return this.http.get(`${this.baseUrl + this.url}/status/${id}`, { headers: this.headers });
   }
 
-  getActions(id) {
+  async getActions(id) {
     return this.http.get(`${this.baseUrl + this.url}/actions/${id}`, { headers: this.headers });
   }
 

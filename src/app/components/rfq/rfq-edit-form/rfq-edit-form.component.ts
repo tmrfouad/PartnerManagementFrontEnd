@@ -46,10 +46,9 @@ export class RfqEditFormComponent extends BaseComponent implements OnInit {
 
   async submit(f) {
     this.showLoading('Please wait ...');
-    f.universalIP = await this.netService.getIp();
     if (this.dialogData === 'new') {
       f.sendEmail = this.sendEmail;
-      const rfqItem$ = this.rfqService.Post(f);
+      const rfqItem$ = await this.rfqService.post(f);
       rfqItem$.subscribe(() => {
         this.rfqParameterItem = Object.assign(this.rfqParameterItem, this.rfq);
         this.closeLoading();
@@ -60,7 +59,7 @@ export class RfqEditFormComponent extends BaseComponent implements OnInit {
         this.showSnackBar(error.message, 'Error', true);
       });
     } else {
-      const rfqItem$ = this.rfqService.Put(this.rfq.rfqId, f);
+      const rfqItem$ = await this.rfqService.put(this.rfq.rfqId, f);
       rfqItem$.subscribe(() => {
         this.rfqParameterItem = Object.assign(this.rfqParameterItem, this.rfq);
         this.closeLoading();

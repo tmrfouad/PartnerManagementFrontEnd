@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, Output, OnInit } from '@angular/core';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -14,7 +14,7 @@ import { RFQ } from '../../../models/RFQ';
   templateUrl: './rfq-list.component.html',
   styleUrls: ['./rfq-list.component.css']
 })
-export class RfqListComponent extends BaseComponent implements OnDestroy {
+export class RfqListComponent extends BaseComponent implements OnInit, OnDestroy {
   rfqs: RFQ[] = [];
   rfqList: RFQ[] = [];
   rfqListSubscription: Subscription;
@@ -29,15 +29,17 @@ export class RfqListComponent extends BaseComponent implements OnDestroy {
     private rfqService: RfqService) {
 
     super(snackBar, dialog);
+  }
 
-    this.rfqListSubscription = this.rfqService.get()
-      .subscribe(rfqs => {
-        if (rfqs) {
-          this.rfqs = rfqs as RFQ[];
-          this.applyFilter();
-          this.selectRfq(rfqs[0], 0);
-        }
-      });
+  async ngOnInit() {
+    const get$ = await this.rfqService.get();
+    this.rfqListSubscription = get$.subscribe(rfqs => {
+      if (rfqs) {
+        this.rfqs = rfqs as RFQ[];
+        this.applyFilter();
+        this.selectRfq(rfqs[0], 0);
+      }
+    });
   }
 
   ngOnDestroy() {
@@ -59,15 +61,15 @@ export class RfqListComponent extends BaseComponent implements OnDestroy {
     );
   }
 
-  refresh() {
-    this.rfqListSubscription = this.rfqService.get()
-      .subscribe(rfqs => {
-        if (rfqs) {
-          this.rfqs = rfqs as RFQ[];
-          this.applyFilter();
-          this.selectRfq(rfqs[0], 0);
-        }
-      });
+  async refresh() {
+    const get$ = await this.rfqService.get();
+    this.rfqListSubscription = get$.subscribe(rfqs => {
+      if (rfqs) {
+        this.rfqs = rfqs as RFQ[];
+        this.applyFilter();
+        this.selectRfq(rfqs[0], 0);
+      }
+    });
   }
 
   addRfq() {
@@ -89,9 +91,10 @@ export class RfqListComponent extends BaseComponent implements OnDestroy {
 
   deleteRfq(rfqId) {
     this.showConfirm('Are you sure you want to delete this request?', 'Delete Request')
-      .subscribe(result => {
+      .subscribe(async result => {
         if (result === 'ok') {
-          this.rfqService.Delete(rfqId).subscribe(() => {
+          const delete$ = await this.rfqService.delete(rfqId);
+          delete$.subscribe(() => {
             this.refresh();
             this.selectRfq({}, -1);
           });

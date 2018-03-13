@@ -28,11 +28,11 @@ export class RfqContainarComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
   }
 
-  onrfqChange(rfqItem) {
+  async onRfqChange(rfqItem) {
     if (rfqItem) {
       this.rfq = rfqItem;
       if (rfqItem.rfqId != null) {
-        this.rfqStatus$ = this.rfqService.getStatus(this.rfq.rfqId);
+        this.rfqStatus$ = await this.rfqService.getStatus(this.rfq.rfqId);
       } else {
         this.rfqStatus$ = Observable.empty();
       }

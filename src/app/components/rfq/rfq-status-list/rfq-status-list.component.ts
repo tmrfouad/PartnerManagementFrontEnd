@@ -29,7 +29,9 @@ export class RfqStatusListComponent implements OnInit {
   @Input('rfq') set rfq(rfq: RFQ) {
     this._rfq = rfq;
     if (rfq) {
-      this.rfqActions$ = this.rfqService.getActions(rfq.rfqId);
+      this.rfqService.getActions(rfq.rfqId).then(r => {
+        this.rfqActions$ = r;
+      });
     }
   }
 
@@ -39,8 +41,10 @@ export class RfqStatusListComponent implements OnInit {
   @Input('reload') set reload(reload: boolean) {
     this._reload = reload;
     if (reload) {
-      this.rfqActions$ = this.rfqService.getActions(this.rfq.rfqId);
-      this.reload = false;
+      this.rfqService.getActions(this.rfq.rfqId).then(r => {
+        this.rfqActions$ = r;
+        this.reload = false;
+      });
     }
   }
 

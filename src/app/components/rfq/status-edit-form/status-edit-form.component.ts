@@ -78,7 +78,7 @@ export class StatusEditFormComponent extends BaseComponent implements OnInit {
         this.showSnackBar(error.message, 'Error', true);
       });
     }
-    const getStatus$ = this.rfqService.getStatus(this.rfqOptions.rfqId);
+    const getStatus$ = await this.rfqService.getStatus(this.rfqOptions.rfqId);
     getStatus$.subscribe(newStatus => {
       this.rfqStatus = newStatus as RFQAction;
       this.action = Object.assign(this.action, newStatus);

@@ -67,10 +67,11 @@ export class CustomerFormComponent extends BaseComponent {
     this.currentCuntry2 = Srchtxt.toLowerCase();
   }
 
-  logForm(rfqForm) {
+  async logForm(rfqForm) {
     rfqForm.sendEmail = true;
     this.showLoading('Please wait ...');
-    this.rfqService.Post(rfqForm).subscribe(() => {
+    const rfqCreate$ = await this.rfqService.post(rfqForm);
+    rfqCreate$.subscribe(() => {
       this.showSnackBar('Request sent successfully', 'Success');
     }, error => {
       this.showSnackBar(error.message, 'Error', true);

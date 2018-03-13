@@ -37,8 +37,8 @@ export class RfqStatusComponent implements OnInit, OnDestroy {
     this.actionType_Values = types.slice(0, types.length / 2);
   }
 
-  ngOnInit() {
-    const status$ = this.rfqService.getStatus(this.rfq.rfqId);
+  async ngOnInit() {
+    const status$ = await this.rfqService.getStatus(this.rfq.rfqId);
     this.rfqStatusSubscription = status$.subscribe(status => {
       if (status) {
         this.rfqAction = status;

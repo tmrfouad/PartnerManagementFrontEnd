@@ -64,7 +64,8 @@ export class SubscribeComponent extends BaseComponent implements OnInit {
 
   async logForm(rfqForm) {
     this.showLoading('Please wait ...');
-    this.rfqService.Post(rfqForm).subscribe(() => {
+    const rfqCreate$ = await this.rfqService.post(rfqForm);
+    rfqCreate$.subscribe(() => {
       this.closeLoading();
       this.showSnackBar('Order placed successfully.', 'Success');
       this.router.navigate(['/']);

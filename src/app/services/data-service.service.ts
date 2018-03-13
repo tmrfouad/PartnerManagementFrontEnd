@@ -24,23 +24,23 @@ export class DataService {
       .set('Authorization', 'bearer ' + this.accountService.userToken);
   }
 
-  get() {
+  async get() {
     return this.http.get(this.baseUrl + this.url + '/get', { headers: this.headers });
   }
 
-  getById(Id) {
+  async getById(Id) {
     return this.http.get(this.baseUrl + this.url + '/get/' + Id, { headers: this.headers });
   }
 
-  Post(item) {
+  async post(item) {
     return this.http.post(this.baseUrl + this.url + '/post', item, { headers: this.headers });
   }
 
-  Put(id, item) {
+  async put(id, item) {
     return this.http.put(this.baseUrl + this.url + '/put/' + id, item, { headers: this.headers });
   }
 
-  Delete(id) {
+  async delete(id) {
     return this.http.delete(this.baseUrl + this.url + '/delete/' + id, { headers: this.headers });
   }
 
