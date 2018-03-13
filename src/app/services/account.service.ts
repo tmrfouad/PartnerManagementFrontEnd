@@ -15,6 +15,7 @@ export class AccountService {
   constructor(
     private http: HttpClient,
     private router: Router) {
+
     this.jwtHelper = new JwtHelper();
 
     const domainName = environment.domainName;
@@ -61,13 +62,18 @@ export class AccountService {
     }
   }
 
+  get currentUser() {
+    const token = localStorage.getItem('userToken');
+    if (token) {
+      return this.jwtHelper.decodeToken(token);
+    }
+  }
+
   get isLoggedIn() {
     const userToken = localStorage.getItem('userToken');
-
     if (!userToken) {
       return false;
     }
-
     const isExpired = this.jwtHelper.isTokenExpired(userToken);
 
     return !isExpired;

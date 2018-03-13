@@ -18,7 +18,7 @@ constructor(http: HttpClient,
 async addRep(rep: REP) {
   const universalIP = await this.networkService.getIp();
   rep.universalIP = universalIP ;
-  return this.http.post(`${this.baseUrl + this.url}`, rep, {headers: this.headers});
+  return this.http.post(`${this.baseUrl + this.url + '/Post'}`, rep, {headers: this.headers});
 }
 
 
