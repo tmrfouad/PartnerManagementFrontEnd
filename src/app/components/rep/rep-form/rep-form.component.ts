@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { BaseComponent } from './../../base-component';
 import { RepService } from './../../../services/rep.service';
 import { REP } from './../../../models/REP';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { MatSnackBar, MatDialog } from '@angular/material';
 
 @Component({
@@ -12,6 +12,9 @@ import { MatSnackBar, MatDialog } from '@angular/material';
   styleUrls: ['./rep-form.component.css']
 })
 export class RepFormComponent extends BaseComponent implements OnInit {
+
+  // tslint:disable-next-line:no-input-rename
+  @Input('RepItem') rep: REP = <REP>{};
 
   constructor(private reService: RepService,
               private router: Router,
@@ -23,10 +26,9 @@ export class RepFormComponent extends BaseComponent implements OnInit {
   ngOnInit() {
   }
 
-  async submitForm(rep: REP) {
-    console.log(rep);
+  async submitForm(item: REP) {
     this.showLoading('Loading');
-    const rep$ = await this.reService.addRep(rep);
+    const rep$ = await this.reService.post(item);
     await rep$.toPromise().then(() => {
       this.closeLoading();
       this.showSnackBar('Representative added successfully', 'Success');

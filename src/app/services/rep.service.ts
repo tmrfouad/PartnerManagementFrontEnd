@@ -8,18 +8,17 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class RepService extends DataService {
 
-constructor(http: HttpClient,
-              accountService: AccountService,
-              private networkService: NetworkService) {
-              super(http, accountService);
-              this.url = '/Rep';
-}
+  constructor(http: HttpClient,
+    accountService: AccountService,
+    private networkService: NetworkService) {
+    super(http, accountService);
+    this.url = '/Rep';
+  }
 
-async addRep(rep: REP) {
-  const universalIP = await this.networkService.getIp();
-  rep.universalIP = universalIP ;
-  return this.http.post(`${this.baseUrl + this.url + '/Post'}`, rep, {headers: this.headers});
-}
-
+  async post(rep: REP) {
+    const universalIP = await this.networkService.getIp();
+    rep.universalIP = universalIP;
+    return super.post(rep);
+  }
 
 }

@@ -7,7 +7,7 @@
       <label for="UserName">
         Name: <span class="text-danger">*</span>
       </label>
-    <input type="text" #userName="ngModel" id="UserName" required class="form-control form-control-sm" [(ngModel)]="name" name="name">
+    <input type="text" #userName="ngModel" id="UserName" required class="form-control form-control-sm" [(ngModel)]="rep.name" name="name">
     <div class="alert alert-danger" *ngIf="userName.touched && !userName.valid">
       <div *ngIf="userName.errors.required">
           <small>You can't leave this empty.</small>

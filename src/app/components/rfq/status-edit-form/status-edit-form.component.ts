@@ -1,10 +1,14 @@
-import { Component, OnInit, Input, Output, EventEmitter, Inject } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
+
+import { ActionType } from '../../../models/ActionType';
+import { ActionTypeComment } from '../../../models/ActionTypeComment';
 import { RFQAction } from '../../../models/RFQAction';
 import { RfqService } from '../../../services/rfq.service';
-import { ActionType } from '../../../models/ActionType';
-import { MatDialogRef, MatSnackBar, MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 import { BaseComponent } from '../../base-component';
-import { ActionTypeComment } from '../../../models/ActionTypeComment';
+import { REP } from './../../../models/REP';
+import { RepService } from './../../../services/rep.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -20,7 +24,7 @@ export class StatusEditFormComponent extends BaseComponent implements OnInit {
   actionType_Values: string[];
   actionTypeDialog: ActionTypeComment = <ActionTypeComment>{};
 
-
+  rep$: Observable<{}>;
   action: RFQAction = <RFQAction>{};
   actualAction: RFQAction = <RFQAction>{};
   rfqStatus: RFQAction = <RFQAction>{};
@@ -32,6 +36,7 @@ export class StatusEditFormComponent extends BaseComponent implements OnInit {
     snackBar: MatSnackBar,
     dialog: MatDialog,
     private rfqService: RfqService,
+    private repService: RepService,
     private dialogRef: MatDialogRef<StatusEditFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: string) {
     super(snackBar, dialog);
@@ -46,13 +51,17 @@ export class StatusEditFormComponent extends BaseComponent implements OnInit {
       this.actionTypes[typeName] = typeValue;
       this.action_Types.push({ value: typeValue, name: typeName });
     }
+
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.rfqStatus = Object.assign({}, this.action);
-    if (Object.keys(this.actualAction).length > 0) {
-      this.action = Object.assign({}, this.actualAction);
+    if (this.actualAction) {
+      if (Object.keys(this.actualAction).length > 0) {
+        this.action = Object.assign({}, this.actualAction);
+      }
     }
+    this.rep$ = await this.repService.get();
   }
 
   async logForm(f: RFQAction) {

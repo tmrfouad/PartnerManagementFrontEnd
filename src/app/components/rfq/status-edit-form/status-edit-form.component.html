@@ -8,18 +8,17 @@
     </div>
     <div class="col-6">
       <span class="font-weight-bold col-form-label-sm">Representative : <span class="text-danger">*</span> </span>
-      <input type="text" required [(ngModel)]="rfqStatus.companyRepresentative" #representative="ngModel" name="companyRepresentative" class="form-control form-control-sm">
-      <div class="alert-danger" *ngIf="representative.touched && representative.invalid">
-        <div *ngIf="representative.errors.required">
-          <small>You can't leave this empty.</small>
-        </div>
-      </div>
+      <select class="form-control form-control-sm" name="companyRepresentative" id="" [(ngModel)]="rfqStatus.companyRepresentative">
+        <option *ngFor="let item of rep$ | async" [value]="item.representativeId">
+          {{ item.name }}
+        </option>
+      </select>
     </div>
     <div class="col-12" *ngIf="rfqStatus.actionType != 0 && data == 'new' ">
       <summary-info [actionType]="actionTypeDialog" (addSummary)="addSummary($event)"></summary-info>
     </div>
     <div class="col-12">
-      <span class="font-weight-bold col-form-label-sm"> {{ action_Types[rfqStatus.actionType].name }} Summary : <span class="text-danger">*</span></span>
+      <span class="font-weight-bold col-form-label-sm"> {{ action_Types[rfqStatus.actionType-1].name }} Summary : <span class="text-danger">*</span></span>
       
       <textarea type="text" #Comments="ngModel" [(ngModel)]="rfqStatus.comments"  [readOnly]="data == 'new'" required name="comments" class="form-control form-control-sm">
       </textarea>
