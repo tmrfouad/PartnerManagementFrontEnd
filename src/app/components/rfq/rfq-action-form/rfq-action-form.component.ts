@@ -1,16 +1,16 @@
 import 'rxjs/add/operator/switchMap';
 
 import { Component, Input } from '@angular/core';
-import { isNumber } from 'util';
+import { MatDialog } from '@angular/material';
+
+import { StatusService } from '../../../services/status.service';
+import { RfqEditFormComponent } from '../rfq-edit-form/rfq-edit-form.component';
+import { StatusEditFormComponent } from '../status-edit-form/status-edit-form.component';
 import { ActionType } from './../../../models/ActionType';
 import { RFQ } from './../../../models/RFQ';
 import { RFQAction } from './../../../models/RFQAction';
 import { RfqService } from './../../../services/rfq.service';
-import { NetworkService } from '../../../services/network.service';
-import { MatDialog, MatDialogRef } from '@angular/material';
-import { RfqEditFormComponent } from '../rfq-edit-form/rfq-edit-form.component';
-import { StatusEditFormComponent } from '../status-edit-form/status-edit-form.component';
-import { StatusService } from '../../../services/status.service';
+import { ActionTypeService } from '../../../services/action-type.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -27,19 +27,22 @@ export class RfqActionFormComponent {
   statusListHidden = true;
   reloadActions = false;
   statusesMap: { [key: string]: string } = {};
+  actiontypesMap: { [key: string]: string } = {};
 
   @Input('rfq') rfq: RFQ;
   get rfqStatus(): RFQAction {
     return this._rfqStatus;
   }
   @Input('rfqStatus') set rfqStatus(status: RFQAction) {
+    console.log(status);
     this._rfqStatus = status;
   }
 
   constructor(
     private rfqService: RfqService,
     private dialog: MatDialog,
-    private statusService: StatusService) {
+    private statusService: StatusService,
+    private actionTypeService: ActionTypeService) {
 
     const types = Object.keys(ActionType);
     this.actionType_Names = types.slice(types.length / 2);
@@ -48,6 +51,7 @@ export class RfqActionFormComponent {
     this.actionTypeValues = types.slice(0, types.length / 2).filter(a => a !== '0');
 
     this.statusesMap = this.statusService.getMapByValue();
+    this.actiontypesMap = this.actionTypeService.getMapByValue();
   }
 
   // dialogRef: MatDialogRef<TestComponent>;

@@ -20,7 +20,7 @@ export class SummaryComponent implements OnInit {
   }
 
   addItem(item: HTMLInputElement) {
-    if (item.value && item.value.length >= 3) {
+    if (item.value) {
       this.actionType.attende.push(item.value);
       this.addSummary.emit(this.addSummery());
       item.value = '';

@@ -1,7 +1,7 @@
 export interface REP {
-     representativeId: number ;
+     id: number ;
      name: string ;
-     Address?: string ;
+     address?: string ;
 
      phone?: string;
      personalPhone?: string;
@@ -11,5 +11,5 @@ export interface REP {
 
      continuous?: boolean;
      dateOfBirth?: Date;
-     submissionTime?: Date;
+     created?: Date;
 }
