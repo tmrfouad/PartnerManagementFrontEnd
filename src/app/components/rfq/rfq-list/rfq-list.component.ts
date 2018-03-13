@@ -6,6 +6,7 @@ import { RfqService } from '../../../services/rfq.service';
 import { RfqEditFormComponent } from '../rfq-edit-form/rfq-edit-form.component';
 import { BaseComponent } from '../../base-component';
 import { RFQ } from '../../../models/RFQ';
+import { Status } from '../../../models/Status';
 
 
 @Component({
@@ -18,8 +19,10 @@ export class RfqListComponent extends BaseComponent implements OnInit, OnDestroy
   rfqs: RFQ[] = [];
   rfqList: RFQ[] = [];
   rfqListSubscription: Subscription;
-  selectedIndex: number = null;
+  selectedIndex = 0;
+  selectedRfq: RFQ;
   searchFilter = '';
+  tabIndex = 0;
 
   @Output('change') change = new EventEmitter();
 
@@ -48,17 +51,30 @@ export class RfqListComponent extends BaseComponent implements OnInit, OnDestroy
 
   selectRfq(rfq, index) {
     this.selectedIndex = index;
+    this.selectCurrentRfq();
+  }
+
+  selectCurrentRfq() {
+    if (this.selectedIndex > this.rfqList.length - 1) {
+      this.selectedIndex = 0;
+    }
+
+    const rfq = this.rfqList[this.selectedIndex];
+    if (!rfq) { return; }
     this.change.emit(rfq);
   }
 
   applyFilter() {
     const srchFltr = this.searchFilter.toLowerCase();
-    this.rfqList = this.rfqs.filter(r =>
-      r.companyEnglishName.toLowerCase().includes(srchFltr) ||
-      r.contactPersonEnglishName.toLowerCase().includes(srchFltr) ||
-      r.contactPersonEmail.toLowerCase().includes(srchFltr) ||
-      r.contactPersonMobile.toLowerCase().includes(srchFltr)
-    );
+    this.rfqList = this.rfqs.filter(r => {
+      const tabFilter = this.tabIndex === 0 ?
+        (r.status === 0 || r.status === 1 || r.status === 3) :
+        true;
+      return (r.companyEnglishName.toLowerCase().includes(srchFltr) ||
+        r.contactPersonEnglishName.toLowerCase().includes(srchFltr) ||
+        r.contactPersonEmail.toLowerCase().includes(srchFltr) ||
+        r.contactPersonMobile.toLowerCase().includes(srchFltr)) && tabFilter;
+    });
   }
 
   async refresh() {
@@ -100,6 +116,12 @@ export class RfqListComponent extends BaseComponent implements OnInit, OnDestroy
           });
         }
       });
+  }
+
+  onTabIndexChanged(index) {
+    this.tabIndex = index;
+    this.applyFilter();
+    this.selectCurrentRfq();
   }
 }
 

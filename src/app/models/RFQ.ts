@@ -10,7 +10,7 @@ export interface RFQ {
     companyArabicName?: string;
 
     address?: string;
-    status?: string;
+    status?: number;
     submissionTime?: Date;
     universalIP?: string;
     location?: string;

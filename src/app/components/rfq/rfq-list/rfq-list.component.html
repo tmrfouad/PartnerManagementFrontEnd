@@ -1,17 +1,25 @@
 <div class="card">
   <div class="card-header bg-dark text-white">
     <h3>RFQ Management</h3>
-    <div class="row">
-      <div class="col">
-        <input type="text" name="search" id="search" class="form-control form-control-sm m-1" placeholder="Search..." [(ngModel)]="searchFilter"
-          (keyup)="applyFilter()">
-      </div>
+    <div class="row pr-1 pl-1">
+      <input type="text" name="search" id="search" class="form-control form-control-sm mt-1 mr-1 mb-1 col" placeholder="Search..."
+        [(ngModel)]="searchFilter" (keyup)="applyFilter()">
       <button class="btn btn-light btn-sm m-1 col-1" (click)="refresh()">
         <i class="fa fa-refresh" aria-hidden="true"></i>
       </button>
       <button class="btn btn-light btn-sm m-1 col-1" (click)="addRfq()">
         <i class="fa fa-plus" aria-hidden="true"></i>
       </button>
+    </div>
+    <div class="row pr-1 pl-1">
+      <ul class="nav nav-tabs col rfq-tabs">
+        <li class="nav-item w-50">
+          <a class="nav-link clickable text-center" [ngClass]="{'active': tabIndex === 0}" (click)="onTabIndexChanged(0)">Current</a>
+        </li>
+        <li class="nav-item w-50">
+          <a class="nav-link clickable text-center" [ngClass]="{'active': tabIndex === 1}" (click)="onTabIndexChanged(1)">All</a>
+        </li>
+      </ul>
     </div>
   </div>
   <ng-template #loading>

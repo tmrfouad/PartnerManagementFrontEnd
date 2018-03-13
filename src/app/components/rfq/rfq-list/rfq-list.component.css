@@ -19,3 +19,19 @@
 .list-group-item:last-child {
     border-radius: 0;
 }
+
+.rfq-tabs {
+    padding-right: 0;
+}
+
+.nav-link:not([tabindex]):active,
+.nav-link:not([tabindex]):focus,
+.nav-link:not([tabindex]):hover {
+    color: #fff;
+}
+
+.nav-link.active:active,
+.nav-link.active:focus,
+.nav-link.active:hover {
+    color: #495057;
+}
