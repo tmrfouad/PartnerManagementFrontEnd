@@ -1,6 +1,6 @@
 export interface REP {
      representativeId: number ;
-     Name: string ;
+     name: string ;
      Address?: string ;
 
      phone?: string;
