@@ -19,6 +19,7 @@ import { ActionTypeService } from '../../../services/action-type.service';
   styleUrls: ['./rfq-action-form.component.css']
 })
 export class RfqActionFormComponent {
+  private _rfq: RFQ;
   private _rfqStatus: RFQAction;
   actionType_Names: string[];
   actionType_Values: string[];
@@ -29,12 +30,18 @@ export class RfqActionFormComponent {
   statusesMap: { [key: string]: string } = {};
   actiontypesMap: { [key: string]: string } = {};
 
-  @Input('rfq') rfq: RFQ;
+  get rfq() {
+    return this._rfq;
+  }
+  @Input('rfq') set rfq(rfq: RFQ) {
+    this._rfq = rfq;
+    this.statusListHidden = true;
+  }
+
   get rfqStatus(): RFQAction {
     return this._rfqStatus;
   }
   @Input('rfqStatus') set rfqStatus(status: RFQAction) {
-    console.log(status);
     this._rfqStatus = status;
   }
 

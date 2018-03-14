@@ -6,7 +6,7 @@ export interface RFQAction {
     actionCode?: string;
     actionTime?: Date;
     actionType?: ActionType;
-    representativeId?: number;
+    representative?: REP;
     comments?: string;
     rfqId?: number;
     submissionTime?: Date;

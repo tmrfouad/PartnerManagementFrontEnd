@@ -40,7 +40,7 @@ export class RfqEditFormComponent extends BaseComponent implements OnInit {
       this.rfq = Object.assign({}, this.rfqParameterItem);
     } else {
       this.rfq.targetedProduct = 'Process Perfect';
-      this.rfq.status = 'New';
+      this.rfq.status = 0;
     }
   }
 

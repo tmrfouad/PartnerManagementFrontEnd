@@ -7,6 +7,7 @@ import { ActionType } from './../../../models/ActionType';
 import { RfqService } from './../../../services/rfq.service';
 import { StatusEditFormComponent } from '../status-edit-form/status-edit-form.component';
 import { Subscription } from 'rxjs/Subscription';
+import { ActionTypeService } from '../../../services/action-type.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -18,10 +19,9 @@ export class RfqStatusListComponent implements OnInit {
   private _rfq;
   private _reload;
   rfqActions$;
-  actionType_Names: string[];
-  actionType_Values: string[];
   StatusDialogRef: MatDialogRef<StatusEditFormComponent>;
   rfqActionsSub: Subscription;
+  actionTypesMap: { [key: string]: string };
 
   get rfq(): RFQ {
     return this._rfq;
@@ -29,9 +29,7 @@ export class RfqStatusListComponent implements OnInit {
   @Input('rfq') set rfq(rfq: RFQ) {
     this._rfq = rfq;
     if (rfq) {
-      this.rfqService.getActions(rfq.rfqId).then(r => {
-        this.rfqActions$ = r;
-      });
+      this.rfqService.getActions(rfq.rfqId).then(r => this.rfqActions$ = r);
     }
   }
 
@@ -48,10 +46,12 @@ export class RfqStatusListComponent implements OnInit {
     }
   }
 
-  constructor(private rfqService: RfqService, private dialog: MatDialog) {
+  constructor(
+    private rfqService: RfqService,
+    private dialog: MatDialog,
+    private actionTypeService: ActionTypeService) {
     const types = Object.keys(ActionType);
-    this.actionType_Names = types.slice(types.length / 2);
-    this.actionType_Values = types.slice(0, types.length / 2);
+    this.actionTypesMap = this.actionTypeService.getMapByValue();
   }
 
   ngOnInit() {
