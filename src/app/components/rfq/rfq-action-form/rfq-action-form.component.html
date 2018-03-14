@@ -2,7 +2,7 @@
 <div class="card-deck">
   <div class="card">
     <div class="card-header bg-dark text-white">
-      <h3 class="d-inline-block">RFQ Details</h3>
+      <strong class="d-inline-block">RFQ Details</strong>
       <div class="dropdown float-right">
         <a class="btn btn-light btn-sm text-dark dropdown-toggle" matTooltip="Add Action" matTooltipPosition="left" id="addActionDropDownBtn"
           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -14,95 +14,89 @@
           </a>
         </div>
       </div>
+      <a class="btn btn-light btn-sm text-dark mr-1 float-right" matTooltip="Edit Request" matTooltipPosition="above" (click)="openRfqEditDialog()">
+        <i class="fa fa-edit"></i>
+      </a>
     </div>
     <ng-template #loading>
       <loading></loading>
     </ng-template>
     <div class="card-body row" *ngIf="rfq; else loading">
-      <div class="col-12">
-        <a class="btn btn-link float-right"
-          matTooltip="Edit Request" matTooltipPosition="above"
-          (click)="openRfqEditDialog()">
-          <i class="fa fa-edit"></i>
-        </a>
+      <div class="col-6">
+        <span class="font-weight-bold">Request Code :</span>
+        <span>{{ rfq.rfqCode }}</span>
       </div>
       <div class="col-6">
-        <span class="card-subtitle font-weight-bold">Request Code :</span>
-        <span class="card-text">{{ rfq.rfqCode }}</span>
+        <span class="font-weight-bold">Company :</span>
+        <span>{{ rfq.companyEnglishName }}</span>
       </div>
       <div class="col-6">
-        <span class="card-subtitle font-weight-bold">Company :</span>
-        <span class="card-text">{{ rfq.companyEnglishName }}</span>
+        <span class="font-weight-bold">Contact Person :</span>
+        <span>{{ rfq.contactPersonEnglishName }}</span>
       </div>
       <div class="col-6">
-        <span class="card-subtitle font-weight-bold">Contact Person :</span>
-        <span class="card-text">{{ rfq.contactPersonEnglishName }}</span>
+        <span class="font-weight-bold">Email :</span>
+        <span>{{ rfq.contactPersonEmail }}</span>
       </div>
       <div class="col-6">
-        <span class="card-subtitle font-weight-bold">Email :</span>
-        <span class="card-text">{{ rfq.contactPersonEmail }}</span>
+        <span class="font-weight-bold">Mobile No. :</span>
+        <span>{{ rfq.contactPersonMobile }}</span>
       </div>
       <div class="col-6">
-        <span class="card-subtitle font-weight-bold">Mobile No. :</span>
-        <span class="card-text">{{ rfq.contactPersonMobile }}</span>
+        <span class="font-weight-bold">Phone No. :</span>
+        <span>{{ rfq.phoneNumber }}</span>
       </div>
       <div class="col-6">
-        <span class="card-subtitle font-weight-bold">Phone No. :</span>
-        <span class="card-text">{{ rfq.phoneNumber }}</span>
+        <span class="font-weight-bold">Product :</span>
+        <span>{{ rfq.targetedProduct }}</span>
       </div>
       <div class="col-6">
-        <span class="card-subtitle font-weight-bold">Product :</span>
-        <span class="card-text">{{ rfq.targetedProduct }}</span>
+        <span class="font-weight-bold">Bundle :</span>
+        <span>{{ rfq.selectedBundle }}</span>
       </div>
       <div class="col-6">
-        <span class="card-subtitle font-weight-bold">Bundle :</span>
-        <span class="card-text">{{ rfq.selectedBundle }}</span>
+        <span class="font-weight-bold">Website :</span>
+        <span>{{ rfq.website }}</span>
       </div>
       <div class="col-6">
-        <span class="card-subtitle font-weight-bold">Website :</span>
-        <span class="card-text">{{ rfq.website }}</span>
+        <span class="font-weight-bold">Location :</span>
+        <span>{{ rfq.location }}</span>
       </div>
       <div class="col-6">
-        <span class="card-subtitle font-weight-bold">Location :</span>
-        <span class="card-text">{{ rfq.location }}</span>
+        <span class="font-weight-bold">Address :</span>
+        <span>{{ rfq.address }}</span>
       </div>
       <div class="col-6">
-        <span class="card-subtitle font-weight-bold">Address :</span>
-        <span class="card-text">{{ rfq.address }}</span>
-      </div>
-      <div class="col-6">
-        <span class="card-subtitle font-weight-bold">Current Status :</span>
-        <span class="card-text">{{ statusesMap[rfq.status] }}</span>
+        <span class="font-weight-bold">Current Status :</span>
+        <span>{{ statusesMap[rfq.status] }}</span>
       </div>
     </div>
 
     <div class="card-footer" *ngIf="rfqStatus">
       <!-- Status -->
-      <h3 class="d-inline-block">Current Status :</h3>
-      <a class="btn btn-link float-right" (click)="openStatusEditDialog(rfqStatus)"
-        matTooltip="Edit Status Action" matTooltipPosition="above">
+      <a class="btn btn-link float-right" (click)="openStatusEditDialog(rfqStatus)" matTooltip="Edit Status Action" matTooltipPosition="above">
         <i class="fa fa-edit"></i>
       </a>
-      <div class="card-body row" *ngIf="rfqStatus; else loading">
+      <div class="row" *ngIf="rfqStatus; else loading">
         <div class="col-6">
-          <span class="card-subtitle font-weight-bold">Action Code :</span>
-          <span class="card-text">{{ rfqStatus.actionCode }}</span>
+          <span class="font-weight-bold">Action Code :</span>
+          <span>{{ rfqStatus.actionCode }}</span>
         </div>
         <div class="col-6">
-          <span class="card-subtitle font-weight-bold">Action Time :</span>
-          <span class="card-text">{{ rfqStatus.actionTime | date:'yyyy/MM/dd HH:mm:ss' }}</span>
+          <span class="font-weight-bold">Action Time :</span>
+          <span>{{ rfqStatus.actionTime | date:'yyyy/MM/dd HH:mm:ss' }}</span>
         </div>
         <div class="col-6">
-          <span class="card-subtitle font-weight-bold">Action Type :</span>
-          <span class="card-text">{{ actiontypesMap[rfqStatus.actionType] }}</span>
+          <span class="font-weight-bold">Action Type :</span>
+          <span>{{ actiontypesMap[rfqStatus.actionType] }}</span>
         </div>
         <div class="col-6">
-          <span class="card-subtitle font-weight-bold">Representative :</span>
-          <span class="card-text">{{ rfqStatus.representative.name }}</span>
+          <span class="font-weight-bold">Representative :</span>
+          <span>{{ rfqStatus.representative.name }}</span>
         </div>
         <div class="col-6">
-          <span class="card-subtitle font-weight-bold">Comments :</span>
-          <span class="card-text">{{ rfqStatus.comments }}</span>
+          <span class="font-weight-bold">Comments :</span>
+          <span>{{ rfqStatus.comments }}</span>
         </div>
       </div>
       <!-- <rfq-status [rfq]="rfq"></rfq-status> -->

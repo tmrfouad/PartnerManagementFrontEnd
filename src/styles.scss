@@ -2,10 +2,14 @@
 @import "~font-awesome/css/font-awesome.css";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+html {
+  height: 100%;
+}
 
 body { 
     padding-top: 90px;
     background-color: #eeebe4;
+    height: 100%;
 }
 
 .snack-bar-error {

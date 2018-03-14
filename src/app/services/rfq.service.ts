@@ -1,33 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { DataService } from './data-service.service';
-import { AccountService } from './account.service';
 import { RFQAction } from '../models/RFQAction';
+import { AccountService } from './account.service';
+import { IpDataService } from './ip-data.service';
 import { NetworkService } from './network.service';
 
 @Injectable()
-export class RfqService extends DataService {
+export class RfqService extends IpDataService {
 
   constructor(
     http: HttpClient,
     accountService: AccountService,
-    private netService: NetworkService) {
-    super(http, accountService);
+    netService: NetworkService) {
+    super(http, accountService, netService);
 
     this.url = '/rfq';
-  }
-
-  async post(item) {
-    const universalIP = await this.netService.getIp();
-    item.universalIP = universalIP;
-    return super.post(item);
-  }
-
-  async put(id, item) {
-    const universalIP = await this.netService.getIp();
-    item.universalIP = universalIP;
-    return super.put(id, item);
   }
 
   async getStatus(id) {
@@ -38,15 +26,23 @@ export class RfqService extends DataService {
     return this.http.get(`${this.baseUrl + this.url}/actions/${id}`, { headers: this.headers });
   }
 
-  async addStatus(id, action: RFQAction) {
+  async getActionById(id, actionId) {
+    return this.http.get(`${this.baseUrl + this.url}/action/${id}/${actionId}`, { headers: this.headers });
+  }
+
+  async addAction(id, action: RFQAction) {
     const universalIP = await this.netService.getIp();
     action.universalIP = universalIP;
     return this.http.post(`${this.baseUrl + this.url}/addStatus/${id}`, action, { headers: this.headers });
   }
 
-  async updateStatus(id, actionId, action: RFQAction) {
+  async updateAction(id, actionId, action: RFQAction) {
     const universalIP = await this.netService.getIp();
     action.universalIP = universalIP;
-    return this.http.post(`${this.baseUrl + this.url}/updateStatus/${id}/${actionId}`, action, { headers: this.headers });
+    return this.http.put(`${this.baseUrl + this.url}/updateStatus/${id}/${actionId}`, action, { headers: this.headers });
+  }
+
+  async deleteAction(id, actionId) {
+    return this.http.delete(`${this.baseUrl + this.url}/deleteStatus/${id}/${actionId}`, { headers: this.headers });
   }
 }

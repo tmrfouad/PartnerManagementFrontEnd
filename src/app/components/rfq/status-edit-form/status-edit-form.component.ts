@@ -68,7 +68,7 @@ export class StatusEditFormComponent extends BaseComponent implements OnInit {
     this.dialogResult = 'save';
     this.showLoading('Please wait ...');
     if (!this.rfqOptions.addStatus) {
-      const rfq$ = await this.rfqService.updateStatus(this.action.rfqId, this.action.id, f);
+      const rfq$ = await this.rfqService.updateAction(this.action.rfqId, this.action.id, f);
       await rfq$.toPromise().then(() => {
         this.action = Object.assign(this.action, this.rfqStatus);
         this.showSnackBar('Action added successfully.', 'Success');
@@ -77,7 +77,7 @@ export class StatusEditFormComponent extends BaseComponent implements OnInit {
         this.showSnackBar(error.message, 'Error', true);
       });
     } else {
-      const addStatus$ = await this.rfqService.addStatus(this.rfqOptions.rfqId, f);
+      const addStatus$ = await this.rfqService.addAction(this.rfqOptions.rfqId, f);
       await addStatus$.toPromise().then(() => {
         this.showSnackBar('Action updated successfully.', 'Success');
         this.dialogRef.close();

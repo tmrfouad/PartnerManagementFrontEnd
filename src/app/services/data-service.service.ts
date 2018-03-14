@@ -13,12 +13,12 @@ export class DataService {
 
   constructor(
     protected http: HttpClient,
-    protected accountService: AccountService
-  ) {
-      const domainName = environment.domainName;
-      this.baseUrl = domainName;
+    protected accountService: AccountService) {
 
-      this.headers = new HttpHeaders()
+    const domainName = environment.domainName;
+    this.baseUrl = domainName;
+
+    this.headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
       .set('Access-Control-Allow-Origin', '*')
       .set('Authorization', 'bearer ' + this.accountService.userToken);

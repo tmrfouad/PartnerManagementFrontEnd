@@ -1,8 +1,13 @@
-<div class="row align-items-start">
-  <div class="col-4">
-    <rfq-list (change)="onRfqChange($event)"></rfq-list>
+<div class="card">
+  <div class="card-header">
+    <strong>RFQ Management</strong>
   </div>
-  <div class="col">
-    <rfq-action-form [rfq]="rfq" [rfqStatus]="rfqStatus$ | async"></rfq-action-form>
+  <div class="row align-items-start card-body">
+    <div class="col-4">
+      <rfq-list (change)="onRfqChange($event)"></rfq-list>
+    </div>
+    <div class="col">
+      <rfq-action-form [rfq]="rfq" [rfqStatus]="rfqStatus$ | async"></rfq-action-form>
+    </div>
   </div>
 </div>

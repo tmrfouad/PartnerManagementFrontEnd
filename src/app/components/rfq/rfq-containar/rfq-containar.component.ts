@@ -1,10 +1,10 @@
-import { Subscription } from 'rxjs/Subscription';
-import { RFQ } from './../../../models/RFQ';
-import { RfqService } from './../../../services/rfq.service';
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router, Params } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
+
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+
+import { RfqService } from './../../../services/rfq.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -15,11 +15,10 @@ import { Observable } from 'rxjs/Observable';
 export class RfqContainarComponent implements OnInit, OnDestroy {
   rfq;
   rfqStatus$;
-
-  constructor(private activeRoute: ActivatedRoute, private rfqService: RfqService) {
-  }
-
+  listHeight;
   orederIdparam: string;
+
+  constructor(private activeRoute: ActivatedRoute, private rfqService: RfqService) {}
 
   ngOnInit() {
 
