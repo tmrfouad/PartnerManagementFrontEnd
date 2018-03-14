@@ -12,3 +12,5 @@ a:not([href]):not([tabindex]):focus
     border-color: dimgray;
     color: white;
 }
+
+.card-deck {}
