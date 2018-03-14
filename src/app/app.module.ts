@@ -38,6 +38,8 @@ import { SummaryComponent } from './components/rfq/summary/summary.component';
 import { StatusService } from './services/status.service';
 import { ActionTypeService } from './services/action-type.service';
 import { RepFormComponent } from './components/rep/rep-form/rep-form.component';
+import { RepListComponent } from './components/rep/rep-list/rep-list.component';
+import { RepContainerComponent } from './components/rep/rep-container/rep-container.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,9 @@ import { RepFormComponent } from './components/rep/rep-form/rep-form.component';
     ConfirmComponent,
     MessageComponent,
     SummaryComponent,
-    RepFormComponent
+    RepFormComponent,
+    RepListComponent,
+    RepContainerComponent
   ],
   imports: [
     MatSnackBarModule,
@@ -74,7 +78,7 @@ import { RepFormComponent } from './components/rep/rep-form/rep-form.component';
       { path: '', component: HomeComponent },
       { path: 'subscribe/:bundle', component: SubscribeComponent },
       { path: 'login', component: LoginComponent },
-      { path: 'rep', component: RepFormComponent },
+      { path: 'rep', component: RepContainerComponent },
       { path: 'Rfq', component: RfqContainarComponent, canActivate: [AuthGuard] }
     ])
   ],

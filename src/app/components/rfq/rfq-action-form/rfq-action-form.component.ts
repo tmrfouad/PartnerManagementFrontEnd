@@ -34,7 +34,6 @@ export class RfqActionFormComponent {
     return this._rfqStatus;
   }
   @Input('rfqStatus') set rfqStatus(status: RFQAction) {
-    console.log(status);
     this._rfqStatus = status;
   }
 

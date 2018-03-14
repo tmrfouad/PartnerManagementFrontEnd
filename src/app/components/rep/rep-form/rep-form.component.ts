@@ -1,9 +1,10 @@
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
-import { BaseComponent } from './../../base-component';
-import { RepService } from './../../../services/rep.service';
+
 import { REP } from './../../../models/REP';
-import { Component, OnInit, Input } from '@angular/core';
-import { MatSnackBar, MatDialog } from '@angular/material';
+import { RepService } from './../../../services/rep.service';
+import { BaseComponent } from './../../base-component';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -14,29 +15,62 @@ import { MatSnackBar, MatDialog } from '@angular/material';
 export class RepFormComponent extends BaseComponent implements OnInit {
 
   // tslint:disable-next-line:no-input-rename
-  @Input('RepItem') rep: REP = <REP>{};
+  private _rep: REP;
+  get rep(): REP {
+    return this._rep;
+  }
+  @Input('RepItem') set rep(value: REP) {
+    this._rep = value;
+    if (this._rep) {
+      this.currentRep = Object.assign({}, this.rep);
+    }
+  }
+
+  @Input('status') status: string;
+  @Output('refresh') refresh = new EventEmitter();
+
+  currentRep: REP = <REP>{};
 
   constructor(private reService: RepService,
-              private router: Router,
-              snackBar: MatSnackBar,
-              dialog: MatDialog) {
+    private router: Router,
+    snackBar: MatSnackBar,
+    dialog: MatDialog) {
     super(snackBar, dialog);
+    this.status = 'new';
   }
 
   ngOnInit() {
   }
 
   async submitForm(item: REP) {
-    this.showLoading('Loading');
-    const rep$ = await this.reService.post(item);
-    await rep$.toPromise().then(() => {
-      this.closeLoading();
-      this.showSnackBar('Representative added successfully', 'Success');
-      this.router.navigate(['/']);
-    }).catch(error => {
-      this.closeLoading();
-      this.showSnackBar(error.message , 'error', true);
-    });
+    console.log(this.status);
+    if (this.status === 'new') {
+      this.showLoading('Loading');
+      const rep$ = await this.reService.post(item);
+      await rep$.toPromise().then((rep: REP) => {
+        this.closeLoading();
+        this.refresh.emit(rep);
+        this.showSnackBar('Representative added successfully', 'Success');
+        this.rep = rep;
+      }).catch(error => {
+        this.closeLoading();
+        this.showSnackBar(error.message, 'error', true);
+      });
+    } else {
+      this.showLoading('Loading');
+      const rep$ = await this.reService.put(item.id, item);
+      await rep$.toPromise().then((currentRep: REP) => {
+        this.closeLoading();
+        this.showSnackBar('Representative added successfully', 'Success');
+        this.rep = Object.assign(this.rep, currentRep);
+      }).catch(error => {
+        this.closeLoading();
+        this.showSnackBar(error.message, 'error', true);
+      });
+    }
   }
 
+  // reset() {
+  //   this.status = 'new';
+  // }
 }
