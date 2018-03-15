@@ -20,7 +20,8 @@ export class RepListComponent implements extends BaseComponent OnInit, OnDestroy
   currentRep: REP = <REP>{};
   subscription: Subscription;
   // tslint:disable-next-line:no-output-on-prefix
-  @Output('onClick') onClick = new EventEmitter();
+  // tslint:disable-next-line:no-output-rename
+  @Output('submitREP') submitREP = new EventEmitter();
   @Input('RepItem') RepItem;
 
   selectedIndex = 0;
@@ -43,13 +44,13 @@ export class RepListComponent implements extends BaseComponent OnInit, OnDestroy
 
   selectedRep(rep: REP, i: number) {
     this.selectedIndex = i;
-    this.onClick.emit(rep);
+    this.submitREP.emit(rep);
   }
 
   addrep() {
     this.selectedIndex = -1;
     const rep: REP = <REP>{};
-    this.onClick.emit(rep);
+    this.submitREP.emit(rep);
   }
 
   async refreshRep() {
@@ -59,7 +60,7 @@ export class RepListComponent implements extends BaseComponent OnInit, OnDestroy
       if (this.repList.length > 0) {
         this.RepItem = this.repList[0];
         this.selectedIndex = 0;
-        this.onClick.emit(this.RepItem);
+        this.submitREP.emit(this.RepItem);
       }
     });
   }

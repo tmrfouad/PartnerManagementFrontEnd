@@ -27,7 +27,6 @@ export class RepFormComponent extends BaseComponent implements OnInit {
   }
 
   @Input('status') status: string;
-  @Output('refresh') refresh = new EventEmitter();
 
   currentRep: REP = <REP>{};
 
@@ -43,15 +42,13 @@ export class RepFormComponent extends BaseComponent implements OnInit {
   }
 
   async submitForm(item: REP) {
-    console.log(this.status);
     if (this.status === 'new') {
       this.showLoading('Loading');
       const rep$ = await this.reService.post(item);
       await rep$.toPromise().then((rep: REP) => {
         this.closeLoading();
-        this.refresh.emit(rep);
         this.showSnackBar('Representative added successfully', 'Success');
-        this.rep = rep;
+        this.rep = Object.assign(this.rep, rep);
       }).catch(error => {
         this.closeLoading();
         this.showSnackBar(error.message, 'error', true);
@@ -61,7 +58,7 @@ export class RepFormComponent extends BaseComponent implements OnInit {
       const rep$ = await this.reService.put(item.id, item);
       await rep$.toPromise().then((currentRep: REP) => {
         this.closeLoading();
-        this.showSnackBar('Representative added successfully', 'Success');
+        this.showSnackBar('Representative edited successfully', 'Success');
         this.rep = Object.assign(this.rep, currentRep);
       }).catch(error => {
         this.closeLoading();
@@ -70,7 +67,4 @@ export class RepFormComponent extends BaseComponent implements OnInit {
     }
   }
 
-  // reset() {
-  //   this.status = 'new';
-  // }
 }

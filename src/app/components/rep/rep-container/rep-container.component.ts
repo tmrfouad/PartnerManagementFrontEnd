@@ -9,6 +9,7 @@ import { RepService } from '../../../services/rep.service';
   styleUrls: ['./rep-container.component.css']
 })
 export class RepContainerComponent implements OnInit {
+
   rep: REP = <REP>{};
   status = 'new';
   constructor(private repService: RepService) {
