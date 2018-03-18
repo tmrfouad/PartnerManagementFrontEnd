@@ -21,14 +21,15 @@ import { ActionTypeService } from '../../../services/action-type.service';
 export class RfqActionFormComponent {
   private _rfq: RFQ;
   private _rfqStatus: RFQAction;
-  actionType_Names: string[];
-  actionType_Values: string[];
-  actionTypeNames: string[];
-  actionTypeValues: string[];
+  // actionType_Names: string[];
+  // actionType_Values: string[];
+  // actionTypeNames: string[];
+  // actionTypeValues: string[];
   statusListHidden = true;
   reloadActions = false;
   statusesMap: { [key: string]: string } = {};
   actiontypesMap: { [key: string]: string } = {};
+  actiontypesArray: { value: string, name: string }[] = [];
 
   get rfq() {
     return this._rfq;
@@ -51,41 +52,33 @@ export class RfqActionFormComponent {
     private statusService: StatusService,
     private actionTypeService: ActionTypeService) {
 
-    const types = Object.keys(ActionType);
-    this.actionType_Names = types.slice(types.length / 2);
-    this.actionType_Values = types.slice(0, types.length / 2);
-    this.actionTypeNames = types.slice(types.length / 2).filter(a => a !== 'None');
-    this.actionTypeValues = types.slice(0, types.length / 2).filter(a => a !== '0');
-
     this.statusesMap = this.statusService.getMapByValue();
     this.actiontypesMap = this.actionTypeService.getMapByValue();
+    this.actiontypesArray = this.actionTypeService.getArray();
   }
 
-  // dialogRef: MatDialogRef<TestComponent>;
-  addAction(actionTypeName: string) {
-    const actionType: ActionType = ActionType[actionTypeName];
+  addAction(actionType: ActionType) {
     const action: RFQAction = {
-      actionType: actionType
+      actionType: actionType,
+      representativeId: 0
     };
     const StatusDialogRef = this.dialog.open(StatusEditFormComponent, {
       width: '800px',
       height: '530px',
       position: { top: '100px' },
-      data: 'new'
+      data: {
+        mode: 'new',
+        rfqId: this.rfq.rfqId,
+        action: action
+      }
     });
     this.reloadActions = false;
-    StatusDialogRef.componentInstance.actualAction = this.rfqStatus;
-    StatusDialogRef.componentInstance.action = action;
-    StatusDialogRef.componentInstance.rfqOptions = {
-      rfqId: this.rfq.rfqId,
-      addStatus: true
-    };
 
     StatusDialogRef.afterClosed()
-      .subscribe(() => {
-        if (StatusDialogRef.componentInstance.dialogResult === 'save') {
+      .subscribe((result: {result: string, action: RFQAction}) => {
+        if (result && result.result === 'saved') {
           this.reloadActions = true;
-          this.rfqStatus = StatusDialogRef.componentInstance.action;
+          this.rfqStatus = result.action;
         }
       });
   }
@@ -109,9 +102,17 @@ export class RfqActionFormComponent {
       width: '800px',
       height: '530px',
       position: { top: '100px' },
-      data: 'edit'
+      data: {
+        mode: 'edit',
+        rfqId: this.rfq.rfqId,
+        action: action
+      }
     });
-    StatusDialogRef.componentInstance.action = action;
-    StatusDialogRef.afterClosed().subscribe();
+    StatusDialogRef.afterClosed().subscribe((result: {result: string, action: RFQAction}) => {
+      if (result && result.result === 'saved') {
+        this.reloadActions = true;
+        this.rfqStatus = result.action;
+      }
+    });
   }
 }

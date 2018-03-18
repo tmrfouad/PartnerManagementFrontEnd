@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs/Observable';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 
 import { ActionType } from '../../../models/ActionType';
@@ -9,6 +9,9 @@ import { RfqService } from '../../../services/rfq.service';
 import { BaseComponent } from '../../base-component';
 import { REP } from './../../../models/REP';
 import { RepService } from './../../../services/rep.service';
+import { Subscription } from 'rxjs/Subscription';
+import { isNull } from 'util';
+import { ActionTypeService } from '../../../services/action-type.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -16,21 +19,24 @@ import { RepService } from './../../../services/rep.service';
   templateUrl: './status-edit-form.component.html',
   styleUrls: ['./status-edit-form.component.css']
 })
-export class StatusEditFormComponent extends BaseComponent implements OnInit {
+export class StatusEditFormComponent extends BaseComponent implements OnInit, OnDestroy {
 
   action_Types: { value: string, name: string }[] = [];
   actionTypes: { [key: string]: string } = {};
-  actionType_Names: string[];
-  actionType_Values: string[];
+
   actionTypeDialog: ActionTypeComment = <ActionTypeComment>{};
 
-  rep$: Observable<{}>;
-  action: RFQAction = <RFQAction>{};
-  actualAction: RFQAction = <RFQAction>{};
-  rfqStatus: RFQAction = <RFQAction>{};
-  rfqOptions: { rfqId: number, addStatus: boolean } =
-    { rfqId: 0, addStatus: false };
-  dialogResult = 'cancel';
+  reps: REP[];
+  repsSubs: Subscription;
+
+  private _rfqStatus: RFQAction = <RFQAction>{};
+  get rfqStatus() {
+    return this._rfqStatus;
+  }
+  set rfqStatus(rfqStatus: RFQAction) {
+    this._rfqStatus = rfqStatus;
+    this.repChanged();
+  }
 
   constructor(
     snackBar: MatSnackBar,
@@ -38,71 +44,88 @@ export class StatusEditFormComponent extends BaseComponent implements OnInit {
     private rfqService: RfqService,
     private repService: RepService,
     private dialogRef: MatDialogRef<StatusEditFormComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: string) {
+    @Inject(MAT_DIALOG_DATA) public data: { mode: string, rfqId: number, action: RFQAction },
+    private actionTypeService: ActionTypeService) {
     super(snackBar, dialog);
-    const types = Object.keys(ActionType);
-    this.actionType_Names = types.slice(types.length / 2);
-    this.actionType_Values = types.slice(0, types.length / 2);
 
-    for (let i = 0; i < this.actionType_Names.length; i++) {
-      const typeName = this.actionType_Names[i];
-      const typeValue = this.actionType_Values[i];
-
-      this.actionTypes[typeName] = typeValue;
-      this.action_Types.push({ value: typeValue, name: typeName });
-    }
-
+    this.actionTypes = this.actionTypeService.getMapByName();
+    this.action_Types = this.actionTypeService.getArray();
   }
 
   async ngOnInit() {
-    this.rfqStatus = Object.assign({}, this.action);
-    if (this.actualAction) {
-      if (Object.keys(this.actualAction).length > 0) {
-        this.action = Object.assign({}, this.actualAction);
-      }
+    this.rfqStatus = Object.assign({}, this.data.action);
+    if (this.rfqStatus.representative) {
+      this.rfqStatus.representativeId = this.rfqStatus.representative.id;
     }
-    this.rep$ = await this.repService.get();
+
+    const rep$ = await this.repService.get() as Observable<REP[]>;
+    this.repsSubs = rep$.subscribe(reps => {
+      this.reps = reps;
+      this.repChanged();
+    });
   }
 
-  async logForm(f: RFQAction) {
-    this.dialogResult = 'save';
+  ngOnDestroy() {
+    this.repsSubs.unsubscribe();
+  }
+
+  async logForm() {
     this.showLoading('Please wait ...');
-    if (!this.rfqOptions.addStatus) {
-      const rfq$ = await this.rfqService.updateAction(this.action.rfqId, this.action.id, f);
+
+    if (this.data.mode === 'edit') {
+      const rfq$ = await this.rfqService.updateAction(this.data.rfqId, this.data.action.id, this.rfqStatus);
       await rfq$.toPromise().then(() => {
-        this.action = Object.assign(this.action, this.rfqStatus);
         this.showSnackBar('Action added successfully.', 'Success');
-        this.dialogRef.close();
+        this.dialogRef.close({ result: 'saved', action: this.rfqStatus });
       }).catch(error => {
         this.showSnackBar(error.message, 'Error', true);
       });
-    } else {
-      const addStatus$ = await this.rfqService.addAction(this.rfqOptions.rfqId, f);
+    } else if (this.data.mode === 'new') {
+      const addStatus$ = await this.rfqService.addAction(this.data.rfqId, this.rfqStatus);
       await addStatus$.toPromise().then(() => {
         this.showSnackBar('Action updated successfully.', 'Success');
-        this.dialogRef.close();
+        this.dialogRef.close({ result: 'saved', action: this.rfqStatus });
       }).catch(error => {
         this.showSnackBar(error.message, 'Error', true);
       });
     }
-    const getStatus$ = await this.rfqService.getStatus(this.rfqOptions.rfqId);
+    const getStatus$ = await this.rfqService.getStatus(this.data.rfqId);
     getStatus$.subscribe(newStatus => {
       this.rfqStatus = newStatus as RFQAction;
-      this.action = Object.assign(this.action, newStatus);
     });
     this.closeLoading();
   }
 
   closeForm() {
-    // tslint:disable-next-line:curly
-    if (this.actualAction)
-      this.action = Object.assign({}, this.actualAction);
-
-    this.dialogRef.close();
+    this.dialogRef.close({ result: 'canceled' });
   }
 
   addSummary(summery: string) {
     this.rfqStatus.comments = summery;
   }
 
+  attachmentChanged(event) {
+    const reader = new FileReader();
+    if (event.target.files && event.target.files.length > 0) {
+      const file = event.target.files[0];
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.rfqStatus.rfqActionAtts.push({ fileName: file.name, value: reader.result.split(',')[1] });
+        event.target.value = null;
+      };
+    }
+  }
+
+  deleteAttachment(att) {
+    const index = this.rfqStatus.rfqActionAtts.indexOf(att);
+    this.rfqStatus.rfqActionAtts.splice(index, 1);
+  }
+
+  repChanged() {
+    if (this.rfqStatus && this.reps) {
+      if (!isNull(this.rfqStatus.representativeId)) {
+        this.rfqStatus.representative = this.reps.find(r => r.id === this.rfqStatus.representativeId);
+      }
+    }
+  }
 }

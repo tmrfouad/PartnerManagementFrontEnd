@@ -13,14 +13,13 @@ import { MatDialog, MatSnackBar } from '@angular/material';
   templateUrl: './rep-list.component.html',
   styleUrls: ['./rep-list.component.css']
 })
-export class RepListComponent implements extends BaseComponent OnInit, OnDestroy {
+export class RepListComponent extends BaseComponent implements OnInit, OnDestroy {
 
   rep$: Observable<{}>;
   repList: REP[] = [];
   currentRep: REP = <REP>{};
   subscription: Subscription;
-  // tslint:disable-next-line:no-output-on-prefix
-  // tslint:disable-next-line:no-output-rename
+
   @Output('submitREP') submitREP = new EventEmitter();
   @Input('RepItem') RepItem;
 
@@ -32,12 +31,10 @@ export class RepListComponent implements extends BaseComponent OnInit, OnDestroy
     super(snackBar, dialog);
   }
 
-  // tslint:disable-next-line:use-life-cycle-interface
   async ngOnInit() {
     this.refreshRep();
   }
 
-  // tslint:disable-next-line:use-life-cycle-interface
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }

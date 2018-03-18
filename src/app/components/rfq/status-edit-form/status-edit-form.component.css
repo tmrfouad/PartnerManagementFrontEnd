@@ -6,3 +6,7 @@
     border: 1px solid transparent;
     background-color: transparent;
 }
+
+.list-group-item {
+    padding: 5px 10px;
+}

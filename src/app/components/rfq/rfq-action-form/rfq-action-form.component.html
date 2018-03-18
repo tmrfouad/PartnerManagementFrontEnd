@@ -8,8 +8,8 @@
         <i class="fa fa-plus"></i>
       </a>
       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="addActionDropDownBtn">
-        <a class="dropdown-item" *ngFor="let item of actionTypeNames" (click)="addAction(item)">
-          {{ item }}
+        <a class="dropdown-item" *ngFor="let item of actiontypesArray" (click)="addAction(item.value)">
+          {{ item.name }}
         </a>
       </div>
     </div>

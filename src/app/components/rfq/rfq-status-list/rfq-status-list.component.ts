@@ -59,14 +59,20 @@ export class RfqStatusListComponent implements OnInit {
 
   openStatusEditDialog(action: RFQAction) {
 
-    this.StatusDialogRef = this.dialog.open(StatusEditFormComponent, {
+    this.dialog.open(StatusEditFormComponent, {
       width: '800px',
       height: '530px',
       position: { top: '100px' },
-      data: 'edit'
+      data: {
+        mode: 'edit',
+        rfqId: this.rfq.rfqId,
+        action: action
+      }
+    }).afterClosed().subscribe((result: { result: string, action: RFQAction }) => {
+      if (result && result.result === 'saved') {
+        this.reload = true;
+      }
     });
-    this.StatusDialogRef.componentInstance.action = action;
-    this.StatusDialogRef.afterClosed().subscribe(() => this.StatusDialogRef = null);
   }
 
 }

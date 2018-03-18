@@ -1,5 +1,5 @@
 <form #f="ngForm" (submit)="logForm(f.value)">
-  <div class="card-body row" *ngIf="rfqStatus">    
+  <div class="card-body row" *ngIf="rfqStatus">
     <div class="col-6">
       <span class="font-weight-bold col-form-label-sm">Action Type :</span>
       <select name="actionType" id="actionType" class="form-control form-control-sm" [(ngModel)]="rfqStatus.actionType">
@@ -7,32 +7,56 @@
       </select>
     </div>
     <div class="col-6">
-      <span class="font-weight-bold col-form-label-sm">Representative : <span class="text-danger">*</span> </span>
-      <select class="form-control form-control-sm" name="companyRepresentative" id="" [(ngModel)]="rfqStatus.companyRepresentative">
-        <option *ngFor="let item of rep$ | async" [value]="item.representativeId">
+      <span class="font-weight-bold col-form-label-sm">Representative :
+        <span class="text-danger">*</span>
+      </span>
+      <select class="form-control form-control-sm" name="companyRepresentative" id="companyRepresentative" [(ngModel)]="rfqStatus.representativeId"
+        (change)="repChanged()">
+        <option *ngFor="let item of reps" [value]="item.id">
           {{ item.name }}
         </option>
       </select>
     </div>
-    <div class="col-12" *ngIf="rfqStatus.actionType != 0 && data == 'new' ">
+    <div class="col-12" *ngIf="rfqStatus.actionType != 0 && data.mode == 'new' ">
       <summary-info [actionType]="actionTypeDialog" (addSummary)="addSummary($event)"></summary-info>
     </div>
     <div class="col-12">
-      <span class="font-weight-bold col-form-label-sm"> {{ action_Types[rfqStatus.actionType-1].name }} Summary : <span class="text-danger">*</span></span>
-      
-      <textarea type="text" #Comments="ngModel" [(ngModel)]="rfqStatus.comments"  [readOnly]="data == 'new'" required name="comments" class="form-control form-control-sm">
+      <span class="font-weight-bold col-form-label-sm"> {{ action_Types[rfqStatus.actionType-1].name }} Summary :
+        <span class="text-danger">*</span>
+      </span>
+
+      <textarea type="text" #Comments="ngModel" [(ngModel)]="rfqStatus.comments" [readOnly]="data.mode == 'new'" required name="comments"
+        class="form-control form-control-sm">
       </textarea>
 
       <div class="alert-danger" *ngIf="Comments.touched && Comments.invalid">
-          <div *ngIf="Comments.errors.required">
-            <small>You can't leave this empty.</small>
-          </div>
+        <div *ngIf="Comments.errors.required">
+          <small>You can't leave this empty.</small>
+        </div>
       </div>
 
     </div>
+    <div class="col-12">
+      <span class="font-weight-bold col-form-label-sm">Attachments :</span>
+      <div class="input-group">
+        <div class="custom-file">
+          <input type="file" class="custom-file-input"
+            name="attachmentInput" id="attachmentInput" (change)="attachmentChanged($event)">
+          <label class="custom-file-label" for="attachmentInput">Choose file</label>
+        </div>
+      </div>
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let att of rfqStatus.rfqActionAtts">
+          {{ att.fileName }}
+          <a class="float-right clickable" (click)="deleteAttachment(att)">
+            <i class="fa fa-trash" aria-hidden="true"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
     <div class="col-12 buttons">
-        <button class="btn btn-primary btn-sm" type="submit" [disabled]="f.invalid">Save</button>
-        <button class="btn btn-danger btn-sm" type="button" (click)="closeForm()">Cancel</button>
+      <button class="btn btn-dark btn-sm text-white mt-2" type="submit" [disabled]="f.invalid">Save</button>
+      <button class="btn btn-dark btn-sm text-white mt-2" type="button" (click)="closeForm()">Cancel</button>
     </div>
   </div>
 </form>
