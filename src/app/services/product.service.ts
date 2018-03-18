@@ -38,6 +38,6 @@ export class ProductService extends IpDataService {
   }
 
   async deleteEdition(id, editionId) {
-    return this.http.delete(`${this.baseUrl + this.url}/updateEdition/${id}/${editionId}`, { headers: this.headers });
+    return this.http.delete(`${this.baseUrl + this.url}/DeleteEdition/${id}/${editionId}`, { headers: this.headers });
   }
 }

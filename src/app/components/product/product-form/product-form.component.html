@@ -1,0 +1,42 @@
+<form #f="ngForm" (submit)="submitForm(currentProduct)">
+ 
+  <div class="row">
+    <div class="col-6">
+      <div class="form-group">
+        <label for="EnglishName">
+          English Name:
+          <span class="text-danger">*</span>
+        </label>
+        <input type="text" #English="ngModel" id="EnglishName" required class="form-control form-control-sm" [(ngModel)]="currentProduct.englishName"
+          name="englishName">
+        <div class="alert alert-danger" *ngIf="English.touched && !English.valid">
+          <div *ngIf="English.errors.required">
+            <small>You can't leave this empty.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-6">
+      <div class="form-group">
+        <label for="">Arabic Name:
+          <span class="text-danger">*</span>
+        </label>
+        <input type="text" #Arabic="ngModel" dir="rtl" class="form-control form-control-sm" required [(ngModel)]="currentProduct.arabicName"
+          name="arabicName">
+        <div class="alert alert-danger" *ngIf="Arabic.touched && !Arabic.valid">
+          <div *ngIf="Arabic.errors.required">
+            <small>You can't leave this empty.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="form-group">
+    <button class="btn btn-dark" type="submit" [disabled]="f.invalid">Save</button>
+    <button class="btn btn-dark" type="reset">Cancel</button>
+  </div>
+  
+</form>

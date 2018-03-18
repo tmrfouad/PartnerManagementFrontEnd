@@ -27,6 +27,7 @@ export class RepFormComponent extends BaseComponent implements OnInit {
   }
 
   @Input('status') status: string;
+  @Output('reload') reload = new EventEmitter();
 
   currentRep: REP = <REP>{};
 
@@ -46,6 +47,7 @@ export class RepFormComponent extends BaseComponent implements OnInit {
       this.showLoading('Loading');
       const rep$ = await this.reService.post(item);
       await rep$.toPromise().then((rep: REP) => {
+        this.reload.emit('reload');
         this.closeLoading();
         this.showSnackBar('Representative added successfully', 'Success');
         this.rep = Object.assign(this.rep, rep);

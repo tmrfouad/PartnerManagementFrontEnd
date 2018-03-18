@@ -19,11 +19,23 @@ export class RepListComponent extends BaseComponent implements OnInit, OnDestroy
   repList: REP[] = [];
   currentRep: REP = <REP>{};
   subscription: Subscription;
+  selectedIndex = 0;
 
   @Output('submitREP') submitREP = new EventEmitter();
   @Input('RepItem') RepItem;
 
-  selectedIndex = 0;
+  private _reload: string;
+  get reload(): string {
+    return this._reload;
+  }
+
+  @Input('reload') set reload(value: string) {
+    this._reload = value;
+    if (value === 'reload') {
+      this.refreshRep();
+    }
+  }
+
   constructor(
     private repService: RepService,
     dialog: MatDialog,

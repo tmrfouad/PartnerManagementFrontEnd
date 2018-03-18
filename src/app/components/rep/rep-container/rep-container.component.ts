@@ -4,13 +4,15 @@ import { REP } from '../../../models/REP';
 import { RepService } from '../../../services/rep.service';
 
 @Component({
-  selector: 'app-rep-container',
+  // tslint:disable-next-line:component-selector
+  selector: 'rep-container',
   templateUrl: './rep-container.component.html',
   styleUrls: ['./rep-container.component.css']
 })
 export class RepContainerComponent implements OnInit {
 
   rep: REP = <REP>{};
+  reload: string;
   status = 'new';
   constructor(private repService: RepService) {
   }
@@ -20,6 +22,7 @@ export class RepContainerComponent implements OnInit {
 
   selectRep(rep: REP) {
     this.rep = rep;
+    this.reload = '';
     if (this.rep) {
       if (Object.keys(this.rep).length > 0) {
         this.status = 'edit';
@@ -29,7 +32,7 @@ export class RepContainerComponent implements OnInit {
     }
   }
 
-  refreshList(rep: REP) {
-    this.rep = rep;
+  reloadList(item: string) {
+    this.reload = item.trim();
   }
 }
