@@ -1,0 +1,30 @@
+<div class="card-header">
+  <h3> Product Editions
+    <button matTooltip="Add Edition" matTooltipPosition="left" class="btn btn-dark btn-sm  float-sm-right" (click)="addEditionDialog(product)">
+      <span class="fa fa-plus"></span>
+    </button>
+  </h3>
+</div>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th> English Name </th>
+      <th> Arabic Name </th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let Edition of prodEditionList">
+      <td> {{ Edition?.englishName }}</td>
+      <td> {{ Edition?.arabicName }}</td>
+        <td>
+          <a class="btn btn-link" matTooltip="Delete Edition" matTooltipPosition="above" (click)="DeleteEdition(Edition.id)">
+            <i class="fa fa-remove"></i>
+          </a>
+          <a class="btn btn-link" matTooltip="Edit Edition" matTooltipPosition="above" (click)="openDialog(Edition)">
+            <i class="fa fa-edit"></i>
+          </a>
+        </td>
+    </tr>
+  </tbody>
+</table>

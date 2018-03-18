@@ -13,18 +13,30 @@ import { MatDialog, MatSnackBar } from '@angular/material';
   templateUrl: './rep-list.component.html',
   styleUrls: ['./rep-list.component.css']
 })
-export class RepListComponent implements extends BaseComponent OnInit, OnDestroy {
+export class RepListComponent extends BaseComponent implements OnInit, OnDestroy {
 
   rep$: Observable<{}>;
   repList: REP[] = [];
   currentRep: REP = <REP>{};
   subscription: Subscription;
+  selectedIndex = 0;
   // tslint:disable-next-line:no-output-on-prefix
   // tslint:disable-next-line:no-output-rename
   @Output('submitREP') submitREP = new EventEmitter();
   @Input('RepItem') RepItem;
 
-  selectedIndex = 0;
+  private _reload: string;
+  get reload(): string {
+    return this._reload;
+  }
+
+  @Input('reload') set reload(value: string) {
+    this._reload = value;
+    if (value === 'reload') {
+      this.refreshRep();
+    }
+  }
+
   constructor(
     private repService: RepService,
     dialog: MatDialog,

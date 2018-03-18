@@ -40,6 +40,12 @@ import { ActionTypeService } from './services/action-type.service';
 import { RepFormComponent } from './components/rep/rep-form/rep-form.component';
 import { RepListComponent } from './components/rep/rep-list/rep-list.component';
 import { RepContainerComponent } from './components/rep/rep-container/rep-container.component';
+import { ProductListComponent } from './components/product/product-list/product-list.component';
+import { ProductService } from './services/product.service';
+import { ProductContainerComponent } from './components/product/product-container/product-container.component';
+import { ProductFormComponent } from './components/product/product-form/product-form.component';
+import { ProductEditionFormComponent } from './components/product/product-edition-form/product-edition-form.component';
+import { ProductEditionListComponent } from './components/product/product-edition-list/product-edition-list.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +68,12 @@ import { RepContainerComponent } from './components/rep/rep-container/rep-contai
     SummaryComponent,
     RepFormComponent,
     RepListComponent,
-    RepContainerComponent
+    RepContainerComponent,
+    ProductListComponent,
+    ProductContainerComponent,
+    ProductFormComponent,
+    ProductEditionFormComponent,
+    ProductEditionListComponent
   ],
   imports: [
     MatSnackBarModule,
@@ -78,7 +89,8 @@ import { RepContainerComponent } from './components/rep/rep-container/rep-contai
       { path: '', component: HomeComponent },
       { path: 'subscribe/:bundle', component: SubscribeComponent },
       { path: 'login', component: LoginComponent },
-      { path: 'rep', component: RepContainerComponent },
+      { path: 'products', component: ProductContainerComponent, canActivate: [AuthGuard] },
+      { path: 'rep', component: RepContainerComponent, canActivate: [AuthGuard] },
       { path: 'Rfq', component: RfqContainarComponent, canActivate: [AuthGuard] }
     ])
   ],
@@ -87,7 +99,9 @@ import { RepContainerComponent } from './components/rep/rep-container/rep-contai
     LoadingComponent,
     StatusEditFormComponent,
     ConfirmComponent,
-    MessageComponent
+    MessageComponent,
+    ProductEditionFormComponent,
+    ProductContainerComponent
   ],
   providers: [
     RfqService,
@@ -99,7 +113,8 @@ import { RepContainerComponent } from './components/rep/rep-container/rep-contai
     CountryService,
     StatusService,
     ActionTypeService,
-    RepService
+    RepService,
+    ProductService
   ],
   bootstrap: [AppComponent]
 })
