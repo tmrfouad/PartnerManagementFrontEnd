@@ -11,7 +11,7 @@
         <span class="text-danger">*</span>
       </span>
       <select class="form-control form-control-sm" name="companyRepresentative" id="companyRepresentative" [(ngModel)]="rfqStatus.representativeId"
-        (change)="repChanged()">
+        (change)="repChanged($event)">
         <option *ngFor="let item of reps" [value]="item.id">
           {{ item.name }}
         </option>
@@ -48,8 +48,11 @@
       <ul class="list-group">
         <li class="list-group-item" *ngFor="let att of rfqStatus.rfqActionAtts">
           {{ att.fileName }}
-          <a class="float-right clickable" (click)="deleteAttachment(att)">
+          <a class="float-right clickable ml-1 mr-1" (click)="deleteAttachment(att)">
             <i class="fa fa-trash" aria-hidden="true"></i>
+          </a>
+          <a class="float-right clickable ml-1 mr-1" (click)="viewAttachment(att)">
+            <i class="fa fa-eye" aria-hidden="true"></i>
           </a>
         </li>
       </ul>

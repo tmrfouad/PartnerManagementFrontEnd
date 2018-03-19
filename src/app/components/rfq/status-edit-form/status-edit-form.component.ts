@@ -12,6 +12,7 @@ import { RepService } from './../../../services/rep.service';
 import { Subscription } from 'rxjs/Subscription';
 import { isNull } from 'util';
 import { ActionTypeService } from '../../../services/action-type.service';
+import * as FileSaver from 'file-saver';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -35,7 +36,7 @@ export class StatusEditFormComponent extends BaseComponent implements OnInit, On
   }
   set rfqStatus(rfqStatus: RFQAction) {
     this._rfqStatus = rfqStatus;
-    this.repChanged();
+    // this.repChanged();
   }
 
   constructor(
@@ -61,7 +62,7 @@ export class StatusEditFormComponent extends BaseComponent implements OnInit, On
     const rep$ = await this.repService.get() as Observable<REP[]>;
     this.repsSubs = rep$.subscribe(reps => {
       this.reps = reps;
-      this.repChanged();
+      // this.repChanged();
     });
   }
 
@@ -71,7 +72,6 @@ export class StatusEditFormComponent extends BaseComponent implements OnInit, On
 
   async logForm() {
     this.showLoading('Please wait ...');
-
     if (this.data.mode === 'edit') {
       const rfq$ = await this.rfqService.updateAction(this.data.rfqId, this.data.action.id, this.rfqStatus);
       await rfq$.toPromise().then(() => {
@@ -110,7 +110,7 @@ export class StatusEditFormComponent extends BaseComponent implements OnInit, On
       const file = event.target.files[0];
       reader.readAsDataURL(file);
       reader.onload = () => {
-        this.rfqStatus.rfqActionAtts.push({ fileName: file.name, value: reader.result.split(',')[1] });
+        this.rfqStatus.rfqActionAtts.push({ fileName: file.name, fileType: file.type, value: reader.result.split(',')[1] });
         event.target.value = null;
       };
     }
@@ -121,11 +121,27 @@ export class StatusEditFormComponent extends BaseComponent implements OnInit, On
     this.rfqStatus.rfqActionAtts.splice(index, 1);
   }
 
-  repChanged() {
-    if (this.rfqStatus && this.reps) {
-      if (!isNull(this.rfqStatus.representativeId)) {
-        this.rfqStatus.representative = this.reps.find(r => r.id === this.rfqStatus.representativeId);
-      }
+  viewAttachment(att) {
+    const byteChars = atob(att.value);
+    const byteNumbers = new Array(byteChars.length);
+    for (let i = 0; i < byteChars.length; i++) {
+      byteNumbers[i] = byteChars.charCodeAt(i);
     }
+    const byteArray = new Uint8Array(byteNumbers);
+    const data = new Blob([byteArray], {type: att.fileType});
+    FileSaver.saveAs(data, att.fileName);
+  }
+
+  repChanged(event) {
+    if (this.reps) {
+        const representativeId = event.target.value as number;
+        this.rfqStatus.representative = this.getRep(representativeId);
+    }
+  }
+
+  getRep(id): REP {
+    // tslint:disable-next-line:radix
+    const repId = parseInt(id);
+    return this.rfqStatus.representative = this.reps.find(r => r.id === repId);
   }
 }
