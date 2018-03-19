@@ -54,10 +54,12 @@ export class StatusEditFormComponent extends BaseComponent implements OnInit, On
   }
 
   async ngOnInit() {
-    this.rfqStatus = Object.assign({}, this.data.action);
-    if (this.rfqStatus.representative) {
-      this.rfqStatus.representativeId = this.rfqStatus.representative.id;
-    }
+    // this.rfqStatus = Object.assign({}, this.data.action);
+    this.rfqStatus = this.data.action;
+
+    // if (this.rfqStatus.representative) {
+    //   this.rfqStatus.representativeId = this.rfqStatus.representative.id;
+    // }
 
     const rep$ = await this.repService.get() as Observable<REP[]>;
     this.repsSubs = rep$.subscribe(reps => {
@@ -76,6 +78,7 @@ export class StatusEditFormComponent extends BaseComponent implements OnInit, On
       const rfq$ = await this.rfqService.updateAction(this.data.rfqId, this.data.action.id, this.rfqStatus);
       await rfq$.toPromise().then(() => {
         this.showSnackBar('Action added successfully.', 'Success');
+        this.getRep();
         this.dialogRef.close({ result: 'saved', action: this.rfqStatus });
       }).catch(error => {
         this.showSnackBar(error.message, 'Error', true);
@@ -84,6 +87,7 @@ export class StatusEditFormComponent extends BaseComponent implements OnInit, On
       const addStatus$ = await this.rfqService.addAction(this.data.rfqId, this.rfqStatus);
       await addStatus$.toPromise().then(() => {
         this.showSnackBar('Action updated successfully.', 'Success');
+        this.getRep();
         this.dialogRef.close({ result: 'saved', action: this.rfqStatus });
       }).catch(error => {
         this.showSnackBar(error.message, 'Error', true);
@@ -132,16 +136,9 @@ export class StatusEditFormComponent extends BaseComponent implements OnInit, On
     FileSaver.saveAs(data, att.fileName);
   }
 
-  repChanged(event) {
+  getRep() {
     if (this.reps) {
-        const representativeId = event.target.value as number;
-        this.rfqStatus.representative = this.getRep(representativeId);
+        this.rfqStatus.representative = this.reps.find(r => r.id.toString() === this.rfqStatus.representativeId.toString());
     }
-  }
-
-  getRep(id): REP {
-    // tslint:disable-next-line:radix
-    const repId = parseInt(id);
-    return this.rfqStatus.representative = this.reps.find(r => r.id === repId);
   }
 }

@@ -21,10 +21,7 @@ import { ActionTypeService } from '../../../services/action-type.service';
 export class RfqActionFormComponent {
   private _rfq: RFQ;
   private _rfqStatus: RFQAction;
-  // actionType_Names: string[];
-  // actionType_Values: string[];
-  // actionTypeNames: string[];
-  // actionTypeValues: string[];
+
   statusListHidden = true;
   reloadActions = false;
   statusesMap: { [key: string]: string } = {};
@@ -92,9 +89,8 @@ export class RfqActionFormComponent {
       width: '800px',
       height: '530px',
       position: { top: '100px' },
-      data: 'edit'
+      data: { mode: 'edit', rfq: this.rfq }
     });
-    rfqDialogRef.componentInstance.rfqParameterItem = this.rfq;
   }
 
   openStatusEditDialog(action: RFQAction) {

@@ -95,12 +95,14 @@ export class RfqListComponent extends BaseComponent implements OnInit, OnDestroy
       position: {
         top: '90px'
       },
-      data: 'new'
+      data: { mode: 'new', rfq: null }
     });
 
     subscribeDialog.afterClosed().subscribe(result => {
-      if (result.dialogResult === 'save') {
-        this.refresh();
+      if (result) {
+        if (result.dialogResult === 'save') {
+          this.refresh();
+        }
       }
     });
   }

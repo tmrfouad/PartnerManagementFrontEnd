@@ -1,5 +1,5 @@
 <!-- RFQ Details -->
-<form #f="ngForm" (submit)="submit(f.value)">
+<form #f="ngForm" (submit)="submit()">
   <div class="row">
     <div class="col-6">
       <label for="companyEnglishName" class="col-form-label-sm">Company :</label>
@@ -32,17 +32,16 @@
 
     <div class="col-6">
       <label for="targetedProduct" class="col-form-label-sm">Product :</label>
-      <select name="targetedProduct" id="targetedProduct" required class="custom-select form-control form-control-sm" [(ngModel)]="rfq.targetedProduct">
-        <option value="Process Perfect">Process Perfect</option>
+      <select name="targetedProduct" id="targetedProduct" required class="custom-select form-control form-control-sm" [(ngModel)]="rfq.targetedProductId">
+        <option *ngFor="let product of products" [value]="product.id" (change)="productChange($event)">{{ product.englishName }}</option>
       </select>
     </div>
 
     <div class="col-6">
-      <label for="selectedBundle" class="col-form-label-sm">Bundle :</label>
-      <select name="selectedBundle" id="selectedBundle" required class="custom-select form-control form-control-sm" [(ngModel)]="rfq.selectedBundle">
-        <option value="Lite">Lite</option>
-        <option value="Standard">Standard</option>
-        <option value="Enterprise">Enterprise</option>
+      <label for="selectedBundle" class="col-form-label-sm">Edition :</label>
+      <select name="selectedBundle" id="selectedBundle" required class="custom-select form-control form-control-sm" [(ngModel)]="rfq.selectedEditionId"
+        (change)="editionChange($event)">
+        <option *ngFor="let edition of editions" [value]="edition.id">{{ edition.englishName }}</option>
       </select>
     </div>
 
@@ -68,9 +67,9 @@
       </select>
     </div>
 
-    <div class="col-6" *ngIf="dialogData === 'new'">
+    <div class="col-6" *ngIf="dialogData.mode === 'new'">
       <div class="form-check mt-5">
-        <input class="form-check-input" type="checkbox" name="sendEmail" [(ngModel)]="sendEmail" checked="true" id="send-email">
+        <input class="form-check-input" type="checkbox" name="sendEmail" [(ngModel)]="rfq.sendEmail" checked="true" id="send-email">
         <label class="form-check-label" for="send-email">
           Send welcome email?
         </label>

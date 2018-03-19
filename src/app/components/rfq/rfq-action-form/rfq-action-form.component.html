@@ -47,11 +47,11 @@
     </div>
     <div class="col-6">
       <span class="font-weight-bold">Product :</span>
-      <span>{{ rfq.targetedProduct }}</span>
+      <span>{{ rfq.targetedProduct.englishName }}</span>
     </div>
     <div class="col-6">
-      <span class="font-weight-bold">Bundle :</span>
-      <span>{{ rfq.selectedBundle }}</span>
+      <span class="font-weight-bold">Edition :</span>
+      <span>{{ rfq.selectedEdition.englishName }}</span>
     </div>
     <div class="col-6">
       <span class="font-weight-bold">Website :</span>
@@ -91,7 +91,7 @@
       </div>
       <div class="col-6">
         <span class="font-weight-bold">Representative :</span>
-        <span>{{ rfqStatus.representative?.name }}</span>
+        <span>{{ rfqStatus.representative.name }}</span>
       </div>
       <div class="col-6">
         <span class="font-weight-bold">Comments :</span>

@@ -1,3 +1,5 @@
+import { Product } from './Product';
+import { ProductEdition } from './ProductEdition';
 
 export interface RFQ {
     contactPersonEnglishName?: string;
@@ -16,9 +18,11 @@ export interface RFQ {
     location?: string;
     phoneNumber?: string;
     rfqCode?: number;
-    selectedBundle?: string;
+    selectedEditionId?: number;
+    selectedEdition?: ProductEdition;
     website?: string;
-    targetedProduct?: string;
+    targetedProductId?: number;
+    targetedProduct?: Product;
 
     rfqId?: number;
 

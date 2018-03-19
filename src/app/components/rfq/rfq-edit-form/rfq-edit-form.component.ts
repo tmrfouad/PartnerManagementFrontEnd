@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { MatDialogRef, MatSnackBar, MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 import { Countries } from '../../../models/countries';
 import { RFQ } from '../../../models/RFQ';
@@ -8,6 +8,11 @@ import { NetworkService } from '../../../services/network.service';
 import { StatusService } from '../../../services/status.service';
 import { Status } from '../../../models/Status';
 import { ActionType } from '../../../models/ActionType';
+import { ProductService } from '../../../services/product.service';
+import { Product } from '../../../models/Product';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+import { ProductEdition } from '../../../models/ProductEdition';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -15,12 +20,16 @@ import { ActionType } from '../../../models/ActionType';
   templateUrl: './rfq-edit-form.component.html',
   styleUrls: ['./rfq-edit-form.component.css']
 })
-export class RfqEditFormComponent extends BaseComponent implements OnInit {
+export class RfqEditFormComponent extends BaseComponent implements OnInit, OnDestroy {
   countries = Countries.items;
-  rfqParameterItem: RFQ = <RFQ>{};
+  // rfqParameterItem: RFQ = <RFQ>{};
   rfq: RFQ = <RFQ>{};
   sendEmail = false;
   statuses: { value: string, name: string }[] = [];
+  products: Product[];
+  productSubs: Subscription;
+  editions: ProductEdition[];
+  editionSubs: Subscription;
 
   constructor(
     snackBar: MatSnackBar,
@@ -29,28 +38,47 @@ export class RfqEditFormComponent extends BaseComponent implements OnInit {
     private netService: NetworkService,
     private statusService: StatusService,
     private dialogRef: MatDialogRef<RfqEditFormComponent>,
-    @Inject(MAT_DIALOG_DATA) public dialogData) {
+    @Inject(MAT_DIALOG_DATA) public dialogData: {mode: string, rfq: RFQ},
+    private prodService: ProductService) {
     super(snackBar, dialog);
 
     this.statuses = this.statusService.getArray();
   }
 
-  ngOnInit() {
-    if (this.dialogData === 'edit') {
-      this.rfq = Object.assign({}, this.rfqParameterItem);
+  async ngOnInit() {
+    const products$ = (await this.prodService.get()) as Observable<Product[]>;
+    this.productSubs = products$.subscribe(products => {
+      this.products = products;
+    });
+
+    if (this.dialogData.mode === 'edit') {
+      this.rfq = this.dialogData.rfq;
     } else {
-      this.rfq.targetedProduct = 'Process Perfect';
+      this.rfq.targetedProductId = 1;
       this.rfq.status = 0;
     }
+
+    this.filterEditions(this.rfq.targetedProductId);
   }
 
-  async submit(f) {
+  ngOnDestroy() {
+    this.productSubs.unsubscribe();
+    this.editionSubs.unsubscribe();
+  }
+
+  async filterEditions(productId) {
+    const editions$ = (await this.prodService.getEditions(productId)) as Observable<ProductEdition[]>;
+    this.editionSubs = editions$.subscribe(editions => {
+      this.editions = editions;
+    });
+  }
+
+  async submit() {
     this.showLoading('Please wait ...');
-    if (this.dialogData === 'new') {
-      f.sendEmail = this.sendEmail;
-      const rfqItem$ = await this.rfqService.post(f);
+    if (this.dialogData.mode === 'new') {
+      const rfqItem$ = await this.rfqService.post(this.rfq);
       rfqItem$.subscribe(() => {
-        this.rfqParameterItem = Object.assign(this.rfqParameterItem, this.rfq);
+        // this.rfqParameterItem = Object.assign(this.rfqParameterItem, this.rfq);
         this.closeLoading();
         this.showSnackBar('Request saved successfully', 'Success');
         this.dialogRef.close({ dialogResult: 'save' });
@@ -59,9 +87,9 @@ export class RfqEditFormComponent extends BaseComponent implements OnInit {
         this.showSnackBar(error.message, 'Error', true);
       });
     } else {
-      const rfqItem$ = await this.rfqService.put(this.rfq.rfqId, f);
+      const rfqItem$ = await this.rfqService.put(this.rfq.rfqId, this.rfq);
       rfqItem$.subscribe(() => {
-        this.rfqParameterItem = Object.assign(this.rfqParameterItem, this.rfq);
+        // this.rfqParameterItem = Object.assign(this.rfqParameterItem, this.rfq);
         this.closeLoading();
         this.showSnackBar('Request saved successfully', 'Success');
         this.dialogRef.close({ dialogResult: 'save' });
@@ -75,5 +103,17 @@ export class RfqEditFormComponent extends BaseComponent implements OnInit {
 
   closeDialog() {
     this.dialogRef.close({ dialogResult: 'cancel' });
+  }
+
+  productChange(event) {
+    const productId = event.target.value;
+    // this.rfq.targetedProduct = this.products.find(p => p.id.toString() === productId.toString());
+    this.filterEditions(productId);
+  }
+
+  editionChange(event) {
+    // const editionId = event.target.value;
+    // this.rfq.selectedEdition = this.editions.find(e => e.id.toString() === editionId.toString());
+    // console.log(this.rfq.selectedEdition);
   }
 }

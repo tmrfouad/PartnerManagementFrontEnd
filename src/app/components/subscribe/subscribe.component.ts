@@ -38,14 +38,15 @@ export class SubscribeComponent extends BaseComponent implements OnInit {
     private route: ActivatedRoute) {
 
     super(snackBar, dialog);
-    this.rfqItem.targetedProduct = 'Process Perfect';
+    this.rfqItem.targetedProductId = 1;
     this.countryService.getCurrentCountry().subscribe((item: Country) => {
       this.currentCuntry = item.country.toLowerCase();
       this.currentCuntry2 = item.country.toLowerCase();
     });
     const edition = route.snapshot.paramMap.get('bundle');
     if (edition) {
-      this.rfqItem.selectedBundle = edition;
+      // tslint:disable-next-line:radix
+      this.rfqItem.selectedEditionId = parseInt(edition);
     }
   }
 
