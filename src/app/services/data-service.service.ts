@@ -1,7 +1,14 @@
-import { AccountService } from './account.service';
-import { Injectable } from '@angular/core';
+import 'rxjs/add/observable/throw';
+import 'rxjs/add/operator/catch';
+
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+
 import { environment } from '../../environments/environment';
+import { AppError } from './../models/app-error/App-error';
+import { NotFound } from './../models/app-error/Not-found';
+import { AccountService } from './account.service';
 
 @Injectable()
 export class DataService {

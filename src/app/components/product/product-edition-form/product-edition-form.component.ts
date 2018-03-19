@@ -1,3 +1,4 @@
+import { AppError } from './../../../models/app-error/App-error';
 import { BaseComponent } from './../../base-component';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar, MatDialog } from '@angular/material';
 import { ProductEdition } from './../../../models/ProductEdition';
@@ -39,6 +40,9 @@ export class ProductEditionFormComponent extends BaseComponent implements OnInit
         this.dialogref.close('done');
         this.showSnackBar('Product Edition added successfully', 'Success');
       }).catch(error => {
+        if (error instanceof AppError) {
+
+        }
         this.closeLoading();
         this.dialogref.close('error');
         this.showSnackBar(error.message, 'error', true);
