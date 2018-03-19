@@ -32,7 +32,12 @@ export class DataService {
   }
 
   async get() {
-    return this.http.get(this.baseUrl + this.url + '/get', { headers: this.headers });
+    return this.http.get(this.baseUrl + this.url + '/get', { headers: this.headers }).catch(error => {
+      if (error.status === 404) {
+        return Observable.throw(new AppError(error));
+      }
+      return Observable.throw(new AppError(error));
+    });
   }
 
   async getById(Id) {
