@@ -6,8 +6,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import { environment } from '../../environments/environment';
-import { AppError } from './../models/app-error/App-error';
-import { NotFound } from './../models/app-error/Not-found';
 import { AccountService } from './account.service';
 
 @Injectable()
@@ -33,10 +31,7 @@ export class DataService {
 
   async get() {
     return this.http.get(this.baseUrl + this.url + '/get', { headers: this.headers }).catch(error => {
-      if (error.status === 404) {
-        return Observable.throw(new AppError(error));
-      }
-      return Observable.throw(new AppError(error));
+      return Observable.throw(error);
     });
   }
 
@@ -45,7 +40,12 @@ export class DataService {
   }
 
   async post(item) {
-    return this.http.post(this.baseUrl + this.url + '/post', item, { headers: this.headers });
+    return this.http.post(this.baseUrl + this.url + '/post', item, { headers: this.headers })
+      .catch((error: Response) => {
+        if (error.status === 404) { return Observable.throw(new NotFound()); } else {
+          return Observable.throw(new AppError(error));
+        }
+      });
   }
 
   async put(id, item) {

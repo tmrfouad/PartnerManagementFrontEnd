@@ -46,7 +46,7 @@ import { ProductService } from './services/product.service';
 import { RepService } from './services/rep.service';
 import { RfqService } from './services/rfq.service';
 import { StatusService } from './services/status.service';
-import { CutomErrorHandler } from './models/app-error/CustomErrorHandler';
+import { CutomErrorHandler } from './services/custom-error-handler';
 
 
 @NgModule({

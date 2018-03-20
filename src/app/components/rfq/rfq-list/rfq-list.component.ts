@@ -2,12 +2,10 @@ import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/cor
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
 
-import { NotFound } from '../../../models/app-error/Not-found';
 import { RFQ } from '../../../models/RFQ';
 import { RfqService } from '../../../services/rfq.service';
 import { BaseComponent } from '../../base-component';
 import { RfqEditFormComponent } from '../rfq-edit-form/rfq-edit-form.component';
-import { AppError } from './../../../models/app-error/App-error';
 
 
 @Component({
@@ -85,12 +83,6 @@ export class RfqListComponent extends BaseComponent implements OnInit, OnDestroy
         this.rfqs = rfqs as RFQ[];
         this.applyFilter();
         this.selectRfq(rfqs[0], 0);
-      }
-    }, (error: AppError) => {
-      if (error instanceof NotFound) {
-        alert('not found');
-      } else {
-        alert('error');
       }
     });
   }
