@@ -1,0 +1,51 @@
+.list-group-item {
+    cursor: pointer;
+    padding: 5px 10px;
+}
+
+.list-group-item.active {
+    background-color: dimgray;
+    border-color: dimgray;
+    color: white;
+}
+
+.list-group-item.active:hover {
+    background-color: dimgray;
+    border-color: dimgray;
+    color: white;
+}
+
+.card > .list-group:last-child .list-group-item:last-child,
+.list-group-item:first-child,
+.list-group-item:last-child {
+    border-radius: 0;
+}
+
+.item-tabs {
+    padding-right: 0;
+}
+
+.nav-link {
+    padding: 3px;
+}
+
+.nav-link:not([tabindex]):active,
+.nav-link:not([tabindex]):focus,
+.nav-link:not([tabindex]):hover {
+    color: #fff;
+}
+
+.nav-link.active:active,
+.nav-link.active:focus,
+.nav-link.active:hover {
+    color: #495057;
+}
+
+/* .main-card {
+    height: 450px;
+}
+
+.items-list {
+    overflow-y: auto;
+    height: 100%;
+} */

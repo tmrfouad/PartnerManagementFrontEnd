@@ -46,6 +46,7 @@ import { ProductContainerComponent } from './components/product/product-containe
 import { ProductFormComponent } from './components/product/product-form/product-form.component';
 import { ProductEditionFormComponent } from './components/product/product-edition-form/product-edition-form.component';
 import { ProductEditionListComponent } from './components/product/product-edition-list/product-edition-list.component';
+import { ListViewComponent } from './components/list-view/list-view.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import { ProductEditionListComponent } from './components/product/product-editio
     ProductContainerComponent,
     ProductFormComponent,
     ProductEditionFormComponent,
-    ProductEditionListComponent
+    ProductEditionListComponent,
+    ListViewComponent
   ],
   imports: [
     MatSnackBarModule,
