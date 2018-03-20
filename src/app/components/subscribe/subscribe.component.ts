@@ -72,7 +72,7 @@ export class SubscribeComponent extends BaseComponent implements OnInit {
       this.router.navigate(['/']);
     }, error => {
       this.closeLoading();
-      this.showSnackBar(error.message, 'Error', true);
+      throw error;
     });
 
   }

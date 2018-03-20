@@ -50,7 +50,7 @@ export class ProductFormComponent extends BaseComponent implements OnInit {
         this.showSnackBar('Product added successfully', 'Success');
       }).catch(error => {
         this.closeLoading();
-        this.showSnackBar(error.message, 'error', true);
+        throw error;
       });
     } else {
       this.showLoading('Loading');
@@ -62,7 +62,7 @@ export class ProductFormComponent extends BaseComponent implements OnInit {
         // this.reload.emit('reload');
       }).catch(error => {
         this.closeLoading();
-        this.showSnackBar(error.message, 'error', true);
+        throw error;
       });
     }
   }

@@ -23,12 +23,12 @@ export class AcceptService {
   userData;
 
   constructor(private http: HttpClient) {
-      const acceptConfig = environment.accept;
-      const baseUrl = acceptConfig.baseUrl;
-      this.config = {
-        authUrl: baseUrl + '/' + acceptConfig.authUrl,
-        orderUrl: baseUrl + '/' + acceptConfig.orderUrl
-      };
+    const acceptConfig = environment.accept;
+    const baseUrl = acceptConfig.baseUrl;
+    this.config = {
+      authUrl: baseUrl + '/' + acceptConfig.authUrl,
+      orderUrl: baseUrl + '/' + acceptConfig.orderUrl
+    };
   }
 
   getUserData(): Observable<any> {
@@ -38,6 +38,8 @@ export class AcceptService {
         this.userData = JSON.parse(userData);
         observer.next(this.userData);
         observer.complete();
+      }).catch(error => {
+        throw new Error(JSON.stringify(error));
       });
     } else {
       return this.authRequest();
@@ -49,6 +51,8 @@ export class AcceptService {
       this.userData = response;
       localStorage.setItem('userData', JSON.stringify(this.userData));
       return this.userData;
+    }).catch(error => {
+      throw new Error(JSON.stringify(error));
     });
   }
 
@@ -76,7 +80,10 @@ export class AcceptService {
       //     state: 'Utah'
       //   }
       // };
-      return this.http.post(this.config.orderUrl + '?token=' + userData.token, order);
+      return this.http.post(this.config.orderUrl + '?token=' + userData.token, order)
+        .catch(error => {
+          throw new Error(JSON.stringify(error));
+        });
     });
   }
 }

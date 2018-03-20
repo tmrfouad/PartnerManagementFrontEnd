@@ -10,7 +10,9 @@ export class CountryService {
   }
 
   getCurrentCountry() {
-    return this.http.get(this.url);
+    return this.http.get(this.url).catch(error => {
+      throw new Error(JSON.stringify(error));
+    });
   }
 
 

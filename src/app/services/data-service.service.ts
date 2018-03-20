@@ -31,28 +31,32 @@ export class DataService {
 
   async get() {
     return this.http.get(this.baseUrl + this.url + '/get', { headers: this.headers }).catch(error => {
-      return Observable.throw(error);
+      throw new Error(JSON.stringify(error));
     });
   }
 
   async getById(Id) {
-    return this.http.get(this.baseUrl + this.url + '/get/' + Id, { headers: this.headers });
+    return this.http.get(this.baseUrl + this.url + '/get/' + Id, { headers: this.headers }).catch(error => {
+      throw new Error(JSON.stringify(error));
+    });
   }
 
   async post(item) {
-    return this.http.post(this.baseUrl + this.url + '/post', item, { headers: this.headers })
-      .catch((error) => {
-        // return Observable.throw(error);
-        throw new Error(JSON.stringify(error));
-      });
+    return this.http.post(this.baseUrl + this.url + '/post', item, { headers: this.headers }).catch(error => {
+      throw new Error(JSON.stringify(error));
+    });
   }
 
   async put(id, item) {
-    return this.http.put(this.baseUrl + this.url + '/put/' + id, item, { headers: this.headers });
+    return this.http.put(this.baseUrl + this.url + '/put/' + id, item, { headers: this.headers }).catch(error => {
+      throw new Error(JSON.stringify(error));
+    });
   }
 
   async delete(id) {
-    return this.http.delete(this.baseUrl + this.url + '/delete/' + id, { headers: this.headers });
+    return this.http.delete(this.baseUrl + this.url + '/delete/' + id, { headers: this.headers }).catch(error => {
+      throw new Error(JSON.stringify(error));
+    });
   }
 
 }

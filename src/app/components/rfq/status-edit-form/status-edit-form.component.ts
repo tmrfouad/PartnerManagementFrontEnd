@@ -80,8 +80,6 @@ export class StatusEditFormComponent extends BaseComponent implements OnInit, On
         this.showSnackBar('Action added successfully.', 'Success');
         this.getRep();
         this.dialogRef.close({ result: 'saved', action: this.rfqStatus });
-      }).catch(error => {
-        this.showSnackBar(error.message, 'Error', true);
       });
     } else if (this.data.mode === 'new') {
       const addStatus$ = await this.rfqService.addAction(this.data.rfqId, this.rfqStatus);
@@ -89,8 +87,6 @@ export class StatusEditFormComponent extends BaseComponent implements OnInit, On
         this.showSnackBar('Action updated successfully.', 'Success');
         this.getRep();
         this.dialogRef.close({ result: 'saved', action: this.rfqStatus });
-      }).catch(error => {
-        this.showSnackBar(error.message, 'Error', true);
       });
     }
     const getStatus$ = await this.rfqService.getStatus(this.data.rfqId);

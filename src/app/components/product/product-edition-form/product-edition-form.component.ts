@@ -41,8 +41,7 @@ export class ProductEditionFormComponent extends BaseComponent implements OnInit
         this.showSnackBar('Product Edition added successfully', 'Success');
       }).catch(error => {
         this.closeLoading();
-        this.dialogref.close('error');
-        this.showSnackBar(error.message, 'error', true);
+        throw error;
       });
     } else {
       this.showLoading('Loading');
@@ -54,8 +53,7 @@ export class ProductEditionFormComponent extends BaseComponent implements OnInit
         // this.prod = Object.assign(this.prod, productEdition);
       }).catch(error => {
         this.closeLoading();
-        this.dialogref.close('error');
-        this.showSnackBar(error.message, 'error', true);
+        throw error;
       });
     }
   }

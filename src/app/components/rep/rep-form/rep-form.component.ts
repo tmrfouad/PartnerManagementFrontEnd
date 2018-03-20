@@ -53,7 +53,7 @@ export class RepFormComponent extends BaseComponent implements OnInit {
         this.rep = Object.assign(this.rep, rep);
       }).catch(error => {
         this.closeLoading();
-        this.showSnackBar(error.message, 'error', true);
+        throw error;
       });
     } else {
       this.showLoading('Loading');
@@ -64,7 +64,7 @@ export class RepFormComponent extends BaseComponent implements OnInit {
         this.rep = Object.assign(this.rep, currentRep);
       }).catch(error => {
         this.closeLoading();
-        this.showSnackBar(error.message, 'error', true);
+        throw error;
       });
     }
   }

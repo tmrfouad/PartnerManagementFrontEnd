@@ -12,7 +12,6 @@ import { RecaptchaFormsModule } from 'ng-recaptcha/forms';
 
 import { AppComponent } from './app.component';
 import { ConfirmComponent } from './components/confirm/confirm.component';
-import { CustomerFormComponent } from './components/customer-form/customer-form.component';
 import { HomeComponent } from './components/home/home.component';
 import { ListViewComponent } from './components/list-view/list-view.component';
 import { LoadingComponent } from './components/loading/loading.component';
@@ -65,7 +64,6 @@ import { StatusService } from './services/status.service';
     RfqEditFormComponent,
     StatusEditFormComponent,
     SubscribeComponent,
-    CustomerFormComponent,
     ConfirmComponent,
     MessageComponent,
     SummaryComponent,

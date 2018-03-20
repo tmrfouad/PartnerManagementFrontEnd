@@ -48,7 +48,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
       this.router.navigate([returnUrl || '/']);
     }, error => {
       this.closeLoading();
-      this.showSnackBar(error.message, 'Error', true);
+      throw error;
     });
 
   }

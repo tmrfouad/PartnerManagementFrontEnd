@@ -78,26 +78,22 @@ export class RfqEditFormComponent extends BaseComponent implements OnInit, OnDes
     if (this.dialogData.mode === 'new') {
       const rfqItem$ = await this.rfqService.post(this.rfq);
       rfqItem$.subscribe(() => {
-        // this.rfqParameterItem = Object.assign(this.rfqParameterItem, this.rfq);
         this.closeLoading();
         this.showSnackBar('Request saved successfully', 'Success');
         this.dialogRef.close({ dialogResult: 'save' });
-      }, (error) => {
+      }, error => {
         this.closeLoading();
         throw error;
-        // this.showSnackBar(error.message, 'Error', true);
       });
     } else {
       const rfqItem$ = await this.rfqService.put(this.rfq.rfqId, this.rfq);
       rfqItem$.subscribe(() => {
-        // this.rfqParameterItem = Object.assign(this.rfqParameterItem, this.rfq);
         this.closeLoading();
         this.showSnackBar('Request saved successfully', 'Success');
         this.dialogRef.close({ dialogResult: 'save' });
-      }, (error) => {
+      }, error => {
         this.closeLoading();
         throw error;
-        // this.showSnackBar(error.message, 'Error', true);
       });
     }
   }

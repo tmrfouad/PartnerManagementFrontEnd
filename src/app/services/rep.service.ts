@@ -4,21 +4,15 @@ import { AccountService } from './account.service';
 import { HttpClient } from '@angular/common/http';
 import { DataService } from './data-service.service';
 import { Injectable } from '@angular/core';
+import { IpDataService } from './ip-data.service';
 
 @Injectable()
-export class RepService extends DataService {
+export class RepService extends IpDataService {
 
   constructor(http: HttpClient,
     accountService: AccountService,
-    private networkService: NetworkService) {
-    super(http, accountService);
+    netService: NetworkService) {
+    super(http, accountService, netService);
     this.url = '/Rep';
   }
-
-  async post(rep: REP) {
-    const universalIP = await this.networkService.getIp();
-    rep.universalIP = universalIP;
-    return super.post(rep);
-  }
-
 }

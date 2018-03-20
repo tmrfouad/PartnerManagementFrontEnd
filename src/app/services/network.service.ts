@@ -8,6 +8,8 @@ export class NetworkService {
   constructor(private http: HttpClient) { }
 
   getIp() {
-    return this.http.get(this.url, { responseType: 'text' }).toPromise();
+    return this.http.get(this.url, { responseType: 'text' }).toPromise().catch(error => {
+      throw new Error(JSON.stringify(error));
+    });
   }
 }

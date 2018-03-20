@@ -28,13 +28,17 @@ export class AccountService {
 
   async register(userName, password) {
     return this.http.post(this.baseUrl + '/register', { Email: userName, Password: password },
-      { responseType: 'text', headers: this.headers });
+      { responseType: 'text', headers: this.headers }).catch(error => {
+        throw new Error(JSON.stringify(error));
+      });
   }
 
 
   async login(userName, password) {
     return this.http.post(this.baseUrl + '/Login', { Email: userName, Password: password },
-      { responseType: 'text', headers: this.headers });
+      { responseType: 'text', headers: this.headers }).catch(error => {
+        throw new Error(JSON.stringify(error));
+      });
   }
 
   logout() {
