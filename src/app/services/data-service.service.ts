@@ -41,10 +41,9 @@ export class DataService {
 
   async post(item) {
     return this.http.post(this.baseUrl + this.url + '/post', item, { headers: this.headers })
-      .catch((error: Response) => {
-        if (error.status === 404) { return Observable.throw(new NotFound()); } else {
-          return Observable.throw(new AppError(error));
-        }
+      .catch((error) => {
+        // return Observable.throw(error);
+        throw new Error(JSON.stringify(error));
       });
   }
 

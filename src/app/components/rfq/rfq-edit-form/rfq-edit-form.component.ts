@@ -84,7 +84,8 @@ export class RfqEditFormComponent extends BaseComponent implements OnInit, OnDes
         this.dialogRef.close({ dialogResult: 'save' });
       }, (error) => {
         this.closeLoading();
-        this.showSnackBar(error.message, 'Error', true);
+        throw error;
+        // this.showSnackBar(error.message, 'Error', true);
       });
     } else {
       const rfqItem$ = await this.rfqService.put(this.rfq.rfqId, this.rfq);
@@ -95,7 +96,8 @@ export class RfqEditFormComponent extends BaseComponent implements OnInit, OnDes
         this.dialogRef.close({ dialogResult: 'save' });
       }, (error) => {
         this.closeLoading();
-        this.showSnackBar(error.message, 'Error', true);
+        throw error;
+        // this.showSnackBar(error.message, 'Error', true);
       });
     }
   }
