@@ -1,8 +1,9 @@
-import { BaseComponent } from './../../base-component';
-import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar, MatDialog } from '@angular/material';
-import { ProductEdition } from './../../../models/ProductEdition';
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
+
 import { ProductService } from '../../../services/product.service';
+import { ProductEdition } from './../../../models/ProductEdition';
+import { BaseComponent } from './../../base-component';
 
 @Component({
   // tslint:disable-next-line:component-selector

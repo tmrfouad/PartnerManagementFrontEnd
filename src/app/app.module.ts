@@ -1,6 +1,5 @@
-import { RepService } from './services/rep.service';
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -12,10 +11,22 @@ import { RecaptchaModule } from 'ng-recaptcha';
 import { RecaptchaFormsModule } from 'ng-recaptcha/forms';
 
 import { AppComponent } from './app.component';
+import { ConfirmComponent } from './components/confirm/confirm.component';
+import { CustomerFormComponent } from './components/customer-form/customer-form.component';
 import { HomeComponent } from './components/home/home.component';
+import { ListViewComponent } from './components/list-view/list-view.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { LoginComponent } from './components/login/login.component';
+import { MessageComponent } from './components/message/message.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { ProductContainerComponent } from './components/product/product-container/product-container.component';
+import { ProductEditionFormComponent } from './components/product/product-edition-form/product-edition-form.component';
+import { ProductEditionListComponent } from './components/product/product-edition-list/product-edition-list.component';
+import { ProductFormComponent } from './components/product/product-form/product-form.component';
+import { ProductListComponent } from './components/product/product-list/product-list.component';
+import { RepContainerComponent } from './components/rep/rep-container/rep-container.component';
+import { RepFormComponent } from './components/rep/rep-form/rep-form.component';
+import { RepListComponent } from './components/rep/rep-list/rep-list.component';
 import { RfqActionFormComponent } from './components/rfq/rfq-action-form/rfq-action-form.component';
 import { RfqContainarComponent } from './components/rfq/rfq-containar/rfq-containar.component';
 import { RfqEditFormComponent } from './components/rfq/rfq-edit-form/rfq-edit-form.component';
@@ -23,30 +34,21 @@ import { RfqListComponent } from './components/rfq/rfq-list/rfq-list.component';
 import { RfqStatusListComponent } from './components/rfq/rfq-status-list/rfq-status-list.component';
 import { RfqStatusComponent } from './components/rfq/rfq-status/rfq-status.component';
 import { StatusEditFormComponent } from './components/rfq/status-edit-form/status-edit-form.component';
+import { SummaryComponent } from './components/rfq/summary/summary.component';
 import { SubscribeComponent } from './components/subscribe/subscribe.component';
 import { AcceptService } from './services/accept.service';
 import { AccountService } from './services/account.service';
+import { ActionTypeService } from './services/action-type.service';
 import { AuthGuard } from './services/auth-guard.service';
 import { CountryService } from './services/country.service';
+import { CutomErrorHandler } from './services/custom-error-handler';
 import { MailService } from './services/mail.service';
 import { NetworkService } from './services/network.service';
-import { RfqService } from './services/rfq.service';
-import { CustomerFormComponent } from './components/customer-form/customer-form.component';
-import { ConfirmComponent } from './components/confirm/confirm.component';
-import { MessageComponent } from './components/message/message.component';
-import { SummaryComponent } from './components/rfq/summary/summary.component';
-import { StatusService } from './services/status.service';
-import { ActionTypeService } from './services/action-type.service';
-import { RepFormComponent } from './components/rep/rep-form/rep-form.component';
-import { RepListComponent } from './components/rep/rep-list/rep-list.component';
-import { RepContainerComponent } from './components/rep/rep-container/rep-container.component';
-import { ProductListComponent } from './components/product/product-list/product-list.component';
 import { ProductService } from './services/product.service';
-import { ProductContainerComponent } from './components/product/product-container/product-container.component';
-import { ProductFormComponent } from './components/product/product-form/product-form.component';
-import { ProductEditionFormComponent } from './components/product/product-edition-form/product-edition-form.component';
-import { ProductEditionListComponent } from './components/product/product-edition-list/product-edition-list.component';
-import { ListViewComponent } from './components/list-view/list-view.component';
+import { RepService } from './services/rep.service';
+import { RfqService } from './services/rfq.service';
+import { StatusService } from './services/status.service';
+
 
 @NgModule({
   declarations: [
@@ -116,7 +118,11 @@ import { ListViewComponent } from './components/list-view/list-view.component';
     StatusService,
     ActionTypeService,
     RepService,
-    ProductService
+    ProductService,
+    [{
+      provide: ErrorHandler,
+      useClass: CutomErrorHandler
+    }]
   ],
   bootstrap: [AppComponent]
 })

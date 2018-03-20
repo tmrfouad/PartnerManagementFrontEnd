@@ -1,7 +1,12 @@
-import { AccountService } from './account.service';
-import { Injectable } from '@angular/core';
+import 'rxjs/add/observable/throw';
+import 'rxjs/add/operator/catch';
+
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+
 import { environment } from '../../environments/environment';
+import { AccountService } from './account.service';
 
 @Injectable()
 export class DataService {
@@ -25,7 +30,9 @@ export class DataService {
   }
 
   async get() {
-    return this.http.get(this.baseUrl + this.url + '/get', { headers: this.headers });
+    return this.http.get(this.baseUrl + this.url + '/get', { headers: this.headers }).catch(error => {
+      return Observable.throw(error);
+    });
   }
 
   async getById(Id) {
@@ -33,7 +40,12 @@ export class DataService {
   }
 
   async post(item) {
-    return this.http.post(this.baseUrl + this.url + '/post', item, { headers: this.headers });
+    return this.http.post(this.baseUrl + this.url + '/post', item, { headers: this.headers })
+      .catch((error: Response) => {
+        if (error.status === 404) { return Observable.throw(new NotFound()); } else {
+          return Observable.throw(new AppError(error));
+        }
+      });
   }
 
   async put(id, item) {

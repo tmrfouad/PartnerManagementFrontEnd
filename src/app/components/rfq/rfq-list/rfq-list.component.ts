@@ -1,12 +1,11 @@
-import { Component, EventEmitter, OnDestroy, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { Subscription } from 'rxjs/Subscription';
 
-import { RfqService } from '../../../services/rfq.service';
-import { RfqEditFormComponent } from '../rfq-edit-form/rfq-edit-form.component';
-import { BaseComponent } from '../../base-component';
 import { RFQ } from '../../../models/RFQ';
-import { Status } from '../../../models/Status';
+import { RfqService } from '../../../services/rfq.service';
+import { BaseComponent } from '../../base-component';
+import { RfqEditFormComponent } from '../rfq-edit-form/rfq-edit-form.component';
 
 
 @Component({
