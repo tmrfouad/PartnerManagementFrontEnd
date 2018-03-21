@@ -7,7 +7,12 @@
   <div class="col-8">
     <div class="card">
       <div class="card-header">
-        <h3> Product Details </h3>
+        <ng-template #sec>
+            <h3> New Product </h3> 
+           </ng-template>
+           <div *ngIf="(product | json) != '{}' ; else sec">
+              <h3> Product Details </h3>
+           </div>
       </div>
       <div class="card-body">
         <product-form [productItem]="product" [status]='status' (reload)="reloadList($event)" ></product-form>

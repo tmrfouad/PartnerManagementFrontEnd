@@ -89,7 +89,7 @@ import { StatusService } from './services/status.service';
     MatTooltipModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
-      { path: 'subscribe/:bundle', component: SubscribeComponent },
+      { path: 'subscribe', component: SubscribeComponent },
       { path: 'login', component: LoginComponent },
       { path: 'products', component: ProductContainerComponent, canActivate: [AuthGuard] },
       { path: 'rep', component: RepContainerComponent, canActivate: [AuthGuard] },

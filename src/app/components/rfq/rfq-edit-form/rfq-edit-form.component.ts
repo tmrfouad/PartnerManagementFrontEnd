@@ -105,13 +105,9 @@ export class RfqEditFormComponent extends BaseComponent implements OnInit, OnDes
 
   productChange(event) {
     const productId = event.target.value;
+    console.log(event);
     // this.rfq.targetedProduct = this.products.find(p => p.id.toString() === productId.toString());
     this.filterEditions(productId);
   }
 
-  editionChange(event) {
-    // const editionId = event.target.value;
-    // this.rfq.selectedEdition = this.editions.find(e => e.id.toString() === editionId.toString());
-    // console.log(this.rfq.selectedEdition);
-  }
 }
