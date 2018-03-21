@@ -30,7 +30,7 @@ export class StatusEditFormComponent extends BaseComponent implements OnInit, On
   reps: REP[];
   repsSubs: Subscription;
 
-  private _rfqStatus: RFQAction = <RFQAction>{};
+  private _rfqStatus: RFQAction = {};
   get rfqStatus() {
     return this._rfqStatus;
   }
@@ -55,7 +55,7 @@ export class StatusEditFormComponent extends BaseComponent implements OnInit, On
 
   async ngOnInit() {
     // this.rfqStatus = Object.assign({}, this.data.action);
-    this.rfqStatus = this.data.action;
+    Object.assign(this.rfqStatus, this.data.action);
 
     // if (this.rfqStatus.representative) {
     //   this.rfqStatus.representativeId = this.rfqStatus.representative.id;

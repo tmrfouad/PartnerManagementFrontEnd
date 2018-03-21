@@ -47,6 +47,7 @@ import { ProductService } from './services/product.service';
 import { RepService } from './services/rep.service';
 import { RfqService } from './services/rfq.service';
 import { StatusService } from './services/status.service';
+import { RfqSharedService } from './services/rfq-shared.service';
 
 
 @NgModule({
@@ -120,7 +121,8 @@ import { StatusService } from './services/status.service';
     [{
       provide: ErrorHandler,
       useClass: CutomErrorHandler
-    }]
+    }],
+    RfqSharedService
   ],
   bootstrap: [AppComponent]
 })

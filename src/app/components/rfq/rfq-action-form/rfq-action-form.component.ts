@@ -1,6 +1,7 @@
 import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/map';
 
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material';
 
 import { ActionTypeService } from '../../../services/action-type.service';
@@ -11,6 +12,8 @@ import { ActionType } from './../../../models/ActionType';
 import { RFQ } from './../../../models/RFQ';
 import { RFQAction } from './../../../models/RFQAction';
 import { RfqService } from './../../../services/rfq.service';
+import { RfqSharedService } from '../../../services/rfq-shared.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -18,44 +21,53 @@ import { RfqService } from './../../../services/rfq.service';
   templateUrl: './rfq-action-form.component.html',
   styleUrls: ['./rfq-action-form.component.css']
 })
-export class RfqActionFormComponent {
-  private _rfq: RFQ;
-  private _rfqStatus: RFQAction;
-
+export class RfqActionFormComponent implements OnInit, OnDestroy {
   statusListHidden = true;
-  reloadActions = false;
+  // reloadActions = false;
   statusesMap: { [key: string]: string } = {};
   actiontypesMap: { [key: string]: string } = {};
   actiontypesArray: { value: string, name: string }[] = [];
   isRfqLoaded = false;
   isRfqStatusLoaded = false;
-
-  get rfq() {
-    return this._rfq;
-  }
-  @Input('rfq') set rfq(rfq: RFQ) {
-    this._rfq = rfq;
-    this.statusListHidden = true;
-    this.isRfqLoaded = true;
-  }
-
-  get rfqStatus(): RFQAction {
-    return this._rfqStatus;
-  }
-  @Input('rfqStatus') set rfqStatus(status: RFQAction) {
-    this._rfqStatus = status;
-    this.isRfqStatusLoaded = true;
-  }
+  rfqSubs: Subscription;
+  rfq: RFQ;
+  rfqStatus: RFQAction;
 
   constructor(
     private rfqService: RfqService,
     private dialog: MatDialog,
     private statusService: StatusService,
-    private actionTypeService: ActionTypeService) {
+    private actionTypeService: ActionTypeService,
+    private sharedService: RfqSharedService) {
 
     this.statusesMap = this.statusService.getMapByValue();
     this.actiontypesMap = this.actionTypeService.getMapByValue();
     this.actiontypesArray = this.actionTypeService.getArray();
+
+    this.rfqSubs = this.sharedService.currentRfq.subscribe(async rfq => {
+      this.rfq = rfq;
+      this.statusListHidden = true;
+      this.isRfqLoaded = true;
+      if (rfq && rfq.rfqId) {
+        const rfqStatus$ = await this.rfqService.getStatus(rfq.rfqId);
+        this.sharedService.changeCurrentRfqStatus(await rfqStatus$.toPromise());
+      } else {
+        this.sharedService.changeCurrentRfqStatus(null);
+      }
+    });
+
+    this.sharedService.currentRfqStatus.subscribe(rfqStatus => {
+      this.rfqStatus = rfqStatus;
+      this.isRfqStatusLoaded = true;
+    });
+  }
+
+  ngOnInit() {
+
+  }
+
+  ngOnDestroy() {
+    this.rfqSubs.unsubscribe();
   }
 
   addAction(actionType: ActionType) {
@@ -72,16 +84,11 @@ export class RfqActionFormComponent {
         rfqId: this.rfq.rfqId,
         action: action
       }
+    }).afterClosed().subscribe((result: { result: string, action: RFQAction }) => {
+      if (result && result.result === 'saved') {
+        this.sharedService.changeCurrentRfq(this.rfq);
+      }
     });
-    this.reloadActions = false;
-
-    StatusDialogRef.afterClosed()
-      .subscribe((result: {result: string, action: RFQAction}) => {
-        if (result && result.result === 'saved') {
-          this.reloadActions = true;
-          this.rfqStatus = result.action;
-        }
-      });
   }
 
   toggleStatusList() {
@@ -98,7 +105,7 @@ export class RfqActionFormComponent {
   }
 
   openStatusEditDialog(action: RFQAction) {
-    const StatusDialogRef = this.dialog.open(StatusEditFormComponent, {
+    this.dialog.open(StatusEditFormComponent, {
       width: '800px',
       height: '530px',
       position: { top: '100px' },
@@ -107,11 +114,9 @@ export class RfqActionFormComponent {
         rfqId: this.rfq.rfqId,
         action: action
       }
-    });
-    StatusDialogRef.afterClosed().subscribe((result: {result: string, action: RFQAction}) => {
+    }).afterClosed().subscribe((result: { result: string, action: RFQAction }) => {
       if (result && result.result === 'saved') {
-        this.reloadActions = true;
-        this.rfqStatus = result.action;
+        this.sharedService.changeCurrentRfq(this.rfq);
       }
     });
   }

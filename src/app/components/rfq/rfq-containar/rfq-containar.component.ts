@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
 import { RfqService } from './../../../services/rfq.service';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -14,11 +15,11 @@ import { RfqService } from './../../../services/rfq.service';
 })
 export class RfqContainarComponent implements OnInit, OnDestroy {
   rfq;
-  rfqStatus$;
+  rfqStatus;
   listHeight;
   orederIdparam: string;
 
-  constructor(private activeRoute: ActivatedRoute, private rfqService: RfqService) {}
+  constructor(private activeRoute: ActivatedRoute, private rfqService: RfqService) { }
 
   ngOnInit() {
 
@@ -27,15 +28,19 @@ export class RfqContainarComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
   }
 
-  async onRfqChange(rfqItem) {
-    if (rfqItem) {
-      this.rfq = rfqItem;
-      if (rfqItem.rfqId != null) {
-        this.rfqStatus$ = await this.rfqService.getStatus(this.rfq.rfqId);
-      } else {
-        this.rfqStatus$ = Observable.empty();
-      }
-    }
-  }
+  // async onRfqChange(rfqItem) {
+  //   console.log('rfqItem', rfqItem);
+  //   this.rfq = rfqItem;
+  //   if (rfqItem && rfqItem.rfqId) {
+  //     const rfqStatus$ = await this.rfqService.getStatus(rfqItem.rfqId);
+  //     this.rfqStatus = await rfqStatus$.toPromise();
+  //   } else {
+  //     this.rfqStatus = null;
+  //   }
+  //   console.log('rfqStatus', this.rfqStatus);
+  // }
 
+  onRfqListVisibleClear() {
+
+  }
 }

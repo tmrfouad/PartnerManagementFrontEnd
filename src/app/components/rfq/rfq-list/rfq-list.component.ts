@@ -6,6 +6,7 @@ import { RFQ } from '../../../models/RFQ';
 import { RfqService } from '../../../services/rfq.service';
 import { BaseComponent } from '../../base-component';
 import { RfqEditFormComponent } from '../rfq-edit-form/rfq-edit-form.component';
+import { RfqSharedService } from '../../../services/rfq-shared.service';
 
 
 @Component({
@@ -20,16 +21,14 @@ export class RfqListComponent extends BaseComponent implements OnInit, OnDestroy
   isLoaded = false;
   rfqListSubscription: Subscription;
   selectedIndex = 0;
-  selectedRfq: RFQ;
   searchFilter = '';
   tabIndex = 0;
-
-  @Output('change') change = new EventEmitter();
 
   constructor(
     snackBar: MatSnackBar,
     public dialog: MatDialog,
-    private rfqService: RfqService) {
+    private rfqService: RfqService,
+    private sharedService: RfqSharedService) {
 
     super(snackBar, dialog);
   }
@@ -40,7 +39,7 @@ export class RfqListComponent extends BaseComponent implements OnInit, OnDestroy
       if (rfqs) {
         this.rfqs = rfqs as RFQ[];
         this.applyFilter();
-        this.selectRfq(rfqs[0], 0);
+        this.selectRfq(0);
         this.isLoaded = true;
       }
     });
@@ -50,19 +49,19 @@ export class RfqListComponent extends BaseComponent implements OnInit, OnDestroy
     this.rfqListSubscription.unsubscribe();
   }
 
-  selectRfq(rfq, index) {
+  selectRfq(index) {
     this.selectedIndex = index;
     this.selectCurrentRfq();
   }
 
   selectCurrentRfq() {
+    console.log('selectedIndex', this.selectedIndex);
     if (this.selectedIndex > this.rfqList.length - 1) {
       this.selectedIndex = 0;
     }
 
     const rfq = this.rfqList[this.selectedIndex];
-    if (!rfq) { return; }
-    this.change.emit(rfq);
+    this.sharedService.changeCurrentRfq(rfq);
   }
 
   applyFilter() {
@@ -84,7 +83,7 @@ export class RfqListComponent extends BaseComponent implements OnInit, OnDestroy
       if (rfqs) {
         this.rfqs = rfqs as RFQ[];
         this.applyFilter();
-        this.selectRfq(rfqs[0], 0);
+        this.selectRfq(0);
       }
     });
   }
@@ -115,7 +114,7 @@ export class RfqListComponent extends BaseComponent implements OnInit, OnDestroy
           const delete$ = await this.rfqService.delete(rfqId);
           delete$.subscribe(() => {
             this.refresh();
-            this.selectRfq({}, -1);
+            this.selectRfq(-1);
           });
         }
       });

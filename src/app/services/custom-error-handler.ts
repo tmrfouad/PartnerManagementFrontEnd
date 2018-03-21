@@ -1,4 +1,4 @@
-import { ErrorHandler, Injectable, Injector } from '@angular/core';
+import { ErrorHandler, Injectable, Injector, style } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 
 @Injectable()
@@ -49,6 +49,6 @@ export class CutomErrorHandler implements ErrorHandler {
             panelClass: 'snack-bar-error'
         });
 
-        console.log(error);
+        console.log(`%c ${ error }`, 'color: red');
     }
 }

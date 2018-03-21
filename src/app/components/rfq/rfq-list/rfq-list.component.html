@@ -25,9 +25,9 @@
     <ng-template *ngIf="!isLoaded">
       <loading></loading>
     </ng-template>
-    <div class="alert" *ngIf="isLoaded && !rfqList">There are no RFQs</div>
+    <div class="alert" *ngIf="isLoaded && (rfqList?.length === 0)">There are no RFQs</div>
     <div class="list-group" *ngIf="isLoaded && rfqList">
-      <a class="list-group-item card-text" (click)="selectRfq(rfqItem, i)" *ngFor="let rfqItem of rfqList; let i = index" [class.active]="selectedIndex == i">
+      <a class="list-group-item card-text" (click)="selectRfq(i)" *ngFor="let rfqItem of rfqList; let i = index" [class.active]="selectedIndex == i">
         {{ rfqItem.contactPersonEnglishName }}; {{ rfqItem.companyEnglishName}}; {{ rfqItem.contactPersonMobile }}
         <a class="float-right" (click)="deleteRfq(rfqItem.rfqId)">
           <i class="fa fa-trash" aria-hidden="true"></i>
