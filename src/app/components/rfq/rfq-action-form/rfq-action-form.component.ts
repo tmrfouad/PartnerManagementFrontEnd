@@ -3,6 +3,7 @@ import 'rxjs/add/operator/switchMap';
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material';
 
+import { ActionTypeService } from '../../../services/action-type.service';
 import { StatusService } from '../../../services/status.service';
 import { RfqEditFormComponent } from '../rfq-edit-form/rfq-edit-form.component';
 import { StatusEditFormComponent } from '../status-edit-form/status-edit-form.component';
@@ -10,7 +11,6 @@ import { ActionType } from './../../../models/ActionType';
 import { RFQ } from './../../../models/RFQ';
 import { RFQAction } from './../../../models/RFQAction';
 import { RfqService } from './../../../services/rfq.service';
-import { ActionTypeService } from '../../../services/action-type.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -27,6 +27,8 @@ export class RfqActionFormComponent {
   statusesMap: { [key: string]: string } = {};
   actiontypesMap: { [key: string]: string } = {};
   actiontypesArray: { value: string, name: string }[] = [];
+  isRfqLoaded = false;
+  isRfqStatusLoaded = false;
 
   get rfq() {
     return this._rfq;
@@ -34,6 +36,7 @@ export class RfqActionFormComponent {
   @Input('rfq') set rfq(rfq: RFQ) {
     this._rfq = rfq;
     this.statusListHidden = true;
+    this.isRfqLoaded = true;
   }
 
   get rfqStatus(): RFQAction {
@@ -41,6 +44,7 @@ export class RfqActionFormComponent {
   }
   @Input('rfqStatus') set rfqStatus(status: RFQAction) {
     this._rfqStatus = status;
+    this.isRfqStatusLoaded = true;
   }
 
   constructor(

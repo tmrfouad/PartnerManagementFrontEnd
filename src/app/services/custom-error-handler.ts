@@ -8,7 +8,11 @@ export class CutomErrorHandler implements ErrorHandler {
     }
     handleError(error): void {
         const errString = error.toString();
-        const errorObjStr = errString.substring(errString.indexOf('{'), errString.lastIndexOf('}') + 1);
+        let errorObjStr = errString.substring(errString.indexOf('{'), errString.lastIndexOf('}') + 1);
+        if (errorObjStr === '') {
+            const err = errString.split('at ')[0];
+            errorObjStr = `{ "status": -1, "message": "${ err }" }`;
+        }
         const errorObj = JSON.parse(errorObjStr);
 
         const errStatus: number = errorObj.status;
@@ -19,9 +23,8 @@ export class CutomErrorHandler implements ErrorHandler {
                 errMsg = 'Failed to contact server.';
                 break;
             default:
-                if (errorObj.error.Data) {
+                if (errorObj.error && errorObj.error.Data) {
                     const errId = errorObj.error.Data['HelpLink.EvtID'];
-                    console.log(errId);
                     switch (errId) {
                         case '515':
                             errMsg = 'The data you entered is incomplete.';
@@ -39,13 +42,13 @@ export class CutomErrorHandler implements ErrorHandler {
                 break;
         }
 
-        console.log(errorObj);
-
         const snakBar = this.injector.get(MatSnackBar);
         snakBar.open(errMsg, 'Error', {
             verticalPosition: 'bottom',
             duration: 5000,
             panelClass: 'snack-bar-error'
         });
+
+        console.log(error);
     }
 }

@@ -16,7 +16,8 @@ import { RfqEditFormComponent } from '../rfq-edit-form/rfq-edit-form.component';
 })
 export class RfqListComponent extends BaseComponent implements OnInit, OnDestroy {
   rfqs: RFQ[] = [];
-  rfqList: RFQ[] = [];
+  rfqList: RFQ[];
+  isLoaded = false;
   rfqListSubscription: Subscription;
   selectedIndex = 0;
   selectedRfq: RFQ;
@@ -40,6 +41,7 @@ export class RfqListComponent extends BaseComponent implements OnInit, OnDestroy
         this.rfqs = rfqs as RFQ[];
         this.applyFilter();
         this.selectRfq(rfqs[0], 0);
+        this.isLoaded = true;
       }
     });
   }

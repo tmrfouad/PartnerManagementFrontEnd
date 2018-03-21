@@ -22,10 +22,11 @@
     </div>
   </div>
   <div class="items-list">
-    <ng-template #loading>
+    <ng-template *ngIf="!isLoaded">
       <loading></loading>
     </ng-template>
-    <div class="list-group" *ngIf="rfqList; else loading">
+    <div class="alert" *ngIf="isLoaded && !rfqList">There are no RFQs</div>
+    <div class="list-group" *ngIf="isLoaded && rfqList">
       <a class="list-group-item card-text" (click)="selectRfq(rfqItem, i)" *ngFor="let rfqItem of rfqList; let i = index" [class.active]="selectedIndex == i">
         {{ rfqItem.contactPersonEnglishName }}; {{ rfqItem.companyEnglishName}}; {{ rfqItem.contactPersonMobile }}
         <a class="float-right" (click)="deleteRfq(rfqItem.rfqId)">

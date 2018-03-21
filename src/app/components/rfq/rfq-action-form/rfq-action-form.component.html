@@ -3,7 +3,7 @@
   <div class="card-header bg-dark text-white">
     <strong class="d-inline-block">RFQ Details</strong>
     <div class="dropdown float-right">
-      <a class="btn btn-light btn-sm text-dark dropdown-toggle" matTooltip="Add Action" matTooltipPosition="left" id="addActionDropDownBtn"
+      <a class="btn btn-light btn-sm text-dark dropdown-toggle" [hidden]="!rfq" matTooltip="Add Action" matTooltipPosition="left" id="addActionDropDownBtn"
         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i class="fa fa-plus"></i>
       </a>
@@ -13,14 +13,17 @@
         </a>
       </div>
     </div>
-    <a class="btn btn-light btn-sm text-dark mr-1 float-right" matTooltip="Edit Request" matTooltipPosition="above" (click)="openRfqEditDialog()">
+    <a class="btn btn-light btn-sm text-dark mr-1 float-right" [hidden]="!rfq" matTooltip="Edit Request" matTooltipPosition="above" (click)="openRfqEditDialog()">
       <i class="fa fa-edit"></i>
     </a>
   </div>
-  <ng-template #loading>
+  <ng-template *ngIf="!isRfqLoaded">
     <loading></loading>
   </ng-template>
-  <div class="card-body row" *ngIf="rfq; else loading">
+  <div class="card-body" *ngIf="!rfq && isRfqLoaded">
+    No Rfq Selected.
+  </div>
+  <div class="card-body row" *ngIf="rfq && isRfqLoaded">
     <div class="col-6">
       <span class="font-weight-bold">Request Code :</span>
       <span>{{ rfq.rfqCode }}</span>
@@ -76,7 +79,10 @@
     <a class="btn btn-link float-right" (click)="openStatusEditDialog(rfqStatus)" matTooltip="Edit Status Action" matTooltipPosition="above">
       <i class="fa fa-edit"></i>
     </a>
-    <div class="row" *ngIf="rfqStatus; else loading">
+    <ng-template #rfqStatusLoading>
+        <loading></loading>
+    </ng-template>
+    <div class="row" *ngIf="rfqStatus; else rfqStatusLoading">
       <div class="col-6">
         <span class="font-weight-bold">Action Code :</span>
         <span>{{ rfqStatus.actionCode }}</span>
