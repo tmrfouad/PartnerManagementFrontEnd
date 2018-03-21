@@ -47,6 +47,7 @@ import { ProductService } from './services/product.service';
 import { RepService } from './services/rep.service';
 import { RfqService } from './services/rfq.service';
 import { StatusService } from './services/status.service';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 
 @NgModule({
@@ -75,7 +76,8 @@ import { StatusService } from './services/status.service';
     ProductFormComponent,
     ProductEditionFormComponent,
     ProductEditionListComponent,
-    ListViewComponent
+    ListViewComponent,
+    NotFoundComponent
   ],
   imports: [
     MatSnackBarModule,
@@ -93,7 +95,8 @@ import { StatusService } from './services/status.service';
       { path: 'login', component: LoginComponent },
       { path: 'products', component: ProductContainerComponent, canActivate: [AuthGuard] },
       { path: 'rep', component: RepContainerComponent, canActivate: [AuthGuard] },
-      { path: 'Rfq', component: RfqContainarComponent, canActivate: [AuthGuard] }
+      { path: 'Rfq', component: RfqContainarComponent, canActivate: [AuthGuard] },
+      { path: '**', component: NotFoundComponent }
     ])
   ],
   entryComponents: [
