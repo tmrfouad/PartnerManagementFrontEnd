@@ -32,15 +32,14 @@
 
     <div class="col-6">
       <label for="targetedProduct" class="col-form-label-sm">Product :</label>
-      <select name="targetedProduct" id="targetedProduct" required class="custom-select form-control form-control-sm" [(ngModel)]="rfq.targetedProductId">
-        <option *ngFor="let product of products" [value]="product.id" (change)="productChange($event)">{{ product.englishName }}</option>
+      <select name="targetedProduct" id="targetedProduct" required class="custom-select form-control form-control-sm" [(ngModel)]="rfq.targetedProductId" (change)="productChange($event)">
+        <option *ngFor="let product of products" [value]="product.id">{{ product.englishName }}</option>
       </select>
     </div>
 
     <div class="col-6">
       <label for="selectedBundle" class="col-form-label-sm">Edition :</label>
-      <select name="selectedBundle" id="selectedBundle" required class="custom-select form-control form-control-sm" [(ngModel)]="rfq.selectedEditionId"
-        (change)="editionChange($event)">
+      <select name="selectedBundle" id="selectedBundle" required class="custom-select form-control form-control-sm" [(ngModel)]="rfq.selectedEditionId">
         <option *ngFor="let edition of editions" [value]="edition.id">{{ edition.englishName }}</option>
       </select>
     </div>

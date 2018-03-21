@@ -1,13 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog, MatSnackBar } from '@angular/material';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
-import { Country } from '../../models/Country';
+import { Product } from '../../models/Product';
+import { RFQ } from '../../models/RFQ';
 import { AcceptService } from '../../services/accept.service';
 import { CountryService } from '../../services/country.service';
 import { RfqService } from '../../services/rfq.service';
 import { BaseComponent } from '../base-component';
-import { RFQ } from '../../models/RFQ';
+import { ProductService } from './../../services/product.service';
+import { ProductEdition } from '../../models/ProductEdition';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -15,9 +18,12 @@ import { RFQ } from '../../models/RFQ';
   templateUrl: './subscribe.component.html',
   styleUrls: ['./subscribe.component.css']
 })
-export class SubscribeComponent extends BaseComponent implements OnInit {
+export class SubscribeComponent extends BaseComponent implements OnInit, OnDestroy {
   loading = false;
   rfqItem: RFQ = {};
+
+  productName: string;
+  editionName: string;
 
   phoneIntial = '';
   phone = '';
@@ -25,8 +31,11 @@ export class SubscribeComponent extends BaseComponent implements OnInit {
   mobilIntial = '';
   mobilphone = '';
 
-  currentCuntry: string;
-  currentCuntry2: string;
+  products: Product[];
+  editions: ProductEdition[];
+
+  productSubscribe: Subscription;
+  productEditionSubscribe: Subscription;
 
   constructor(
     snackBar: MatSnackBar,
@@ -35,33 +44,20 @@ export class SubscribeComponent extends BaseComponent implements OnInit {
     private rfqService: RfqService,
     private countryService: CountryService,
     private router: Router,
-    private route: ActivatedRoute) {
-
+    private productService: ProductService
+  ) {
     super(snackBar, dialog);
-    this.rfqItem.targetedProductId = 1;
-    this.countryService.getCurrentCountry().subscribe((item: Country) => {
-      this.currentCuntry = item.country.toLowerCase();
-      this.currentCuntry2 = item.country.toLowerCase();
+
+
+  }
+
+  async ngOnInit() {
+    const product$ = await this.productService.get();
+    this.productSubscribe = product$.subscribe((item: Product[]) => {
+      this.products = item;
     });
-    const edition = route.snapshot.paramMap.get('bundle');
-    if (edition) {
-      // tslint:disable-next-line:radix
-      this.rfqItem.selectedEditionId = parseInt(edition);
-    }
+    this.filterEditions(this.rfqItem.targetedProductId);
   }
-
-  ngOnInit() {
-  }
-
-  Searchtxt(Srchtxt) {
-    this.currentCuntry = Srchtxt.toLowerCase();
-  }
-
-  Searchtxt2(Srchtxt) {
-    this.currentCuntry2 = Srchtxt.toLowerCase();
-  }
-
-
 
   async logForm(rfqForm) {
     this.showLoading('Please wait ...');
@@ -80,5 +76,26 @@ export class SubscribeComponent extends BaseComponent implements OnInit {
   countryChange() {
     this.rfqItem.contactPersonMobile = this.phoneIntial + this.phone;
     this.rfqItem.phoneNumber = this.mobilIntial + this.mobilphone;
+  }
+
+  productChange(event) {
+    this.productName = event.target.options[event.target.selectedIndex].text;
+    this.filterEditions(event.target.value);
+  }
+
+  editionChange(event) {
+    this.editionName = event.target.options[event.target.selectedIndex].text;
+  }
+
+  async filterEditions(productId) {
+    const editions$ = await this.productService.getEditions(productId);
+    this.productEditionSubscribe = editions$.subscribe((editions: ProductEdition[]) => {
+      this.editions = editions;
+    });
+  }
+
+  ngOnDestroy() {
+    this.productSubscribe.unsubscribe();
+    this.productEditionSubscribe.unsubscribe();
   }
 }
