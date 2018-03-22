@@ -4,9 +4,10 @@ import { Injectable } from '@angular/core';
 import { AccountService } from './account.service';
 import { IpDataService } from './ip-data.service';
 import { NetworkService } from './network.service';
+import { Product } from '../models/Product';
 
 @Injectable()
-export class ProductService extends IpDataService {
+export class ProductService extends IpDataService<Product> {
 
   constructor(
     http: HttpClient,

@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment';
 import { AccountService } from './account.service';
 
 @Injectable()
-export class DataService {
+export class DataService<T> {
   protected baseUrl: string;
   protected headers: HttpHeaders;
   private token: string;
@@ -30,31 +30,31 @@ export class DataService {
   }
 
   async get() {
-    return this.http.get(this.baseUrl + this.url + '/get', { headers: this.headers }).catch(error => {
+    return this.http.get<T[]>(this.baseUrl + this.url + '/get', { headers: this.headers }).catch(error => {
       throw new Error(JSON.stringify(error));
     });
   }
 
   async getById(Id) {
-    return this.http.get(this.baseUrl + this.url + '/get/' + Id, { headers: this.headers }).catch(error => {
+    return this.http.get<T>(this.baseUrl + this.url + '/get/' + Id, { headers: this.headers }).catch(error => {
       throw new Error(JSON.stringify(error));
     });
   }
 
   async post(item) {
-    return this.http.post(this.baseUrl + this.url + '/post', item, { headers: this.headers }).catch(error => {
+    return this.http.post<T>(this.baseUrl + this.url + '/post', item, { headers: this.headers }).catch(error => {
       throw new Error(JSON.stringify(error));
     });
   }
 
   async put(id, item) {
-    return this.http.put(this.baseUrl + this.url + '/put/' + id, item, { headers: this.headers }).catch(error => {
+    return this.http.put<T>(this.baseUrl + this.url + '/put/' + id, item, { headers: this.headers }).catch(error => {
       throw new Error(JSON.stringify(error));
     });
   }
 
   async delete(id) {
-    return this.http.delete(this.baseUrl + this.url + '/delete/' + id, { headers: this.headers }).catch(error => {
+    return this.http.delete<T>(this.baseUrl + this.url + '/delete/' + id, { headers: this.headers }).catch(error => {
       throw new Error(JSON.stringify(error));
     });
   }

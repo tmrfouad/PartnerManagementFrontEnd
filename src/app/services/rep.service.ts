@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 import { IpDataService } from './ip-data.service';
 
 @Injectable()
-export class RepService extends IpDataService {
+export class RepService extends IpDataService<REP> {
 
   constructor(http: HttpClient,
     accountService: AccountService,

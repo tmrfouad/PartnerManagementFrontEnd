@@ -28,18 +28,6 @@ export class RfqContainarComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
   }
 
-  // async onRfqChange(rfqItem) {
-  //   console.log('rfqItem', rfqItem);
-  //   this.rfq = rfqItem;
-  //   if (rfqItem && rfqItem.rfqId) {
-  //     const rfqStatus$ = await this.rfqService.getStatus(rfqItem.rfqId);
-  //     this.rfqStatus = await rfqStatus$.toPromise();
-  //   } else {
-  //     this.rfqStatus = null;
-  //   }
-  //   console.log('rfqStatus', this.rfqStatus);
-  // }
-
   onRfqListVisibleClear() {
 
   }

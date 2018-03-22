@@ -27,29 +27,6 @@ export class RfqStatusListComponent implements OnInit {
   rfqStatus: RFQAction;
   rfqActions: RFQAction[] = [];
 
-  // get rfq(): RFQ {
-  //   return this._rfq;
-  // }
-  // @Input('rfq') set rfq(rfq: RFQ) {
-  //   this._rfq = rfq;
-  //   if (rfq) {
-  //     this.rfqService.getActions(rfq.rfqId).then(r => this.rfqActions$ = r);
-  //   }
-  // }
-
-  // get reload(): boolean {
-  //   return this._reload;
-  // }
-  // @Input('reload') set reload(reload: boolean) {
-  //   this._reload = reload;
-  //   if (reload) {
-  //     this.rfqService.getActions(this.rfq.rfqId).then(r => {
-  //       this.rfqActions$ = r;
-  //       this.reload = false;
-  //     });
-  //   }
-  // }
-
   constructor(
     private rfqService: RfqService,
     private dialog: MatDialog,
@@ -94,13 +71,13 @@ export class RfqStatusListComponent implements OnInit {
     }).afterClosed().subscribe(async (result: { result: string, action: RFQAction }) => {
       if (result && result.result === 'saved') {
         const indx = this.rfqActions.findIndex(a =>
-          a.rfqId.toString() === this.rfq.rfqId.toString() &&
-          a.id.toString() === action.id.toString());
+          a.rfqId === this.rfq.rfqId &&
+          a.id === action.id);
         this.rfqActions[indx] = result.action;
         this.sharedService.changeCurrentRfqActions(this.rfqActions);
 
-        if (this.rfqStatus.rfqId.toString() === action.rfqId.toString() &&
-          this.rfqStatus.id.toString() === action.id.toString()) {
+        if (this.rfqStatus.rfqId === action.rfqId &&
+          this.rfqStatus.id === action.id) {
 
           this.sharedService.changeCurrentRfqStatus(result.action);
         }

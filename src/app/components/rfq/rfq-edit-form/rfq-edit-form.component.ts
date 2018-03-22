@@ -52,7 +52,7 @@ export class RfqEditFormComponent extends BaseComponent implements OnInit, OnDes
     });
 
     if (this.dialogData.mode === 'edit') {
-      this.rfq = this.dialogData.rfq;
+      Object.assign(this.rfq, this.dialogData.rfq);
     } else {
       this.rfq.targetedProductId = 1;
       this.rfq.status = 0;
@@ -77,20 +77,20 @@ export class RfqEditFormComponent extends BaseComponent implements OnInit, OnDes
     this.showLoading('Please wait ...');
     if (this.dialogData.mode === 'new') {
       const rfqItem$ = await this.rfqService.post(this.rfq);
-      rfqItem$.subscribe(() => {
+      rfqItem$.subscribe((rfq: RFQ) => {
         this.closeLoading();
         this.showSnackBar('Request saved successfully', 'Success');
-        this.dialogRef.close({ dialogResult: 'save' });
+        this.dialogRef.close({ dialogResult: 'save', rfq: rfq });
       }, error => {
         this.closeLoading();
         throw error;
       });
     } else {
       const rfqItem$ = await this.rfqService.put(this.rfq.rfqId, this.rfq);
-      rfqItem$.subscribe(() => {
+      rfqItem$.subscribe((rfq: RFQ) => {
         this.closeLoading();
         this.showSnackBar('Request saved successfully', 'Success');
-        this.dialogRef.close({ dialogResult: 'save' });
+        this.dialogRef.close({ dialogResult: 'save', rfq: rfq });
       }, error => {
         this.closeLoading();
         throw error;
@@ -105,8 +105,6 @@ export class RfqEditFormComponent extends BaseComponent implements OnInit, OnDes
 
   productChange(event) {
     const productId = event.target.value;
-    console.log(event);
-    // this.rfq.targetedProduct = this.products.find(p => p.id.toString() === productId.toString());
     this.filterEditions(productId);
   }
 

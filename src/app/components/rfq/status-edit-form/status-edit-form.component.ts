@@ -76,17 +76,26 @@ export class StatusEditFormComponent extends BaseComponent implements OnInit, On
     this.showLoading('Please wait ...');
     if (this.data.mode === 'edit') {
       const rfq$ = await this.rfqService.updateAction(this.data.rfqId, this.data.action.id, this.rfqStatus);
-      await rfq$.toPromise().then(() => {
-        this.showSnackBar('Action added successfully.', 'Success');
+      await rfq$.toPromise().then((newAction: RFQAction) => {
+        console.log('put response :', newAction);
+        this.showSnackBar('Action updated successfully.', 'Success');
         this.getRep();
+        this.rfqStatus = newAction;
         this.dialogRef.close({ result: 'saved', action: this.rfqStatus });
+      }).catch(error => {
+        this.closeLoading();
+        throw error;
       });
     } else if (this.data.mode === 'new') {
       const addStatus$ = await this.rfqService.addAction(this.data.rfqId, this.rfqStatus);
-      await addStatus$.toPromise().then(() => {
-        this.showSnackBar('Action updated successfully.', 'Success');
+      await addStatus$.toPromise().then((newAction: RFQAction) => {
+        this.showSnackBar('Action added successfully.', 'Success');
         this.getRep();
+        this.rfqStatus = newAction;
         this.dialogRef.close({ result: 'saved', action: this.rfqStatus });
+      }).catch(error => {
+        this.closeLoading();
+        throw error;
       });
     }
     const getStatus$ = await this.rfqService.getStatus(this.data.rfqId);

@@ -5,7 +5,7 @@ import { AccountService } from './account.service';
 import { NetworkService } from './network.service';
 
 @Injectable()
-export class IpDataService extends DataService {
+export class IpDataService<T> extends DataService<T> {
 
   constructor(
     http: HttpClient,

@@ -7,13 +7,41 @@ export class CutomErrorHandler implements ErrorHandler {
 
     }
     handleError(error): void {
-        const errString = error.toString();
-        let errorObjStr = errString.substring(errString.indexOf('{'), errString.lastIndexOf('}') + 1);
-        if (errorObjStr === '') {
-            const err = errString.split('at ')[0];
-            errorObjStr = `{ "status": -1, "message": "${ err }" }`;
+        const errString: string = error.toString();
+        const braces = Object.entries(errString).filter(c => c['1'] === '{' || c['1'] === '}');
+
+        const errObjArray = [];
+
+        if (braces.length === 0) {
+            const err = errString.split(' at ')[0].split('TypeError: ')[1].trim();
+            const errorObjStr = `{ "status": -1, "message": "TypeError: ${err}" }`;
+            errObjArray.push(JSON.parse(errorObjStr));
+        } else {
+            // tslint:disable-next-line:radix
+            let openIndx = parseInt(braces[0]['0']);
+            let closeIndx = -1;
+            let openCnt = 0;
+            braces.forEach(b => {
+                if (openCnt === 0) {
+                    // tslint:disable-next-line:radix
+                    openIndx = parseInt(b['0']);
+                }
+                if (b['1'] === '{') {
+                    openCnt++;
+                }
+                if (b['1'] === '}') {
+                    openCnt--;
+                }
+                if (openCnt === 0) {
+                    // tslint:disable-next-line:radix
+                    closeIndx = parseInt(b['0']);
+                    const errStr = errString.substring(openIndx, closeIndx + 1);
+                    errObjArray.push(JSON.parse(errStr));
+                }
+            });
         }
-        const errorObj = JSON.parse(errorObjStr);
+
+        const errorObj = errObjArray[0];
 
         const errStatus: number = errorObj.status;
         let errMsg;
@@ -49,6 +77,6 @@ export class CutomErrorHandler implements ErrorHandler {
             panelClass: 'snack-bar-error'
         });
 
-        console.log(`%c ${ error }`, 'color: red');
+        console.log('Error log :', errObjArray);
     }
 }

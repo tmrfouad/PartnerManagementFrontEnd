@@ -32,6 +32,8 @@ export class RfqActionFormComponent implements OnInit, OnDestroy {
   rfqSubs: Subscription;
   rfq: RFQ;
   rfqStatus: RFQAction;
+  rfqActions: RFQAction[];
+  rfqs: RFQ[];
 
   constructor(
     private rfqService: RfqService,
@@ -60,6 +62,14 @@ export class RfqActionFormComponent implements OnInit, OnDestroy {
       this.rfqStatus = rfqStatus;
       this.isRfqStatusLoaded = true;
     });
+
+    this.sharedService.currentRfqActions.subscribe(rfqActions => {
+      this.rfqActions = rfqActions;
+    });
+
+    this.sharedService.currentRfqs.subscribe(rfqs => {
+      this.rfqs = rfqs;
+    });
   }
 
   ngOnInit() {
@@ -86,7 +96,9 @@ export class RfqActionFormComponent implements OnInit, OnDestroy {
       }
     }).afterClosed().subscribe((result: { result: string, action: RFQAction }) => {
       if (result && result.result === 'saved') {
-        this.sharedService.changeCurrentRfq(this.rfq);
+        this.sharedService.changeCurrentRfqStatus(result.action);
+        this.rfqActions.push(result.action);
+        this.sharedService.changeCurrentRfqActions(this.rfqActions);
       }
     });
   }
@@ -101,6 +113,15 @@ export class RfqActionFormComponent implements OnInit, OnDestroy {
       height: '530px',
       position: { top: '100px' },
       data: { mode: 'edit', rfq: this.rfq }
+    }).afterClosed().subscribe((result: { dialogResult: string, rfq: RFQ }) => {
+      if (result.dialogResult === 'save') {
+        if (result.rfq) {
+          this.sharedService.changeCurrentRfq(result.rfq);
+          const indx = this.rfqs.findIndex(r => r.rfqId === result.rfq.rfqId);
+          this.rfqs[indx] = result.rfq;
+          this.sharedService.changeCurrentRfqs(this.rfqs);
+        }
+      }
     });
   }
 

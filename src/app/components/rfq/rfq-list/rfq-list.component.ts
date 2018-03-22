@@ -38,10 +38,16 @@ export class RfqListComponent extends BaseComponent implements OnInit, OnDestroy
     this.rfqListSubscription = get$.subscribe(rfqs => {
       if (rfqs) {
         this.rfqs = rfqs as RFQ[];
+        this.sharedService.changeCurrentRfqs(this.rfqs);
         this.applyFilter();
         this.selectRfq(0);
         this.isLoaded = true;
       }
+    });
+
+    this.sharedService.currentRfqs.subscribe(rfqs => {
+      this.rfqs = rfqs;
+      this.applyFilter();
     });
   }
 
@@ -55,7 +61,6 @@ export class RfqListComponent extends BaseComponent implements OnInit, OnDestroy
   }
 
   selectCurrentRfq() {
-    console.log('selectedIndex', this.selectedIndex);
     if (this.selectedIndex > this.rfqList.length - 1) {
       this.selectedIndex = 0;
     }
@@ -101,7 +106,10 @@ export class RfqListComponent extends BaseComponent implements OnInit, OnDestroy
     subscribeDialog.afterClosed().subscribe(result => {
       if (result) {
         if (result.dialogResult === 'save') {
-          this.refresh();
+          if (result.rfq) {
+            this.rfqs.push(result.rfq);
+            this.sharedService.changeCurrentRfqs(this.rfqs);
+          }
         }
       }
     });
@@ -112,8 +120,10 @@ export class RfqListComponent extends BaseComponent implements OnInit, OnDestroy
       .subscribe(async result => {
         if (result === 'ok') {
           const delete$ = await this.rfqService.delete(rfqId);
-          delete$.subscribe(() => {
-            this.refresh();
+          delete$.subscribe((rfq: RFQ) => {
+            const indx = this.rfqs.findIndex(r => r.rfqId === rfq.rfqId);
+            this.rfqs.splice(indx, 1);
+            this.sharedService.changeCurrentRfqs(this.rfqs);
             this.selectRfq(-1);
           });
         }

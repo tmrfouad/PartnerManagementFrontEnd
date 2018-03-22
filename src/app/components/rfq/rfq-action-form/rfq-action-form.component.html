@@ -18,63 +18,64 @@
       <i class="fa fa-edit"></i>
     </a>
   </div>
-  <ng-template *ngIf="!isRfqLoaded">
-    <loading></loading>
-  </ng-template>
-  <div class="card-body" *ngIf="!rfq && isRfqLoaded">
-    No Rfq Selected.
+  <div style="height:160px;overflow:auto;">
+    <ng-template *ngIf="!isRfqLoaded">
+      <loading></loading>
+    </ng-template>
+    <div class="card-body" *ngIf="!rfq && isRfqLoaded">
+      No Rfq Selected.
+    </div>
+    <div class="row m-1" *ngIf="rfq && isRfqLoaded">
+      <div class="col-6">
+        <span class="font-weight-bold">Request Code :</span>
+        <span>{{ rfq.rfqCode }}</span>
+      </div>
+      <div class="col-6">
+        <span class="font-weight-bold">Company :</span>
+        <span>{{ rfq.companyEnglishName }}</span>
+      </div>
+      <div class="col-6">
+        <span class="font-weight-bold">Contact Person :</span>
+        <span>{{ rfq.contactPersonEnglishName }}</span>
+      </div>
+      <div class="col-6">
+        <span class="font-weight-bold">Email :</span>
+        <span>{{ rfq.contactPersonEmail }}</span>
+      </div>
+      <div class="col-6">
+        <span class="font-weight-bold">Mobile No. :</span>
+        <span>{{ rfq.contactPersonMobile }}</span>
+      </div>
+      <div class="col-6">
+        <span class="font-weight-bold">Phone No. :</span>
+        <span>{{ rfq.phoneNumber }}</span>
+      </div>
+      <div class="col-6">
+        <span class="font-weight-bold">Product :</span>
+        <span>{{ rfq.targetedProduct.englishName }}</span>
+      </div>
+      <div class="col-6">
+        <span class="font-weight-bold">Edition :</span>
+        <span>{{ rfq.selectedEdition.englishName }}</span>
+      </div>
+      <div class="col-6">
+        <span class="font-weight-bold">Website :</span>
+        <span>{{ rfq.website }}</span>
+      </div>
+      <div class="col-6">
+        <span class="font-weight-bold">Location :</span>
+        <span>{{ rfq.location }}</span>
+      </div>
+      <div class="col-6">
+        <span class="font-weight-bold">Address :</span>
+        <span>{{ rfq.address }}</span>
+      </div>
+      <div class="col-6">
+        <span class="font-weight-bold">Current Status :</span>
+        <span>{{ statusesMap[rfq.status] }}</span>
+      </div>
+    </div>
   </div>
-  <div class="card-body row" *ngIf="rfq && isRfqLoaded">
-    <div class="col-6">
-      <span class="font-weight-bold">Request Code :</span>
-      <span>{{ rfq.rfqCode }}</span>
-    </div>
-    <div class="col-6">
-      <span class="font-weight-bold">Company :</span>
-      <span>{{ rfq.companyEnglishName }}</span>
-    </div>
-    <div class="col-6">
-      <span class="font-weight-bold">Contact Person :</span>
-      <span>{{ rfq.contactPersonEnglishName }}</span>
-    </div>
-    <div class="col-6">
-      <span class="font-weight-bold">Email :</span>
-      <span>{{ rfq.contactPersonEmail }}</span>
-    </div>
-    <div class="col-6">
-      <span class="font-weight-bold">Mobile No. :</span>
-      <span>{{ rfq.contactPersonMobile }}</span>
-    </div>
-    <div class="col-6">
-      <span class="font-weight-bold">Phone No. :</span>
-      <span>{{ rfq.phoneNumber }}</span>
-    </div>
-    <div class="col-6">
-      <span class="font-weight-bold">Product :</span>
-      <span>{{ rfq.targetedProduct.englishName }}</span>
-    </div>
-    <div class="col-6">
-      <span class="font-weight-bold">Edition :</span>
-      <span>{{ rfq.selectedEdition.englishName }}</span>
-    </div>
-    <div class="col-6">
-      <span class="font-weight-bold">Website :</span>
-      <span>{{ rfq.website }}</span>
-    </div>
-    <div class="col-6">
-      <span class="font-weight-bold">Location :</span>
-      <span>{{ rfq.location }}</span>
-    </div>
-    <div class="col-6">
-      <span class="font-weight-bold">Address :</span>
-      <span>{{ rfq.address }}</span>
-    </div>
-    <div class="col-6">
-      <span class="font-weight-bold">Current Status :</span>
-      <span>{{ statusesMap[rfq.status] }}</span>
-    </div>
-  </div>
-
   <div class="card-footer" *ngIf="rfqStatus">
     <!-- Status -->
     <a class="btn btn-link float-right" (click)="openStatusEditDialog(rfqStatus)" matTooltip="Edit Status Action" matTooltipPosition="above">
@@ -108,14 +109,16 @@
     <!-- <rfq-status [rfq]="rfq"></rfq-status> -->
     <!-- End of Status -->
 
-    <button class="btn btn-sm btn-outline-dark w-100 mt-2" matTooltip="Show All Actions" matTooltipPosition="above" type="button"
+    <button class="btn btn-sm btn-outline-dark w-100" matTooltip="Show All Actions" matTooltipPosition="above" type="button"
       (click)="toggleStatusList()">
       <i class="fa fa-angle-double-down" *ngIf="statusListHidden"></i>
       <i class="fa fa-angle-double-up" *ngIf="!statusListHidden"></i>
     </button>
 
+    <div style="height:50px;overflow: auto;">
     <!-- Status List -->
     <rfq-status-list [hidden]="statusListHidden"></rfq-status-list>
     <!-- End of Status List -->
+    </div>
   </div>
 </div>
