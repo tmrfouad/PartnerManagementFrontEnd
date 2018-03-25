@@ -1,20 +1,20 @@
 <div class="row">
   <div class="col-4">
-    <rep-list [RepItem]="rep" [reload]="reload" (submitREP)="selectRep($event)"></rep-list>
+    <rep-list></rep-list>
   </div>
   <div class="col-8">
     <div class="position-fixed">
       <div class="card">
         <div class="card-header">
           <ng-template #sec>
-           <h3> New Represintitive </h3> 
+            <h3> New Represintitive </h3>
           </ng-template>
           <div *ngIf="(rep | json) != '{}' ; else sec">
-            {{ rep.name }} Details
+           <h3> {{ rep.name }} </h3> 
           </div>
         </div>
         <div class="card-body">
-          <rep-form [RepItem]="rep" [status]="status" (reload)="reloadList($event)"></rep-form>
+          <rep-form></rep-form>
         </div>
       </div>
     </div>

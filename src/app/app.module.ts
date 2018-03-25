@@ -1,3 +1,4 @@
+import { RepSharedService } from './services/rep-shared.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -119,6 +120,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     StatusService,
     ActionTypeService,
     RepService,
+    RepSharedService,
     ProductService,
     [{
       provide: ErrorHandler,

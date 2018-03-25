@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { REP } from '../../../models/REP';
 import { RepService } from '../../../services/rep.service';
+import { RepSharedService } from '../../../services/rep-shared.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -14,23 +15,13 @@ export class RepContainerComponent implements OnInit {
   rep: REP = <REP>{};
   reload: string;
   status = 'new';
-  constructor(private repService: RepService) {
+  constructor(private repService: RepService, private repShaService: RepSharedService) {
+    repShaService.currentrep.subscribe((item: REP) => {
+      if (item) { this.rep = item; }
+    });
   }
 
   ngOnInit() {
-
-  }
-
-  selectRep(rep: REP) {
-    this.rep = rep;
-    this.reload = '';
-    if (this.rep) {
-      if (Object.keys(this.rep).length > 0) {
-        this.status = 'edit';
-      } else {
-        this.status = 'new';
-      }
-    }
   }
 
   reloadList(item: string) {
