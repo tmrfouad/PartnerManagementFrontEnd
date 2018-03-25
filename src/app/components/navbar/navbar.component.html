@@ -2,40 +2,42 @@
   <a class="navbar-brand" routerLink="/">
     <img data-placeholder="no" class="img-fluid" src="/assets/images/logo2x.png" alt="ACS" style="opacity: 1; visibility: visible;">
   </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+    aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav ml-auto ">
-        <li class="nav-item dropdown" *ngIf="accountService.isLoggedIn">
-            <a class="nav-link dropdown-toggle" href="#" role="right" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{ accountService.currentUser.sub }}
+      <li class="nav-item dropdown" *ngIf="accountService.isLoggedIn">
+        <a class="nav-link dropdown-toggle" href="#" role="right" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
+          {{ accountService.currentUser.sub }}
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+          <a routerLink="rep" class="dropdown-item">
+            Representative
+          </a>
+          <a routerLink="products" class="dropdown-item">
+            Products
+          </a>
+          <a routerLink="Rfq" class="dropdown-item">
+            Manage Requests
+          </a>
+          <div class="dropdown-divider"></div>
+          <li class="nav-item signout-btn" *ngIf="accountService.isLoggedIn">
+            <a (click)="accountService.logout()" class="dropdown-item">
+              Log Out
             </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-              <a routerLink="rep" class="dropdown-item">
-                 Representative 
-              </a>
-              <a routerLink="products" class="dropdown-item">
-                  Products 
-              </a>
-              <a routerLink="Rfq" class="dropdown-item">
-                  Manage Requests
-              </a>
-              <div class="dropdown-divider"></div>
-              <li class="nav-item signout-btn" *ngIf="accountService.isLoggedIn">
-                  <a (click)="accountService.logout()" class="dropdown-item">
-                    Log Out
-                  </a>
-                </li>
-            </div>
           </li>
+        </div>
+      </li>
       <li class="nav-item" *ngIf="!accountService.isLoggedIn">
         <a routerLink="/login" class="nav-link">
           Login
         </a>
       </li>
-  
+
     </ul>
   </div>
 

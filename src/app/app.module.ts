@@ -48,7 +48,12 @@ import { RepService } from './services/rep.service';
 import { RfqService } from './services/rfq.service';
 import { StatusService } from './services/status.service';
 import { RfqSharedService } from './services/rfq-shared.service';
+import { TranslateLoader, TranslateModule, TranslateStaticLoader } from 'ng2-translate';
+import { Http } from '@angular/http';
 
+export function createTranslateLoader(http: Http) {
+  return new TranslateStaticLoader(http, './assets/i18n', '.json');
+}
 
 @NgModule({
   declarations: [
@@ -88,6 +93,11 @@ import { RfqSharedService } from './services/rfq-shared.service';
     HttpClientModule,
     MatDialogModule,
     MatTooltipModule,
+    TranslateModule.forRoot({
+      provide: TranslateLoader,
+      useFactory: (createTranslateLoader),
+      deps: [Http]
+    }),
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
       { path: 'subscribe', component: SubscribeComponent },

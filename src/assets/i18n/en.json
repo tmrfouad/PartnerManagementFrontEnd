@@ -1,0 +1,23 @@
+{
+    "subscribe": {
+        "requestForQuotations": "Request For Quotations",
+        "name": "Name",
+        "companyName": "Company Name",
+        "email": "E-Mail",
+        "personalNumber": "Personal Number",
+        "phoneNumber": "Phone Number",
+        "website": "Website",
+        "location": "Location",
+        "product": "Product",
+        "edition": "Edition",
+        "submit": "Submit",
+        "reset": "Reset",
+        "requestInformation": "Request Information",
+        "errors": {
+            "required": "You can't leave this empty.",
+            "minLength": "Please use at least {{ value }} characters.",
+            "invalidEmail": "Email is not valid.",
+            "invalidPhone": "This phone number format is not recognized."
+        }
+    }
+}

@@ -3,13 +3,29 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 html {
-  height: 100%;
+  min-height: 100%;
 }
 
 body { 
     padding-top: 90px;
     background-color: #eeebe4;
-    height: 100%;
+    min-height: 100%;
+}
+
+.form-wrapper {
+  position: absolute;
+  margin: 90px 10px 10px 10px;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.form-wrapper .card-body,
+.form-wrapper .row,
+.form-content {
+  height: 100%;
+  overflow: auto;
 }
 
 .snack-bar-error {
@@ -104,3 +120,56 @@ div.radio-group {
       flex-direction: column;
     }
   }
+
+  .layout-rtl {
+    direction: rtl;
+
+    // fix bootstrap input-group rtl issue
+    .input-group .input-group-prepend .input-group-text {
+        border-top-right-radius: .25rem;
+        border-bottom-right-radius: .25rem;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-left: none;
+    }
+    
+    .input-group .form-control:not(:first-child):last-child {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-top-left-radius: .25rem;
+        border-bottom-left-radius: .25rem;
+    }
+    
+    .input-group .form-control:not(:first-child):not(:last-child) {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+    
+    .input-group .form-control:first-child:not(:last-child) {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-top-left-radius: .25rem;
+        border-bottom-left-radius: .25rem;
+    }
+    
+    .input-group .input-group-append .input-group-text {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-top-left-radius: .25rem;
+        border-bottom-left-radius: .25rem;
+        border-right: none;
+    }
+    // end of 'fix bootstrap input-group rtl issue'
+
+    // fix list-group-item rtl issue
+    .list-group-item {
+        text-align: right;
+    }
+    // end of 'fix list-group-item rtl issue'
+}
+
+.layout-ltr {
+    direction: ltr;
+}

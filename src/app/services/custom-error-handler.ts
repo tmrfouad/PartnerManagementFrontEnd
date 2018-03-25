@@ -13,8 +13,18 @@ export class CutomErrorHandler implements ErrorHandler {
         const errObjArray = [];
 
         if (braces.length === 0) {
-            const err = errString.split(' at ')[0].split('TypeError: ')[1].trim();
-            const errorObjStr = `{ "status": -1, "message": "TypeError: ${err}" }`;
+            const errStringNoTrace = errString.split(' at ')[0].replace('\n', ' ');
+            const errs = errStringNoTrace.split('Error: ');
+            let errorsConc = '';
+            for (let i = 0; i < errs.length; i++) {
+                const err = errs[i].trim();
+                if (!err) { continue; }
+                if (err === '') { continue; }
+                errorsConc += (errorsConc === '' ||
+                    errorsConc.substring(errorsConc.length - 1, errorsConc.length) === ':' ? '' : '; ') + err;
+            }
+
+            const errorObjStr = `{ "status": -1, "message": "${errorsConc}" }`;
             errObjArray.push(JSON.parse(errorObjStr));
         } else {
             // tslint:disable-next-line:radix

@@ -25,7 +25,7 @@ export class ListViewComponent extends BaseComponent implements OnInit, OnDestro
   constructor(
     snackBar: MatSnackBar,
     public dialog: MatDialog,
-    private dataService: DataService) {
+    private dataService: DataService<Object>) {
 
     super(snackBar, dialog);
   }

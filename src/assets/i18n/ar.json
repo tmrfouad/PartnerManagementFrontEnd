@@ -1,0 +1,23 @@
+{
+    "subscribe": {
+        "requestForQuotations": "طلب عروض الأسعار",
+        "name": "الاسم",
+        "companyName": "اسم الشركة",
+        "email": "البريد الإلكتروني",
+        "personalNumber": "الهاتف الشخصي",
+        "phoneNumber": "رقم الهاتف",
+        "website": "الموقع",
+        "location": "المكان",
+        "product": "المنتج",
+        "edition": "الإصدار",
+        "submit": "موافق",
+        "reset": "إعادة تعيين",
+        "requestInformation": "بيانات الطلب",
+        "errors": {
+            "required": "لا يمكن ترك هذا الحقل فارغاً.",
+            "minLength": "يرجى استخدام على الأقل {{ value }} حروف.",
+            "invalidEmail": "البريد الإلكتروني غير صحيح.",
+            "invalidPhone": "رقم الهاتف غير صحيح."
+        }
+    }
+}

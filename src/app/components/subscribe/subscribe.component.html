@@ -1,48 +1,63 @@
-<div class="card">
+<div class="card form-wrapper" [ngClass]="translate.currentLang === 'ar' ? 'layout-rtl text-right' : 'layout-ltr'">
   <div class="card-header bg-dark text-white">
-    <h2>Request For Quotations</h2>
+    <h2 [ngClass]="translate.currentLang === 'ar' ? 'float-right' : 'float-left'">{{ 'subscribe.requestForQuotations' | translate }}</h2>
+    <a class="btn btn-light btn-sm text-dark float-left font-weight-bold"
+      *ngIf="translate.currentLang === 'ar'" (click)="translate.use('en')"
+      matTooltip="English" matTooltipPosition="below">
+      <i class="fa fa-globe" aria-hidden="true"></i>
+      En
+      </a>
+    <a class="btn btn-light btn-sm text-dark float-right font-weight-bold"
+      *ngIf="translate.currentLang === 'en'" (click)="translate.use('ar')"
+      matTooltip="العربية" matTooltipPosition="below">
+      <i class="fa fa-globe" aria-hidden="true"></i>
+      ع
+      </a>
   </div>
   <div class="card-body">
     <div class="row">
       <div class="col">
-        <form #f="ngForm" (submit)="logForm(rfqItem)">
+        <form #f="ngForm" (submit)="logForm(rfqItem)" class="form-content">
           <div class="content p-1 pr-2">
             <div class="form-group">
-              <label class="col-form-label" for="EnglishName">Name </label>
+              <label class="col-form-label" for="EnglishName">{{ 'subscribe.name' | translate }}</label>
               <span class="required">*</span>
-              <input id="contactPersonEnglishName" name="ContactPersonEnglishName" [(ngModel)]="rfqItem.contactPersonEnglishName" required
-                minlength="3" #contactPersonEnglishName type="text" class="form-control">
-              <div class="alert alert-danger" *ngIf="contactPersonEnglishName.touched && !contactPersonEnglishName.valid">
-                <div *ngIf="contactPersonEnglishName.errors?.required">
-                  <small>You can't leave this empty.</small>
+              <input id="name" name="name" [(ngModel)]="rfqItem.contactPersonEnglishName" required minlength="3" #name="ngModel" type="text"
+                class="form-control">
+              <div class="alert alert-danger" *ngIf="name.touched && !name.valid">
+                <div *ngIf="name.errors?.required">
+                  <small>{{ 'subscribe.errors.required' | translate }}</small>
                 </div>
-                <div *ngIf="contactPersonEnglishName.errors?.minlength">
-                  <small>Please use at least {{ contactPersonEnglishName.errors.minlength.requiredLength }} characters. </small>
+                <div *ngIf="name.errors?.minlength">
+                  <small>{{ 'subscribe.errors.minLength' | translate:{value: name.errors.minlength.requiredLength} }}</small>
                 </div>
               </div>
             </div>
             <div class="form-group">
-              <label for="companyEnglishName">Company Name</label>
+              <label for="companyEnglishName">{{ 'subscribe.companyName' | translate }}</label>
               <span class="required">*</span>
               <input id="companyEnglishName" name="CompanyEnglishName" type="text" [(ngModel)]="rfqItem.companyEnglishName" #companyEnglishName="ngModel"
                 class="form-control" required>
               <div class="alert alert-danger" *ngIf="companyEnglishName.touched && !companyEnglishName.valid">
-                <small>You can't leave this empty. </small>
+                <small>{{ 'subscribe.errors.required' | translate }}</small>
               </div>
             </div>
             <div class="form-group">
-              <label for="contactPersonEmail">E-mail</label>
+              <label for="contactPersonEmail">{{ 'subscribe.email' | translate }}</label>
               <span class="required">*</span>
               <input id="contactPersonEmail" name="ContactPersonEmail" placeholder="email@domain.com" type="email" class="form-control"
                 [(ngModel)]="rfqItem.contactPersonEmail" #Email="ngModel" [email]="true" required>
-              <div class="alert alert-danger" *ngIf="Email.touched && !Email.valid">
-                <div *ngIf="!Email.errors.valid">
-                  <small> Email is not valid </small>
+              <div class="alert alert-danger" *ngIf="Email.touched && Email.invalid">
+                <div *ngIf="!Email.errors?.required">
+                  <small>{{ 'subscribe.errors.required' | translate }}</small>
+                </div>
+                <div *ngIf="!Email.errors?.valid">
+                  <small>{{ 'subscribe.errors.invalidEmail' | translate }}</small>
                 </div>
               </div>
             </div>
             <div class="form-group">
-              <label for="Personphone">Personal Number</label>
+              <label for="Personphone">{{ 'subscribe.personalNumber' | translate }}</label>
               <span class="required">*</span>
               <div class="input-group">
                 <div class="input-group-prepend">
@@ -50,24 +65,24 @@
                     <input class="Searchtxt" [(ngModel)]="phoneIntial" type="text" name="phoneIntial" (change)="countryChange()" placeholder="+20">
                   </div>
                 </div>
-                <input (change)="countryChange()" [(ngModel)]="phone" id="Personphone" #PersonMobile pattern="[0-9]+" required minlength="10"
-                  maxlength="20" name="phone" type="text" class="form-control">
+                <input (change)="countryChange()" [(ngModel)]="phone" id="Personphone" #PersonMobile="ngModel" pattern="[0-9]+" required
+                  minlength="10" maxlength="20" name="phone" type="text" class="form-control">
                 <input name="ContactPersonMobile" type="hidden" [(ngModel)]="rfqItem.contactPersonMobile">
               </div>
               <div class="alert alert-danger" *ngIf="PersonMobile.touched && !PersonMobile.valid">
                 <div *ngIf="PersonMobile.errors?.required">
-                  <small> You can't leave this empty. </small>
+                  <small>{{ 'subscribe.errors.required' | translate }}</small>
                 </div>
                 <div *ngIf="PersonMobile.errors?.pattern && PersonMobile.errors?.pattern">
-                  <small> This phone number format is not recognized. </small>
+                  <small>{{ 'subscribe.errors.invalidPhone' | translate }}</small>
                 </div>
                 <div *ngIf="PersonMobile.errors?.minlength">
-                  <small> Please use at least {{ PersonMobile.errors?.minlength.requiredLength }} characters. </small>
+                  <small>{{ 'subscribe.errors.minLength' | translate: { value: PersonMobile.errors?.minlength.requiredLength } }}</small>
                 </div>
               </div>
             </div>
             <div class="form-group">
-              <label for="mobilphone">Phone Number</label>
+              <label for="mobilphone">{{ 'subscribe.phoneNumber' | translate }}</label>
               <div class="input-group">
                 <div class="input-group-prepend">
                   <div class="country-code input-group-text">
@@ -79,31 +94,32 @@
               </div>
             </div>
             <div class="form-group">
-              <label for="website">Website</label>
+              <label for="website">{{ 'subscribe.website' | translate }}</label>
               <div class="input-group">
                 <input id="website" name="Website" type="text" class="form-control" [(ngModel)]="rfqItem.website">
               </div>
             </div>
             <div class="form-group">
-              <label for="website">Location</label>
+              <label for="website">{{ 'subscribe.location' | translate }}</label>
               <div class="input-group">
                 <input id="location" name="Location" type="text" class="form-control" [(ngModel)]="rfqItem.location">
               </div>
             </div>
             <div class="form-group">
-                <label for="targetedProduct">Product :</label>
-                <select [(ngModel)]="rfqItem.targetedProductId" name="targetedProductId" id="" class="custom-select form-control" (change)="productChange($event)">
-                  <option *ngFor="let product of products" [text]="product.englishName" [value]="product.id">
-                    {{ product.englishName }}
-                  </option>
-                </select>
+              <label for="targetedProduct">{{ 'subscribe.product' | translate }} :</label>
+              <select [(ngModel)]="rfqItem.targetedProductId" name="targetedProductId" id="" class="custom-select form-control" (change)="productChange($event)">
+                <option *ngFor="let product of products" [text]="product.englishName" [value]="product.id">
+                  {{ product.englishName }}
+                </option>
+              </select>
             </div>
             <div class="form-group">
-                <label for="selectedBundle">Edition :</label>
-                <select name="selectedBundle" id="selectedBundle" class="custom-select form-control" [(ngModel)]="rfqItem.selectedEditionId" (change)="editionChange($event)">
-                  <option *ngFor="let edition of editions" [text]="edition.englishName" [value]="edition.id">
-                  </option>
-                </select>
+              <label for="selectedBundle">{{ 'subscribe.edition' | translate }} :</label>
+              <select name="selectedBundle" id="selectedBundle" class="custom-select form-control" [(ngModel)]="rfqItem.selectedEditionId"
+                (change)="editionChange($event)">
+                <option *ngFor="let edition of editions" [text]="edition.englishName" [value]="edition.id">
+                </option>
+              </select>
             </div>
 
             <div class="form-group">
@@ -111,22 +127,22 @@
             </div>
           </div>
           <div class="p-1 pt-3">
-            <button [disabled]="f.invalid" type="submit" class="btn btn-primary">Submit</button>
-            <button class="btn btn-danger" type="reset">Reset</button>
+            <button [disabled]="f.invalid" type="submit" class="btn btn-primary">{{ 'subscribe.submit' | translate }}</button>
+            <button class="btn btn-danger" type="reset">{{ 'subscribe.reset' | translate }}</button>
           </div>
         </form>
       </div>
       <div class="col d-none d-md-block">
         <div class="card position-fixed summary-card">
           <div class="card-header bg-light">
-            <h5 class="card-title">Request Information</h5>
+            <h5 class="card-title">{{ 'subscribe.requestInformation' | translate }}</h5>
           </div>
           <div class="card-body">
             <h5 class="card-title"> {{ rfqItem.contactPersonEnglishName }} </h5>
-            <p class="card-text">   {{ rfqItem.companyEnglishName }} </p>
-            <p class="card-text">   {{ rfqItem.contactPersonEmail }} </p>
-            <p class="card-text">   {{ rfqItem.contactPersonMobile }} </p>
-            <p class="card-text">   {{ productName }} , {{ editionName }} </p>
+            <p class="card-text"> {{ rfqItem.companyEnglishName }} </p>
+            <p class="card-text"> {{ rfqItem.contactPersonEmail }} </p>
+            <p class="card-text"> {{ rfqItem.contactPersonMobile }} </p>
+            <p class="card-text"> {{ productName }} , {{ editionName }} </p>
           </div>
         </div>
       </div>

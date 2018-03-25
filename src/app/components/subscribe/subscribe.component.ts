@@ -1,5 +1,5 @@
 import { Subscription } from 'rxjs/Subscription';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 
@@ -11,12 +11,14 @@ import { RfqService } from '../../services/rfq.service';
 import { BaseComponent } from '../base-component';
 import { ProductService } from './../../services/product.service';
 import { ProductEdition } from '../../models/ProductEdition';
+import { TranslateService } from 'ng2-translate';
+import * as $ from 'jquery';
 
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'subscribe',
   templateUrl: './subscribe.component.html',
-  styleUrls: ['./subscribe.component.css']
+  styleUrls: ['./subscribe.component.scss']
 })
 export class SubscribeComponent extends BaseComponent implements OnInit, OnDestroy {
   loading = false;
@@ -37,6 +39,11 @@ export class SubscribeComponent extends BaseComponent implements OnInit, OnDestr
   productSubscribe: Subscription;
   productEditionSubscribe: Subscription;
 
+  // pageHeight: number;
+  // @ViewChild('containerDiv') parentDiv: ElementRef;
+  // @HostListener('window:resize') onresize() {
+  //   this.pageHeight = window.outerHeight;
+  // }
   constructor(
     snackBar: MatSnackBar,
     dialog: MatDialog,
@@ -44,10 +51,9 @@ export class SubscribeComponent extends BaseComponent implements OnInit, OnDestr
     private rfqService: RfqService,
     private countryService: CountryService,
     private router: Router,
-    private productService: ProductService
-  ) {
+    private productService: ProductService,
+    public translate: TranslateService) {
     super(snackBar, dialog);
-
 
   }
 
@@ -70,7 +76,6 @@ export class SubscribeComponent extends BaseComponent implements OnInit, OnDestr
       this.closeLoading();
       throw error;
     });
-
   }
 
   countryChange() {

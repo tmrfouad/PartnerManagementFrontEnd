@@ -49,7 +49,7 @@
                                                             <p class="bundle-footer">
                                                                 Standered edition features
                                                             </p>
-                                                            <button class="btn btn-bundle" value="1" [routerLink]="['/subscribe', 'Lite']">Subscribe</button>
+                                                            <button class="btn btn-bundle" value="1" [routerLink]="['/subscribe']" [queryParams]="{ prod: 1, ed: 1 }">Subscribe</button>
                                                         </label>
                                                     </div>
                                                 </div>
@@ -61,7 +61,7 @@
                                                                 <span class="bundle-feature">15 Users</span>
                                                             </p>
                                                             <p class="bundle-footer">+ Lite edition features</p>
-                                                            <button class="btn btn-bundle" [routerLink]="['/subscribe', 'Standard']">Subscribe</button>
+                                                            <button class="btn btn-bundle" [routerLink]="['/subscribe']" [queryParams]="{ prod: 1, ed: 2 }">Subscribe</button>
                                                         </label>
                                                     </div>
                                                 </div>
@@ -71,7 +71,7 @@
                                                             <p class="bundle-title">Enterprise</p>
                                                             <p class="bundle-price"> 1000 EGP </p>
                                                             <p class="bundle-footer">+ Enterprise edition features</p>
-                                                            <button class="btn btn-bundle" [routerLink]="['/subscribe', 'Enterprise']">Subscribe</button>
+                                                            <button class="btn btn-bundle" [routerLink]="['/subscribe']" [queryParams]="{ prod: 1, ed: 3 }">Subscribe</button>
                                                         </label>
                                                     </div>
                                                 </div>
