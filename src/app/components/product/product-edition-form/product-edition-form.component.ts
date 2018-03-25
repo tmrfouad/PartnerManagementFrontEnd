@@ -50,7 +50,6 @@ export class ProductEditionFormComponent extends BaseComponent implements OnInit
         this.closeLoading();
         this.dialogref.close('done');
         this.showSnackBar('Product Edition edited successfully', 'Success');
-        // this.prod = Object.assign(this.prod, productEdition);
       }).catch(error => {
         this.closeLoading();
         throw error;

@@ -1,3 +1,4 @@
+import { ProductSharedService } from './services/product-shared.service';
 import { RepSharedService } from './services/rep-shared.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -49,6 +50,7 @@ import { RepService } from './services/rep.service';
 import { RfqService } from './services/rfq.service';
 import { StatusService } from './services/status.service';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { ProductEditionSharedService } from './services/product-edition-shared.service';
 
 
 @NgModule({
@@ -121,6 +123,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     ActionTypeService,
     RepService,
     RepSharedService,
+    ProductSharedService,
     ProductService,
     [{
       provide: ErrorHandler,

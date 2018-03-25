@@ -1,13 +1,14 @@
-import { Component, EventEmitter, Input, OnInit, Output, OnDestroy, Inject } from '@angular/core';
-import { MatDialog, MatSnackBar, MAT_DIALOG_DATA } from '@angular/material';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
-import { ProductService } from '../../../services/product.service';
-import { BaseComponent } from './../../base-component';
-import { ProductEdition } from '../../../models/ProductEdition';
 import { Product } from '../../../models/Product';
+import { ProductEdition } from '../../../models/ProductEdition';
+import { ProductSharedService } from '../../../services/product-shared.service';
+import { ProductService } from '../../../services/product.service';
 import { ProductEditionFormComponent } from '../product-edition-form/product-edition-form.component';
+import { BaseComponent } from './../../base-component';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -21,21 +22,18 @@ export class ProductEditionListComponent extends BaseComponent implements OnInit
   prodEditionList: ProductEdition[];
   subscription: Subscription;
 
-
-  // tslint:disable-next-line:no-input-rename
-  private _prod: Product;
-  get product(): Product {
-    return this._prod;
-  }
-  @Input('product') set product(value: Product) {
-    this._prod = value;
-    this.refreshProdEdition(this._prod);
-  }
-
+  private product: Product;
   constructor(private productService: ProductService,
+    private productSharedService: ProductSharedService,
     dialog: MatDialog,
     snackBar: MatSnackBar) {
     super(snackBar, dialog);
+    this.productSharedService.currentProduct.subscribe(prod => {
+      this.product = prod;
+      this.refreshProdEdition(this.product);
+    });
+    this.productSharedService.currentEditionList.subscribe(
+      (prod: ProductEdition[]) => this.prodEditionList = prod);
   }
   ngOnInit() {
 
@@ -49,6 +47,7 @@ export class ProductEditionListComponent extends BaseComponent implements OnInit
     this.product$ = await this.productService.getEditions(ptoduct.id);
     this.subscription = this.product$.subscribe((item: ProductEdition[]) => {
       this.prodEditionList = item;
+      this.productSharedService.changeEditionList(this.prodEditionList);
     });
   }
 
@@ -79,10 +78,10 @@ export class ProductEditionListComponent extends BaseComponent implements OnInit
     });
   }
 
-  DeleteEdition(id) {
+  DeleteEdition(edition: ProductEdition) {
     this.showConfirm('Are you sure you want to delete this Edition?', 'Delete').subscribe(async reuslt => {
       if (reuslt === 'ok') {
-        const del = await this.productService.deleteEdition(this.product.id, id);
+        const del = await this.productService.deleteEdition(this.product.id, edition.id);
         del.subscribe(() => {
           this.refreshProdEdition(this.product);
         });

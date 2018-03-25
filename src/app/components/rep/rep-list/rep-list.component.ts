@@ -26,10 +26,9 @@ export class RepListComponent extends BaseComponent implements OnInit, OnDestroy
     private repService: RepService,
     private repSharService: RepSharedService,
     dialog: MatDialog,
-    snackBar: MatSnackBar
-  ) {
+    snackBar: MatSnackBar) {
       super(snackBar, dialog);
-    this.repSharService.currentRepListService.subscribe(repList => this.repList = repList);
+    repSharService.currentRepListService.subscribe(repList => this.repList = repList);
   }
 
   async ngOnInit() {
