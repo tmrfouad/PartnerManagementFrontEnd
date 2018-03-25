@@ -1,6 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Http } from '@angular/http';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -9,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { RecaptchaModule } from 'ng-recaptcha';
 import { RecaptchaFormsModule } from 'ng-recaptcha/forms';
+import { TranslateLoader, TranslateModule, TranslateStaticLoader } from 'ng2-translate';
 
 import { AppComponent } from './app.component';
 import { ConfirmComponent } from './components/confirm/confirm.component';
@@ -18,6 +20,7 @@ import { LoadingComponent } from './components/loading/loading.component';
 import { LoginComponent } from './components/login/login.component';
 import { MessageComponent } from './components/message/message.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ProductContainerComponent } from './components/product/product-container/product-container.component';
 import { ProductEditionFormComponent } from './components/product/product-edition-form/product-edition-form.component';
 import { ProductEditionListComponent } from './components/product/product-edition-list/product-edition-list.component';
@@ -43,13 +46,13 @@ import { CountryService } from './services/country.service';
 import { CutomErrorHandler } from './services/custom-error-handler';
 import { MailService } from './services/mail.service';
 import { NetworkService } from './services/network.service';
+import { ProductSharedService } from './services/product-shared.service';
 import { ProductService } from './services/product.service';
+import { RepSharedService } from './services/rep-shared.service';
 import { RepService } from './services/rep.service';
+import { RfqSharedService } from './services/rfq-shared.service';
 import { RfqService } from './services/rfq.service';
 import { StatusService } from './services/status.service';
-import { RfqSharedService } from './services/rfq-shared.service';
-import { TranslateLoader, TranslateModule, TranslateStaticLoader } from 'ng2-translate';
-import { Http } from '@angular/http';
 
 export function createTranslateLoader(http: Http) {
   return new TranslateStaticLoader(http, './assets/i18n', '.json');
@@ -81,7 +84,8 @@ export function createTranslateLoader(http: Http) {
     ProductFormComponent,
     ProductEditionFormComponent,
     ProductEditionListComponent,
-    ListViewComponent
+    ListViewComponent,
+    NotFoundComponent
   ],
   imports: [
     MatSnackBarModule,
@@ -104,7 +108,8 @@ export function createTranslateLoader(http: Http) {
       { path: 'login', component: LoginComponent },
       { path: 'products', component: ProductContainerComponent, canActivate: [AuthGuard] },
       { path: 'rep', component: RepContainerComponent, canActivate: [AuthGuard] },
-      { path: 'Rfq', component: RfqContainarComponent, canActivate: [AuthGuard] }
+      { path: 'Rfq', component: RfqContainarComponent, canActivate: [AuthGuard] },
+      { path: '**', component: NotFoundComponent }
     ])
   ],
   entryComponents: [
@@ -127,6 +132,8 @@ export function createTranslateLoader(http: Http) {
     StatusService,
     ActionTypeService,
     RepService,
+    RepSharedService,
+    ProductSharedService,
     ProductService,
     [{
       provide: ErrorHandler,

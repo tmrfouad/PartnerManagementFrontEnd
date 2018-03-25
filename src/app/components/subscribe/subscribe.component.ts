@@ -96,6 +96,13 @@ export class SubscribeComponent extends BaseComponent implements OnInit, OnDestr
     const editions$ = await this.productService.getEditions(productId);
     this.productEditionSubscribe = editions$.subscribe((editions: ProductEdition[]) => {
       this.editions = editions;
+      if (this.editions && this.editions.length > 0) {
+        this.rfqItem.selectedEditionId = editions[0].id;
+        this.editionName = editions[0].englishName;
+      } else {
+        this.rfqItem.selectedEditionId = null;
+        this.editionName = '';
+      }
     });
   }
 

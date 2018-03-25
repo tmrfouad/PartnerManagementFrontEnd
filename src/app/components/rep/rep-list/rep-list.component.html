@@ -21,7 +21,7 @@
   <ul class="list-group" *ngIf="repList; else loading">
     <li class="list-group-item repItem" (click)="selectedRep(item, i)" *ngFor="let item of repList; let i = index" [class.active]="selectedIndex == i">
       {{ item.name }}, {{ item.address}}
-      <button class="float-right" (click)="removeRep(item.id)">
+      <button class="float-right" (click)="removeRep(item)">
         <span class="fa fa-trash" aria-hidden="true"></span>
       </button>
 
