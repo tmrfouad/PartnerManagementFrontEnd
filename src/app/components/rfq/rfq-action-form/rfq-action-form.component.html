@@ -1,5 +1,5 @@
 <!-- RFQ Details -->
-<div class="card">
+<div class="card form-wrapper">
   <div class="card-header bg-dark text-white">
     <strong class="d-inline-block">RFQ Details</strong>
     <div class="dropdown float-right">
@@ -18,7 +18,7 @@
       <i class="fa fa-edit"></i>
     </a>
   </div>
-  <div style="height:160px;overflow:auto;">
+  <div>
     <ng-template *ngIf="!isRfqLoaded">
       <loading></loading>
     </ng-template>
@@ -76,7 +76,7 @@
       </div>
     </div>
   </div>
-  <div class="card-footer" *ngIf="rfqStatus">
+  <div class="card-footer scroll-content" *ngIf="rfqStatus">
     <!-- Status -->
     <a class="btn btn-link float-right" (click)="openStatusEditDialog(rfqStatus)" matTooltip="Edit Status Action" matTooltipPosition="above">
       <i class="fa fa-edit"></i>
@@ -115,7 +115,7 @@
       <i class="fa fa-angle-double-up" *ngIf="!statusListHidden"></i>
     </button>
 
-    <div style="height:50px;overflow: auto;">
+    <div>
     <!-- Status List -->
     <rfq-status-list [hidden]="statusListHidden"></rfq-status-list>
     <!-- End of Status List -->

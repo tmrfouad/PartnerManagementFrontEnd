@@ -14,3 +14,7 @@ a:not([href]):not([tabindex]):focus
 }
 
 .card-deck {}
+
+.form-wrapper {
+    margin: 0 0 0 10px;
+}

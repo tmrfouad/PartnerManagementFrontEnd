@@ -3,18 +3,19 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 html {
-  min-height: 100%;
+  height: 100%;
 }
 
 body { 
-    padding-top: 90px;
-    background-color: #eeebe4;
-    min-height: 100%;
+  padding: 90px 0 0 0;
+  background-color: #eeebe4;
+  height: 100%;
 }
 
 .form-wrapper {
   position: absolute;
-  margin: 90px 10px 10px 10px;
+  margin: 90px 5px 5px 5px;
+  // width: 98%;
   top: 0;
   right: 0;
   bottom: 0;
@@ -23,7 +24,8 @@ body {
 
 .form-wrapper .card-body,
 .form-wrapper .row,
-.form-content {
+.scroll-content
+{
   height: 100%;
   overflow: auto;
 }
