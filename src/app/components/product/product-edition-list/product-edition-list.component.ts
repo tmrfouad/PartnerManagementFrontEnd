@@ -43,12 +43,14 @@ export class ProductEditionListComponent extends BaseComponent implements OnInit
     this.subscription.unsubscribe();
   }
 
-  async refreshProdEdition(ptoduct: Product) {
-    this.product$ = await this.productService.getEditions(ptoduct.id);
-    this.subscription = this.product$.subscribe((item: ProductEdition[]) => {
-      this.prodEditionList = item;
-      this.productSharedService.changeEditionList(this.prodEditionList);
-    });
+  async refreshProdEdition(product: Product) {
+    if (product) {
+      this.product$ = await this.productService.getEditions(product.id);
+      this.subscription = this.product$.subscribe((item: ProductEdition[]) => {
+        this.prodEditionList = item;
+        this.productSharedService.changeEditionList(this.prodEditionList);
+      });
+    }
   }
 
 
