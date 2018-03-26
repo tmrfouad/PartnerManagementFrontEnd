@@ -56,7 +56,7 @@ export class StatusEditFormComponent extends BaseComponent implements OnInit, On
   async ngOnInit() {
     // this.rfqStatus = Object.assign({}, this.data.action);
     Object.assign(this.rfqStatus, this.data.action);
-
+    this.rfqStatus.rfqActionAtts = [] ;
     // if (this.rfqStatus.representative) {
     //   this.rfqStatus.representativeId = this.rfqStatus.representative.id;
     // }

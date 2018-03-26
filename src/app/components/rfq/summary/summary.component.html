@@ -1,9 +1,10 @@
   <div class="row">
   <div class="col-6">
       <div class="form-group">
-          <label class="col-form-label-sm"> Where</label>
+          <span class="font-weight-bold col-form-label-sm"> Where </span>
           <input 
           type="text"
+          required
           #Where="ngModel"
           class="form-control control-sm"
           name="where"
@@ -11,9 +12,7 @@
           [(ngModel)]="actionType.where">
       </div>
       <div class="form-group">
-        <label for="">
-            <small>Visit Reason</small>  
-        </label>
+        <span class="font-weight-bold col-form-label-sm"> Visit Reason </span>
         <input
          type="text"
          name="visitReason" 
@@ -22,23 +21,24 @@
          [(ngModel)]="actionType.visitReason"
          class="form-control control-sm">
       </div>
-      <div class="form-group">
-        <div class="input-group-sm mb-3">
-            <label class="col-form-label-sm"> Comments </label>
-            <input 
-            type="text" 
-            class="form-control control-sm" 
-            #Comment="ngModel"
-            (blur)="changeItem()"
-            name="comment" 
-            [(ngModel)]="actionType.comment">
-        </div>
-      </div>
 
+      <div class="form-group">
+        <span class="font-weight-bold col-form-label-sm"> When </span>
+        <input 
+        type="text"
+        #When="ngModel"
+        class="form-control control-sm"
+        name="actionWhen"
+        (blur)="changeItem()"
+        [(ngModel)]="actionType.actionWhen">
+    </div>
+      
   </div>
+
+
   <div class="col-6">
     <div class="form-group">
-        <label class="col-form-label-sm"> Who Attended </label>
+        <span class="font-weight-bold col-form-label-sm"> Who Attended </span>
         <div class="form-inline input-group">
             <input 
             type="text"
@@ -65,6 +65,22 @@
             </div>
         </div>
     </div>
+  </div>
+
+  <div class="col-12">
+    <div class="form-group">
+        <div class="input-group-sm mb-3">
+            <span class="font-weight-bold col-form-label-sm"> Comments </span>
+            <textarea 
+            type="text" 
+            class="form-control control-sm" 
+            #Comment="ngModel"
+            (blur)="changeItem()"
+            name="comment" 
+            [(ngModel)]="actionType.comment">
+            </textarea>
+        </div>
+      </div>
   </div>
 </div>
 
