@@ -12,7 +12,7 @@ body {
   height: 100%;
 }
 
-.form-wrapper {
+.scroll-wrapper {
   position: absolute;
   margin: 90px 5px 5px 5px;
   // width: 98%;
@@ -22,11 +22,14 @@ body {
   left: 0;
 }
 
-.form-wrapper .card-body,
-.form-wrapper .row,
-.scroll-content
+.scroll-wrapper .card-body,
+.scroll-wrapper .row
 {
   height: 100%;
+}
+
+.scroll-content
+{
   overflow: auto;
 }
 

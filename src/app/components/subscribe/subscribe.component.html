@@ -1,4 +1,4 @@
-<div class="card form-wrapper" [ngClass]="translate.currentLang === 'ar' ? 'layout-rtl text-right' : 'layout-ltr'">
+<div class="card scroll-wrapper" [ngClass]="translate.currentLang === 'ar' ? 'layout-rtl text-right' : 'layout-ltr'">
   <div class="card-header bg-dark text-white">
     <h2 [ngClass]="translate.currentLang === 'ar' ? 'float-right' : 'float-left'">{{ 'subscribe.requestForQuotations' | translate }}</h2>
     <a class="btn btn-light btn-sm text-dark float-left font-weight-bold" *ngIf="translate.currentLang === 'ar'" (click)="translate.use('en')"

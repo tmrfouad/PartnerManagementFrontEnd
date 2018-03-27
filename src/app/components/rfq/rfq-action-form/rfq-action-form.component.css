@@ -15,6 +15,6 @@ a:not([href]):not([tabindex]):focus
 
 .card-deck {}
 
-.form-wrapper {
+.scroll-wrapper {
     margin: 0 0 0 10px;
 }
