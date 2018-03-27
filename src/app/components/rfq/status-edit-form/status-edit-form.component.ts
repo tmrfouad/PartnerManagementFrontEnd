@@ -13,6 +13,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { isNull } from 'util';
 import { ActionTypeService } from '../../../services/action-type.service';
 import * as FileSaver from 'file-saver';
+import { SummaryDetails } from '../../../models/SummaryDetails';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -109,8 +110,9 @@ export class StatusEditFormComponent extends BaseComponent implements OnInit, On
     this.dialogRef.close({ result: 'canceled' });
   }
 
-  addSummary(summery: string) {
-    this.rfqStatus.comments = summery;
+  addSummary(summaryDetails: SummaryDetails) {
+    this.rfqStatus.comments = summaryDetails.summary;
+    this.rfqStatus.active = summaryDetails.active;
   }
 
   attachmentChanged(event) {

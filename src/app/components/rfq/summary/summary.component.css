@@ -46,3 +46,10 @@
 .form-group {
     margin-bottom: 0px;
   }
+
+.alert-danger { 
+    color: #ff0707;
+    padding : 0px;
+    background-color: white;
+    border: 0px none white ;
+}

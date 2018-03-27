@@ -13,4 +13,5 @@ export interface RFQAction {
     submissionTime?: Date;
     universalIP?: string;
     rfqActionAtts?: { id?: number, fileName?: string, fileUrl?: string, fileType?: string, value?: any }[];
+    active?: boolean;
 }

@@ -10,11 +10,16 @@
       <span class="font-weight-bold col-form-label-sm">Representative :
         <span class="text-danger">*</span>
       </span>
-      <select class="form-control form-control-sm" name="companyRepresentative" id="companyRepresentative" [(ngModel)]="rfqStatus.representativeId">
+      <select class="form-control form-control-sm" required #representativeId="ngModel" name="representativeId" id="companyRepresentative" [(ngModel)]="rfqStatus.representativeId">
         <option *ngFor="let item of reps" [value]="item.id">
           {{ item.name }}
         </option>
       </select>
+      <div class="alert alert-danger" *ngIf="representativeId.touched && representativeId.invalid">
+        <div *ngIf="representativeId.errors.required">
+            <small>You can't leave this empty.</small>
+        </div>
+      </div>
     </div>
     <div class="col-12" *ngIf="rfqStatus.actionType != 0 && data.mode == 'new' ">
       <summary-info [actionType]="actionTypeDialog" (addSummary)="addSummary($event)"></summary-info>
@@ -53,7 +58,7 @@
       <textarea type="text" #Comment="ngModel" [(ngModel)]="rfqStatus.comments" [readOnly]="data.mode == 'new'" required name="comments"
         class="form-control form-control-sm">
       </textarea>
-
+      <input type="checkbox" required name="active" [(ngModel)]="rfqStatus.active" hidden />
       <div class="alert-danger" *ngIf="Comment.touched && Comment.invalid">
         <div *ngIf="Comment.errors.required">
           <small>You can't leave this empty.</small>

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActionTypeComment } from '../../../models/ActionTypeComment';
+import { SummaryDetails } from '../../../models/SummaryDetails';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -9,38 +10,52 @@ import { ActionTypeComment } from '../../../models/ActionTypeComment';
 })
 export class SummaryComponent implements OnInit {
 
+  @Input('actionType') actionType: ActionTypeComment = <ActionTypeComment>{};
+  @Output() addSummary = new EventEmitter<SummaryDetails>();
+
+  // for angular editor error in html only => set it in ngModel in attend textBox
+  attend: string;
+
   constructor() {
   }
-  @Input('actionType') actionType: ActionTypeComment = <ActionTypeComment>{};
-  @Output() addSummary = new EventEmitter();
+
 
   ngOnInit() {
     this.actionType.attende = [];
   }
 
   validate(): boolean {
-    return true;
+    if (this.actionType.attende.length === 0 || !this.actionType.actionWhen || !this.actionType.where) {
+      return false;
+    } else {
+      return true;
+    }
+
   }
-  addItem(item: HTMLInputElement) {
-    if (item.value) {
-      this.actionType.attende.push(item.value);
-      this.addSummary.emit({ summary: this.addSummery(), active: this.validate() });
-      item.value = '';
+
+  addItem(item) {
+    if (item) {
+      this.actionType.attende.push(item);
+      this.addSummary.emit({ summary: this.addActionSummery(), active: this.validate() });
+      this.attend = '';
     }
   }
 
   changeItem() {
-    this.addSummary.emit({ summary: this.addSummery(), active: this.validate() });
+    this.addSummary.emit({ summary: this.addActionSummery(), active: this.validate() });
   }
 
-  addSummery(): string {
 
-    let Where = '', VisitReason = '', comment = '', Attended = '', when = '', summery: string;
+  addActionSummery(): string {
+    let where = ' ', visitReason = '', requiredAction = '', comment = '', attended = '', when = '', summery: string;
     if (this.actionType.where) {
-      Where = 'Where: ' + this.actionType.where + '\n';
+      where = 'Where: ' + this.actionType.where + '\n';
+    }
+    if (this.actionType.requiredActions) {
+      requiredAction = 'Required Action: ' + this.actionType.requiredActions + '\n';
     }
     if (this.actionType.visitReason) {
-      VisitReason = 'Visit Reason: ' + this.actionType.visitReason + '\n';
+      visitReason = 'Visit Reason: ' + this.actionType.visitReason + '\n';
     }
     if (this.actionType.comment) {
       comment = 'Comments: ' + this.actionType.comment + '\n';
@@ -49,21 +64,27 @@ export class SummaryComponent implements OnInit {
       when = 'When: ' + this.actionType.actionWhen + '\n';
     }
     if (this.actionType.attende.length > 0) {
-      Attended = 'Attended: ' + '\n';
+      attended = 'Attended: ' + '\n';
       for (const item of this.actionType.attende) {
-        Attended += item + '\n';
+        attended += item + '\n';
       }
     }
-    summery = Where + Attended + VisitReason + when + comment;
-    // summery = summery.substring(0, summery.length - 2);
+    summery = where + attended + visitReason + when + requiredAction + comment;
     return summery.trim();
   }
 
   removeItem(item) {
     const index = this.actionType.attende.indexOf(item);
     this.actionType.attende.splice(index, 1);
-    this.addSummary.emit({ summary: this.addSummery(), active: this.validate() });
+    this.addSummary.emit({ summary: this.addActionSummery(), active: this.validate() });
   }
 
+  checkLength(): boolean {
+    if (this.actionType.attende.length === 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
 }
