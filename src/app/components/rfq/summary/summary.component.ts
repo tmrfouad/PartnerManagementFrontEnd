@@ -11,7 +11,6 @@ export class SummaryComponent implements OnInit {
 
   constructor() {
   }
-
   @Input('actionType') actionType: ActionTypeComment = <ActionTypeComment>{};
   @Output() addSummary = new EventEmitter();
 
@@ -19,16 +18,19 @@ export class SummaryComponent implements OnInit {
     this.actionType.attende = [];
   }
 
+  validate(): boolean {
+    return true;
+  }
   addItem(item: HTMLInputElement) {
     if (item.value) {
       this.actionType.attende.push(item.value);
-      this.addSummary.emit(this.addSummery());
+      this.addSummary.emit({ summary: this.addSummery(), active: this.validate() });
       item.value = '';
     }
   }
 
   changeItem() {
-    this.addSummary.emit(this.addSummery());
+    this.addSummary.emit({ summary: this.addSummery(), active: this.validate() });
   }
 
   addSummery(): string {
@@ -60,7 +62,7 @@ export class SummaryComponent implements OnInit {
   removeItem(item) {
     const index = this.actionType.attende.indexOf(item);
     this.actionType.attende.splice(index, 1);
-    this.addSummary.emit(this.addSummery());
+    this.addSummary.emit({ summary: this.addSummery(), active: this.validate() });
   }
 
 

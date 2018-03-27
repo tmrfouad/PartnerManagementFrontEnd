@@ -3,29 +3,31 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 html {
-  min-height: 100%;
+  height: 100%;
 }
 
 body { 
-    padding-top: 90px;
-    background-color: #eeebe4;
-    min-height: 100%;
+  padding: 90px 0 0 0;
+  background-color: #eeebe4;
+  height: 100%;
 }
 
-.form-wrapper {
+.scroll-wrapper {
   position: absolute;
-  margin: 90px 10px 10px 10px;
+  margin: 90px 5px 5px 5px;
+  // width: 98%;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
 }
 
-.form-wrapper .card-body,
-.form-wrapper .row,
-.form-content {
-  height: 100%;
+.scroll-wrapper .card-body,
+.scroll-wrapper .row,
+.scroll-content
+{
   overflow: auto;
+  height: 100%;
 }
 
 .snack-bar-error {
