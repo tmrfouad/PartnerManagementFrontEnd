@@ -23,14 +23,11 @@ body {
 }
 
 .scroll-wrapper .card-body,
-.scroll-wrapper .row
-{
-  height: 100%;
-}
-
+.scroll-wrapper .row,
 .scroll-content
 {
   overflow: auto;
+  height: 100%;
 }
 
 .snack-bar-error {
