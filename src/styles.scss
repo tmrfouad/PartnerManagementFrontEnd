@@ -16,10 +16,19 @@ body {
   padding: 10px;
 }
 
-.scroll-wrapper {
+.scroll-main-wrapper {
   position: absolute;
   margin: 90px 5px 5px 5px;
   // width: 98%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.scroll-wrapper {
+  position: absolute;
+  margin: 90px 5px 5px 5px;
   top: 0;
   right: 0;
   bottom: 0;
