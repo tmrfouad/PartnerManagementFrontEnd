@@ -7,6 +7,7 @@ export class CutomErrorHandler implements ErrorHandler {
 
     }
     handleError(error): void {
+        try {
         const errString: string = error.toString();
         const braces = Object.entries(errString).filter(c => c['1'] === '{' || c['1'] === '}');
 
@@ -86,7 +87,10 @@ export class CutomErrorHandler implements ErrorHandler {
             duration: 5000,
             panelClass: 'snack-bar-error'
         });
-
-        console.log('Error log :', errObjArray);
+    } catch {
+        throw error;
+    }
+        // console.log('Error log :', error);
+        throw error;
     }
 }

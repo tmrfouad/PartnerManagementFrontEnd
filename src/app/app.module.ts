@@ -1,7 +1,7 @@
 import { SummarySharedService } from './services/summary-shared.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ErrorHandler, NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Http } from '@angular/http';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -45,7 +45,7 @@ import { ActionTypeService } from './services/action-type.service';
 import { AuthGuard } from './services/auth-guard.service';
 import { CountryService } from './services/country.service';
 import { CutomErrorHandler } from './services/custom-error-handler';
-import { MailService } from './services/mail.service';
+import { EmailTemplateService } from './services/email-template.service';
 import { NetworkService } from './services/network.service';
 import { ProductSharedService } from './services/product-shared.service';
 import { ProductService } from './services/product.service';
@@ -55,6 +55,9 @@ import { RfqSharedService } from './services/rfq-shared.service';
 import { RfqService } from './services/rfq.service';
 import { StatusService } from './services/status.service';
 import { MailContentComponent } from './components/mail-content/mail-content.component';
+import { EmailTemplateComponent } from './components/email/email-template/email-template.component';
+import { EmailTemplateSharedService } from './services/email-template-shared.service';
+import { EmailTemplatePreviewComponent } from './components/email/email-template-preview/email-template-preview.component';
 
 export function createTranslateLoader(http: Http) {
   return new TranslateStaticLoader(http, './assets/i18n', '.json');
@@ -88,7 +91,9 @@ export function createTranslateLoader(http: Http) {
     ProductEditionListComponent,
     ListViewComponent,
     NotFoundComponent,
-    MailContentComponent
+    MailContentComponent,
+    EmailTemplateComponent,
+    EmailTemplatePreviewComponent
   ],
   imports: [
     MatSnackBarModule,
@@ -100,6 +105,7 @@ export function createTranslateLoader(http: Http) {
     HttpClientModule,
     MatDialogModule,
     MatTooltipModule,
+    ReactiveFormsModule,
     TranslateModule.forRoot({
       provide: TranslateLoader,
       useFactory: (createTranslateLoader),
@@ -112,6 +118,7 @@ export function createTranslateLoader(http: Http) {
       { path: 'products', component: ProductContainerComponent, canActivate: [AuthGuard] },
       { path: 'rep', component: RepContainerComponent, canActivate: [AuthGuard] },
       { path: 'Rfq', component: RfqContainarComponent, canActivate: [AuthGuard] },
+      { path: 'mailtemp', component: EmailTemplateComponent, canActivate: [AuthGuard] },
       { path: '**', component: NotFoundComponent }
     ])
   ],
@@ -122,13 +129,14 @@ export function createTranslateLoader(http: Http) {
     ConfirmComponent,
     MessageComponent,
     ProductEditionFormComponent,
-    ProductContainerComponent
+    ProductContainerComponent,
+    EmailTemplatePreviewComponent
   ],
   providers: [
     RfqService,
     AccountService,
     AcceptService,
-    MailService,
+    EmailTemplateService,
     AuthGuard,
     NetworkService,
     CountryService,
@@ -139,11 +147,12 @@ export function createTranslateLoader(http: Http) {
     ProductSharedService,
     SummarySharedService,
     ProductService,
-    // [{
-    //   provide: ErrorHandler,
-    //   useClass: CutomErrorHandler
-    // }],
-    RfqSharedService
+    [{
+      provide: ErrorHandler,
+      useClass: CutomErrorHandler
+    }],
+    RfqSharedService,
+    EmailTemplateSharedService
   ],
   bootstrap: [AppComponent]
 })

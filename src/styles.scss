@@ -12,6 +12,10 @@ body {
   height: 100%;
 }
 
+.list-group-item.small {
+  padding: 10px;
+}
+
 .scroll-wrapper {
   position: absolute;
   margin: 90px 5px 5px 5px;

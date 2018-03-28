@@ -1,0 +1,39 @@
+.required{
+    color: #ff0707;
+}
+
+.form-control.ng-invalid.ng-touched{ 
+    border: 1px solid #ff0707 ;
+}
+
+.alert-danger { 
+    color: #ff0707;
+    padding : 0px;
+    background-color: white;
+    border: 0px none white ;
+}
+
+.list-group-item {
+    cursor: pointer;
+    padding: 5px 10px;
+}
+
+.card > .list-group:last-child .list-group-item:last-child,
+.list-group-item:first-child,
+.list-group-item:last-child {
+    border-radius: 0;
+}
+
+.card-body {
+    padding: 0;
+}
+
+.html-template {
+    overflow: auto;
+    height: 350px;
+}
+
+.list-group-item.active {
+    background-color: dimgray;
+    border-color: dimgray;
+ }
