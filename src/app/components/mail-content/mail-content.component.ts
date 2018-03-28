@@ -29,7 +29,12 @@ export class MailContentComponent implements OnInit {
   onTabIndexChanged(index: number) {
     this.tabIndex = index;
     this.mailInfo = {};
-    this.tabIndex === 0 ? this.mailInfo.sendMailCC = [] : this.mailInfo.sendMailCC = null ;
+    this.tabIndex === 0 ? this.mailInfo.sendMailCC = [] : this.mailInfo.sendMailCC = null;
+    if (this.tabIndex === 0) {
+      this.summarySharedServ.changeSendMailDetails(this.mailInfo);
+    } else {
+      this.summarySharedServ.changeSendMailDetails({});
+    }
     this.summarySharedServ.chanageActionSummeryDetails({ summary: this.addActionSummery(), active: false });
   }
 
@@ -42,6 +47,11 @@ export class MailContentComponent implements OnInit {
   }
 
   changeItem() {
+    if (this.tabIndex === 0) {
+      this.summarySharedServ.changeSendMailDetails(this.mailInfo);
+    } else {
+      this.summarySharedServ.changeSendMailDetails({});
+    }
     this.summarySharedServ.chanageActionSummeryDetails({ summary: this.addActionSummery(), active: this.validate() });
   }
 

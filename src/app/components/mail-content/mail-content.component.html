@@ -21,9 +21,8 @@
                     name="mailFrom" (blur)="changeItem()">
                 <!-- Send Mail -->
                 <!-- Wait the Service  -->
-                <select class="form-control" [(ngModel)]="mailInfo.from" [hidden]="tabIndex !== 0" name="from">
-                    <option value="">Ahmed</option>
-                    <option value="">Tamer</option>
+                <select class="form-control"  name="from" [(ngModel)]="mailInfo.from" [hidden]="tabIndex !== 0">
+                    <option [value]="mailInfo.from">tabuhmead@acs-me.com</option>
                 </select>
 
                 <div class="alert alert-danger small" *ngIf="mailFrom.touched && mailFrom.invalid" [hidden]="tabIndex !== 1">

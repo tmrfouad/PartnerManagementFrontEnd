@@ -2,6 +2,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Injectable } from '@angular/core';
 import { ActionType } from '../models/ActionType';
 import { SummaryDetails } from '../models/SummaryDetails';
+import { MailContent } from '../models/MailContent';
 
 @Injectable()
 export class SummarySharedService {
@@ -11,6 +12,10 @@ export class SummarySharedService {
 
   private actionSummeryDetailsshared = new BehaviorSubject<SummaryDetails>({ summary: '', active: false });
   currentActionSummeryDetails = this.actionSummeryDetailsshared.asObservable();
+
+  private sendMailShared = new BehaviorSubject<MailContent>(null);
+  currentMailDetails = this.sendMailShared.asObservable();
+
 
   constructor() {
   }
@@ -22,4 +27,9 @@ export class SummarySharedService {
   chanageActionSummeryDetails(summaryDetails: SummaryDetails) {
     this.actionSummeryDetailsshared.next(summaryDetails);
   }
+
+  changeSendMailDetails(mailContent: MailContent) {
+    this.sendMailShared.next(mailContent);
+  }
+
 }

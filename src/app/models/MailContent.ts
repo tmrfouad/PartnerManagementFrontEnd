@@ -1,5 +1,3 @@
-
-
 export interface MailContent {
     from?: string;
     to?: string;
@@ -8,4 +6,5 @@ export interface MailContent {
     template?: string;
     When?: string;
     sendMailCC?: string[];
+    sendMail?: boolean;
 }
