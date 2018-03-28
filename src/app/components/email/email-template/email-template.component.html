@@ -1,0 +1,68 @@
+<div class="row">
+  <div class="col-3">
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col">
+            <strong>Email Templates</strong>
+          </div>
+          <div class="col-2 p-0">
+            <button class="btn btn-dark btn-sm" (click)="refreshTemps()">
+              <i class="fa fa-refresh"></i>
+            </button>
+          </div>
+          <div class="col-2 p-0">
+            <button class="btn btn-dark btn-sm" (click)="newTemp()">
+              <i class="fa fa-plus"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <ng-template #loading>
+        <loading></loading>
+      </ng-template>
+      <ul class="list-group" *ngIf="templates; else loading">
+        <li class="list-group-item clickable" (click)="selectTemp(template)" *ngFor="let template of templates;let i = index" [class.active]="tempSelectedIndex === i">
+          {{ template.subject }}
+          <button class="btn btn-sm float-right" (click)="removeTemp(template)">
+            <span class="fa fa-trash" aria-hidden="true"></span>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-7">
+    <form [formGroup]="form" (ngSubmit)="saveTemp()">
+      <div class="form-group">
+        <label for="subject">Subject :</label>
+        <input formControlName="subject" id="subject" type="text" class="form-control" [(ngModel)]="template.subject">
+        <div *ngIf="Subject.touched && Subject.invalid" class="alert alert-danger">
+          <div *ngIf="Subject.errors['required']">Subject field is required.</div>
+          <div *ngIf="Subject.errors['minlength']">Subject must be at least {{ Subject.errors['minlength'].requiredLength }} characters.</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="htmlTemplate">Template :</label>
+        <textarea #htmlTemplateInput formControlName="htmlTemplate" id="htmlTemplate" class="form-control html-template" [(ngModel)]="template.htmlTemplate"></textarea>
+        <div *ngIf="HtmlTemplate.touched && HtmlTemplate.invalid" class="alert alert-danger">
+          <div *ngIf="HtmlTemplate.errors['required']">Html template field is required.</div>
+          <div *ngIf="HtmlTemplate.errors['minlength']">Html template must be at least {{ HtmlTemplate.errors['minlength'].requiredLength }} characters.</div>
+        </div>
+      </div>
+      <button [disabled]="form.invalid" class="btn btn-dark" type="submit">Save</button>
+      <button [disabled]="form.invalid" class="btn btn-dark" type="button" (click)="previewTemp()">
+        <i class="fa fa-eye"></i>
+      </button>
+    </form>
+  </div>
+  <div class="col-2">
+    <div class="card">
+      <div class="card-header bg-dark text-white">
+        <strong>Tags</strong>
+      </div>
+      <div class="card-body">
+        <a class="list-group-item small clickable" *ngFor="let tag of tags" (click)="addTag(tag)">{{ tag.name }}</a>
+      </div>
+    </div>
+  </div>
+</div>

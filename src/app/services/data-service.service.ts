@@ -43,6 +43,7 @@ export class DataService<T> {
 
   async post(item) {
     return this.http.post<T>(this.baseUrl + this.url + '/post', item, { headers: this.headers }).catch(error => {
+      console.log(error);
       throw new Error(JSON.stringify(error));
     });
   }
