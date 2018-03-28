@@ -1,0 +1,126 @@
+<div class="container ">
+    <div class="row">
+        <div class="col-12">
+            <ul class="nav nav-tabs">
+                <li class="nav-item w-50">
+                    <a class="nav-link clickable text-center" [ngClass]="{'active': tabIndex === 0}" (click)="onTabIndexChanged(0)">Send Email </a>
+                </li>
+                <li class="nav-item w-50">
+                    <a class="nav-link clickable text-center" [ngClass]="{'active': tabIndex === 1}" (click)="onTabIndexChanged(1)">Report Email</a>
+                </li>
+            </ul>
+        </div>
+        <!-- Email Content -->
+        <div class="col-6">
+            <div class="form-group">
+                <span class="font-weight-bold col-form-label-sm"> From
+                    <span class="text-danger">*</span>
+                </span>
+                <!-- Report Mail -->
+                <input type="text" required class="form-control control-sm" #mailFrom="ngModel" [(ngModel)]="mailInfo.from" [hidden]="tabIndex !== 1"
+                    name="mailFrom" (blur)="changeItem()">
+                <!-- Send Mail -->
+                <!-- Wait the Service  -->
+                <select class="form-control" [(ngModel)]="mailInfo.from" [hidden]="tabIndex !== 0" name="from">
+                    <option value="">Ahmed</option>
+                    <option value="">Tamer</option>
+                </select>
+
+                <div class="alert alert-danger small" *ngIf="mailFrom.touched && mailFrom.invalid" [hidden]="tabIndex !== 1">
+                    <div *ngIf="mailFrom.errors['required']">
+                        can't Leave this empty
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 ">
+            <div class="form-group">
+                <span class="font-weight-bold col-form-label-sm"> To
+                    <span class="text-danger">*</span>
+                </span>
+                <!-- Report Mail -->
+                <input type="text" required class="form-control control-sm" #MailTo="ngModel" [(ngModel)]="mailInfo.to" name="mailTo" (blur)="changeItem()">
+                <div class="alert alert-danger small" *ngIf="MailTo.touched && MailTo.invalid">
+                    <div *ngIf="MailTo.errors['required']">
+                        can't Leave this empty
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6" [hidden]="tabIndex === 0">
+            <div class="form-group">
+                <span class="font-weight-bold col-form-label-sm"> Body
+                    <span class="text-danger">*</span>
+                </span>
+                <input required type="text" class="form-control control-sm" name="Body" #mailBody="ngModel" [(ngModel)]="mailInfo.body" (blur)="changeItem()">
+                <div class="alert alert-danger small" *ngIf="mailBody.touched && mailBody.invalid">
+                    <div *ngIf="mailBody.errors['required']">
+                        can't Leave this empty
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6" [hidden]="tabIndex === 1">
+            <div class="form-group">
+                <span class="font-weight-bold col-form-label-sm"> Template
+                    <span class="text-danger">*</span>
+                </span>
+                <div class="form-inline">
+                    <select class="form-control" [(ngModel)]="mailInfo.template">
+                        <option>Ahmed</option>
+                        <option>Mn3ssssssssssssssssssM</option>
+                    </select>
+                    <a class="btn btn-light text-dark" matTooltip="preview" matTooltipPosition="left">
+                        <i class="fa fa-eye"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="form-group">
+                <span class="font-weight-bold col-form-label-sm"> CC
+                </span>
+                <!-- Report Mail -->
+                <input type="text" class="form-control control-sm" [(ngModel)]="mailInfo.reportCC" [hidden]="tabIndex !== 1" name="MailFrom" (blur)="changeItem()">
+                <!-- Send Mail -->
+                <div class="form-inline input-group" [hidden]="tabIndex !== 0">
+                    <input type="text" name="attend" #MailCC="ngModel" [(ngModel)]="mailCC" class="form-control control-sm">
+                    <div class="input-group-append">
+                        <div class="input-group-text" (click)="addItem(MailCC.value)">
+                            <a matTooltip="Add CC" matTooltipPosition="right">
+                                <i class="fa fa-plus text-info"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-inline input-group" *ngFor="let item of mailInfo.sendMailCC" [hidden]="tabIndex !== 0">
+                    <input type="text" readonly class="form-control control-sm" [value]="item">
+                    <div class="input-group-append">
+                        <div class="input-group-text" (click)="removeMailCC(item)">
+                            <a matTooltipPosition="right">
+                                <i class="fa fa-trash text-danger"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <span class="font-weight-bold col-form-label-sm"> When
+                    <span class="text-danger">*</span>
+                </span>
+                <input type="text" required #When="ngModel" class="form-control control-sm" name="actionWhen" (change)="changeItem()" [(ngModel)]="mailInfo.When">
+                <div class="alert alert-danger small" *ngIf="When.touched && When.invalid">
+                    <div *ngIf="When.errors['required']">
+                        can't Leave this empty
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- End Content -->

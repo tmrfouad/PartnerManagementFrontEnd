@@ -10,7 +10,7 @@
         <input type="text" #English="ngModel" id="EnglishName" required class="form-control form-control-sm" [(ngModel)]="currentProduct.englishName"
           name="englishName">
         <div class="alert alert-danger" *ngIf="English.touched && !English.valid">
-          <div *ngIf="English.errors.required">
+          <div *ngIf="English.errors['required']">
             <small>You can't leave this empty.</small>
           </div>
         </div>
@@ -25,7 +25,7 @@
         <input type="text" #Arabic="ngModel" dir="rtl" class="form-control form-control-sm" required [(ngModel)]="currentProduct.arabicName"
           name="arabicName">
         <div class="alert alert-danger" *ngIf="Arabic.touched && !Arabic.valid">
-          <div *ngIf="Arabic.errors.required">
+          <div *ngIf="Arabic.errors['required']">
             <small>You can't leave this empty.</small>
           </div>
         </div>

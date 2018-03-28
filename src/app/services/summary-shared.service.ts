@@ -1,0 +1,25 @@
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Injectable } from '@angular/core';
+import { ActionType } from '../models/ActionType';
+import { SummaryDetails } from '../models/SummaryDetails';
+
+@Injectable()
+export class SummarySharedService {
+
+  private actionTypeshared = new BehaviorSubject<ActionType>(null);
+  actionTypeCurrent = this.actionTypeshared.asObservable();
+
+  private actionSummeryDetailsshared = new BehaviorSubject<SummaryDetails>({ summary: '', active: false });
+  currentActionSummeryDetails = this.actionSummeryDetailsshared.asObservable();
+
+  constructor() {
+  }
+
+  chanageActionType(actionType: ActionType) {
+    this.actionTypeshared.next(actionType);
+  }
+
+  chanageActionSummeryDetails(summaryDetails: SummaryDetails) {
+    this.actionSummeryDetailsshared.next(summaryDetails);
+  }
+}

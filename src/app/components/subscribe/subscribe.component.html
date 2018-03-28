@@ -23,10 +23,10 @@
               <input id="name" name="name" [(ngModel)]="rfqItem.contactPersonEnglishName" required minlength="3" #name="ngModel" type="text"
                 class="form-control">
               <div class="alert alert-danger" *ngIf="name.touched && !name.valid">
-                <div *ngIf="name.errors?.required">
+                <div *ngIf="name.errors['required']">
                   <small>{{ 'subscribe.errors.required' | translate }}</small>
                 </div>
-                <div *ngIf="name.errors?.minlength">
+                <div *ngIf="name.errors['minlength']">
                   <small>{{ 'subscribe.errors.minLength' | translate:{value: name.errors.minlength.requiredLength} }}</small>
                 </div>
               </div>
@@ -68,13 +68,13 @@
                 <input name="ContactPersonMobile" type="hidden" [(ngModel)]="rfqItem.contactPersonMobile">
               </div>
               <div class="alert alert-danger" *ngIf="PersonMobile.touched && !PersonMobile.valid">
-                <div *ngIf="PersonMobile.errors?.required">
+                <div *ngIf="PersonMobile.errors['required']">
                   <small>{{ 'subscribe.errors.required' | translate }}</small>
                 </div>
-                <div *ngIf="PersonMobile.errors?.pattern && PersonMobile.errors?.pattern">
+                <div *ngIf="PersonMobile.errors['pattern'] && PersonMobile.errors['pattern']">
                   <small>{{ 'subscribe.errors.invalidPhone' | translate }}</small>
                 </div>
-                <div *ngIf="PersonMobile.errors?.minlength">
+                <div *ngIf="PersonMobile.errors['minlength']">
                   <small>{{ 'subscribe.errors.minLength' | translate: { value: PersonMobile.errors?.minlength.requiredLength } }}</small>
                 </div>
               </div>

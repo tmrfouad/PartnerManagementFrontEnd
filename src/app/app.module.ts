@@ -1,3 +1,4 @@
+import { SummarySharedService } from './services/summary-shared.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -53,6 +54,7 @@ import { RepService } from './services/rep.service';
 import { RfqSharedService } from './services/rfq-shared.service';
 import { RfqService } from './services/rfq.service';
 import { StatusService } from './services/status.service';
+import { MailContentComponent } from './components/mail-content/mail-content.component';
 
 export function createTranslateLoader(http: Http) {
   return new TranslateStaticLoader(http, './assets/i18n', '.json');
@@ -85,7 +87,8 @@ export function createTranslateLoader(http: Http) {
     ProductEditionFormComponent,
     ProductEditionListComponent,
     ListViewComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    MailContentComponent
   ],
   imports: [
     MatSnackBarModule,
@@ -134,11 +137,12 @@ export function createTranslateLoader(http: Http) {
     RepService,
     RepSharedService,
     ProductSharedService,
+    SummarySharedService,
     ProductService,
-    [{
-      provide: ErrorHandler,
-      useClass: CutomErrorHandler
-    }],
+    // [{
+    //   provide: ErrorHandler,
+    //   useClass: CutomErrorHandler
+    // }],
     RfqSharedService
   ],
   bootstrap: [AppComponent]

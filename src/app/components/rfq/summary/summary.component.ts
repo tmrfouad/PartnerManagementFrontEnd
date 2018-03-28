@@ -1,3 +1,5 @@
+import { SummarySharedService } from './../../../services/summary-shared.service';
+import { ActionType } from './../../../models/ActionType';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActionTypeComment } from '../../../models/ActionTypeComment';
 import { SummaryDetails } from '../../../models/SummaryDetails';
@@ -10,80 +12,106 @@ import { SummaryDetails } from '../../../models/SummaryDetails';
 })
 export class SummaryComponent implements OnInit {
 
-  @Input('actionType') actionType: ActionTypeComment = <ActionTypeComment>{};
-  @Output() addSummary = new EventEmitter<SummaryDetails>();
-
   // for angular editor error in html only => set it in ngModel in attend textBox
   attend: string;
+  tabIndex = 0;
+  summaryInfo: ActionTypeComment = {};
+  summaryDetails: SummaryDetails;
+  actionType: ActionType;
 
-  constructor() {
+  constructor(private summarySharedServ: SummarySharedService) {
+    summarySharedServ.actionTypeCurrent.subscribe(item => {
+      this.actionType = item;
+      this.summaryInfo = {};
+      this.summaryInfo.attendee = [];
+    });
   }
 
+  hidden(actionTypes: ActionType[]) {
+    if (actionTypes.includes(+this.actionType)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   ngOnInit() {
-    this.actionType.attende = [];
   }
 
   validate(): boolean {
-    if (this.actionType.attende.length === 0 || !this.actionType.actionWhen || !this.actionType.where) {
-      return false;
-    } else {
-      return true;
+    if (this.summaryInfo) {
+      if ((this.summaryInfo.attendee && this.summaryInfo.attendee.length === 0 && ![5, 4].includes(+this.actionType)) ||
+        !this.summaryInfo.actionWhen ||
+        (!this.summaryInfo.where && ![5, 4].includes(+this.actionType))) {
+        return false;
+      } else {
+        return true;
+      }
     }
-
   }
 
   addItem(item) {
     if (item) {
-      this.actionType.attende.push(item);
-      this.addSummary.emit({ summary: this.addActionSummery(), active: this.validate() });
+      this.summaryInfo.attendee.push(item);
+      this.summarySharedServ.chanageActionSummeryDetails({ summary: this.addActionSummery(), active: this.validate() });
       this.attend = '';
     }
   }
 
   changeItem() {
-    this.addSummary.emit({ summary: this.addActionSummery(), active: this.validate() });
+    this.summarySharedServ.chanageActionSummeryDetails({ summary: this.addActionSummery(), active: this.validate() });
   }
 
+  onTabIndexChanged(index: number) {
+    this.tabIndex = index;
+  }
 
   addActionSummery(): string {
-    let where = ' ', visitReason = '', requiredAction = '', comment = '', attended = '', when = '', summery: string;
-    if (this.actionType.where) {
-      where = 'Where: ' + this.actionType.where + '\n';
+    let where = ' ', visitReason = '', requiredAction = '', comment = '', attended = '', when = '', callSummary = '', summery: string;
+    if (this.summaryInfo.where) {
+      where = 'Where: ' + this.summaryInfo.where + '\n';
     }
-    if (this.actionType.requiredActions) {
-      requiredAction = 'Required Action: ' + this.actionType.requiredActions + '\n';
+    if (this.summaryInfo.requiredActions) {
+      requiredAction = 'Required Action: ' + this.summaryInfo.requiredActions + '\n';
     }
-    if (this.actionType.visitReason) {
-      visitReason = 'Visit Reason: ' + this.actionType.visitReason + '\n';
+    if (this.summaryInfo.visitReason) {
+      visitReason = 'Visit Reason: ' + this.summaryInfo.visitReason + '\n';
     }
-    if (this.actionType.comment) {
-      comment = 'Comments: ' + this.actionType.comment + '\n';
+    if (this.summaryInfo.comment) {
+      comment = 'Comments: ' + this.summaryInfo.comment + '\n';
     }
-    if (this.actionType.actionWhen) {
-      when = 'When: ' + this.actionType.actionWhen + '\n';
+    if (this.summaryInfo.actionWhen) {
+      when = 'When: ' + this.summaryInfo.actionWhen + '\n';
     }
-    if (this.actionType.attende.length > 0) {
+
+    if (this.summaryInfo.callSummary) {
+      callSummary = 'Call Summary: ' + this.summaryInfo.callSummary + '\n';
+    }
+
+    if (this.summaryInfo.attendee && this.summaryInfo.attendee.length > 0) {
       attended = 'Attended: ' + '\n';
-      for (const item of this.actionType.attende) {
+      for (const item of this.summaryInfo.attendee) {
         attended += item + '\n';
       }
     }
-    summery = where + attended + visitReason + when + requiredAction + comment;
+
+    summery = where + attended + visitReason + when + requiredAction + comment + callSummary;
     return summery.trim();
   }
 
   removeItem(item) {
-    const index = this.actionType.attende.indexOf(item);
-    this.actionType.attende.splice(index, 1);
-    this.addSummary.emit({ summary: this.addActionSummery(), active: this.validate() });
+    const index = this.summaryInfo.attendee.indexOf(item);
+    this.summaryInfo.attendee.splice(index, 1);
+    this.summarySharedServ.chanageActionSummeryDetails({ summary: this.addActionSummery(), active: this.validate() });
   }
 
   checkLength(): boolean {
-    if (this.actionType.attende.length === 0) {
-      return true;
-    } else {
-      return false;
+    if (this.summaryInfo.attendee) {
+      if (this.summaryInfo.attendee.length === 0) {
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 
