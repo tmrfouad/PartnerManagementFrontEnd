@@ -1,124 +1,95 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { MatDialog, MatSnackBar } from '@angular/material';
-import { Subscription } from 'rxjs/Subscription';
-
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { DataService } from '../../services/data-service.service';
-import { BaseComponent } from '../base-component';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
-  selector: 'app-list-view',
+  // tslint:disable-next-line:component-selector
+  selector: 'list-view',
   templateUrl: './list-view.component.html',
   styleUrls: ['./list-view.component.css']
 })
-export class ListViewComponent extends BaseComponent implements OnInit, OnDestroy {
-  items: any[] = [];
-  visibleItems: any[] = [];
+export class ListViewComponent implements OnInit {
+  @Input('title') title: string;
+  @Input('displayMembers') displayMembers: string[] | string;
+  @Input('dataService') dataService;
 
-  ItemSubs: Subscription;
-  selectedIndex = 0;
-  selectedItem: any;
-  searchFilter = '';
-  tabIndex = 0;
-
+  @Output('refresh') refresh = new EventEmitter();
+  @Output('add') add = new EventEmitter();
+  @Output('delete') delete = new EventEmitter();
   @Output('change') change = new EventEmitter();
 
-  constructor(
-    snackBar: MatSnackBar,
-    public dialog: MatDialog,
-    private dataService: DataService<Object>) {
+  items: any[] = [];
+  visibleItems: any[];
+  isLoaded = false;
+  selectedIndex = -1;
+  searchFilter = '';
 
-    super(snackBar, dialog);
-  }
+  constructor() { }
 
   async ngOnInit() {
-    const get$ = await this.dataService.get();
-    this.ItemSubs = get$.subscribe(items => {
-      if (items) {
-        this.items = items as any[];
-        this.applyFilter();
-        this.selectItem(items[0], 0);
-      }
+    const get$ = await this.dataService.get() as Observable<any[]>;
+    get$.subscribe(items => {
+      this.items = items;
+      this.searchItems();
+      this.isLoaded = true;
     });
   }
 
-  ngOnDestroy() {
-    this.ItemSubs.unsubscribe();
-  }
-
-  selectItem(item, index) {
-    this.selectedIndex = index;
-    this.selectCurrentItem();
-  }
-
-  selectCurrentItem() {
-    if (this.selectedIndex > this.visibleItems.length - 1) {
-      this.selectedIndex = 0;
+  getDisplayText(item): string {
+    let result = '';
+    if (item) {
+      if (this.displayMembers) {
+        if (this.displayMembers instanceof Array) {
+          this.displayMembers.forEach(member => {
+            result += (result === '' ? '' : ' - ') + item[member];
+          });
+        } else {
+          result = item[this.displayMembers];
+        }
+      } else {
+        result = item;
+      }
     }
 
-    const item = this.visibleItems[this.selectedIndex];
-    if (!item) { return; }
-    this.change.emit(item);
+    return result;
   }
 
-  applyFilter() {
+  searchItems() {
+    if (!this.items) { return; }
     const srchFltr = this.searchFilter.toLowerCase();
     this.visibleItems = this.items.filter(r => {
-      const tabFilter = this.tabIndex === 0 ?
-        (r.status === 0 || r.status === 1 || r.status === 3) :
-        true;
-      return (r.companyEnglishName.toLowerCase().includes(srchFltr) ||
-        r.contactPersonEnglishName.toLowerCase().includes(srchFltr) ||
-        r.contactPersonEmail.toLowerCase().includes(srchFltr) ||
-        r.contactPersonMobile.toLowerCase().includes(srchFltr)) && tabFilter;
-    });
-  }
-
-  async refresh() {
-    const get$ = await this.dataService.get();
-    this.ItemSubs = get$.subscribe(items => {
-      if (items) {
-        this.items = items as any[];
-        this.applyFilter();
-        this.selectItem(items[0], 0);
+      let result = false;
+      let res = '';
+      if (this.displayMembers) {
+        if (this.displayMembers instanceof Array) {
+          this.displayMembers.forEach(member => {
+            res = res + (res === '' ? '' : ' || ') + `${r[member]}.toLowerCase().includes(${srchFltr})`;
+            result = result || r[member].toLowerCase().includes(srchFltr);
+          });
+        } else {
+          result = r[this.displayMembers].toLowerCase().includes(srchFltr);
+        }
+      } else {
+        result = r.toString().toLowerCase().includes(srchFltr);
       }
+
+      return result;
     });
   }
 
-  addRfq() {
-    // const subscribeDialog = this.dialog.open(RfqEditFormComponent, {
-    //   width: '800px',
-    //   height: '530px',
-    //   position: {
-    //     top: '90px'
-    //   },
-    //   data: { mode: 'new', rfq: null }
-    // });
-
-    // subscribeDialog.afterClosed().subscribe(result => {
-    //   if (result) {
-    //     if (result.dialogResult === 'save') {
-    //       this.refresh();
-    //     }
-    //   }
-    // });
+  refreshItems() {
+    this.refresh.emit();
   }
 
-  deleteRfq(rfqId) {
-    // this.showConfirm('Are you sure you want to delete this request?', 'Delete Request')
-    //   .subscribe(async result => {
-    //     if (result === 'ok') {
-    //       const delete$ = await this.dataService.delete(rfqId);
-    //       delete$.subscribe(() => {
-    //         this.refresh();
-    //         this.selectItem({}, -1);
-    //       });
-    //     }
-    //   });
+  addItem() {
+    this.add.emit();
   }
 
-  onTabIndexChanged(index) {
-    this.tabIndex = index;
-    this.applyFilter();
-    this.selectCurrentItem();
+  deleteItem(item) {
+    this.delete.emit(item);
+  }
+
+  selectItem(item) {
+    this.change.emit(item);
   }
 }

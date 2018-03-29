@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { RfqService } from './../../../services/rfq.service';
 import { isNullOrUndefined } from 'util';
+import { RFQ } from '../../../models/RFQ';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -18,17 +19,32 @@ export class RfqContainarComponent implements OnInit, OnDestroy {
   rfqStatus;
   listHeight;
   orederIdparam: string;
+  rfqs: RFQ[];
 
-  constructor(private activeRoute: ActivatedRoute, private rfqService: RfqService) { }
+  constructor(private activeRoute: ActivatedRoute, public rfqService: RfqService) { }
 
-  ngOnInit() {
-
+  async ngOnInit() {
+    const get$ = await this.rfqService.get();
+    get$.subscribe((rfqs: RFQ[]) => this.rfqs = rfqs);
   }
 
   ngOnDestroy() {
   }
 
   onRfqListVisibleClear() {
+
+  }
+
+  onListViewAdd() {
+    
+  }
+  onListViewChange() {
+
+  }
+  onListViewDelete() {
+
+  }
+  onListViewRefresh() {
 
   }
 }

@@ -1,34 +1,26 @@
-<div class="card main-card">
+<div class="card scroll-wrapper">
   <div class="card-header bg-dark text-white">
+    <strong>{{ title }}</strong>
     <div class="row pr-1 pl-1">
-      <input type="text" name="search" id="search" class="form-control form-control-sm mt-1 mr-1 mb-1 col" placeholder="Search..."
-        [(ngModel)]="searchFilter" (keyup)="applyFilter()">
-      <button class="btn btn-light btn-sm m-1 col-1" (click)="refresh()">
+      <input type="text" name="search" id="search" [(ngModel)]="searchFilter" class="form-control form-control-sm mt-1 mr-1 mb-1 col" placeholder="Search..."
+        (keyup)="searchItems()">
+      <button class="btn btn-light btn-sm m-1 col-1" (click)="refreshItems()">
         <i class="fa fa-refresh" aria-hidden="true"></i>
       </button>
-      <button class="btn btn-light btn-sm m-1 col-1" (click)="addRfq()">
+      <button class="btn btn-light btn-sm m-1 col-1" (click)="addItem()">
         <i class="fa fa-plus" aria-hidden="true"></i>
       </button>
     </div>
-    <div class="row pr-1 pl-1">
-      <ul class="nav nav-tabs col item-tabs">
-        <li class="nav-item w-50">
-          <a class="nav-link clickable text-center" [ngClass]="{'active': tabIndex === 0}" (click)="onTabIndexChanged(0)">Current</a>
-        </li>
-        <li class="nav-item w-50">
-          <a class="nav-link clickable text-center" [ngClass]="{'active': tabIndex === 1}" (click)="onTabIndexChanged(1)">All</a>
-        </li>
-      </ul>
-    </div>
   </div>
-  <div class="items-list">
-    <ng-template #loading>
+  <div class="scroll-content">
+    <ng-template *ngIf="!isLoaded">
       <loading></loading>
     </ng-template>
-    <div class="list-group" *ngIf="visibleItems; else loading">
-      <a class="list-group-item card-text" (click)="selectItem(item, i)" *ngFor="let item of visibleItems; let i = index" [class.active]="selectedIndex == i">
-        {{ item.contactPersonEnglishName }}; {{ item.companyEnglishName}}; {{ item.contactPersonMobile }}
-        <a class="float-right" (click)="deleteRfq(item.rfqId)">
+    <div class="alert" *ngIf="isLoaded && (!visibleItems || visibleItems?.length === 0)">No items.</div>
+    <div class="list-group" *ngIf="visibleItems">
+      <a class="list-group-item card-text" (click)="selectItem(item)" *ngFor="let item of visibleItems; let i = index" [class.active]="selectedIndex == i">
+        {{ getDisplayText(item) }}
+        <a class="float-right" (click)="deleteItem(item)">
           <i class="fa fa-trash" aria-hidden="true"></i>
         </a>
       </a>

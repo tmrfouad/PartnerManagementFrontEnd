@@ -21,7 +21,7 @@
     border-radius: 0;
 }
 
-.item-tabs {
+.rfq-tabs {
     padding-right: 0;
 }
 
@@ -40,12 +40,3 @@
 .nav-link.active:hover {
     color: #495057;
 }
-
-/* .main-card {
-    height: 450px;
-}
-
-.items-list {
-    overflow-y: auto;
-    height: 100%;
-} */
