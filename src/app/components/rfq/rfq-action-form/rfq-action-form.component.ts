@@ -82,8 +82,7 @@ export class RfqActionFormComponent implements OnInit, OnDestroy {
 
   addAction(actionType: ActionType) {
     const action: RFQAction = {
-      actionType: actionType,
-      representativeId: 0
+      actionType: actionType
     };
     const StatusDialogRef = this.dialog.open(StatusEditFormComponent, {
       width: '800px',
@@ -92,7 +91,8 @@ export class RfqActionFormComponent implements OnInit, OnDestroy {
       data: {
         mode: 'new',
         rfqId: this.rfq.rfqId,
-        action: action
+        action: action,
+        rfq: this.rfq
       }
     }).afterClosed().subscribe((result: { result: string, action: RFQAction }) => {
       if (result && result.result === 'saved') {

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+
 import { ActionType } from '../../models/ActionType';
-import { SummarySharedService } from '../../services/summary-shared.service';
 import { MailContent } from '../../models/MailContent';
+import { MailMessageData, MailData } from '../../models/MailData';
+import { SummarySharedService } from '../../services/summary-shared.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -12,14 +14,24 @@ import { MailContent } from '../../models/MailContent';
 export class MailContentComponent implements OnInit {
 
   tabIndex = 0;
-  mailInfo: MailContent = {};
+  reportMail: MailContent = {};
+  sendMail: MailData = <MailData>{};
   mailCC: string;
   actionType: ActionType;
-  actionWhen: string;
+  When: string;
   constructor(private summarySharedServ: SummarySharedService) {
+    this.sendMail.message = <MailMessageData>{};
+    this.sendMail.message.cc = [];
     summarySharedServ.actionTypeCurrent.subscribe(item => {
       this.actionType = item;
-      this.mailInfo.sendMailCC = [];
+    });
+    summarySharedServ.currentMailDetails.subscribe(mailContent => {
+      if (mailContent.maildata) {
+        if (mailContent.maildata.message) {
+          this.sendMail.message = mailContent.maildata.message;
+          this.sendMail.message.cc = [];
+        }
+      }
     });
   }
 
@@ -28,14 +40,12 @@ export class MailContentComponent implements OnInit {
 
   onTabIndexChanged(index: number) {
     this.tabIndex = index;
-    this.mailInfo = {};
-    this.tabIndex === 0 ? this.mailInfo.sendMailCC = [] : this.mailInfo.sendMailCC = null;
-    if (this.tabIndex === 0) {
-      this.summarySharedServ.changeSendMailDetails(this.mailInfo);
+    if (this.tabIndex === 1) {
+      this.summarySharedServ.changeSendMailDetails({ mailType: 'reportmail', maildata: this.sendMail });
     } else {
-      this.summarySharedServ.changeSendMailDetails({});
+      this.summarySharedServ.changeSendMailDetails({ mailType: 'sendmail', maildata: this.sendMail });
     }
-    this.summarySharedServ.chanageActionSummeryDetails({ summary: this.addActionSummery(), active: false });
+    this.summarySharedServ.chanageActionSummeryDetails({ summary: this.addActionSummery(), active: this.validate() });
   }
 
   hidden(actionTypes: ActionType[]) {
@@ -47,33 +57,27 @@ export class MailContentComponent implements OnInit {
   }
 
   changeItem() {
-    if (this.tabIndex === 0) {
-      this.summarySharedServ.changeSendMailDetails(this.mailInfo);
-    } else {
-      this.summarySharedServ.changeSendMailDetails({});
-    }
     this.summarySharedServ.chanageActionSummeryDetails({ summary: this.addActionSummery(), active: this.validate() });
   }
 
   addItem(ccMail) {
     if (ccMail) {
-      this.mailInfo.sendMailCC.push(ccMail);
+      this.sendMail.message.cc.push(ccMail);
       this.mailCC = '';
     }
   }
 
   removeMailCC(ccMail) {
-    const index = this.mailInfo.sendMailCC.indexOf(ccMail);
-    this.mailInfo.sendMailCC.splice(index, 1);
+    const index = this.sendMail.message.cc.indexOf(ccMail);
+    this.sendMail.message.cc.splice(index, 1);
   }
 
   validate(): boolean {
-    if (this.mailInfo) {
-      if ((!this.mailInfo.from) ||
-        (!this.mailInfo.to) ||
-        (!this.mailInfo.When) ||
-        (!this.mailInfo.body && (this.tabIndex === 1)) ||
-        (!this.mailInfo.template && (this.tabIndex === 0))) {
+    if (this.sendMail.message || this.reportMail) {
+      if ((!this.sendMail.message.from) ||
+        (!this.sendMail.message.to) ||
+        (!this.sendMail.message.body) ||
+        (!this.reportMail.from) || (!this.reportMail.to) || (!this.reportMail.body)) {
         return false;
       } else {
         return true;
@@ -82,7 +86,8 @@ export class MailContentComponent implements OnInit {
   }
 
   addActionSummery(): string {
-    let mailType = '',
+    let
+      mailType = '',
       from = ' ',
       mailBody = '',
       mailTo = '',
@@ -90,29 +95,28 @@ export class MailContentComponent implements OnInit {
       when = '',
       summery: string;
 
-    if (this.mailInfo) {
-      if (this.mailInfo.from && this.tabIndex === 1) {
-        from = 'From:  ' + this.mailInfo.from + '\n';
+    if (this.reportMail) {
+      if (this.reportMail.from) {
+        from = 'From:  ' + this.reportMail.from + '\n';
       }
 
-      if (this.mailInfo.When) {
+      if (this.When) {
         this.tabIndex === 0 ? mailType = 'Send Mail' + '\n' : mailType = 'Report Mail' + '\n';
-        when = 'When:  ' + this.mailInfo.When + '\n';
+        when = 'When:  ' + this.When + '\n';
       }
-      if (this.mailInfo.to && this.tabIndex === 1) {
-        mailTo = 'To:  ' + this.mailInfo.to + '\n';
-      }
-
-      if (this.mailInfo.reportCC && this.mailInfo.reportCC.length > 0 && this.tabIndex === 1) {
-        mailCC = 'CC:  ' + this.mailInfo.reportCC + '\n';
+      if (this.reportMail.to && this.tabIndex === 1) {
+        mailTo = 'To:  ' + this.reportMail.to + '\n';
       }
 
-      if (this.mailInfo.body && this.tabIndex === 1) {
-        mailBody = 'body:  ' + this.mailInfo.body + '\n';
+      if (this.reportMail.CC) {
+        mailCC = 'CC:  ' + this.reportMail.CC + '\n';
+      }
+
+      if (this.reportMail.body) {
+        mailBody = 'body:  ' + this.reportMail.body + '\n';
       }
     }
-
-    summery = mailType + from + mailTo + mailCC + mailBody + when;
+    this.tabIndex === 0 ? summery = mailType + when : summery = mailType + from + mailTo + mailCC + mailBody + when;
     return summery.trim();
   }
 

@@ -1,11 +1,14 @@
+import 'rxjs/add/observable/combineLatest';
+
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 import * as FileSaver from 'file-saver';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { forkJoin } from 'rxjs/observable/forkJoin';
-import 'rxjs/add/observable/combineLatest';
 
+import { ActionType } from '../../../models/ActionType';
+import { MailData, MailMessageData } from '../../../models/MailData';
+import { RFQ } from '../../../models/RFQ';
 import { RFQAction } from '../../../models/RFQAction';
 import { SummaryDetails } from '../../../models/SummaryDetails';
 import { ActionTypeService } from '../../../services/action-type.service';
@@ -14,8 +17,6 @@ import { SummarySharedService } from '../../../services/summary-shared.service';
 import { BaseComponent } from '../../base-component';
 import { REP } from './../../../models/REP';
 import { RepService } from './../../../services/rep.service';
-import { MailContent } from '../../../models/MailContent';
-import { ActionType } from '../../../models/ActionType';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -30,9 +31,9 @@ export class StatusEditFormComponent extends BaseComponent implements OnInit, On
   reps: REP[];
   repsSubs: Subscription;
   subscription: Subscription;
-  mailContent: MailContent;
+  mailContent: MailData;
   rfqStatus: RFQAction = {};
-
+  mailData: { maildata?: MailData, mailType?: string } = {};
   constructor(
     snackBar: MatSnackBar,
     dialog: MatDialog,
@@ -40,41 +41,49 @@ export class StatusEditFormComponent extends BaseComponent implements OnInit, On
     private rfqService: RfqService,
     private repService: RepService,
     private dialogRef: MatDialogRef<StatusEditFormComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { mode: string, rfqId: number, action: RFQAction },
+    @Inject(MAT_DIALOG_DATA) public data: { mode: string, rfqId: number, action: RFQAction, rfq: RFQ },
     private actionTypeService: ActionTypeService) {
     super(snackBar, dialog);
     this.actionTypes = this.actionTypeService.getMapByName();
     this.action_Types = this.actionTypeService.getArray();
 
-    const subscription = Observable.combineLatest(
-      summarySharedServ.actionTypeCurrent.map((result: ActionType) => result),
-      summarySharedServ.currentActionSummeryDetails.map((result: SummaryDetails) => result),
-      summarySharedServ.currentMailDetails.map((result: MailContent) => result)
-    );
-
-    this.subscription = subscription.subscribe((result: [ActionType, SummaryDetails, MailContent]) => {
-      const [actionTypeCurrent, currentActionSummeryDetails, currentMailDetails] = result;
-
-      this.rfqStatus.actionType = actionTypeCurrent;
-
-      this.rfqStatus.comments = currentActionSummeryDetails.summary;
-      this.rfqStatus.active = currentActionSummeryDetails.active;
-
-      this.mailContent = currentMailDetails;
+    summarySharedServ.actionTypeCurrent.subscribe(result => {
+      this.rfqStatus.actionType = result;
     });
+
+    summarySharedServ.currentActionSummeryDetails.subscribe(result => {
+      this.rfqStatus.comments = result.summary;
+      this.rfqStatus.active = result.active;
+    });
+
+    summarySharedServ.currentMailDetails.subscribe(result => {
+      this.mailContent = result.maildata;
+      this.mailData.mailType = result.mailType;
+    });
+
 
   }
 
   async ngOnInit() {
 
+    this.rfqStatus = {};
     Object.assign(this.rfqStatus, this.data.action);
+    console.log('first', this.rfqStatus);
+    console.log('first', this.data.action);
+
     this.rfqStatus.rfqActionAtts = [];
     this.summarySharedServ.chanageActionType(this.rfqStatus.actionType);
-
+    this.summarySharedServ.chanageActionSummeryDetails({ summary: this.rfqStatus.comments, active: false });
+    this.summarySharedServ.changeSendMailDetails({});
+    console.log('second', this.rfqStatus);
     const rep$ = await this.repService.get() as Observable<REP[]>;
     this.repsSubs = rep$.subscribe(reps => {
       this.reps = reps;
     });
+    // refer To Send Mail
+    if (+this.rfqStatus.actionType === 5) {
+      this.fillMailData('sendmail');
+    }
   }
 
   ngOnDestroy() {
@@ -161,6 +170,21 @@ export class StatusEditFormComponent extends BaseComponent implements OnInit, On
 
   changeActionType() {
     this.summarySharedServ.chanageActionType(this.rfqStatus.actionType);
+    if (+this.rfqStatus.actionType === 5) {
+      this.fillMailData('sendmail');
+    } else {
+      this.fillMailData('reportmail');
+    }
     this.summarySharedServ.chanageActionSummeryDetails({ summary: '', active: false });
+  }
+
+
+  fillMailData(type: string) {
+    this.mailData.maildata = <MailData>{};
+    this.mailData.maildata.message = <MailMessageData>{};
+    this.mailData.maildata.message.to = [];
+    this.mailData.maildata.message.to[0] = this.data.rfq.contactPersonEmail;
+    this.mailData.mailType = type;
+    this.summarySharedServ.changeSendMailDetails(this.mailData);
   }
 }
