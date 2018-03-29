@@ -17,12 +17,12 @@
                     <span class="text-danger">*</span>
                 </span>
                 <!-- Report Mail -->
-                <input type="text" required class="form-control control-sm" #mailFrom="ngModel" [(ngModel)]="reportMail.from" [hidden]="tabIndex !== 1"
-                    name="mailFrom" (change)="changeItem()">
+                <input type="text" required class="form-control control-sm" #mailFrom="ngModel" [(ngModel)]="reportMail.from" 
+                       [hidden]="tabIndex !== 1" name="mailFrom" (change)="changeItem()">
                 <!-- Send Mail -->
                 <!-- Wait the Service  -->
                 <select class="form-control"  name="from" [(ngModel)]="sendMail.message.from" [hidden]="tabIndex !== 0">
-                    <option [value]="sendMail.message.from">tabuhmead@acs-me.com</option>
+                    <option>tabuhmead@acs-me.com</option>
                 </select>
 
                 <div class="alert alert-danger small" *ngIf="mailFrom.touched && mailFrom.invalid" [hidden]="tabIndex !== 1">
@@ -72,13 +72,9 @@
         <div class="col-6" [hidden]="tabIndex === 1">
             <div class="form-group">
                 <span class="font-weight-bold col-form-label-sm"> Template
-                    <span class="text-danger">*</span>
                 </span>
                 <div class="form-inline">
-                    <select class="form-control" [(ngModel)]="sendMail.message.body">
-                        <option>Ahmed</option>
-                        <option>Mn3ssssssssssssssssssM</option>
-                    </select>
+                    <input  type="text" class="form-control control-sm" name="Body" [(ngModel)]="sendMail.message.body" (blur)="changeItem()">
                     <a class="btn btn-light text-dark" matTooltip="preview" matTooltipPosition="left">
                         <i class="fa fa-eye"></i>
                     </a>

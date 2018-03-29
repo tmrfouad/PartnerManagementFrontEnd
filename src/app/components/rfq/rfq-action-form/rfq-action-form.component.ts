@@ -114,12 +114,14 @@ export class RfqActionFormComponent implements OnInit, OnDestroy {
       position: { top: '100px' },
       data: { mode: 'edit', rfq: this.rfq }
     }).afterClosed().subscribe((result: { dialogResult: string, rfq: RFQ }) => {
-      if (result.dialogResult === 'save') {
-        if (result.rfq) {
-          this.sharedService.changeCurrentRfq(result.rfq);
-          const indx = this.rfqs.findIndex(r => r.rfqId === result.rfq.rfqId);
-          this.rfqs[indx] = result.rfq;
-          this.sharedService.changeCurrentRfqs(this.rfqs);
+      if (result) {
+        if (result.dialogResult === 'save') {
+          if (result.rfq) {
+            this.sharedService.changeCurrentRfq(result.rfq);
+            const indx = this.rfqs.findIndex(r => r.rfqId === result.rfq.rfqId);
+            this.rfqs[indx] = result.rfq;
+            this.sharedService.changeCurrentRfqs(this.rfqs);
+          }
         }
       }
     });

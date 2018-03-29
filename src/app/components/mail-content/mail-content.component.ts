@@ -73,15 +73,16 @@ export class MailContentComponent implements OnInit {
   }
 
   validate(): boolean {
-    if (this.sendMail.message || this.reportMail) {
-      if ((!this.sendMail.message.from) ||
-        (!this.sendMail.message.to) ||
-        (!this.sendMail.message.body) ||
-        (!this.reportMail.from) || (!this.reportMail.to) || (!this.reportMail.body)) {
-        return false;
-      } else {
-        return true;
-      }
+    console.log(this.sendMail, this.tabIndex);
+    if (
+      (!this.sendMail.message.to && this.tabIndex === 0) ||
+      (!this.sendMail.message.body && this.tabIndex === 0) ||
+      (!this.reportMail.from && this.tabIndex === 1) ||
+      (!this.reportMail.to && this.tabIndex === 1) ||
+      (!this.reportMail.body && this.tabIndex === 1)) {
+      return false;
+    } else {
+      return true;
     }
   }
 
