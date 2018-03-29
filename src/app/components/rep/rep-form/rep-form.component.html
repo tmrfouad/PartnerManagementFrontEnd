@@ -8,7 +8,7 @@
       </label>
     <input type="text" #userName="ngModel" id="UserName" required class="form-control form-control-sm" [(ngModel)]="currentRep.name" name="name">
     <div class="alert alert-danger" *ngIf="userName.touched && !userName.valid">
-      <div *ngIf="userName.errors.required">
+      <div *ngIf="userName.errors['required']">
           <small>You can't leave this empty.</small>
       </div> 
     </div>

@@ -28,9 +28,8 @@
     padding: 0;
 }
 
-.html-template {
-    overflow: auto;
-    height: 248px;
+.form-group-html-temp {
+    height: calc(100% - 120px);
 }
 
 .list-group-item.active {

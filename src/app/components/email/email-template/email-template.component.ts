@@ -12,7 +12,7 @@ import { EmailTemplatePreviewComponent } from '../email-template-preview/email-t
 @Component({
   selector: 'app-email-template',
   templateUrl: './email-template.component.html',
-  styleUrls: ['./email-template.component.css']
+  styleUrls: ['./email-template.component.scss']
 })
 export class EmailTemplateComponent extends BaseComponent implements OnInit, OnDestroy {
   //#region Fields

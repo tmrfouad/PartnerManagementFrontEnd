@@ -29,7 +29,7 @@
       </textarea>
 
       <div class="alert-danger" *ngIf="Comment.touched && Comment.invalid">
-        <div *ngIf="Comment.errors.required">
+        <div *ngIf="Comment.errors['required']">
           <small>You can't leave this empty.</small>
         </div>
       </div>
