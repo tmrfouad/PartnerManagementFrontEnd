@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 import { ActionType } from '../../models/ActionType';
 import { MailContent } from '../../models/MailContent';
-import { MailMessageData, MailData } from '../../models/MailData';
+import { MailData, MailMessageData, SmtpData } from '../../models/MailData';
+import { EmailSenderService } from '../../services/email-sender.service';
 import { SummarySharedService } from '../../services/summary-shared.service';
+import { EmailSender } from '../../models/EmailSender';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -17,11 +19,17 @@ export class MailContentComponent implements OnInit {
   reportMail: MailContent = {};
   sendMail: MailData = <MailData>{};
   mailCC: string;
+  emailSenderList: EmailSender[];
   actionType: ActionType;
   When: string;
-  constructor(private summarySharedServ: SummarySharedService) {
+  emailSend: EmailSender;
+
+  constructor(private summarySharedServ: SummarySharedService,
+    private emailSender: EmailSenderService) {
     this.sendMail.message = <MailMessageData>{};
+    this.sendMail.smtp = <SmtpData>{};
     this.sendMail.message.cc = [];
+
     summarySharedServ.actionTypeCurrent.subscribe(item => {
       this.actionType = item;
     });
@@ -33,9 +41,14 @@ export class MailContentComponent implements OnInit {
         }
       }
     });
+
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    const mailSender = await this.emailSender.get();
+    mailSender.subscribe((item: EmailSender[]) => {
+      this.emailSenderList = item;
+    });
   }
 
   onTabIndexChanged(index: number) {
@@ -46,6 +59,15 @@ export class MailContentComponent implements OnInit {
       this.summarySharedServ.changeSendMailDetails({ mailType: 'sendmail', maildata: this.sendMail });
     }
     this.summarySharedServ.chanageActionSummeryDetails({ summary: this.addActionSummery(), active: this.validate() });
+  }
+
+  // From-Mail Dropdown list in Send Mail
+  onSelectMailChange(emailSend: EmailSender) {
+    if (emailSend) {
+      console.log(emailSend);
+      this.sendMail.smtp.userName = emailSend.email;
+      this.sendMail.smtp.password = emailSend.password;
+    }
   }
 
   hidden(actionTypes: ActionType[]) {
@@ -73,7 +95,6 @@ export class MailContentComponent implements OnInit {
   }
 
   validate(): boolean {
-    console.log(this.sendMail, this.tabIndex);
     if (
       (!this.sendMail.message.to && this.tabIndex === 0) ||
       (!this.sendMail.message.body && this.tabIndex === 0) ||

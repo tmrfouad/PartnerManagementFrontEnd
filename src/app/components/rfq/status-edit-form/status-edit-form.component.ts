@@ -78,7 +78,8 @@ export class StatusEditFormComponent extends BaseComponent implements OnInit, On
     this.repsSubs = rep$.subscribe(reps => {
       this.reps = reps;
     });
-    // refer To Send Mail
+
+    // (5) => refer To EmailMessage
     if (+this.rfqStatus.actionType === 5) {
       this.fillMailData('sendmail');
     }
