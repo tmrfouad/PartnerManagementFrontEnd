@@ -21,6 +21,7 @@ import { HomeComponent } from './components/home/home.component';
 import { ListViewComponent } from './components/list-view/list-view.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { LoginComponent } from './components/login/login.component';
+import { MailContentComponent } from './components/mail-content/mail-content.component';
 import { MessageComponent } from './components/message/message.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
@@ -58,6 +59,7 @@ import { RepService } from './services/rep.service';
 import { RfqSharedService } from './services/rfq-shared.service';
 import { RfqService } from './services/rfq.service';
 import { StatusService } from './services/status.service';
+import { SummarySharedService } from './services/summary-shared.service';
 
 export function createTranslateLoader(http: Http) {
   return new TranslateStaticLoader(http, './assets/i18n', '.json');
@@ -91,6 +93,7 @@ export function createTranslateLoader(http: Http) {
     ProductEditionListComponent,
     ListViewComponent,
     NotFoundComponent,
+    MailContentComponent,
     EmailTemplateComponent,
     EmailTemplatePreviewComponent,
     EmailSenderComponent
@@ -146,6 +149,7 @@ export function createTranslateLoader(http: Http) {
     RepService,
     RepSharedService,
     ProductSharedService,
+    SummarySharedService,
     ProductService,
     [{
       provide: ErrorHandler,

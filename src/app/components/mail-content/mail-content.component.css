@@ -1,0 +1,26 @@
+.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link { 
+    background-color: dimgray;
+    border-color: dimgray;
+    color: white;
+}
+
+.nav-tabs { 
+    padding-top: 16px;
+}
+
+.form-group {
+    margin-bottom: 0px;
+  }
+
+.alert-danger { 
+    color: #ff0707;
+    padding : 0px;
+    background-color: white;
+    border: 0px none white ;
+}
+
+.plus{
+    cursor: pointer;
+    font-size: 24px;
+    color: rgba(37, 37, 255, 0.829);
+}

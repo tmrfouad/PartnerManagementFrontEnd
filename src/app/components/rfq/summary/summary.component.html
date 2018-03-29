@@ -1,73 +1,85 @@
-  <div class="row">
-  <div class="col-6">
-      <div class="form-group">
-          <label class="col-form-label-sm"> Where</label>
-          <input 
-          type="text"
-          #Where="ngModel"
-          class="form-control control-sm"
-          name="where"
-          (blur)="changeItem()"
-          [(ngModel)]="actionType.where">
-      </div>
-      <div class="form-group">
-        <label for="">
-            <small>Visit Reason</small>  
-        </label>
-        <input
-         type="text"
-         name="visitReason" 
-         #VisitReason="ngModel"
-         (blur)="changeItem()"
-         [(ngModel)]="actionType.visitReason"
-         class="form-control control-sm">
-      </div>
-      <div class="form-group">
-        <div class="input-group-sm mb-3">
-            <label class="col-form-label-sm"> Comments </label>
-            <input 
-            type="text" 
-            class="form-control control-sm" 
-            #Comment="ngModel"
-            (blur)="changeItem()"
-            name="comment" 
-            [(ngModel)]="actionType.comment">
-        </div>
-      </div>
-
-  </div>
-  <div class="col-6">
-    <div class="form-group">
-        <label class="col-form-label-sm"> Who Attended </label>
-        <div class="form-inline input-group">
-            <input 
-            type="text"
-            name="attend"
-            #Attend
-            class="form-control control-sm">
-            <div class="input-group-append">
-                <div class="input-group-text"
-                (click)="addItem(Attend)">
-                <a matTooltip="Add Person" matTooltipPosition="right">
-                    <i class="fa fa-plus text-info"></i>
-                </a>
+<div class="row">
+        <mail-content [hidden]="hidden([1,2,3,4])" ></mail-content>
+    <div class="col-6">
+        <div [hidden]="hidden([5])" class="form-group">
+            <span class="font-weight-bold col-form-label-sm"> Where
+                <span class="text-danger">*</span>
+            </span>
+            <input type="text" required #Where="ngModel" class="form-control control-sm" name="where" (change)="changeItem()" [(ngModel)]="summaryInfo.where">
+            <div class="alert alert-danger small" *ngIf="Where.touched && Where.invalid">
+                <div *ngIf="Where.errors['required']">
+                    can't Leave this empty
                 </div>
             </div>
         </div>
-        <div class="form-inline input-group" *ngFor="let item of actionType.attende">
-            <input type="text" readonly class="form-control control-sm" [value]="item">
-            <div class="input-group-append">
-                <div class="input-group-text" (click)="removeItem(item)">
-                <a matTooltipPosition="right">
-                    <i class="fa fa-trash text-danger"></i>
-                </a>
+        <div class="form-group" [hidden]="hidden([5])">
+            <span class="font-weight-bold col-form-label-sm"> Visit Reason </span>
+            <input type="text" name="visitReason" #VisitReason="ngModel" (change)="changeItem()" [(ngModel)]="summaryInfo.visitReason"
+                class="form-control control-sm">
+        </div>
+
+        <div class="form-group" [hidden]="hidden([5])">
+            <span class="font-weight-bold col-form-label-sm"> When
+                <span class="text-danger">*</span>
+            </span>
+            <input type="text" required #When="ngModel" class="form-control control-sm" name="actionWhen" (change)="changeItem()" [(ngModel)]="summaryInfo.actionWhen">
+            <div class="alert alert-danger small" *ngIf="When.touched && When.invalid">
+                <div *ngIf="When.errors['required']">
+                    can't Leave this empty
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group" [hidden]="hidden([5])">
+            <span class="font-weight-bold col-form-label-sm"> Required actions </span>
+            <input type="text" class="form-control control-sm" name="requiredActions" (change)="changeItem()" [(ngModel)]="summaryInfo.requiredActions">
+        </div>
+
+        <div class="form-group" [hidden]="hidden([4,5])">
+            <span class="font-weight-bold col-form-label-sm"> Call Summary </span>
+            <input type="text" class="form-control control-sm" name="requiredActions" (change)="changeItem()" [(ngModel)]="summaryInfo.callSummary">
+        </div>
+
+    </div>
+    <div class="col-6" [hidden]="hidden([5])">
+        <div class="form-group">
+            <span class="font-weight-bold col-form-label-sm"> Who Attended
+                <span class="text-danger" *ngIf="checkLength()">*</span>
+            </span>
+            <div class="form-inline input-group">
+                <input type="text" name="attend" #Attend="ngModel" [(ngModel)]="attend" class="form-control control-sm">
+                <div class="input-group-append">
+                    <div class="input-group-text" (click)="addItem(Attend.value)">
+                        <a matTooltip="Add Person" matTooltipPosition="right">
+                            <i class="fa fa-plus text-info"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="alert alert-danger small" *ngIf="Attend.touched">
+                <div *ngIf="checkLength()">
+                    at Least add one Person
+                </div>
+            </div>
+            <div class="form-inline input-group" *ngFor="let item of summaryInfo.attendee">
+                <input type="text" readonly class="form-control control-sm" [value]="item">
+                <div class="input-group-append">
+                    <div class="input-group-text" (click)="removeItem(item)">
+                        <a matTooltipPosition="right">
+                            <i class="fa fa-trash text-danger"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-  </div>
+    <div class="col-12" [hidden]="hidden([5])">
+        <div class="form-group">
+            <div class="input-group-sm mb-3">
+                <span class="font-weight-bold col-form-label-sm"> Comments </span>
+                <textarea type="text" class="form-control control-sm" #Comment="ngModel" (change)="changeItem()" name="comment" [(ngModel)]="summaryInfo.comment">
+            </textarea>
+            </div>
+        </div>
+    </div>
 </div>
-
-
-
-

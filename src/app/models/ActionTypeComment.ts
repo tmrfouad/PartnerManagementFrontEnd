@@ -1,6 +1,9 @@
 export interface ActionTypeComment {
-        attende: string [];
-        where: '';
-        visitReason: '';
-        comment: '';
+        attendee?: string[];
+        where?: string;
+        visitReason?: string;
+        comment?: string;
+        actionWhen?: string;
+        requiredActions?: string;
+        callSummary?: string;
 }

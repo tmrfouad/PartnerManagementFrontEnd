@@ -2,7 +2,7 @@
   <div class="card-body row" *ngIf="rfqStatus">
     <div class="col-6">
       <span class="font-weight-bold col-form-label-sm">Action Type :</span>
-      <select name="actionType" id="actionType" class="form-control form-control-sm" [(ngModel)]="rfqStatus.actionType">
+      <select name="actionType" id="actionType" class="form-control form-control-sm" [(ngModel)]="rfqStatus.actionType" (change)="changeActionType()">
         <option *ngFor="let type of action_Types" [value]="type.value"> {{ type.name }} </option>
       </select>
     </div>
@@ -10,14 +10,15 @@
       <span class="font-weight-bold col-form-label-sm">Representative :
         <span class="text-danger">*</span>
       </span>
-      <select class="form-control form-control-sm" name="companyRepresentative" id="companyRepresentative" [(ngModel)]="rfqStatus.representativeId">
+      <select class="form-control form-control-sm" required #RepresentId="ngModel" name="representativeId"
+        [(ngModel)]="rfqStatus.representativeId">
         <option *ngFor="let item of reps" [value]="item.id">
           {{ item.name }}
         </option>
       </select>
     </div>
     <div class="col-12" *ngIf="rfqStatus.actionType != 0 && data.mode == 'new' ">
-      <summary-info [actionType]="actionTypeDialog" (addSummary)="addSummary($event)"></summary-info>
+      <summary-info (addSummary)="addSummary($event)"></summary-info>
     </div>
     <div class="col-12">
       <span class="font-weight-bold col-form-label-sm"> {{ action_Types[rfqStatus.actionType-1].name }} Summary :
@@ -33,14 +34,16 @@
           <small>You can't leave this empty.</small>
         </div>
       </div>
-
     </div>
+    <div class="col-12" *ngIf="rfqStatus.actionType != 0 && data.mode == 'new' ">
+      <summary-info></summary-info>
+    </div>
+
     <div class="col-12">
       <span class="font-weight-bold col-form-label-sm">Attachments :</span>
       <div class="input-group">
         <div class="custom-file">
-          <input type="file" class="custom-file-input"
-            name="attachmentInput" id="attachmentInput" (change)="attachmentChanged($event)">
+          <input type="file" class="custom-file-input" name="attachmentInput" id="attachmentInput" (change)="attachmentChanged($event)">
           <label class="custom-file-label" for="attachmentInput">Choose file</label>
         </div>
       </div>
@@ -56,8 +59,33 @@
         </li>
       </ul>
     </div>
+
+
+
+    <div class="col-12">
+      <span class="font-weight-bold col-form-label-sm">
+        {{ action_Types[rfqStatus.actionType-1].name }} Summary :
+        <span class="text-danger">*</span>
+      </span>
+
+      <textarea type="text" #Comment="ngModel" rows="5" [(ngModel)]="rfqStatus.comments" [readOnly]="data.mode == 'new'" required
+        name="comments" class="form-control form-control-sm" [ngClass]=" {'form-control-plaintext' : data.mode === 'new'}">
+        </textarea>
+      <input type="checkbox" required name="active" [(ngModel)]="rfqStatus.active" hidden />
+      <div class="alert-danger" *ngIf="Comment.touched && Comment.invalid">
+        <div *ngIf="Comment.errors['required']">
+          <small>You can't leave this empty.</small>
+        </div>
+      </div>
+    </div>
+
     <div class="col-12 buttons">
-      <button class="btn btn-dark btn-sm text-white mt-2" type="submit" [disabled]="f.invalid">Save</button>
+      <button class="btn btn-dark btn-sm text-white mt-2" type="submit" [disabled]="f.invalid">
+        <div [hidden]="mailContent">
+          Save
+        </div> 
+        <div [hidden]="!mailContent"> Send </div>
+      </button>
       <button class="btn btn-dark btn-sm text-white mt-2" type="button" (click)="closeForm()">Cancel</button>
     </div>
   </div>
