@@ -24,13 +24,13 @@
     border-radius: 0;
 }
 
-.card-body {
+.card-body-unpadded {
     padding: 0;
 }
 
 .html-template {
     overflow: auto;
-    height: 350px;
+    height: 248px;
 }
 
 .list-group-item.active {

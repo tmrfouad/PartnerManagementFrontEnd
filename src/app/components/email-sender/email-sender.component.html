@@ -1,0 +1,65 @@
+<div class="row scroll-wrapper scroll-wrapper-main">
+  <div class="col-3">
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col">
+            <strong>Email Senders</strong>
+          </div>
+          <div class="col-2 p-0">
+            <button class="btn btn-dark btn-sm" (click)="refreshSenders()">
+              <i class="fa fa-refresh"></i>
+            </button>
+          </div>
+          <div class="col-2 p-0">
+            <button class="btn btn-dark btn-sm" (click)="newSender()">
+              <i class="fa fa-plus"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="card-body card-body-unpadded">
+        <ng-template #loading>
+          <loading></loading>
+        </ng-template>
+        <ul class="list-group scroll-content" *ngIf="emailSenders; else loading">
+          <li class="list-group-item clickable" (click)="selectSender(sender)" *ngFor="let sender of emailSenders;let i = index" [class.active]="selectedIndex === i">
+            {{ sender.email }}
+            <button class="btn btn-sm float-right" (click)="removeSender(sender)">
+              <span class="fa fa-trash" aria-hidden="true"></span>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <div class="card-header">
+        <strong>Sender Details</strong>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="form">
+          <div class="form-group">
+            <label for="email">Email :</label>
+            <input formControlName="email" id="email" type="text" class="form-control" [(ngModel)]="emailSender.email">
+            <div *ngIf="Email.touched && Email.invalid" class="alert alert-danger">
+              <div *ngIf="Email.errors['required']">Email field is required.</div>
+              <div *ngIf="Email.errors['email']">This is not a valid email address.</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="password">Password :</label>
+            <input formControlName="password" id="password" type="password" class="form-control" [(ngModel)]="emailSender.password">
+            <div *ngIf="Password.touched && Password.invalid" class="alert alert-danger">
+              <div *ngIf="Password.errors['required']">Password field is required.</div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="card-footer">
+        <button [disabled]="form.invalid" class="btn btn-dark" type="button" (click)="saveSender()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

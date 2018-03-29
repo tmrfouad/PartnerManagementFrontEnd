@@ -16,8 +16,21 @@
           {{ item.name }}
         </option>
       </select>
-      <div class="alert alert-danger" *ngIf="RepresentId.touched && RepresentId.invalid">
-        <div *ngIf="RepresentId.errors['required']">
+    </div>
+    <div class="col-12" *ngIf="rfqStatus.actionType != 0 && data.mode == 'new' ">
+      <summary-info ></summary-info>
+    </div>
+    <div class="col-12">
+      <span class="font-weight-bold col-form-label-sm"> {{ action_Types[rfqStatus.actionType-1].name }} Summary :
+        <span class="text-danger">*</span>
+      </span>
+
+      <textarea type="text" #Comment="ngModel" [(ngModel)]="rfqStatus.comments" [readOnly]="data.mode == 'new'" required name="comments"
+        class="form-control form-control-sm">
+      </textarea>
+
+      <div class="alert-danger" *ngIf="Comment.touched && Comment.invalid">
+        <div *ngIf="Comment.errors['required']">
           <small>You can't leave this empty.</small>
         </div>
       </div>

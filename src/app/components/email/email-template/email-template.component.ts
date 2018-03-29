@@ -12,7 +12,7 @@ import { EmailTemplatePreviewComponent } from '../email-template-preview/email-t
 @Component({
   selector: 'app-email-template',
   templateUrl: './email-template.component.html',
-  styleUrls: ['./email-template.component.css']
+  styleUrls: ['./email-template.component.scss']
 })
 export class EmailTemplateComponent extends BaseComponent implements OnInit, OnDestroy {
   //#region Fields
@@ -20,21 +20,7 @@ export class EmailTemplateComponent extends BaseComponent implements OnInit, OnD
     'subject': new FormControl('', [Validators.required, Validators.minLength(3)]),
     'htmlTemplate': new FormControl('', [Validators.required, Validators.minLength(3)])
   });
-  tags = [
-    { key: 'address', name: 'Address' },
-    { key: 'companyEnglishName', name: 'Company Name' },
-    { key: 'contactPersonEmail', name: 'Contact Person Email' },
-    { key: 'contactPersonMobile', name: 'Contact Person Mobile' },
-    { key: 'contactPersonEnglishName', name: 'Contact Person Name' },
-    { key: 'contactPersonPosition', name: 'Contact Person Position' },
-    { key: 'location', name: 'Location' },
-    { key: 'phoneNumber', name: 'Phone Number' },
-    { key: 'rfqCode', name: 'RFQ Code' },
-    { key: 'selectedEdition', name: 'Selected Edition' },
-    { key: 'status', name: 'Status' },
-    { key: 'targetedProduct', name: 'Targeted Product' },
-    { key: 'website', name: 'Website' }
-  ];
+  tags = this.emailTmpService.getTags();
   template: EmailTemplate;
   templates: EmailTemplate[];
   tempSelectedIndex = 0;
@@ -91,18 +77,18 @@ export class EmailTemplateComponent extends BaseComponent implements OnInit, OnD
   }
 
   ngOnDestroy() {
-    this.mailGetSubs.unsubscribe();
-    this.mailPostSubs.unsubscribe();
-    this.mailPutSubs.unsubscribe();
-    this.mailDeleteSubs.unsubscribe();
-    this.sharedCurrTempsSubs.unsubscribe();
+    if (this.mailGetSubs) { this.mailGetSubs.unsubscribe(); }
+    if (this.mailPostSubs) { this.mailPostSubs.unsubscribe(); }
+    if (this.mailPutSubs) { this.mailPutSubs.unsubscribe(); }
+    if (this.mailDeleteSubs) { this.mailDeleteSubs.unsubscribe(); }
+    if (this.sharedCurrTempsSubs) { this.sharedCurrTempsSubs.unsubscribe(); }
   }
 
   addTag(tag) {
     const htmlInput: HTMLInputElement = this.htmlTemplateInput.nativeElement;
     const position = htmlInput.selectionStart;
     const templateText = <string>this.HtmlTemplate.value;
-    const insText = `{{ ${ tag.key } }}`;
+    const insText = `{{ ${tag.key} }}`;
     const outputText = [templateText.slice(0, position), insText, templateText.slice(position)].join('');
     this.HtmlTemplate.setValue(outputText);
     htmlInput.setSelectionRange(position + insText.length, position + insText.length);
@@ -139,7 +125,7 @@ export class EmailTemplateComponent extends BaseComponent implements OnInit, OnD
         this.templates[indx] = mail;
         this.sharedService.changeCurrentTemps(this.templates);
         this.closeLoading();
-        this.showSnackBar('Email template saved successfully.', 'Success');
+        this.showSnackBar('Email template updated successfully.', 'Success');
       }, error => {
         this.closeLoading();
         throw error;
@@ -155,22 +141,22 @@ export class EmailTemplateComponent extends BaseComponent implements OnInit, OnD
 
   removeTemp(temp: EmailTemplate) {
     this.showConfirm('Are you sure you want to delete this template ?', 'Delete')
-    .subscribe(async result => {
-      if (result === 'ok') {
-        this.showLoading('Please wait ...');
-        const mailDelete$ = await this.emailTmpService.delete(temp.id);
-        this.mailDeleteSubs = mailDelete$.subscribe((template: EmailTemplate) => {
-          const indx = this.templates.indexOf(temp);
-          this.templates.splice(indx, 1);
-          this.sharedService.changeCurrentTemps(this.templates);
-          this.closeLoading();
-          this.showSnackBar('Email template deleted successfully.', 'Success');
-        }, error => {
-          this.closeLoading();
-          throw error;
-        });
-      }
-    });
+      .subscribe(async result => {
+        if (result === 'ok') {
+          this.showLoading('Please wait ...');
+          const mailDelete$ = await this.emailTmpService.delete(temp.id);
+          this.mailDeleteSubs = mailDelete$.subscribe((template: EmailTemplate) => {
+            const indx = this.templates.indexOf(temp);
+            this.templates.splice(indx, 1);
+            this.sharedService.changeCurrentTemps(this.templates);
+            this.closeLoading();
+            this.showSnackBar('Email template deleted successfully.', 'Success');
+          }, error => {
+            this.closeLoading();
+            throw error;
+          });
+        }
+      });
   }
 
   async refreshTemps() {
@@ -214,21 +200,14 @@ export class EmailTemplateComponent extends BaseComponent implements OnInit, OnD
         position: {
           top: '100px'
         },
-        width: '600px',
+        width: '800px',
+        height: '500px',
         maxHeight: '500px',
         data: {
           subject: this.template.subject,
-          htmlTemplate: this.buildTempBody(rfq)
+          htmlTemplate: this.emailTmpService.buildTempBody(this.HtmlTemplate.value, rfq)
         }
       });
     }
-  }
-
-  buildTempBody(rfq): string {
-    let result = this.HtmlTemplate.value;
-    this.tags.forEach(tag => {
-      result = result.replace(`{{ ${ tag.key } }}`, rfq[tag.key]);
-    });
-    return result;
   }
 }

@@ -15,6 +15,9 @@ import { TranslateLoader, TranslateModule, TranslateStaticLoader } from 'ng2-tra
 
 import { AppComponent } from './app.component';
 import { ConfirmComponent } from './components/confirm/confirm.component';
+import { EmailSenderComponent } from './components/email-sender/email-sender.component';
+import { EmailTemplatePreviewComponent } from './components/email/email-template-preview/email-template-preview.component';
+import { EmailTemplateComponent } from './components/email/email-template/email-template.component';
 import { HomeComponent } from './components/home/home.component';
 import { ListViewComponent } from './components/list-view/list-view.component';
 import { LoadingComponent } from './components/loading/loading.component';
@@ -45,6 +48,8 @@ import { ActionTypeService } from './services/action-type.service';
 import { AuthGuard } from './services/auth-guard.service';
 import { CountryService } from './services/country.service';
 import { CutomErrorHandler } from './services/custom-error-handler';
+import { EmailSenderService } from './services/email-sender.service';
+import { EmailTemplateSharedService } from './services/email-template-shared.service';
 import { EmailTemplateService } from './services/email-template.service';
 import { NetworkService } from './services/network.service';
 import { ProductSharedService } from './services/product-shared.service';
@@ -55,9 +60,6 @@ import { RfqSharedService } from './services/rfq-shared.service';
 import { RfqService } from './services/rfq.service';
 import { StatusService } from './services/status.service';
 import { MailContentComponent } from './components/mail-content/mail-content.component';
-import { EmailTemplateComponent } from './components/email/email-template/email-template.component';
-import { EmailTemplateSharedService } from './services/email-template-shared.service';
-import { EmailTemplatePreviewComponent } from './components/email/email-template-preview/email-template-preview.component';
 
 export function createTranslateLoader(http: Http) {
   return new TranslateStaticLoader(http, './assets/i18n', '.json');
@@ -93,7 +95,8 @@ export function createTranslateLoader(http: Http) {
     NotFoundComponent,
     MailContentComponent,
     EmailTemplateComponent,
-    EmailTemplatePreviewComponent
+    EmailTemplatePreviewComponent,
+    EmailSenderComponent
   ],
   imports: [
     MatSnackBarModule,
@@ -119,6 +122,7 @@ export function createTranslateLoader(http: Http) {
       { path: 'rep', component: RepContainerComponent, canActivate: [AuthGuard] },
       { path: 'Rfq', component: RfqContainarComponent, canActivate: [AuthGuard] },
       { path: 'mailtemp', component: EmailTemplateComponent, canActivate: [AuthGuard] },
+      { path: 'mailsender', component: EmailSenderComponent, canActivate: [AuthGuard] },
       { path: '**', component: NotFoundComponent }
     ])
   ],
@@ -152,7 +156,9 @@ export function createTranslateLoader(http: Http) {
       useClass: CutomErrorHandler
     }],
     RfqSharedService,
-    EmailTemplateSharedService
+    EmailTemplateSharedService,
+    EmailTemplateService,
+    EmailSenderService
   ],
   bootstrap: [AppComponent]
 })

@@ -12,4 +12,5 @@ export interface REP {
      continuous?: boolean;
      dateOfBirth?: Date;
      created?: Date;
+     email?: string;
 }

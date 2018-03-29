@@ -67,11 +67,11 @@ export class ProductEditionListComponent extends BaseComponent implements OnInit
     });
   }
 
-  addEditionDialog(product: Product) {
+  addEditionDialog() {
     const dialogRef = this.dialog.open(ProductEditionFormComponent, {
       width: '800px',
       position: { top: '130px' },
-      data: { product: product, status: 'new' }
+      data: { product: this.product, status: 'new' }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'done') {

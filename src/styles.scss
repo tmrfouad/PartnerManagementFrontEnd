@@ -16,16 +16,19 @@ body {
   padding: 10px;
 }
 
+.scroll-wrapper-main {
+  margin: 90px 5px 5px 5px;
+}
+
 .scroll-wrapper {
   position: absolute;
-  margin: 90px 5px 5px 5px;
-  // width: 98%;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
 }
 
+.scroll-wrapper .card,
 .scroll-wrapper .card-body,
 .scroll-wrapper .row,
 .scroll-content
