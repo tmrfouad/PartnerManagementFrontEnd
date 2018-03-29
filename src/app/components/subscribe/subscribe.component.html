@@ -27,11 +27,7 @@
                   <small>{{ 'subscribe.errors.required' | translate }}</small>
                 </div>
                 <div *ngIf="name.errors['minlength']">
-<<<<<<< HEAD
-                  <small>{{ 'subscribe.errors.minLength' | translate:{value: name.errors.minlength.requiredLength} }}</small>
-=======
                   <small>{{ 'subscribe.errors.minLength' | translate:{value: name.errors?.minlength.requiredLength} }}</small>
->>>>>>> master
                 </div>
               </div>
             </div>
