@@ -53,6 +53,6 @@ export class BaseComponent {
     }
 
     getElement(ctrlName: string): HTMLElement {
-        return document.querySelector('Input[formControlName="' + ctrlName + '"]');
+        return document.querySelector('Input[formControlName="' + ctrlName + '"]') as HTMLElement;
     }
 }

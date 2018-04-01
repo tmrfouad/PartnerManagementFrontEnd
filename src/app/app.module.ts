@@ -18,6 +18,7 @@ import { EmailSenderComponent } from './components/email-sender/email-sender.com
 import { EmailTemplatePreviewComponent } from './components/email/email-template-preview/email-template-preview.component';
 import { EmailTemplateComponent } from './components/email/email-template/email-template.component';
 import { HomeComponent } from './components/home/home.component';
+import { ListViewComponent } from './components/list-view/list-view.component';
 import { LoadingComponent } from './components/loading/loading.component';
 import { LoginComponent } from './components/login/login.component';
 import { MailContentComponent } from './components/mail-content/mail-content.component';
@@ -58,7 +59,6 @@ import { RepService } from './services/rep.service';
 import { RfqService } from './services/rfq.service';
 import { StatusService } from './services/status.service';
 import { SummarySharedService } from './services/summary-shared.service';
-import { ListViewComponent } from './components/list-view/list-view.component';
 
 export function createTranslateLoader(http: Http) {
   return new TranslateStaticLoader(http, './assets/i18n', '.json');

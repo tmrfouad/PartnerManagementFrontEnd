@@ -80,8 +80,7 @@ export class RfqActionFormComponent implements OnInit, OnDestroy {
 
   addAction(actionType: ActionType) {
     const action: RFQAction = {
-      actionType: actionType,
-      representativeId: 0
+      actionType: actionType
     };
     const StatusDialogRef = this.dialog.open(StatusEditFormComponent, {
       width: '800px',
@@ -90,7 +89,8 @@ export class RfqActionFormComponent implements OnInit, OnDestroy {
       data: {
         mode: 'new',
         rfqId: this.rfq.rfqId,
-        action: action
+        action: action,
+        rfq: this.rfq
       }
     }).afterClosed().subscribe((result: { result: string, action: RFQAction }) => {
       if (result && result.result === 'saved') {
@@ -112,12 +112,14 @@ export class RfqActionFormComponent implements OnInit, OnDestroy {
       position: { top: '100px' },
       data: { mode: 'edit', rfq: this.rfq }
     }).afterClosed().subscribe((result: { dialogResult: string, rfq: RFQ }) => {
-      if (result.dialogResult === 'save') {
-        if (result.rfq) {
-          this.rfqService.changeCurrentItem(result.rfq);
-          const indx = this.rfqs.findIndex(r => r.rfqId === result.rfq.rfqId);
-          this.rfqs[indx] = result.rfq;
-          this.rfqService.changeCurrentItems(this.rfqs);
+      if (result) {
+        if (result.dialogResult === 'save') {
+          if (result.rfq) {
+            this.rfqService.changeCurrentItem(result.rfq);
+            const indx = this.rfqs.indexOf(result.rfq);
+            this.rfqs[indx] = result.rfq;
+            this.rfqService.changeCurrentItems(this.rfqs);
+          }
         }
       }
     });
