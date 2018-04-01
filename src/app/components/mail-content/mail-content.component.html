@@ -22,8 +22,8 @@
 
                 <!-- Send Mail -->
                 <!-- Wait the Service  -->
-                <select class="form-control" #EmailSend name="from" [(ngModel)]="emailSend" [hidden]="tabIndex !== 0" (ngModelChange)="onSelectMailChange(EmailSend.value)" >
-                    <option *ngFor="let emailSend of emailSenderList" [value]="emailSend"> {{ emailSend.email}} </option>
+                <select class="form-control" #EmailSend name="from" [(ngModel)]="emailSend" [hidden]="tabIndex !== 0" (ngModelChange)="onSelectMailChange(EmailSend.value)">
+                    <option *ngFor="let emailSend of emailSenderList" [value]="emailSend.id"> {{ emailSend.email}} </option>
                 </select>
 
                 <div class="alert alert-danger small" *ngIf="mailFrom.touched && mailFrom.invalid" [hidden]="tabIndex !== 1">
@@ -78,8 +78,10 @@
                 <span class="font-weight-bold col-form-label-sm"> Template
                 </span>
                 <div class="form-inline">
-                    <input type="text" class="form-control control-sm" name="Body" [(ngModel)]="sendMail.message.body" (blur)="changeItem()">
-                    <a class="btn btn-light text-dark" matTooltip="preview" matTooltipPosition="left">
+                    <select #Template name="emailTemp" id="" [(ngModel)]="emailTemp" class="form-control" (ngModelChange)="onSelectTemplateChange(Template.value)">
+                        <option *ngFor="let template of emailTempList" [value]="template.id"> {{ template.subject}} </option>
+                    </select>
+                    <a class="btn btn-light text-dark" matTooltip="preview" matTooltipPosition="left" (click)=" previewTemp()">
                         <i class="fa fa-eye"></i>
                     </a>
                 </div>

@@ -63,10 +63,10 @@
 
     <div class="col-12 buttons">
       <button class="btn btn-dark btn-sm text-white mt-2" type="submit" [disabled]="f.invalid">
-        <div [hidden]="mailData.mailType === 'sendmail'">
+        <div [hidden]="mailData?.mailType === 'sendmail'">
           Save
         </div>
-        <div [hidden]="mailData.mailType !== 'sendmail'"> Send </div>
+        <div [hidden]="mailData?.mailType !== 'sendmail'"> Send </div>
       </button>
       <button class="btn btn-dark btn-sm text-white mt-2" type="button" (click)="closeForm()">Cancel</button>
     </div>

@@ -2,8 +2,8 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Injectable } from '@angular/core';
 import { ActionType } from '../models/ActionType';
 import { SummaryDetails } from '../models/SummaryDetails';
-import { MailContent } from '../models/MailContent';
 import { MailData } from '../models/MailData';
+import { RFQ } from '../models/RFQ';
 
 @Injectable()
 export class SummarySharedService {
@@ -14,8 +14,11 @@ export class SummarySharedService {
   private actionSummeryDetailsshared = new BehaviorSubject<SummaryDetails>({ summary: '', active: false });
   currentActionSummeryDetails = this.actionSummeryDetailsshared.asObservable();
 
-  private sendMailShared = new BehaviorSubject<{ maildata?: MailData, mailType?: string }>({});
-  currentMailDetails = this.sendMailShared.asObservable();
+
+  // this service to send the rfq from the to the child component
+  // and the mailContnte to be able to send the mail data to the server
+  private sharedMailContent = new BehaviorSubject<{ rfq?: RFQ, mailContent?: MailData, mailType?: string }>({});
+  currentMailContent = this.sharedMailContent.asObservable();
 
 
   constructor() {
@@ -29,8 +32,8 @@ export class SummarySharedService {
     this.actionSummeryDetailsshared.next(summaryDetails);
   }
 
-  changeSendMailDetails(mailContent: { maildata?: MailData, mailType?: string }) {
-    this.sendMailShared.next(mailContent);
+  changeMailContent(options: {mailContent?: MailData, mailType?: string }) {
+    this.sharedMailContent.next(options);
   }
 
 }
