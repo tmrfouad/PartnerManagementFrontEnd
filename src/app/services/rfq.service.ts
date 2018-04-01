@@ -1,14 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
-import { RFQAction } from '../models/RFQAction';
-import { AccountService } from './account.service';
-import { IpDataService } from './ip-data.service';
-import { NetworkService } from './network.service';
 import { RFQ } from '../models/RFQ';
+import { RFQAction } from '../models/RFQAction';
+import { IpDataService } from './abstracts/ip-data.service';
+import { AccountService } from './account.service';
+import { NetworkService } from './network.service';
 
 @Injectable()
 export class RfqService extends IpDataService<RFQ> {
+
+  private currentRfqStatusSource = new BehaviorSubject<RFQAction>(null);
+  private currentRfqActionsSource = new BehaviorSubject<RFQAction[]>([]);
+
+  currentRfqStatus = this.currentRfqStatusSource.asObservable();
+  currentRfqActions = this.currentRfqActionsSource.asObservable();
 
   constructor(
     http: HttpClient,
@@ -63,5 +70,13 @@ export class RfqService extends IpDataService<RFQ> {
 
         throw new Error(JSON.stringify(error));
       });
+  }
+
+  changeCurrentRfqStatus(rfqStatus: RFQAction) {
+    this.currentRfqStatusSource.next(rfqStatus);
+  }
+
+  changeCurrentRfqActions(rfqActions: RFQAction[]) {
+    this.currentRfqActionsSource.next(rfqActions);
   }
 }

@@ -1,12 +1,6 @@
 <div class="row scroll-wrapper scroll-wrapper-main">
   <div class="col-4">
-    <!-- <rfq-list></rfq-list> -->
-    <list-view title="RFQ" [dataService]="rfqService" [displayMembers]="[
-        'companyEnglishName',
-        'contactPersonEnglishName',
-        'contactPersonMobile'
-        ]" (add)="onListViewAdd()" (change)="onListViewChange()" (delete)="onListViewDelete()" (refresh)="onListViewRefresh()">
-    </list-view>
+    <rfq-list></rfq-list>
   </div>
   <div class="col">
     <rfq-action-form></rfq-action-form>

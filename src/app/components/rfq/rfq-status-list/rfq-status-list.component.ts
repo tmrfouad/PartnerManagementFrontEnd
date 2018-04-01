@@ -8,7 +8,6 @@ import { RfqService } from './../../../services/rfq.service';
 import { StatusEditFormComponent } from '../status-edit-form/status-edit-form.component';
 import { Subscription } from 'rxjs/Subscription';
 import { ActionTypeService } from '../../../services/action-type.service';
-import { RfqSharedService } from '../../../services/rfq-shared.service';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -30,27 +29,26 @@ export class RfqStatusListComponent implements OnInit {
   constructor(
     private rfqService: RfqService,
     private dialog: MatDialog,
-    private actionTypeService: ActionTypeService,
-    private sharedService: RfqSharedService) {
+    private actionTypeService: ActionTypeService) {
 
     const types = Object.keys(ActionType);
     this.actionTypesMap = this.actionTypeService.getMapByValue();
 
-    this.sharedService.currentRfq.subscribe(async rfq => {
+    this.rfqService.currentItem.subscribe(async rfq => {
       this.rfq = rfq;
       if (rfq) {
         const rfqActions$ = await this.rfqService.getActions(rfq.rfqId);
         rfqActions$.subscribe((rfqActions: RFQAction[]) => {
-          this.sharedService.changeCurrentRfqActions(rfqActions);
+          this.rfqService.changeCurrentRfqActions(rfqActions);
         });
       }
     });
 
-    this.sharedService.currentRfqStatus.subscribe(rfqStatus => {
+    this.rfqService.currentRfqStatus.subscribe(rfqStatus => {
       this.rfqStatus = rfqStatus;
     });
 
-    this.sharedService.currentRfqActions.subscribe((rfqActions: RFQAction[]) => {
+    this.rfqService.currentRfqActions.subscribe((rfqActions: RFQAction[]) => {
       this.rfqActions = rfqActions;
     });
   }
@@ -74,12 +72,12 @@ export class RfqStatusListComponent implements OnInit {
           a.rfqId === this.rfq.rfqId &&
           a.id === action.id);
         this.rfqActions[indx] = result.action;
-        this.sharedService.changeCurrentRfqActions(this.rfqActions);
+        this.rfqService.changeCurrentRfqActions(this.rfqActions);
 
         if (this.rfqStatus.rfqId === action.rfqId &&
           this.rfqStatus.id === action.id) {
 
-          this.sharedService.changeCurrentRfqStatus(result.action);
+          this.rfqService.changeCurrentRfqStatus(result.action);
         }
       }
     });

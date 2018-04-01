@@ -12,7 +12,6 @@ import { ActionType } from './../../../models/ActionType';
 import { RFQ } from './../../../models/RFQ';
 import { RFQAction } from './../../../models/RFQAction';
 import { RfqService } from './../../../services/rfq.service';
-import { RfqSharedService } from '../../../services/rfq-shared.service';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({
@@ -39,35 +38,34 @@ export class RfqActionFormComponent implements OnInit, OnDestroy {
     private rfqService: RfqService,
     private dialog: MatDialog,
     private statusService: StatusService,
-    private actionTypeService: ActionTypeService,
-    private sharedService: RfqSharedService) {
+    private actionTypeService: ActionTypeService) {
 
     this.statusesMap = this.statusService.getMapByValue();
     this.actiontypesMap = this.actionTypeService.getMapByValue();
     this.actiontypesArray = this.actionTypeService.getArray();
 
-    this.rfqSubs = this.sharedService.currentRfq.subscribe(async rfq => {
+    this.rfqSubs = this.rfqService.currentItem.subscribe(async rfq => {
       this.rfq = rfq;
       this.statusListHidden = true;
       this.isRfqLoaded = true;
       if (rfq && rfq.rfqId) {
         const rfqStatus$ = await this.rfqService.getStatus(rfq.rfqId);
-        this.sharedService.changeCurrentRfqStatus(await rfqStatus$.toPromise());
+        this.rfqService.changeCurrentRfqStatus(await rfqStatus$.toPromise());
       } else {
-        this.sharedService.changeCurrentRfqStatus(null);
+        this.rfqService.changeCurrentRfqStatus(null);
       }
     });
 
-    this.sharedService.currentRfqStatus.subscribe(rfqStatus => {
+    this.rfqService.currentRfqStatus.subscribe(rfqStatus => {
       this.rfqStatus = rfqStatus;
       this.isRfqStatusLoaded = true;
     });
 
-    this.sharedService.currentRfqActions.subscribe(rfqActions => {
+    this.rfqService.currentRfqActions.subscribe(rfqActions => {
       this.rfqActions = rfqActions;
     });
 
-    this.sharedService.currentRfqs.subscribe(rfqs => {
+    this.rfqService.currentItems.subscribe(rfqs => {
       this.rfqs = rfqs;
     });
   }
@@ -96,9 +94,9 @@ export class RfqActionFormComponent implements OnInit, OnDestroy {
       }
     }).afterClosed().subscribe((result: { result: string, action: RFQAction }) => {
       if (result && result.result === 'saved') {
-        this.sharedService.changeCurrentRfqStatus(result.action);
+        this.rfqService.changeCurrentRfqStatus(result.action);
         this.rfqActions.push(result.action);
-        this.sharedService.changeCurrentRfqActions(this.rfqActions);
+        this.rfqService.changeCurrentRfqActions(this.rfqActions);
       }
     });
   }
@@ -116,10 +114,10 @@ export class RfqActionFormComponent implements OnInit, OnDestroy {
     }).afterClosed().subscribe((result: { dialogResult: string, rfq: RFQ }) => {
       if (result.dialogResult === 'save') {
         if (result.rfq) {
-          this.sharedService.changeCurrentRfq(result.rfq);
+          this.rfqService.changeCurrentItem(result.rfq);
           const indx = this.rfqs.findIndex(r => r.rfqId === result.rfq.rfqId);
           this.rfqs[indx] = result.rfq;
-          this.sharedService.changeCurrentRfqs(this.rfqs);
+          this.rfqService.changeCurrentItems(this.rfqs);
         }
       }
     });
@@ -137,7 +135,7 @@ export class RfqActionFormComponent implements OnInit, OnDestroy {
       }
     }).afterClosed().subscribe((result: { result: string, action: RFQAction }) => {
       if (result && result.result === 'saved') {
-        this.sharedService.changeCurrentRfq(this.rfq);
+        this.rfqService.changeCurrentItem(this.rfq);
       }
     });
   }

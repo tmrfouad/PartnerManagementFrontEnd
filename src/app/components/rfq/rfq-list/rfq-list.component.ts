@@ -6,7 +6,6 @@ import { RFQ } from '../../../models/RFQ';
 import { RfqService } from '../../../services/rfq.service';
 import { BaseComponent } from '../../base-component';
 import { RfqEditFormComponent } from '../rfq-edit-form/rfq-edit-form.component';
-import { RfqSharedService } from '../../../services/rfq-shared.service';
 
 
 @Component({
@@ -27,8 +26,7 @@ export class RfqListComponent extends BaseComponent implements OnInit, OnDestroy
   constructor(
     snackBar: MatSnackBar,
     public dialog: MatDialog,
-    private rfqService: RfqService,
-    private sharedService: RfqSharedService) {
+    private rfqService: RfqService) {
 
     super(snackBar, dialog);
   }
@@ -38,14 +36,14 @@ export class RfqListComponent extends BaseComponent implements OnInit, OnDestroy
     this.rfqListSubscription = get$.subscribe(rfqs => {
       if (rfqs) {
         this.rfqs = rfqs as RFQ[];
-        this.sharedService.changeCurrentRfqs(this.rfqs);
+        this.rfqService.changeCurrentItems(this.rfqs);
         this.applyFilter();
         this.selectRfq(0);
         this.isLoaded = true;
       }
     });
 
-    this.sharedService.currentRfqs.subscribe(rfqs => {
+    this.rfqService.currentItems.subscribe(rfqs => {
       this.rfqs = rfqs;
       this.applyFilter();
     });
@@ -66,7 +64,7 @@ export class RfqListComponent extends BaseComponent implements OnInit, OnDestroy
     }
 
     const rfq = this.rfqList[this.selectedIndex];
-    this.sharedService.changeCurrentRfq(rfq);
+    this.rfqService.changeCurrentItem(rfq);
   }
 
   applyFilter() {
@@ -108,7 +106,7 @@ export class RfqListComponent extends BaseComponent implements OnInit, OnDestroy
         if (result.dialogResult === 'save') {
           if (result.rfq) {
             this.rfqs.push(result.rfq);
-            this.sharedService.changeCurrentRfqs(this.rfqs);
+            this.rfqService.changeCurrentItems(this.rfqs);
           }
         }
       }
@@ -121,9 +119,9 @@ export class RfqListComponent extends BaseComponent implements OnInit, OnDestroy
         if (result === 'ok') {
           const delete$ = await this.rfqService.delete(rfqId);
           delete$.subscribe((rfq: RFQ) => {
-            const indx = this.rfqs.findIndex(r => r.rfqId === rfq.rfqId);
+            const indx = this.rfqs.indexOf(rfq);
             this.rfqs.splice(indx, 1);
-            this.sharedService.changeCurrentRfqs(this.rfqs);
+            this.rfqService.changeCurrentItems(this.rfqs);
             this.selectRfq(-1);
           });
         }

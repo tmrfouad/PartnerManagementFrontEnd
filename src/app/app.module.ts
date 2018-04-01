@@ -55,7 +55,6 @@ import { ProductSharedService } from './services/product-shared.service';
 import { ProductService } from './services/product.service';
 import { RepSharedService } from './services/rep-shared.service';
 import { RepService } from './services/rep.service';
-import { RfqSharedService } from './services/rfq-shared.service';
 import { RfqService } from './services/rfq.service';
 import { StatusService } from './services/status.service';
 import { SummarySharedService } from './services/summary-shared.service';
@@ -155,7 +154,6 @@ export function createTranslateLoader(http: Http) {
       provide: ErrorHandler,
       useClass: CutomErrorHandler
     }],
-    RfqSharedService,
     EmailTemplateSharedService,
     EmailTemplateService,
     EmailSenderService

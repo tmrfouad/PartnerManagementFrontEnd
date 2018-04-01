@@ -3,6 +3,8 @@ import { MatDialog, MatDialogRef, MatSnackBar } from '@angular/material';
 import { ConfirmComponent } from './confirm/confirm.component';
 import { LoadingComponent } from './loading/loading.component';
 import { MessageComponent } from './message/message.component';
+import { FormControl } from '@angular/forms';
+import { ElementRef } from '@angular/core';
 
 export class BaseComponent {
     private loadingDialogRef: MatDialogRef<LoadingComponent>;
@@ -48,5 +50,9 @@ export class BaseComponent {
         });
 
         return confirmDialog.afterClosed();
+    }
+
+    getElement(ctrlName: string): HTMLElement {
+        return document.querySelector('Input[formControlName="' + ctrlName + '"]');
     }
 }

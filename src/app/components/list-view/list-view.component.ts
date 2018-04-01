@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
-import { DataService } from '../../services/data-service.service';
+import { DataService } from '../../services/abstracts/data-service.service';
 import { Observable } from 'rxjs/Observable';
+import { BaseComponent } from '../base-component';
+import { MatSnackBar, MatDialog } from '@angular/material';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -8,30 +10,34 @@ import { Observable } from 'rxjs/Observable';
   templateUrl: './list-view.component.html',
   styleUrls: ['./list-view.component.css']
 })
-export class ListViewComponent implements OnInit {
+export class ListViewComponent<T> extends BaseComponent implements OnInit {
   @Input('title') title: string;
   @Input('displayMembers') displayMembers: string[] | string;
-  @Input('dataService') dataService;
+  @Input('keyFiald') keyFiald = 'id';
+  @Input('dataService') dataService: DataService<T>;
 
-  @Output('refresh') refresh = new EventEmitter();
   @Output('add') add = new EventEmitter();
-  @Output('delete') delete = new EventEmitter();
   @Output('change') change = new EventEmitter();
 
-  items: any[] = [];
-  visibleItems: any[];
+  items: T[] = [];
+  visibleItems: T[];
   isLoaded = false;
   selectedIndex = -1;
   searchFilter = '';
 
-  constructor() { }
+  constructor(snackBar: MatSnackBar, dialog: MatDialog) { super(snackBar, dialog); }
 
   async ngOnInit() {
-    const get$ = await this.dataService.get() as Observable<any[]>;
-    get$.subscribe(items => {
+    const get$ = await this.dataService.get();
+    get$.subscribe((items: T[]) => {
+      this.items = items;
+      this.dataService.changeCurrentItems(this.items);
+      this.isLoaded = true;
+    });
+
+    this.dataService.currentItems.subscribe(items => {
       this.items = items;
       this.searchItems();
-      this.isLoaded = true;
     });
   }
 
@@ -75,21 +81,49 @@ export class ListViewComponent implements OnInit {
 
       return result;
     });
+
+    if (this.visibleItems && this.visibleItems.length > 0) {
+      this.selectItemByIndex(0);
+    } else {
+      this.selectItemByIndex(-1);
+    }
   }
 
-  refreshItems() {
-    this.refresh.emit();
+  async refreshItems() {
+    const get$ = await this.dataService.get();
+    get$.subscribe((items: T[]) => {
+      this.items = items;
+      this.dataService.changeCurrentItems(this.items);
+      this.searchItems();
+    });
   }
 
   addItem() {
     this.add.emit();
   }
 
-  deleteItem(item) {
-    this.delete.emit(item);
+  async deleteItem(item) {
+    this.showConfirm('Are you sure you want to delete this item?', 'Delete item')
+      .subscribe(async result => {
+        if (result === 'ok') {
+          const delete$ = await this.dataService.delete(item[this.keyFiald]);
+          delete$.subscribe(itm => {
+            const indx = this.items.indexOf(item);
+            this.items.splice(indx, 1);
+            this.dataService.changeCurrentItems(this.items);
+          });
+        }
+      });
   }
 
-  selectItem(item) {
+  selectItemByIndex(index) {
+    this.selectedIndex = index;
+    const item = this.visibleItems[this.selectedIndex];
+    if (item) {
+      this.dataService.changeCurrentItem(item);
+    } else {
+      this.dataService.changeCurrentItem(<T>{});
+    }
     this.change.emit(item);
   }
 }

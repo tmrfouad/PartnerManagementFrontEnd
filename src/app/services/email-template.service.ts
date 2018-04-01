@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { EmailTemplate } from '../models/EmailTemplate';
 import { MailData } from '../models/MailData';
 import { AccountService } from './account.service';
-import { IpDataService } from './ip-data.service';
+import { IpDataService } from './abstracts/ip-data.service';
 import { NetworkService } from './network.service';
 import { RFQ } from '../models/RFQ';
 
@@ -46,7 +46,7 @@ export class EmailTemplateService extends IpDataService<EmailTemplate> {
   buildTempBody(htmlTemplate: string, rfq: RFQ): string {
     let result = htmlTemplate;
     this.getTags().forEach(tag => {
-      result = result.replace(`{{ ${tag.key} }}`, rfq[tag.key]);
+      result = result.split(`{{ ${tag.key} }}`).join(rfq[tag.key]);
     });
     return result;
   }

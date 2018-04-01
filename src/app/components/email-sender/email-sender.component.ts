@@ -23,10 +23,10 @@ export class EmailSenderComponent extends BaseComponent implements OnInit, OnDes
   selectedIndex = 0;
   newRecord = false;
 
-  getSubs: Subscription;
+  // getSubs: Subscription;
   postSubs: Subscription;
   putSubs: Subscription;
-  deleteSubs: Subscription;
+  // deleteSubs: Subscription;
   currSendersSubs: Subscription;
   currSenderSubs: Subscription;
   //#endregion
@@ -43,45 +43,47 @@ export class EmailSenderComponent extends BaseComponent implements OnInit, OnDes
   constructor(
     snackBar: MatSnackBar,
     dialog: MatDialog,
-    private emailSenderService: EmailSenderService) {
+    public emailSenderService: EmailSenderService) {
 
     super(snackBar, dialog);
     this.emailSender = {};
-    this.emailSenderService.changeCurrentSender({});
+    this.emailSenderService.changeCurrentItem({});
   }
 
   async ngOnInit() {
-    this.currSendersSubs = this.emailSenderService.currentSenders.subscribe(senders => {
+    this.currSendersSubs = this.emailSenderService.currentItems.subscribe(senders => {
       this.emailSenders = senders;
     });
 
-    this.currSenderSubs = this.emailSenderService.currentSender.subscribe(sender => {
+    this.currSenderSubs = this.emailSenderService.currentItem.subscribe(sender => {
       this.emailSender = sender;
     });
 
-    const get$ = await this.emailSenderService.get();
-    this.getSubs = get$.subscribe((senders: EmailSender[]) => {
-      this.emailSenders = senders;
-      this.emailSenderService.changeCurrentSenders(senders);
-      if (senders && senders.length > 0) {
-        this.selectedIndex = 0;
-        this.selectSender(senders[0]);
-        this.emailSenderService.changeCurrentSender(senders[0]);
-      }
-    });
+    // const get$ = await this.emailSenderService.get();
+    // this.getSubs = get$.subscribe((senders: EmailSender[]) => {
+    //   this.emailSenders = senders;
+    //   this.emailSenderService.changeCurrentSenders(senders);
+    //   if (senders && senders.length > 0) {
+    //     this.selectedIndex = 0;
+    //     this.selectSender(senders[0]);
+    //     this.emailSenderService.changeCurrentSender(senders[0]);
+    //   }
+    // });
   }
 
   ngOnDestroy() {
-    if (this.getSubs) { this.getSubs.unsubscribe(); }
+    // if (this.getSubs) { this.getSubs.unsubscribe(); }
     if (this.postSubs) { this.postSubs.unsubscribe(); }
     if (this.putSubs) { this.putSubs.unsubscribe(); }
-    if (this.deleteSubs) { this.deleteSubs.unsubscribe(); }
+    // if (this.deleteSubs) { this.deleteSubs.unsubscribe(); }
     if (this.currSendersSubs) { this.currSendersSubs.unsubscribe(); }
   }
 
   newSender() {
     this.newRecord = true;
-    this.emailSenderService.changeCurrentSender({});
+    this.emailSenderService.changeCurrentItem({});
+    this.form.reset();
+    this.getElement('email').focus();
   }
 
   async saveSender() {
@@ -91,9 +93,9 @@ export class EmailSenderComponent extends BaseComponent implements OnInit, OnDes
       this.postSubs = post$.subscribe((sender: EmailSender) => {
         this.newRecord = false;
         this.emailSender = sender;
-        this.emailSenderService.changeCurrentSender(sender);
+        this.emailSenderService.changeCurrentItem(sender);
         this.emailSenders.push(sender);
-        this.emailSenderService.changeCurrentSenders(this.emailSenders);
+        this.emailSenderService.changeCurrentItems(this.emailSenders);
         this.closeLoading();
         this.showSnackBar('Email sender saved successfully.', 'Success');
       }, error => {
@@ -104,10 +106,10 @@ export class EmailSenderComponent extends BaseComponent implements OnInit, OnDes
       const put$ = await this.emailSenderService.put(this.emailSender.id, this.form.value);
       this.putSubs = put$.subscribe((sender: EmailSender) => {
         this.emailSender = sender;
-        this.emailSenderService.changeCurrentSender(sender);
+        this.emailSenderService.changeCurrentItem(sender);
         const indx = this.emailSenders.indexOf(sender);
         this.emailSenders[indx] = sender;
-        this.emailSenderService.changeCurrentSenders(this.emailSenders);
+        this.emailSenderService.changeCurrentItems(this.emailSenders);
         this.closeLoading();
         this.showSnackBar('Email sender updated successfully.', 'Success');
       }, error => {
@@ -117,42 +119,42 @@ export class EmailSenderComponent extends BaseComponent implements OnInit, OnDes
     }
   }
 
-  selectSender(sender: EmailSender) {
-    const indx = this.emailSenders.indexOf(sender);
-    this.selectedIndex = indx;
-    this.emailSenderService.changeCurrentSender(sender);
-  }
+  // selectSender(sender: EmailSender) {
+  //   const indx = this.emailSenders.indexOf(sender);
+  //   this.selectedIndex = indx;
+  //   this.emailSenderService.changeCurrentSender(sender);
+  // }
 
-  removeSender(sender: EmailSender) {
-    this.showConfirm('Are you sure you want to delete this template ?', 'Delete')
-      .subscribe(async result => {
-        if (result === 'ok') {
-          this.showLoading('Please wait ...');
-          const delete$ = await this.emailSenderService.delete(sender.id);
-          this.deleteSubs = delete$.subscribe((emailSender: EmailSender) => {
-            const indx = this.emailSenders.indexOf(sender);
-            this.emailSenders.splice(indx, 1);
-            this.emailSenderService.changeCurrentSenders(this.emailSenders);
-            this.closeLoading();
-            this.showSnackBar('Email sender deleted successfully.', 'Success');
-          }, error => {
-            this.closeLoading();
-            throw error;
-          });
-        }
-      });
-  }
+  // removeSender(sender: EmailSender) {
+  //   this.showConfirm('Are you sure you want to delete this template ?', 'Delete')
+  //     .subscribe(async result => {
+  //       if (result === 'ok') {
+  //         this.showLoading('Please wait ...');
+  //         const delete$ = await this.emailSenderService.delete(sender.id);
+  //         this.deleteSubs = delete$.subscribe((emailSender: EmailSender) => {
+  //           const indx = this.emailSenders.indexOf(sender);
+  //           this.emailSenders.splice(indx, 1);
+  //           this.emailSenderService.changeCurrentSenders(this.emailSenders);
+  //           this.closeLoading();
+  //           this.showSnackBar('Email sender deleted successfully.', 'Success');
+  //         }, error => {
+  //           this.closeLoading();
+  //           throw error;
+  //         });
+  //       }
+  //     });
+  // }
 
-  async refreshSenders() {
-    const get$ = await this.emailSenderService.get();
-    this.getSubs = get$.subscribe((senders: EmailSender[]) => {
-      this.emailSenders = senders;
-      this.emailSenderService.changeCurrentSenders(senders);
-      if (senders && senders.length > 0) {
-        this.selectedIndex = 0;
-        this.selectSender(senders[0]);
-        this.emailSenderService.changeCurrentSender(senders[0]);
-      }
-    });
-  }
+  // async refreshSenders() {
+  //   const get$ = await this.emailSenderService.get();
+  //   this.getSubs = get$.subscribe((senders: EmailSender[]) => {
+  //     this.emailSenders = senders;
+  //     this.emailSenderService.changeCurrentSenders(senders);
+  //     if (senders && senders.length > 0) {
+  //       this.selectedIndex = 0;
+  //       this.selectSender(senders[0]);
+  //       this.emailSenderService.changeCurrentSender(senders[0]);
+  //     }
+  //   });
+  // }
 }

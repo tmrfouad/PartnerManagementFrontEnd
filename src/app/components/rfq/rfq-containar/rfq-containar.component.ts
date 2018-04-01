@@ -19,32 +19,11 @@ export class RfqContainarComponent implements OnInit, OnDestroy {
   rfqStatus;
   listHeight;
   orederIdparam: string;
-  rfqs: RFQ[];
 
   constructor(private activeRoute: ActivatedRoute, public rfqService: RfqService) { }
 
-  async ngOnInit() {
-    const get$ = await this.rfqService.get();
-    get$.subscribe((rfqs: RFQ[]) => this.rfqs = rfqs);
-  }
+  async ngOnInit() {}
 
   ngOnDestroy() {
-  }
-
-  onRfqListVisibleClear() {
-
-  }
-
-  onListViewAdd() {
-    
-  }
-  onListViewChange() {
-
-  }
-  onListViewDelete() {
-
-  }
-  onListViewRefresh() {
-
   }
 }

@@ -9,7 +9,7 @@ describe('IpDataService', () => {
     });
   });
 
-  it('should be created', inject([IpDataService], (service: IpDataService) => {
+  it('should be created', inject([IpDataService], (service: IpDataService<any>) => {
     expect(service).toBeTruthy();
   }));
 });

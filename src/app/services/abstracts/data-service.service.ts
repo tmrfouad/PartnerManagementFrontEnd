@@ -3,13 +3,20 @@ import 'rxjs/add/operator/catch';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
-import { environment } from '../../environments/environment';
-import { AccountService } from './account.service';
+import { environment } from '../../../environments/environment';
+import { AccountService } from '../account.service';
+import { SharedDataService } from './shared-data-service';
 
 @Injectable()
-export class DataService<T> {
+export class DataService<T> implements SharedDataService<T> {
+  private currentItemSource = new BehaviorSubject<T>(null);
+  private currentItemsSource = new BehaviorSubject<T[]>([]);
+
+  currentItem = this.currentItemSource.asObservable();
+  currentItems = this.currentItemsSource.asObservable();
+
   protected baseUrl: string;
   protected headers: HttpHeaders;
   private token: string;
@@ -60,4 +67,11 @@ export class DataService<T> {
     });
   }
 
+  changeCurrentItem(item: T) {
+    this.currentItemSource.next(item);
+  }
+
+  changeCurrentItems(items: T[]) {
+    this.currentItemsSource.next(items);
+  }
 }

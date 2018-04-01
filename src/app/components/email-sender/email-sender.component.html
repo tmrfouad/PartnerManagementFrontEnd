@@ -1,6 +1,7 @@
 <div class="row scroll-wrapper scroll-wrapper-main">
   <div class="col-3">
-    <div class="card">
+    <list-view title="Email Templates" [dataService]="emailSenderService" [displayMembers]="'email'" (add)="newSender()"></list-view>
+    <!-- <div class="card">
       <div class="card-header">
         <div class="row">
           <div class="col">
@@ -31,7 +32,7 @@
           </li>
         </ul>
       </div>
-    </div>
+    </div> -->
   </div>
   <div class="col">
     <div class="card">
