@@ -65,11 +65,9 @@ export class ListViewComponent<T> extends BaseComponent implements OnInit {
     const srchFltr = this.searchFilter.toLowerCase();
     this.visibleItems = this.items.filter(r => {
       let result = false;
-      let res = '';
       if (this.displayMembers) {
         if (this.displayMembers instanceof Array) {
           this.displayMembers.forEach(member => {
-            res = res + (res === '' ? '' : ' || ') + `${r[member]}.toLowerCase().includes(${srchFltr})`;
             result = result || r[member].toLowerCase().includes(srchFltr);
           });
         } else {
