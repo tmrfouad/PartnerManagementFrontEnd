@@ -1,12 +1,13 @@
 <div class="row scroll-wrapper scroll-wrapper-main">
   <div class="col-3">
-    <list-view title="Email Templates" [dataService]="emailTmpService" [displayMembers]="'subject'"
-      [keyFiald]="'id'" (add)="newTemp()"></list-view>
+    <list-view [dataService]="emailTmpService" [displayMembers]="'subject'"
+      [keyFiald]="'id'" (add)="newTemp()">
+    </list-view>
   </div>
   <div class="col">
     <div class="card">
       <div class="card-header">
-        <strong>Template Details</strong>
+        <strong>Email Templates</strong>
       </div>
       <div class="card-body">
         <div class="row">
