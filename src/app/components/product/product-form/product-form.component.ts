@@ -1,4 +1,3 @@
-import { ProductSharedService } from '../../../services/product-shared.service';
 import { BaseComponent } from './../../base-component';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ProductService } from '../../../services/product.service';
@@ -20,11 +19,11 @@ export class ProductFormComponent extends BaseComponent implements OnInit {
 
   constructor(private productService: ProductService,
     private router: Router,
-    private prodSharedService: ProductSharedService,
+    private prodService: ProductService,
     snackBar: MatSnackBar,
     dialog: MatDialog) {
     super(snackBar, dialog);
-    prodSharedService.currentProduct.subscribe((item: Product) => {
+    prodService.currentItem.subscribe((item: Product) => {
       this.prod = item;
       if (item && Object.keys(item).length > 0) {
         this.currentProduct = Object.assign(this.currentProduct, item);
@@ -32,7 +31,7 @@ export class ProductFormComponent extends BaseComponent implements OnInit {
         this.currentProduct = <Product>{};
       }
     });
-    prodSharedService.currentProductList.subscribe(prodList => this.prodList = prodList);
+    prodService.currentItems.subscribe(prodList => this.prodList = prodList);
   }
 
   ngOnInit() {
@@ -47,7 +46,7 @@ export class ProductFormComponent extends BaseComponent implements OnInit {
         this.closeLoading();
         this.showSnackBar('Product edited successfully', 'Success');
         this.prod = Object.assign(this.prod, currentProduct);
-        this.prodSharedService.changeProduct(this.prod);
+        this.prodService.changeCurrentItem(this.prod);
       }).catch(error => {
         this.closeLoading();
         throw error;
@@ -59,9 +58,9 @@ export class ProductFormComponent extends BaseComponent implements OnInit {
       product$.toPromise().then((prod: Product) => {
 
         this.prod = Object.assign(this.prod, prod);
-        this.prodSharedService.changeProduct(this.prod);
+        this.prodService.changeCurrentItem(this.prod);
         this.prodList.push(product);
-        this.prodSharedService.changeProductList(this.prodList);
+        this.prodService.changeCurrentItems(this.prodList);
 
         this.closeLoading();
         this.showSnackBar('Product added successfully', 'Success');

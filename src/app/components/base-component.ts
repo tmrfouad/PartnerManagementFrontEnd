@@ -52,7 +52,11 @@ export class BaseComponent {
         return confirmDialog.afterClosed();
     }
 
-    getElement(ctrlName: string): HTMLElement {
+    getReactiveElement(ctrlName: string): HTMLElement {
         return document.querySelector('Input[formControlName="' + ctrlName + '"]') as HTMLElement;
+    }
+
+    getElement(ctrlName: string): HTMLElement {
+        return document.querySelector('Input[name="' + ctrlName + '"]') as HTMLElement;
     }
 }

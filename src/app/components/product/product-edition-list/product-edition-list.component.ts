@@ -5,7 +5,6 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { Product } from '../../../models/Product';
 import { ProductEdition } from '../../../models/ProductEdition';
-import { ProductSharedService } from '../../../services/product-shared.service';
 import { ProductService } from '../../../services/product.service';
 import { ProductEditionFormComponent } from '../product-edition-form/product-edition-form.component';
 import { BaseComponent } from './../../base-component';
@@ -24,15 +23,14 @@ export class ProductEditionListComponent extends BaseComponent implements OnInit
 
   private product: Product;
   constructor(private productService: ProductService,
-    private productSharedService: ProductSharedService,
     dialog: MatDialog,
     snackBar: MatSnackBar) {
     super(snackBar, dialog);
-    this.productSharedService.currentProduct.subscribe(prod => {
+    this.productService.currentItem.subscribe(prod => {
       this.product = prod;
       this.refreshProdEdition(this.product);
     });
-    this.productSharedService.currentEditionList.subscribe(
+    this.productService.currentEditions.subscribe(
       (prod: ProductEdition[]) => this.prodEditionList = prod);
   }
   ngOnInit() {
@@ -48,7 +46,7 @@ export class ProductEditionListComponent extends BaseComponent implements OnInit
       this.product$ = await this.productService.getEditions(product.id);
       this.subscription = this.product$.subscribe((item: ProductEdition[]) => {
         this.prodEditionList = item;
-        this.productSharedService.changeEditionList(this.prodEditionList);
+        this.productService.changeCurrentEditions(this.prodEditionList);
       });
     }
   }

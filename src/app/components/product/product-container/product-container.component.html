@@ -1,23 +1,17 @@
-
-
-<div class="row">
+<div class="row scroll-wrapper scroll-wrapper-main">
   <div class="col-4">
-    <product-list></product-list>
+    <list-view [dataService]="productService" [displayMembers]="'englishName'" (add)="addProd()"></list-view>
+    <!-- <product-list></product-list> -->
   </div>
   <div class="col-8">
     <div class="card">
       <div class="card-header">
-        <ng-template #sec>
-            <h3> New Product </h3> 
-           </ng-template>
-           <div *ngIf="(product | json) != '{}' ; else sec">
-              <h3> Product Details </h3>
-           </div>
+          <h3> Products </h3>
       </div>
       <div class="card-body">
         <product-form></product-form>
       </div>
-      <div class="card-footer" *ngIf="product">
+      <div class="card-footer scroll-content" *ngIf="product">
         <product-edition-list></product-edition-list>
       </div>
     </div>

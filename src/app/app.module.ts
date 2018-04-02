@@ -52,7 +52,6 @@ import { EmailSenderService } from './services/email-sender.service';
 import { EmailTemplateSharedService } from './services/email-template-shared.service';
 import { EmailTemplateService } from './services/email-template.service';
 import { NetworkService } from './services/network.service';
-import { ProductSharedService } from './services/product-shared.service';
 import { ProductService } from './services/product.service';
 import { RepSharedService } from './services/rep-shared.service';
 import { RepService } from './services/rep.service';
@@ -147,7 +146,6 @@ export function createTranslateLoader(http: Http) {
     ActionTypeService,
     RepService,
     RepSharedService,
-    ProductSharedService,
     SummarySharedService,
     ProductService,
     [{

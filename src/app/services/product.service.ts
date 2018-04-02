@@ -5,9 +5,16 @@ import { AccountService } from './account.service';
 import { IpDataService } from './abstracts/ip-data.service';
 import { NetworkService } from './network.service';
 import { Product } from '../models/Product';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { ProductEdition } from '../models/ProductEdition';
 
 @Injectable()
 export class ProductService extends IpDataService<Product> {
+  private currentEditionSource = new BehaviorSubject<ProductEdition>(null);
+  currentEdition = this.currentEditionSource.asObservable();
+
+  private currentEditionsSource = new BehaviorSubject<ProductEdition[]>(null);
+  currentEditions = this.currentEditionsSource.asObservable();
 
   constructor(
     http: HttpClient,
@@ -50,5 +57,14 @@ export class ProductService extends IpDataService<Product> {
     return this.http.delete(`${this.baseUrl + this.url}/DeleteEdition/${id}/${editionId}`, { headers: this.headers }).catch(error => {
       throw new Error(JSON.stringify(error));
     });
+  }
+
+
+  changeCurrentEdition(edition: ProductEdition) {
+    this.currentEditionSource.next(edition);
+  }
+
+  changeCurrentEditions(editions: ProductEdition[]) {
+    this.currentEditionsSource.next(editions);
   }
 }

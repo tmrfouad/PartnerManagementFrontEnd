@@ -83,7 +83,7 @@ export class EmailSenderComponent extends BaseComponent implements OnInit, OnDes
     this.newRecord = true;
     this.emailSenderService.changeCurrentItem({});
     this.form.reset();
-    this.getElement('email').focus();
+    this.getReactiveElement('email').focus();
   }
 
   async saveSender() {

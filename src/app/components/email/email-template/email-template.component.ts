@@ -95,7 +95,7 @@ export class EmailTemplateComponent extends BaseComponent implements OnInit, OnD
     this.newRecord = true;
     this.emailTmpService.changeCurrentItem({});
     this.form.reset();
-    this.getElement('subject').focus();
+    this.getReactiveElement('subject').focus();
   }
 
   async saveTemp() {

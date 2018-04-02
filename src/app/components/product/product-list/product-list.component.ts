@@ -5,7 +5,6 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { BaseComponent } from '../../base-component';
 import { Product } from './../../../models/Product';
-import { ProductSharedService } from './../../../services/product-shared.service';
 import { ProductService } from './../../../services/product.service';
 
 @Component({
@@ -23,11 +22,10 @@ export class ProductListComponent extends BaseComponent implements OnInit, OnDes
   selectedIndex = 0;
 
   constructor(private productService: ProductService,
-    private prodSharService: ProductSharedService,
     dialog: MatDialog,
     snackBar: MatSnackBar) {
     super(snackBar, dialog);
-    prodSharService.currentProductList.subscribe(productList => this.productList = productList);
+    productService.currentItems.subscribe(productList => this.productList = productList);
   }
 
   ngOnInit() {
@@ -43,8 +41,8 @@ export class ProductListComponent extends BaseComponent implements OnInit, OnDes
     this.subscription = this.product$.subscribe((item: Product[]) => {
       this.productList = item;
       if (this.productList.length > 0) {
-        this.prodSharService.changeProduct(this.productList[0]);
-        this.prodSharService.changeProductList(this.productList);
+        this.productService.changeCurrentItem(this.productList[0]);
+        this.productService.changeCurrentItems(this.productList);
         this.selectedIndex = 0;
       }
     });
@@ -52,7 +50,7 @@ export class ProductListComponent extends BaseComponent implements OnInit, OnDes
 
   selectedRep(product, i) {
     this.selectedIndex = i;
-    this.prodSharService.changeProduct(product);
+    this.productService.changeCurrentItem(product);
   }
 
   removeRep(product: Product) {
@@ -70,6 +68,6 @@ export class ProductListComponent extends BaseComponent implements OnInit, OnDes
     this.selectedIndex = -1;
     // add product as property as the VS not accept the const
     const product: Product = <Product>{};
-    this.prodSharService.changeProduct(product);
+    this.productService.changeCurrentItem(product);
   }
 }
