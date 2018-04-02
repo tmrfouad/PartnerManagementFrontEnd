@@ -6,4 +6,6 @@ export interface ActionTypeComment {
         actionWhen?: string;
         requiredActions?: string;
         callSummary?: string;
+        meetingType?: string;
+        minOfMeeting?: string;
 }
