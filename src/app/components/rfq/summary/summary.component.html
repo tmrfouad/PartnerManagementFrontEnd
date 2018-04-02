@@ -1,7 +1,7 @@
 <div class="row">
     <mail-content [hidden]="hidden([1,2,3,4])"></mail-content>
     <div class="col-6">
-        <div [hidden]="hidden([5]) || meetingType !=='0'" class="form-group">
+        <div [hidden]="hidden([5]) || summaryInfo.meetingType !=='0'" class="form-group">
             <span class="font-weight-bold col-form-label-sm"> Where
                 <span class="text-danger">*</span>
             </span>
