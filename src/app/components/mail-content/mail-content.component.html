@@ -1,5 +1,6 @@
 <div class="container ">
     <div class="row">
+
         <div class="col-12">
             <ul class="nav nav-tabs">
                 <li class="nav-item w-50">
@@ -10,114 +11,135 @@
                 </li>
             </ul>
         </div>
-        <!-- Email Content -->
-        <div class="col-6">
-            <div class="form-group">
-                <span class="font-weight-bold col-form-label-sm"> From
-                    <span class="text-danger">*</span>
-                </span>
-                <!-- Report Mail -->
-                <input type="text" required class="form-control control-sm" #mailFrom="ngModel" [(ngModel)]="reportMail.from" [hidden]="tabIndex !== 1"
-                    name="mailFrom" (change)="changeItem()">
 
-                <!-- Send Mail -->
-                <!-- Wait the Service  -->
-                <select class="form-control" #EmailSend name="from" [(ngModel)]="emailSend" [hidden]="tabIndex !== 0" (ngModelChange)="onSelectMailChange(EmailSend.value)">
-                    <option *ngFor="let emailSend of emailSenderList" [value]="emailSend.id"> {{ emailSend.email}} </option>
-                </select>
-
-                <div class="alert alert-danger small" *ngIf="mailFrom.touched && mailFrom.invalid" [hidden]="tabIndex !== 1">
-                    <div *ngIf="mailFrom.errors['required']">
-                        can't Leave this empty
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-6 ">
-            <div class="form-group">
-                <span class="font-weight-bold col-form-label-sm"> To
-                    <span class="text-danger">*</span>
-                </span>
-                <!-- Report Mail -->
-                <input type="text" [hidden]="tabIndex !== 1" required class="form-control control-sm" #reportMailTo="ngModel" [(ngModel)]="reportMail.to"
-                    name="mailTo" (blur)="changeItem()">
-                <div [hidden]="tabIndex !== 1" class="alert alert-danger small" *ngIf="reportMailTo.touched && reportMailTo.invalid">
-                    <div *ngIf="reportMailTo.errors['required']">
-                        can't Leave this empty
-                    </div>
-                </div>
-
-                <!-- Send Mail -->
-                <input type="text" [hidden]="tabIndex === 1" required class="form-control control-sm" #sendMailTo="ngModel" [(ngModel)]="sendMail.message.to"
-                    name="sendMailTo" (blur)="changeItem()">
-                <div class="alert alert-danger small" *ngIf="sendMailTo.touched && sendMailTo.invalid" [hidden]="tabIndex === 1">
-                    <div *ngIf="sendMailTo.errors['required']">
-                        can't Leave this empty
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-6" [hidden]="tabIndex === 0">
-            <div class="form-group">
-                <span class="font-weight-bold col-form-label-sm"> Body
-                    <span class="text-danger">*</span>
-                </span>
-                <input required type="text" class="form-control control-sm" name="Body" #mailBody="ngModel" [(ngModel)]="reportMail.body"
-                    (blur)="changeItem()">
-                <div class="alert alert-danger small" *ngIf="mailBody.touched && mailBody.invalid">
-                    <div *ngIf="mailBody.errors['required']">
-                        can't Leave this empty
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- send Mail -->
-        <div class="col-6" [hidden]="tabIndex === 1">
-            <div class="form-group">
-                <span class="font-weight-bold col-form-label-sm"> Template
-                </span>
-                <div class="form-inline">
-                    <select #Template name="emailTemp" id="" [(ngModel)]="emailTemp" class="form-control" (ngModelChange)="onSelectTemplateChange(Template.value)">
-                        <option *ngFor="let template of emailTempList" [value]="template.id"> {{ template.subject}} </option>
+        <!-- Send Mail -->
+        <ng-template [ngIf]="tabIndex === 0">
+            <div class="col-6">
+                <div class="form-group">
+                    <span class="font-weight-bold col-form-label-sm"> From
+                        <span class="text-danger">*</span>
+                    </span>
+                    <select class="form-control" #EmailSend name="from" [(ngModel)]="emailSend" (ngModelChange)="onSelectMailChange(EmailSend.value)">
+                        <option *ngFor="let emailSend of emailSenderList" [value]="emailSend.id"> {{ emailSend.email}} </option>
                     </select>
-                    <a class="btn btn-light text-dark" matTooltip="preview" matTooltipPosition="left" (click)=" previewTemp()">
-                        <i class="fa fa-eye"></i>
-                    </a>
                 </div>
             </div>
-        </div>
+            <div class="col-6 ">
+                <div class="form-group">
+                    <span class="font-weight-bold col-form-label-sm"> To
+                        <span class="text-danger">*</span>
+                    </span>
 
-        <div class="col-6">
-            <div class="form-group">
-                <span class="font-weight-bold col-form-label-sm"> CC
-                </span>
-                <!-- Report Mail -->
-                <input type="text" class="form-control control-sm" [(ngModel)]="reportMail.CC" [hidden]="tabIndex !== 1" name="MailFrom"
-                    (blur)="changeItem()">
-                <!-- Send Mail -->
-                <div class="form-inline input-group" [hidden]="tabIndex !== 0">
-                    <input type="text" name="attend" #MailCC="ngModel" [(ngModel)]="mailCC" class="form-control control-sm">
-                    <div class="input-group-append">
-                        <div class="input-group-text" (click)="addItem(MailCC.value)">
-                            <a matTooltip="Add CC" matTooltipPosition="right">
-                                <i class="fa fa-plus text-info"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-inline input-group" *ngFor="let item of sendMail.message.cc" [hidden]="tabIndex !== 0">
-                    <input type="text" readonly class="form-control control-sm" [value]="item">
-                    <div class="input-group-append">
-                        <div class="input-group-text" (click)="removeMailCC(item)">
-                            <a matTooltipPosition="right">
-                                <i class="fa fa-trash text-danger"></i>
-                            </a>
+                    <input type="text" required class="form-control control-sm" #sendMailTo="ngModel" [(ngModel)]="sendMail.message.to" name="sendMailTo"
+                        (blur)="changeItem()">
+                    <div class="alert alert-danger small" *ngIf="sendMailTo.touched && sendMailTo.invalid">
+                        <div *ngIf="sendMailTo.errors['required']">
+                            can't Leave this empty
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <span class="font-weight-bold col-form-label-sm"> Template
+                    </span>
+                    <div class="form-inline input-group">
+                        <select #Template name="emailTemp" [(ngModel)]="emailTemp" class="form-control control-sm" (ngModelChange)="onSelectTemplateChange(Template.value)">
+                            <option *ngFor="let template of emailTempList" [value]="template.id"> {{ template.subject}} </option>
+                        </select>
+                        <div class="input-group-append">
+                            <div class="input-group-text" (click)="addItem(MailCC.value)">
+                                <a matTooltip="preview" matTooltipPosition="left" (click)=" previewTemp()">
+                                    <i class="fa fa-eye text-info"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <span class="font-weight-bold col-form-label-sm"> CC
+                    </span>
+                    <div class="form-inline input-group">
+                        <input type="text" name="attend" #MailCC="ngModel" [(ngModel)]="mailCC" class="form-control control-sm">
+                        <div class="input-group-append">
+                            <div class="input-group-text" (click)="addItem(MailCC.value)">
+                                <a matTooltip="Add CC" matTooltipPosition="right">
+                                    <i class="fa fa-plus text-info"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-inline input-group" *ngFor="let item of sendMail.message.cc">
+                        <input type="text" readonly class="form-control control-sm" [value]="item">
+                        <div class="input-group-append">
+                            <div class="input-group-text" (click)="removeMailCC(item)">
+                                <a matTooltipPosition="right">
+                                    <i class="fa fa-trash text-danger"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+
+        <!-- Report Mail -->
+        <ng-template [ngIf]="tabIndex === 1" class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <span class="font-weight-bold col-form-label-sm"> From
+                        <span class="text-danger">*</span>
+                    </span>
+                    <input type="text" required class="form-control control-sm" #mailFrom="ngModel" [(ngModel)]="reportMail.from" name="mailFrom"
+                        (change)="changeItem()">
+
+                    <div class="alert alert-danger small" *ngIf="mailFrom.touched && mailFrom.invalid">
+                        <div *ngIf="mailFrom.errors['required']">
+                            can't Leave this empty
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <span class="font-weight-bold col-form-label-sm"> To
+                        <span class="text-danger">*</span>
+                    </span>
+                    <input type="text" required class="form-control control-sm" #reportMailTo="ngModel" [(ngModel)]="reportMail.to" name="mailTo"
+                        (blur)="changeItem()">
+                    <div class="alert alert-danger small" *ngIf="reportMailTo.touched && reportMailTo.invalid">
+                        <div *ngIf="reportMailTo.errors['required']">
+                            can't Leave this empty
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <span class="font-weight-bold col-form-label-sm"> Body
+                        <span class="text-danger">*</span>
+                    </span>
+                    <input required type="text" class="form-control control-sm" name="Body" #mailBody="ngModel" [(ngModel)]="reportMail.body"
+                        (blur)="changeItem()">
+                    <div class="alert alert-danger small" *ngIf="mailBody.touched && mailBody.invalid">
+                        <div *ngIf="mailBody.errors['required']">
+                            can't Leave this empty
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <span class="font-weight-bold col-form-label-sm"> CC
+                    </span>
+                    <input type="text" class="form-control control-sm" [(ngModel)]="reportMail.CC" name="MailFrom" (blur)="changeItem()">
+                </div>
+            </div>
+        </ng-template>
+
+
         <div class="col-6">
             <div class="form-group">
                 <span class="font-weight-bold col-form-label-sm"> When
@@ -132,6 +154,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 </div>
 
