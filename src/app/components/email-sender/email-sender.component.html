@@ -1,11 +1,11 @@
 <div class="row scroll-wrapper scroll-wrapper-main">
   <div class="col-3">
-    <list-view title="Email Senders" [dataService]="emailSenderService" [displayMembers]="'email'" (add)="newSender()"></list-view>
+    <list-view [dataService]="emailSenderService" [displayMembers]="'email'" (add)="newSender()"></list-view>
   </div>
   <div class="col">
     <div class="card">
       <div class="card-header">
-        <strong>Sender Details</strong>
+        <strong>Email Senders</strong>
       </div>
       <div class="card-body">
         <form [formGroup]="form">
