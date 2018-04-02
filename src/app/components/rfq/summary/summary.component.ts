@@ -16,9 +16,12 @@ export class SummaryComponent implements OnInit {
   attend: string;
   tabIndex = 0;
   summaryInfo: ActionTypeComment = {};
-  summaryDetails: SummaryDetails;
+  summaryOptions: SummaryDetails;
   actionType: ActionType;
-
+  meetingTypes: { key: string, name: string }[] =
+    [{ key: '0', name: 'On site' }, { key: '1', name: 'Web conference' }];
+  meeting_Types: { [key: string]: string } =
+    { '0': 'On site', '1': 'Web conference' };
   constructor(private summarySharedServ: SummarySharedService) {
     summarySharedServ.actionTypeCurrent.subscribe(item => {
       this.actionType = item;
@@ -40,9 +43,10 @@ export class SummaryComponent implements OnInit {
 
   validate(): boolean {
     if (this.summaryInfo) {
-      if ((this.summaryInfo.attendee && this.summaryInfo.attendee.length === 0 && ![5, 4].includes(+this.actionType)) ||
+      if ((this.summaryInfo.attendee && this.summaryInfo.attendee.length === 0 && ![5, 4, 2].includes(+this.actionType)) ||
         !this.summaryInfo.actionWhen ||
-        (!this.summaryInfo.where && ![5, 4].includes(+this.actionType))) {
+        (!this.summaryInfo.where && ![5, 4].includes(+this.actionType)) ||
+        (!this.summaryInfo.meetingType && ![1, 3, 4, 5].includes(+this.actionType))) {
         return false;
       } else {
         return true;
@@ -67,7 +71,8 @@ export class SummaryComponent implements OnInit {
   }
 
   addActionSummery(): string {
-    let where = ' ', visitReason = '', requiredAction = '', comment = '', attended = '', when = '', callSummary = '', summery: string;
+    let where = ' ', visitReason = '', requiredAction = '', comment = '', attended = '',
+      when = '', callSummary = '', meetingType = '', minOfMeeting = '', summery: string;
     if (this.summaryInfo.where) {
       where = 'Where: ' + this.summaryInfo.where + '\n';
     }
@@ -95,7 +100,17 @@ export class SummaryComponent implements OnInit {
       }
     }
 
-    summery = where + attended + visitReason + when + requiredAction + comment + callSummary;
+    if (this.summaryInfo.meetingType) {
+      meetingType = 'Meeting Type: ' + this.meeting_Types[this.summaryInfo.meetingType] + '\n';
+    }
+
+    if (this.summaryInfo.minOfMeeting) {
+      minOfMeeting = 'Minutes of Meeting: ' + this.summaryInfo.minOfMeeting + '\n';
+    }
+
+    summery = meetingType + where + attended + minOfMeeting +
+      visitReason + when + requiredAction +
+      comment + callSummary;
     return summery.trim();
   }
 
