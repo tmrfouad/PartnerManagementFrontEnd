@@ -123,7 +123,7 @@
                 <span class="font-weight-bold col-form-label-sm"> When
                     <span class="text-danger">*</span>
                 </span>
-                <input type="text" required #actionWhen="ngModel" class="form-control control-sm" name="actionWhen" (change)="changeItem()"
+                <input type="datetime-local" required #actionWhen="ngModel" class="form-control control-sm" name="actionWhen" (change)="changeItem()"
                     [(ngModel)]="When">
                 <div class="alert alert-danger small" *ngIf="actionWhen.touched && actionWhen.invalid">
                     <div *ngIf="actionWhen.errors['required']">

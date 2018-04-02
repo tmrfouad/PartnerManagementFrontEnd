@@ -2,38 +2,6 @@
   <div class="col-3">
     <list-view title="Email Templates" [dataService]="emailTmpService" [displayMembers]="'subject'"
       [keyFiald]="'id'" (add)="newTemp()"></list-view>
-    <!-- <div class="card">
-      <div class="card-header">
-        <div class="row">
-          <div class="col">
-            <strong>Email Templates</strong>
-          </div>
-          <div class="col-2 p-0">
-            <button class="btn btn-dark btn-sm" (click)="refreshTemps()">
-              <i class="fa fa-refresh"></i>
-            </button>
-          </div>
-          <div class="col-2 p-0">
-            <button class="btn btn-dark btn-sm" (click)="newTemp()">
-              <i class="fa fa-plus"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="card-body card-body-unpadded">
-        <ng-template #loading>
-          <loading></loading>
-        </ng-template>
-        <ul class="list-group scroll-content" *ngIf="templates; else loading">
-          <li class="list-group-item clickable" (click)="selectTemp(template)" *ngFor="let template of templates;let i = index" [class.active]="tempSelectedIndex === i">
-            {{ template.subject }}
-            <button class="btn btn-sm float-right" (click)="removeTemp(template)">
-              <span class="fa fa-trash" aria-hidden="true"></span>
-            </button>
-          </li>
-        </ul>
-      </div>
-    </div> -->
   </div>
   <div class="col">
     <div class="card">

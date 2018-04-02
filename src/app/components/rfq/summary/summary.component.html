@@ -22,7 +22,7 @@
             <span class="font-weight-bold col-form-label-sm"> When
                 <span class="text-danger">*</span>
             </span>
-            <input type="text" required #When="ngModel" class="form-control control-sm" name="actionWhen" (change)="changeItem()" [(ngModel)]="summaryInfo.actionWhen">
+            <input type="datetime-local" required #When="ngModel" class="form-control control-sm" name="actionWhen" (change)="changeItem()" [(ngModel)]="summaryInfo.actionWhen">
             <div class="alert alert-danger small" *ngIf="When.touched && When.invalid">
                 <div *ngIf="When.errors['required']">
                     can't Leave this empty

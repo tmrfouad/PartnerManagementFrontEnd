@@ -29,6 +29,7 @@ export class StatusEditFormComponent extends BaseComponent implements OnInit, On
 
   action_Types: { value: string, name: string }[] = [];
   actionTypes: { [key: string]: string } = {};
+  actionTypesById: { [key: string]: string } = {};
   reps: REP[];
   repsSubs: Subscription;
   // this object is to send the rfq to MailContentComponent to ba able to send the data
@@ -46,6 +47,7 @@ export class StatusEditFormComponent extends BaseComponent implements OnInit, On
     private actionTypeService: ActionTypeService) {
     super(snackBar, dialog);
     this.actionTypes = this.actionTypeService.getMapByName();
+    this.actionTypesById = this.actionTypeService.getMapByValue();
     this.action_Types = this.actionTypeService.getArray();
 
     this.summarySharedServ.changeMailContent({ mailContent: <MailData>{}, mailType: 'sendmail' });
