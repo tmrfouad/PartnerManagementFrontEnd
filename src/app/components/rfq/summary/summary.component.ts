@@ -28,6 +28,7 @@ export class SummaryComponent implements OnInit {
       this.summaryInfo = {};
       this.summaryInfo.attendee = [];
     });
+
   }
 
   hidden(actionTypes: ActionType[]) {
@@ -42,11 +43,13 @@ export class SummaryComponent implements OnInit {
   }
 
   validate(): boolean {
+
     if (this.summaryInfo) {
-      if ((this.summaryInfo.attendee && this.summaryInfo.attendee.length === 0 && ![5, 4, 2].includes(+this.actionType)) ||
+      if ((this.summaryInfo.attendee && this.summaryInfo.attendee.length === 0 &&
+         [ActionType.Visit, ActionType.PhoneCall].includes(+this.actionType)) ||
         !this.summaryInfo.actionWhen ||
-        (!this.summaryInfo.where && ![5, 4].includes(+this.actionType)) ||
-        (!this.summaryInfo.meetingType && ![1, 3, 4, 5].includes(+this.actionType))) {
+        (!this.summaryInfo.where && [ActionType.Meeting].includes(+this.actionType) && +this.summaryInfo.meetingType === 0) ||
+        (!this.summaryInfo.meetingType && [ActionType.Meeting].includes(+this.actionType))) {
         return false;
       } else {
         return true;
