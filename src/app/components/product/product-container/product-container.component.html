@@ -4,14 +4,14 @@
     <!-- <product-list></product-list> -->
   </div>
   <div class="col-8">
-    <div class="card">
+    <div class="card scroll-content">
       <div class="card-header">
-          <h3> Products </h3>
+          <strong> Products </strong>
       </div>
       <div class="card-body">
-        <product-form></product-form>
+        <product-form #productForm></product-form>
       </div>
-      <div class="card-footer scroll-content" *ngIf="product">
+      <div class="card-footer scroll-content p-1" *ngIf="product">
         <product-edition-list></product-edition-list>
       </div>
     </div>

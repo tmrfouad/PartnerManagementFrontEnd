@@ -1,8 +1,9 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import { DataService } from '../../services/abstracts/data-service.service';
 import { Observable } from 'rxjs/Observable';
 import { BaseComponent } from '../base-component';
 import { MatSnackBar, MatDialog } from '@angular/material';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -10,14 +11,17 @@ import { MatSnackBar, MatDialog } from '@angular/material';
   templateUrl: './list-view.component.html',
   styleUrls: ['./list-view.component.css']
 })
-export class ListViewComponent<T> extends BaseComponent implements OnInit {
+export class ListViewComponent<T> extends BaseComponent implements OnInit, OnDestroy {
   @Input('title') title: string;
   @Input('displayMembers') displayMembers: string[] | string;
   @Input('keyFiald') keyFiald = 'id';
   @Input('dataService') dataService: DataService<T>;
 
-  @Output('add') add = new EventEmitter();
   @Output('change') change = new EventEmitter();
+  @Output('add') add = new EventEmitter();
+  @Output('delete') delete = new EventEmitter();
+  @Output('refresh') refresh = new EventEmitter();
+  @Output('search') search = new EventEmitter();
 
   items: T[] = [];
   visibleItems: T[];
@@ -25,20 +29,30 @@ export class ListViewComponent<T> extends BaseComponent implements OnInit {
   selectedIndex = -1;
   searchFilter = '';
 
+  getItemsSubs: Subscription;
+  currentItemsSubs: Subscription;
+  deleteItemSubs: Subscription;
+
   constructor(snackBar: MatSnackBar, dialog: MatDialog) { super(snackBar, dialog); }
 
   async ngOnInit() {
     const get$ = await this.dataService.get();
-    get$.subscribe((items: T[]) => {
+    this.getItemsSubs = get$.subscribe((items: T[]) => {
       this.items = items;
       this.dataService.changeCurrentItems(this.items);
       this.isLoaded = true;
     });
 
-    this.dataService.currentItems.subscribe(items => {
+    this.currentItemsSubs = this.dataService.currentItems.subscribe(items => {
       this.items = items;
       this.searchItems();
     });
+  }
+
+  ngOnDestroy() {
+    if (this.getItemsSubs) { this.getItemsSubs.unsubscribe(); }
+    if (this.currentItemsSubs) { this.currentItemsSubs.unsubscribe(); }
+    if (this.deleteItemSubs) { this.deleteItemSubs.unsubscribe(); }
   }
 
   getDisplayText(item): string {
@@ -85,14 +99,16 @@ export class ListViewComponent<T> extends BaseComponent implements OnInit {
     } else {
       this.selectItemByIndex(-1);
     }
+    this.search.emit(this.visibleItems);
   }
 
   async refreshItems() {
     const get$ = await this.dataService.get();
-    get$.subscribe((items: T[]) => {
+    this.getItemsSubs = get$.subscribe((items: T[]) => {
       this.items = items;
       this.dataService.changeCurrentItems(this.items);
       this.searchItems();
+      this.refresh.emit();
     });
   }
 
@@ -101,27 +117,36 @@ export class ListViewComponent<T> extends BaseComponent implements OnInit {
   }
 
   async deleteItem(item) {
-    this.showConfirm('Are you sure you want to delete this item?', 'Delete item')
+    const dialogSubs = this.showConfirm('Are you sure you want to delete this item?', 'Delete item')
       .subscribe(async result => {
         if (result === 'ok') {
+          this.showLoading('Please wait ...');
           const delete$ = await this.dataService.delete(item[this.keyFiald]);
-          delete$.subscribe(itm => {
+          this.deleteItemSubs = delete$.subscribe(itm => {
             const indx = this.items.indexOf(item);
             this.items.splice(indx, 1);
             this.dataService.changeCurrentItems(this.items);
+            this.closeLoading();
+            this.showSnackBar('Item deleted successfully.', 'Success');
+          }, error => {
+            this.closeLoading();
+            throw error;
           });
         }
+        this.delete.emit(item);
+        dialogSubs.unsubscribe();
       });
   }
 
   selectItemByIndex(index) {
     this.selectedIndex = index;
     const item = this.visibleItems[this.selectedIndex];
+    let _item = <T>{};
     if (item) {
-      this.dataService.changeCurrentItem(item);
-    } else {
-      this.dataService.changeCurrentItem(<T>{});
+      _item = item;
     }
-    this.change.emit(item);
+
+    this.dataService.changeCurrentItem(_item);
+    this.change.emit(_item);
   }
 }

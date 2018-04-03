@@ -90,7 +90,7 @@ export class CutomErrorHandler implements ErrorHandler {
     } catch {
         throw error;
     }
-        // console.log('Error log :', error);
-        throw error;
+        console.log('Error log :', error);
+        // throw error;
     }
 }

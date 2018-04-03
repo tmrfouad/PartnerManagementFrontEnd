@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { Product } from '../../../models/Product';
 import { ProductService } from './../../../services/product.service';
 import { BaseComponent } from '../../base-component';
 import { MatSnackBar, MatDialog } from '@angular/material';
+import { ProductFormComponent } from '../product-form/product-form.component';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -15,6 +16,7 @@ export class ProductContainerComponent extends BaseComponent implements OnInit {
 
   product: Product = <Product>{};
 
+  @ViewChild('productForm') productForm: ProductFormComponent;
 
   constructor(
     snackBar: MatSnackBar,
@@ -32,6 +34,7 @@ export class ProductContainerComponent extends BaseComponent implements OnInit {
   }
 
   addProd() {
+    this.productForm.isNewRecord = true;
     const product: Product = <Product>{};
     this.productService.changeCurrentItem(product);
     this.getElement('englishName').focus();

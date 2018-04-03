@@ -29,10 +29,8 @@ import { ProductContainerComponent } from './components/product/product-containe
 import { ProductEditionFormComponent } from './components/product/product-edition-form/product-edition-form.component';
 import { ProductEditionListComponent } from './components/product/product-edition-list/product-edition-list.component';
 import { ProductFormComponent } from './components/product/product-form/product-form.component';
-import { ProductListComponent } from './components/product/product-list/product-list.component';
 import { RepContainerComponent } from './components/rep/rep-container/rep-container.component';
 import { RepFormComponent } from './components/rep/rep-form/rep-form.component';
-import { RepListComponent } from './components/rep/rep-list/rep-list.component';
 import { RfqActionFormComponent } from './components/rfq/rfq-action-form/rfq-action-form.component';
 import { RfqContainarComponent } from './components/rfq/rfq-containar/rfq-containar.component';
 import { RfqEditFormComponent } from './components/rfq/rfq-edit-form/rfq-edit-form.component';
@@ -82,9 +80,7 @@ export function createTranslateLoader(http: Http) {
     MessageComponent,
     SummaryComponent,
     RepFormComponent,
-    RepListComponent,
     RepContainerComponent,
-    ProductListComponent,
     ProductContainerComponent,
     ProductFormComponent,
     ProductEditionFormComponent,

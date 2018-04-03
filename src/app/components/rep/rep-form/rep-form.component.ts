@@ -17,23 +17,20 @@ export class RepFormComponent extends BaseComponent implements OnInit {
 
   repList: REP[];
   rep: REP = <REP>{};
-  currentRep: REP = <REP>{};
 
-  constructor(private reService: RepService,
-    private repSharService: RepSharedService,
+  isNewRecord;
+
+  constructor(private repService: RepService,
     private router: Router,
     snackBar: MatSnackBar,
     dialog: MatDialog) {
     super(snackBar, dialog);
-    repSharService.currentrep.subscribe((item: REP) => {
-      this.rep = item;
-      if (item && Object.keys(item).length > 0) {
-        this.currentRep = Object.assign(this.currentRep, item);
-      } else {
-        this.currentRep = <REP>{};
+    repService.currentItem.subscribe((item: REP) => {
+      if (item) {
+        this.rep = item;
       }
     });
-    repSharService.currentRepListService.subscribe(repList => this.repList = repList);
+    repService.currentItems.subscribe(repList => this.repList = repList);
   }
 
   ngOnInit() {
@@ -41,34 +38,38 @@ export class RepFormComponent extends BaseComponent implements OnInit {
 
   async submitForm(item: REP) {
     // Edit The Rep
-    if (this.rep && Object.keys(this.rep).length > 0) {
+    if (!this.isNewRecord) {
       this.showLoading('Loading');
-      const rep$ = await this.reService.put(item.id, item);
-      await rep$.toPromise().then((currentRep: REP) => {
+      const rep$ = await this.repService.put(item.id, item);
+      rep$.subscribe((currentRep: REP) => {
         this.closeLoading();
         this.showSnackBar('Representative edited successfully', 'Success');
-        this.rep = Object.assign(this.rep, currentRep);
-        this.repSharService.changeRep(this.rep);
-      }).catch(error => {
+        // const i = this.repList.indexOf(this.rep);
+        // this.repList[i] = currentRep;
+        // this.repService.changeCurrentItems(this.repList);
+      }, error => {
         this.closeLoading();
         throw error;
       });
     } else {
       // Adding new rep
       this.showLoading('Loading');
-      const rep$ = await this.reService.post(item);
-      await rep$.toPromise().then((rep: REP) => {
-        this.rep = Object.assign(this.rep, rep);
-        this.repSharService.changeRep(this.rep);
-        this.repList.push(item);
-        this.repSharService.changeRepList(this.repList);
+      const rep$ = await this.repService.post(item);
+      rep$.subscribe((rep: REP) => {
         this.closeLoading();
         this.showSnackBar('Representative added successfully', 'Success');
-      }).catch(error => {
+        this.repList.push(rep);
+        this.repService.changeCurrentItems(this.repList);
+        this.isNewRecord = false;
+      }, error => {
         this.closeLoading();
         throw error;
       });
     }
+  }
+
+  repListViewChange(item) {
+    this.isNewRecord = false;
   }
 
 }

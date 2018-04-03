@@ -1,22 +1,23 @@
-<div class="card-header">
-  <h3> Product Editions
-    <button matTooltip="Add Edition" matTooltipPosition="left" class="btn btn-dark btn-sm  float-sm-right" (click)="addEditionDialog()">
-      <span class="fa fa-plus"></span>
-    </button>
-  </h3>
-</div>
-<table class="table table-hover">
-  <thead>
+<div class="card scroll-content">
+  <div class="card-header">
+    <strong> Product Editions
+      <button matTooltip="Add Edition" matTooltipPosition="left" class="btn btn-dark btn-sm  float-sm-right" (click)="addEditionDialog()">
+        <i class="fa fa-plus"></i>
+      </button>
+    </strong>
+  </div>
+  <table class="table m-0">
     <tr>
       <th> English Name </th>
       <th> Arabic Name </th>
       <th></th>
     </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let Edition of prodEditionList">
-      <td> {{ Edition?.englishName }}</td>
-      <td> {{ Edition?.arabicName }}</td>
+  </table>
+  <div class="scroll-content">
+    <table class="table table-hover">
+      <tr *ngFor="let Edition of prodEditionList">
+        <td> {{ Edition?.englishName }}</td>
+        <td> {{ Edition?.arabicName }}</td>
         <td>
           <a class="btn btn-link" matTooltip="Delete Edition" matTooltipPosition="above" (click)="DeleteEdition(Edition)">
             <i class="fa fa-remove"></i>
@@ -25,6 +26,7 @@
             <i class="fa fa-edit"></i>
           </a>
         </td>
-    </tr>
-  </tbody>
-</table>
+      </tr>
+    </table>
+  </div>
+</div>

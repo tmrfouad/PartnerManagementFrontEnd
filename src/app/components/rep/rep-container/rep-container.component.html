@@ -1,22 +1,17 @@
-<div class="row">
+<div class="row scroll-wrapper scroll-wrapper-main">
   <div class="col-4">
-    <rep-list></rep-list>
+    <!-- <rep-list></rep-list> -->
+    <list-view [dataService]="repService" [displayMembers]="'name'" (add)="addrep()"></list-view>
   </div>
-  <div class="col-8">
-    <div class="position-fixed">
-      <div class="card">
-        <div class="card-header">
-          <ng-template #sec>
-            <h3> New Represintitive </h3>
-          </ng-template>
-          <div *ngIf="(rep | json) != '{}' ; else sec">
-           <h3> {{ rep.name }} </h3> 
-          </div>
-        </div>
-        <div class="card-body">
-          <rep-form></rep-form>
-        </div>
+  <div class="col">
+    <div class="card scroll-content">
+      <div class="card-header">
+        <strong> Represintitives </strong>
       </div>
+      <div class="card-body">
+        <rep-form #repForm></rep-form>
+      </div>
+      <div class="card-footer"></div>
     </div>
   </div>
 </div>

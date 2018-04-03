@@ -14,8 +14,7 @@ import { Product } from '../../../models/Product';
 export class ProductFormComponent extends BaseComponent implements OnInit {
   prodList: Product[];
   prod: Product = <Product>{};
-  currentProduct: Product = <Product>{};
-
+  isNewRecord = false;
 
   constructor(private productService: ProductService,
     private router: Router,
@@ -24,11 +23,8 @@ export class ProductFormComponent extends BaseComponent implements OnInit {
     dialog: MatDialog) {
     super(snackBar, dialog);
     prodService.currentItem.subscribe((item: Product) => {
-      this.prod = item;
-      if (item && Object.keys(item).length > 0) {
-        this.currentProduct = Object.assign(this.currentProduct, item);
-      } else {
-        this.currentProduct = <Product>{};
+      if (item) {
+        this.prod = item;
       }
     });
     prodService.currentItems.subscribe(prodList => this.prodList = prodList);
@@ -37,31 +33,28 @@ export class ProductFormComponent extends BaseComponent implements OnInit {
   ngOnInit() {
   }
 
-  async submitForm(product: any) {
+  async submitForm() {
     // Edit Product
-    if (this.prod && Object.keys(this.prod).length > 0) {
+    if (!this.isNewRecord) {
       this.showLoading('Loading');
-      const product$ = await this.productService.put(product.id, product);
+      const product$ = await this.productService.put(this.prod.id, this.prod);
       await product$.toPromise().then((currentProduct: Product) => {
         this.closeLoading();
         this.showSnackBar('Product edited successfully', 'Success');
-        this.prod = Object.assign(this.prod, currentProduct);
-        this.prodService.changeCurrentItem(this.prod);
+        // const i = this.prodList.indexOf(this.prod);
+        // this.prodList[i] = currentProduct;
+        // this.prodService.changeCurrentItems(this.prodList);
       }).catch(error => {
         this.closeLoading();
         throw error;
       });
     } else {
       // Add Product
-      const product$ = await this.productService.post(product);
+      const product$ = await this.productService.post(this.prod);
       this.showLoading('Loading');
       product$.toPromise().then((prod: Product) => {
-
-        this.prod = Object.assign(this.prod, prod);
-        this.prodService.changeCurrentItem(this.prod);
-        this.prodList.push(product);
+        this.prodList.push(prod);
         this.prodService.changeCurrentItems(this.prodList);
-
         this.closeLoading();
         this.showSnackBar('Product added successfully', 'Success');
       }).catch(error => {

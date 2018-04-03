@@ -1,9 +1,0 @@
-.prodItem {
-    cursor: pointer;
-}
-
-
-.list-group-item.active {
-   background-color: dimgray;
-   border-color: dimgray;
-}

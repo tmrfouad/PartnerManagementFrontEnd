@@ -1,12 +1,12 @@
 
-<form #f="ngForm" (submit)="submitForm(currentRep)">
+<form #f="ngForm" (submit)="submitForm(rep)">
 <div class="row">
   <div class="col-6">
     <div class="form-group">
       <label for="UserName">
         Name: <span class="text-danger">*</span>
       </label>
-    <input type="text" #userName="ngModel" id="UserName" required class="form-control form-control-sm" [(ngModel)]="currentRep.name" name="name">
+    <input type="text" #userName="ngModel" id="UserName" required class="form-control form-control-sm" [(ngModel)]="rep.name" name="name">
     <div class="alert alert-danger" *ngIf="userName.touched && !userName.valid">
       <div *ngIf="userName.errors['required']">
           <small>You can't leave this empty.</small>
@@ -18,42 +18,42 @@
   <div class="col-6">
       <div class="form-group">
           <label for="">Address: <span class="text-danger">*</span></label>
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="currentRep.address" required name="address">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="rep.address" required name="address">
         </div>
   </div>
 
   <div class="col-6">
       <div class="form-group">
           <label for="">Phone</label>
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="currentRep.phone" name="phone">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="rep.phone" name="phone">
         </div>
   </div>
 
   <div class="col-6">
       <div class="form-group">
           <label for="">Personal Phone</label>
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="currentRep.personalPhone" name="personalPhone">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="rep.personalPhone" name="personalPhone">
         </div>
   </div>
 
   <div class="col-6">
       <div class="form-group">
           <label for="">Position</label>
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="currentRep.position" name="position">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="rep.position" name="position">
         </div>
   </div>
 
   <div class="col-6">
       <div class="form-group">
           <label for="">DateOfBirth</label>
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="currentRep.dateOfBirth" name="dateOfBirth">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="rep.dateOfBirth" name="dateOfBirth">
         </div>
   </div>
 
   <div class="col-6">
       <div class="form-group">
           <label for="">Email</label>
-          <input type="email" class="form-control form-control-sm" [(ngModel)]="currentRep.email" name="email">
+          <input type="email" class="form-control form-control-sm" [(ngModel)]="rep.email" name="email">
         </div>
   </div>
 

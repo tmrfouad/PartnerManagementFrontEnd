@@ -23,10 +23,8 @@ export class EmailSenderComponent extends BaseComponent implements OnInit, OnDes
   selectedIndex = 0;
   newRecord = false;
 
-  // getSubs: Subscription;
   postSubs: Subscription;
   putSubs: Subscription;
-  // deleteSubs: Subscription;
   currSendersSubs: Subscription;
   currSenderSubs: Subscription;
   //#endregion
@@ -58,24 +56,11 @@ export class EmailSenderComponent extends BaseComponent implements OnInit, OnDes
     this.currSenderSubs = this.emailSenderService.currentItem.subscribe(sender => {
       this.emailSender = sender;
     });
-
-    // const get$ = await this.emailSenderService.get();
-    // this.getSubs = get$.subscribe((senders: EmailSender[]) => {
-    //   this.emailSenders = senders;
-    //   this.emailSenderService.changeCurrentSenders(senders);
-    //   if (senders && senders.length > 0) {
-    //     this.selectedIndex = 0;
-    //     this.selectSender(senders[0]);
-    //     this.emailSenderService.changeCurrentSender(senders[0]);
-    //   }
-    // });
   }
 
   ngOnDestroy() {
-    // if (this.getSubs) { this.getSubs.unsubscribe(); }
     if (this.postSubs) { this.postSubs.unsubscribe(); }
     if (this.putSubs) { this.putSubs.unsubscribe(); }
-    // if (this.deleteSubs) { this.deleteSubs.unsubscribe(); }
     if (this.currSendersSubs) { this.currSendersSubs.unsubscribe(); }
   }
 
@@ -92,8 +77,8 @@ export class EmailSenderComponent extends BaseComponent implements OnInit, OnDes
       const post$ = await this.emailSenderService.post(this.form.value);
       this.postSubs = post$.subscribe((sender: EmailSender) => {
         this.newRecord = false;
-        this.emailSender = sender;
-        this.emailSenderService.changeCurrentItem(sender);
+        // this.emailSender = sender;
+        // this.emailSenderService.changeCurrentItem(sender);
         this.emailSenders.push(sender);
         this.emailSenderService.changeCurrentItems(this.emailSenders);
         this.closeLoading();
@@ -105,56 +90,18 @@ export class EmailSenderComponent extends BaseComponent implements OnInit, OnDes
     } else {
       const put$ = await this.emailSenderService.put(this.emailSender.id, this.form.value);
       this.putSubs = put$.subscribe((sender: EmailSender) => {
-        this.emailSender = sender;
-        this.emailSenderService.changeCurrentItem(sender);
-        const indx = this.emailSenders.indexOf(sender);
-        this.emailSenders[indx] = sender;
-        this.emailSenderService.changeCurrentItems(this.emailSenders);
-        this.closeLoading();
+        // const indx = this.emailSenders.indexOf(this.emailSender);
+        // this.emailSenders.splice(indx, 1, sender);
+        // console.log(indx);
+        // console.log(this.emailSender);
+        // console.log(this.emailSenders[indx]);
+        // this.emailSenderService.changeCurrentItems(this.emailSenders);
         this.showSnackBar('Email sender updated successfully.', 'Success');
+        this.closeLoading();
       }, error => {
         this.closeLoading();
         throw error;
       });
     }
   }
-
-  // selectSender(sender: EmailSender) {
-  //   const indx = this.emailSenders.indexOf(sender);
-  //   this.selectedIndex = indx;
-  //   this.emailSenderService.changeCurrentSender(sender);
-  // }
-
-  // removeSender(sender: EmailSender) {
-  //   this.showConfirm('Are you sure you want to delete this template ?', 'Delete')
-  //     .subscribe(async result => {
-  //       if (result === 'ok') {
-  //         this.showLoading('Please wait ...');
-  //         const delete$ = await this.emailSenderService.delete(sender.id);
-  //         this.deleteSubs = delete$.subscribe((emailSender: EmailSender) => {
-  //           const indx = this.emailSenders.indexOf(sender);
-  //           this.emailSenders.splice(indx, 1);
-  //           this.emailSenderService.changeCurrentSenders(this.emailSenders);
-  //           this.closeLoading();
-  //           this.showSnackBar('Email sender deleted successfully.', 'Success');
-  //         }, error => {
-  //           this.closeLoading();
-  //           throw error;
-  //         });
-  //       }
-  //     });
-  // }
-
-  // async refreshSenders() {
-  //   const get$ = await this.emailSenderService.get();
-  //   this.getSubs = get$.subscribe((senders: EmailSender[]) => {
-  //     this.emailSenders = senders;
-  //     this.emailSenderService.changeCurrentSenders(senders);
-  //     if (senders && senders.length > 0) {
-  //       this.selectedIndex = 0;
-  //       this.selectSender(senders[0]);
-  //       this.emailSenderService.changeCurrentSender(senders[0]);
-  //     }
-  //   });
-  // }
 }
