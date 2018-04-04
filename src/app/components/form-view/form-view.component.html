@@ -1,0 +1,21 @@
+<div class="card scroll-wrapper scroll-wrapper-main">
+  <div class="card-header">
+    <strong>{{ title }}</strong>
+  </div>
+  <div class="card-body py-1 scroll-content">
+    <div class="row scroll-content">
+      <div class="col-3">
+        <list-view [dataService]="dataService" [displayMembers]="displayMembers" [keyFiald]="keyFiald"></list-view>
+      </div>
+      <div class="col">
+        <div class="scroll-content">
+          <div *ngFor="let filedName of fieldsNames; let i = index">
+            <div class="font-weight-bold">{{ fieldsCaptions[i] }}</div>
+            <div>{{ currentItem[filedName] }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer"></div>
+</div>

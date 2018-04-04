@@ -56,6 +56,8 @@ import { RepService } from './services/rep.service';
 import { RfqService } from './services/rfq.service';
 import { StatusService } from './services/status.service';
 import { SummarySharedService } from './services/summary-shared.service';
+import { FormViewComponent } from './components/form-view/form-view.component';
+import { TestFormComponent } from './components/test-form/test-form.component';
 
 export function createTranslateLoader(http: Http) {
   return new TranslateStaticLoader(http, './assets/i18n', '.json');
@@ -90,7 +92,9 @@ export function createTranslateLoader(http: Http) {
     EmailTemplateComponent,
     EmailTemplatePreviewComponent,
     EmailSenderComponent,
-    ListViewComponent
+    ListViewComponent,
+    FormViewComponent,
+    TestFormComponent
   ],
   imports: [
     MatSnackBarModule,
@@ -117,6 +121,7 @@ export function createTranslateLoader(http: Http) {
       { path: 'Rfq', component: RfqContainarComponent, canActivate: [AuthGuard] },
       { path: 'mailtemp', component: EmailTemplateComponent, canActivate: [AuthGuard] },
       { path: 'mailsender', component: EmailSenderComponent, canActivate: [AuthGuard] },
+      { path: 'test', component: TestFormComponent },
       { path: '**', component: NotFoundComponent }
     ])
   ],
