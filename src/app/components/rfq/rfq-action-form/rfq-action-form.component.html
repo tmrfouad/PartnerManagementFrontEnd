@@ -1,7 +1,7 @@
 <!-- RFQ Details -->
 <div class="card scroll-wrapper">
-  <div class="card-header bg-dark text-white">
-    <strong class="d-inline-block">RFQ Details</strong>
+  <div class="card-header bg-light">
+    <strong class="d-inline-block">Request For Quotations</strong>
     <div class="dropdown float-right">
       <a class="btn btn-light btn-sm text-dark dropdown-toggle" [hidden]="!rfq" matTooltip="Add Action" matTooltipPosition="left"
         id="addActionDropDownBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -13,12 +13,12 @@
         </a>
       </div>
     </div>
-    <a class="btn btn-light btn-sm text-dark mr-1 float-right" [hidden]="!rfq" matTooltip="Edit Request" matTooltipPosition="above"
+    <a class="btn btn-light btn-sm text-dark mr-1 float-right" [hidden]="!rfq" matTooltip="Edit Request" matTooltipPosition="left"
       (click)="openRfqEditDialog()">
       <i class="fa fa-edit"></i>
     </a>
   </div>
-  <div>
+  <div class="card-body">
     <ng-template *ngIf="!isRfqLoaded">
       <loading></loading>
     </ng-template>
@@ -77,48 +77,51 @@
     </div>
   </div>
   <div class="card-footer scroll-content" *ngIf="rfqStatus">
-    <!-- Status -->
-    <a class="btn btn-link float-right" (click)="openStatusEditDialog(rfqStatus)" matTooltip="Edit Status Action" matTooltipPosition="above">
-      <i class="fa fa-edit"></i>
-    </a>
-    <ng-template #rfqStatusLoading>
-      <loading></loading>
-    </ng-template>
-    <div class="row" *ngIf="rfqStatus; else rfqStatusLoading">
-      <div class="col-6">
-        <span class="font-weight-bold">Action Code :</span>
-        <span>{{ rfqStatus.actionCode }}</span>
-      </div>
-      <div class="col-6">
-        <span class="font-weight-bold">Action Time :</span>
-        <span>{{ rfqStatus.actionTime | date:'yyyy/MM/dd HH:mm:ss' }}</span>
-      </div>
-      <div class="col-6">
-        <span class="font-weight-bold">Action Type :</span>
-        <span>{{ actiontypesMap[rfqStatus.actionType] }}</span>
-      </div>
-      <div class="col-6">
-        <span class="font-weight-bold">Representative :</span>
-        <span>{{ rfqStatus.representative.name }}</span>
-      </div>
-      <div class="col-6">
-        <span class="font-weight-bold">Comments :</span>
-        <p>{{ rfqStatus.comments }}</p>
-      </div>
-    </div>
-    <!-- <rfq-status [rfq]="rfq"></rfq-status> -->
-    <!-- End of Status -->
+    <div class="card scroll-content">
+      <div class="card-header">
+        <!-- Status -->
+        <a class="btn btn-link float-right" (click)="openStatusEditDialog(rfqStatus)" matTooltip="Edit Status Action" matTooltipPosition="above">
+          <i class="fa fa-edit"></i>
+        </a>
+        <ng-template #rfqStatusLoading>
+          <loading></loading>
+        </ng-template>
+        <div class="row" *ngIf="rfqStatus; else rfqStatusLoading">
+          <div class="col-6">
+            <span class="font-weight-bold">Action Code :</span>
+            <span>{{ rfqStatus.actionCode }}</span>
+          </div>
+          <div class="col-6">
+            <span class="font-weight-bold">Action Time :</span>
+            <span>{{ rfqStatus.actionTime | date:'yyyy/MM/dd HH:mm:ss' }}</span>
+          </div>
+          <div class="col-6">
+            <span class="font-weight-bold">Action Type :</span>
+            <span>{{ actiontypesMap[rfqStatus.actionType] }}</span>
+          </div>
+          <div class="col-6">
+            <span class="font-weight-bold">Representative :</span>
+            <span>{{ rfqStatus.representative.name }}</span>
+          </div>
+          <div class="col-6">
+            <span class="font-weight-bold">Summary :</span>
+            <p>{{ rfqStatus.comments }}</p>
+          </div>
+        </div>
+        <!-- <rfq-status [rfq]="rfq"></rfq-status> -->
+        <!-- End of Status -->
 
-    <button class="btn btn-sm btn-outline-dark w-100" matTooltip="Show All Actions" matTooltipPosition="above" type="button"
-      (click)="toggleStatusList()">
-      <i class="fa fa-angle-double-down" *ngIf="statusListHidden"></i>
-      <i class="fa fa-angle-double-up" *ngIf="!statusListHidden"></i>
-    </button>
-
-    <div>
-    <!-- Status List -->
-    <rfq-status-list [hidden]="statusListHidden"></rfq-status-list>
-    <!-- End of Status List -->
+        <button class="btn btn-sm btn-outline-dark w-100" matTooltip="Show All Actions" matTooltipPosition="above" type="button"
+          (click)="toggleStatusList()">
+          <i class="fa fa-angle-double-down" *ngIf="statusListHidden"></i>
+          <i class="fa fa-angle-double-up" *ngIf="!statusListHidden"></i>
+        </button>
+      </div>
+      <div class="card-body scroll-content">
+        <!-- Status List -->
+        <rfq-status-list [hidden]="statusListHidden"></rfq-status-list>
+        <!-- End of Status List -->
+      </div>
     </div>
   </div>
 </div>
