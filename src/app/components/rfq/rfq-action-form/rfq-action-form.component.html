@@ -18,7 +18,7 @@
       <i class="fa fa-edit"></i>
     </a>
   </div>
-  <div class="card-body">
+  <div class="card-body p-1">
     <ng-template *ngIf="!isRfqLoaded">
       <loading></loading>
     </ng-template>
@@ -76,7 +76,7 @@
       </div>
     </div>
   </div>
-  <div class="card-footer scroll-content" *ngIf="rfqStatus">
+  <div class="card-footer scroll-content p-1" *ngIf="rfqStatus">
     <div class="card scroll-content">
       <div class="card-header">
         <!-- Status -->
@@ -117,7 +117,7 @@
           <i class="fa fa-angle-double-up" *ngIf="!statusListHidden"></i>
         </button>
       </div>
-      <div class="card-body scroll-content">
+      <div class="card-body scroll-content p-1">
         <!-- Status List -->
         <rfq-status-list [hidden]="statusListHidden"></rfq-status-list>
         <!-- End of Status List -->

@@ -77,8 +77,6 @@ export class EmailSenderComponent extends BaseComponent implements OnInit, OnDes
       const post$ = await this.emailSenderService.post(this.form.value);
       this.postSubs = post$.subscribe((sender: EmailSender) => {
         this.newRecord = false;
-        // this.emailSender = sender;
-        // this.emailSenderService.changeCurrentItem(sender);
         this.emailSenders.push(sender);
         this.emailSenderService.changeCurrentItems(this.emailSenders);
         this.closeLoading();
@@ -90,12 +88,6 @@ export class EmailSenderComponent extends BaseComponent implements OnInit, OnDes
     } else {
       const put$ = await this.emailSenderService.put(this.emailSender.id, this.form.value);
       this.putSubs = put$.subscribe((sender: EmailSender) => {
-        // const indx = this.emailSenders.indexOf(this.emailSender);
-        // this.emailSenders.splice(indx, 1, sender);
-        // console.log(indx);
-        // console.log(this.emailSender);
-        // console.log(this.emailSenders[indx]);
-        // this.emailSenderService.changeCurrentItems(this.emailSenders);
         this.showSnackBar('Email sender updated successfully.', 'Success');
         this.closeLoading();
       }, error => {

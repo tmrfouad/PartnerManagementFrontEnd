@@ -1,2 +1,4 @@
-<form-view [dataService]="rfqService" [title]="'Request For Quotations'" [displayMembers]="['contactPersonEnglishName', 'companyEnglishName', 'contactPersonMobile']"
-  [keyFiald]="'rfqId'" [fieldsNames]="['contactPersonEnglishName', 'companyEnglishName', 'contactPersonMobile']" [fieldsCaptions]="['Contact Person Name :', 'Company Name :', 'Mobile :']"></form-view>
+<form-view [dataService]="rfqService" [title]="'Request For Quotations'" [keyFiald]="'rfqId'"
+  [displayMembers]="['contactPersonEnglishName', 'companyEnglishName', 'contactPersonMobile']"
+  [fieldsNames]="['contactPersonEnglishName', 'companyEnglishName', 'contactPersonMobile', 'submissionTime|date', 'sendEmail|boolean']"
+  [fieldsCaptions]="['Contact Person Name', 'Company Name', 'Mobile', 'Submission Time', 'sendEmail']"></form-view>

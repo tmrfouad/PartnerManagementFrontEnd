@@ -103,7 +103,6 @@ export class ListViewComponent<T> extends BaseComponent implements OnInit, OnDes
   }
 
   async refreshItems() {
-    console.log('refresh');
     const get$ = await this.dataService.get();
     this.getItemsSubs = get$.subscribe((items: T[]) => {
       this.items = items;

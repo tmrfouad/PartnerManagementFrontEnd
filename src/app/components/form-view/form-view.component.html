@@ -9,9 +9,11 @@
       </div>
       <div class="col">
         <div class="scroll-content">
-          <div *ngFor="let filedName of fieldsNames; let i = index">
-            <div class="font-weight-bold">{{ fieldsCaptions[i] }}</div>
-            <div>{{ currentItem[filedName] }}</div>
+          <div class="row">
+            <div *ngFor="let filedName of fieldsNames; let i = index" class="col-6">
+              <div class="font-weight-bold">{{ fieldsCaptions[i] }} :</div>
+              <div>{{ displayField(filedName) }}</div>
+            </div>
           </div>
         </div>
       </div>

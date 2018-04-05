@@ -16,7 +16,3 @@ a:not([href]):not([tabindex]):focus
 .scroll-wrapper {
     margin: 0 0 0 10px;
 }
-
-.scroll-content {
-    height: auto;
-}

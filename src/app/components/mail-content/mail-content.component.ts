@@ -198,7 +198,6 @@ export class MailContentComponent implements OnInit {
 
   updateThMail(type: string) {
     if (type === 'sendmail') {
-      console.log(this.sendMail);
       this.summarySharedServ.changeMailContent(
         {
           mailType: 'sendmail',
