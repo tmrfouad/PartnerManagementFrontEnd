@@ -34,6 +34,7 @@ export class BaseComponent {
 
     protected showMessage(message: string, title?: string) {
         const confirmDialog = this.dialog.open(MessageComponent, {
+            panelClass: 'dialogconfirm',
             data: {
                 title: title,
                 message: message
@@ -43,6 +44,7 @@ export class BaseComponent {
 
     protected showConfirm(message: string, title?: string) {
         const confirmDialog = this.dialog.open(ConfirmComponent, {
+            panelClass: 'dialogconfirm',
             data: {
                 title: title,
                 message: message
