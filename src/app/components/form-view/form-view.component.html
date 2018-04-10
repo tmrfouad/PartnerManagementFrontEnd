@@ -9,6 +9,9 @@
       </div>
       <div class="col">
         <div class="scroll-content">
+          <div>
+            <button class="btn btn-sm btn-light float-right" (click)="editItem()"><i class="fa fa-edit"></i></button>
+          </div>
           <div class="row">
             <div *ngFor="let filedName of fieldsNames; let i = index" class="col-6">
               <div class="font-weight-bold">{{ fieldsCaptions[i] }} :</div>

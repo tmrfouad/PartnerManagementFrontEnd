@@ -10,5 +10,6 @@ export const environment = {
     authUrl: 'auth/tokens',
     orderUrl: 'ecommerce/orders'
   },
-  domainName: 'http://localhost:5000'
+  domainName: 'http://localhost:5000',
+  localDomainName: 'http://localhost:4200'
 };

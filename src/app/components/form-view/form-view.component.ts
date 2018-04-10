@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 
 import { DataService } from '../../services/abstracts/data-service.service';
-import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -33,19 +33,6 @@ export class FormViewComponent implements OnInit {
         }
       });
     }
-
-    const date = new Date('2018-4-5 16:5:4');
-    console.log(this.formatDate(date));
-    console.log(this.formatDate(date, 'MM)yyyy)dd hh(mm(ss'));
-  }
-
-  typeOf(obj, type: string): boolean {
-    return typeof obj === type;
-  }
-
-  getType(obj) {
-    return new Date('dfbgdfg 2015');
-    // return typeof obj;
   }
 
   displayField(field: string) {
@@ -54,7 +41,7 @@ export class FormViewComponent implements OnInit {
       const fld = fldArr[0];
       switch (fldArr[1]) {
         case 'date':
-          return this.formatDate(new Date(this.currentItem[fld]), 'yyyy-MM-dd hh:mm:ss');
+          return this.formatDate(new Date(this.currentItem[fld]), 'yyyy-MM-dd hh:mm:ss tt');
         default:
           return this.currentItem[fld];
       }
@@ -95,6 +82,7 @@ export class FormViewComponent implements OnInit {
     const ms = milliseconds.toString();
 
     const tt = hours >= 12 ? 'PM' : 'AM';
+    const t = hours >= 12 ? 'P' : 'A';
 
     let result = '';
     if (format) {
@@ -115,11 +103,16 @@ export class FormViewComponent implements OnInit {
       result = result.replace('s', s);
       result = result.replace('ms', ms);
       if (format.includes('h') || format.includes('hh')) {
-        result += ' ' + tt;
+        result = result.replace('tt', tt);
+        result = result.replace('t', t);
       }
     } else {
       result = `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
     }
     return result;
+  }
+
+  editItem() {
+
   }
 }

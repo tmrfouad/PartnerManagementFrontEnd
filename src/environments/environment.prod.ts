@@ -5,5 +5,6 @@ export const environment = {
     authUrl: 'auth/tokens',
     orderUrl: 'ecommerce/orders'
   },
-  domainName: './api'
+  domainName: './api',
+  localDomainName: './'
 };
