@@ -46,6 +46,9 @@ export class ListViewComponent<T> extends BaseComponent implements OnInit, OnDes
     this.currentItemsSubs = this.dataService.currentItems.subscribe(items => {
       this.items = items;
       this.searchItems();
+      if (!items || items.length === 0) {
+        this.addItem();
+      }
     });
   }
 
