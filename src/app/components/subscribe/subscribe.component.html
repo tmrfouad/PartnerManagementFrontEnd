@@ -1,4 +1,4 @@
-<div class="card scroll-wrapper" [ngClass]="translate.currentLang === 'ar' ? 'layout-rtl text-right' : 'layout-ltr'">
+<div class="card scroll-wrapper scroll-wrapper-main" [ngClass]="translate.currentLang === 'ar' ? 'layout-rtl text-right' : 'layout-ltr'">
   <div class="card-header bg-dark text-white">
     <h2 [ngClass]="translate.currentLang === 'ar' ? 'float-right' : 'float-left'">{{ 'subscribe.requestForQuotations' | translate }}</h2>
     <a class="btn btn-light btn-sm text-dark float-left font-weight-bold" *ngIf="translate.currentLang === 'ar'" (click)="translate.use('en')"
@@ -12,8 +12,8 @@
       ع
     </a>
   </div>
-  <div class="card-body">
-    <div class="row">
+  <div class="card-body scroll-content">
+    <div class="row scroll-content">
       <div class="col">
         <form #f="ngForm" (submit)="logForm(rfqItem)" class="scroll-content">
           <div class="content p-1 pr-2">
