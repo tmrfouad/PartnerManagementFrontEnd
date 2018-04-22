@@ -6,23 +6,16 @@
       </button>
     </strong>
   </div>
-  <table class="table m-0">
-    <tr>
-      <th> English Name </th>
-      <th> Arabic Name </th>
-      <th></th>
-    </tr>
-  </table>
   <div class="scroll-content">
     <table class="table table-hover">
       <tr *ngFor="let Edition of prodEditionList">
-        <td> {{ Edition?.englishName }}</td>
-        <td> {{ Edition?.arabicName }}</td>
+        <td style="width: 30%"class="text-center"> {{ Edition?.englishName }}</td>
+        <td style="width: 30%"class="text-center"> {{ Edition?.arabicName }}</td>
         <td>
-          <a class="btn btn-link" matTooltip="Delete Edition" matTooltipPosition="above" (click)="DeleteEdition(Edition)">
-            <i class="fa fa-remove"></i>
+          <a class="btn btn-link float-right" matTooltip="Delete Edition" matTooltipPosition="above" (click)="DeleteEdition(Edition)">
+            <i class="fa fa-trash"></i>
           </a>
-          <a class="btn btn-link" matTooltip="Edit Edition" matTooltipPosition="above" (click)="openDialog(Edition)">
+          <a class="btn btn-link float-right" matTooltip="Edit Edition" matTooltipPosition="above" (click)="openDialog(Edition)">
             <i class="fa fa-edit"></i>
           </a>
         </td>

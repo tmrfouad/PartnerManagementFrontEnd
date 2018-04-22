@@ -46,7 +46,7 @@ export class ListViewComponent<T> extends BaseComponent implements OnInit, OnDes
     this.currentItemsSubs = this.dataService.currentItems.subscribe(items => {
       this.items = items;
       this.searchItems();
-      if (!items || items.length === 0) {
+      if (this.isLoaded && (!items || items.length === 0)) {
         this.addItem();
       }
     });
@@ -106,10 +106,12 @@ export class ListViewComponent<T> extends BaseComponent implements OnInit, OnDes
   }
 
   async refreshItems() {
+    this.isLoaded = false;
     const get$ = await this.dataService.get();
     this.getItemsSubs = get$.subscribe((items: T[]) => {
       this.items = items;
       this.dataService.changeCurrentItems(this.items);
+      this.isLoaded = true;
       this.searchItems();
       this.refresh.emit();
     });

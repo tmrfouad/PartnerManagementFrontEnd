@@ -74,19 +74,19 @@ export class EmailSenderComponent extends BaseComponent implements OnInit, OnDes
   async saveSender() {
     this.showLoading();
     if (this.newRecord) {
-      const post$ = await this.emailSenderService.post(this.form.value);
+      const post$ = await this.emailSenderService.post(this.emailSender);
       this.postSubs = post$.subscribe((sender: EmailSender) => {
-        this.newRecord = false;
         this.emailSenders.push(sender);
         this.emailSenderService.changeCurrentItems(this.emailSenders);
         this.closeLoading();
         this.showSnackBar('Email sender saved successfully.', 'Success');
+        this.newRecord = false;
       }, error => {
         this.closeLoading();
         throw error;
       });
     } else {
-      const put$ = await this.emailSenderService.put(this.emailSender.id, this.form.value);
+      const put$ = await this.emailSenderService.put(this.emailSender.id, this.emailSender);
       this.putSubs = put$.subscribe((sender: EmailSender) => {
         this.showSnackBar('Email sender updated successfully.', 'Success');
         this.closeLoading();

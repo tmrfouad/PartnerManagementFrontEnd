@@ -1,6 +1,6 @@
 <div class="row scroll-wrapper scroll-wrapper-main">
   <div class="col-4">
-    <list-view [dataService]="emailSenderService" [displayMembers]="'email'" (add)="newSender()"></list-view>
+    <list-view [dataService]="emailSenderService" [displayMembers]="'email'" (add)="newSender()" (change)="newRecord = false"></list-view>
   </div>
   <div class="col">
     <div class="card scroll-content">

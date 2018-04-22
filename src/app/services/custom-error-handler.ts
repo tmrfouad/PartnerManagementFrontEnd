@@ -28,14 +28,12 @@ export class CutomErrorHandler implements ErrorHandler {
                 const errorObjStr = `{ "status": -1, "message": "${errorsConc}" }`;
                 errObjArray.push(JSON.parse(errorObjStr));
             } else {
-                // tslint:disable-next-line:radix
-                let openIndx = parseInt(braces[0]['0']);
+                let openIndx = Number(braces[0]['0']);
                 let closeIndx = -1;
                 let openCnt = 0;
                 braces.forEach(b => {
                     if (openCnt === 0) {
-                        // tslint:disable-next-line:radix
-                        openIndx = parseInt(b['0']);
+                        openIndx = Number(b['0']);
                     }
                     if (b['1'] === '{') {
                         openCnt++;
@@ -62,18 +60,29 @@ export class CutomErrorHandler implements ErrorHandler {
                     errMsg = 'Failed to contact server.';
                     break;
                 default:
-                    if (errorObj.error && errorObj.error.Data) {
-                        const errId = errorObj.error.Data['HelpLink.EvtID'];
-                        switch (errId) {
-                            case '515':
-                                errMsg = 'The data you entered is incomplete.';
-                                break;
-                            case '2601':
-                                errMsg = 'The data you entered is repeated.';
-                                break;
-                            default:
-                                errMsg = errorObj.error.Message;
-                                break;
+                    if (errorObj.error) {
+                        let errorObjError;
+                        if (typeof errorObj.error === 'string') {
+                            errorObjError = JSON.parse(errorObj.error);
+                        } else {
+                            errorObjError = errorObj.error;
+                        }
+
+                        if (errorObjError.Data) {
+                            const errId = errorObjError.Data['HelpLink.EvtID'];
+                            switch (errId) {
+                                case '515':
+                                    errMsg = 'The data you entered is incomplete.';
+                                    break;
+                                case '2601':
+                                    errMsg = 'The data you entered is repeated.';
+                                    break;
+                                default:
+                                    errMsg = errorObjError.Message;
+                                    break;
+                            }
+                        } else {
+                            errMsg = errorObjError.Message;
                         }
                     } else {
                         errMsg = errorObj.message;
