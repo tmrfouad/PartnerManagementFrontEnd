@@ -7,6 +7,7 @@ import { AccountService } from './account.service';
 import { IpDataService } from './abstracts/ip-data.service';
 import { NetworkService } from './network.service';
 import { RFQ } from '../models/RFQ';
+import { Utilities } from './utilities';
 
 @Injectable()
 export class EmailTemplateService extends IpDataService<EmailTemplate> {
@@ -25,16 +26,17 @@ export class EmailTemplateService extends IpDataService<EmailTemplate> {
     });
   }
 
-  getTags(): {key: string, name: string}[] {
+  getTags(): { key: string, name: string }[] {
     return [
+      { key: 'currDate', name: 'Current Date' },
       { key: 'address', name: 'Address' },
       { key: 'companyEnglishName', name: 'Company Name' },
       { key: 'contactPersonEmail', name: 'Contact Person Email' },
       { key: 'contactPersonMobile', name: 'Contact Person Mobile' },
       { key: 'contactPersonEnglishName', name: 'Contact Person Name' },
       { key: 'contactPersonPosition', name: 'Contact Person Position' },
-      { key: 'location', name: 'Location' },
-      { key: 'phoneNumber', name: 'Phone Number' },
+      { key: 'location', name: 'Contact Person Location' },
+      { key: 'phoneNumber', name: 'Contact Person Phone Number' },
       { key: 'rfqCode', name: 'RFQ Code' },
       { key: 'selectedEdition', name: 'Selected Edition' },
       { key: 'status', name: 'Status' },
@@ -46,7 +48,11 @@ export class EmailTemplateService extends IpDataService<EmailTemplate> {
   buildTempBody(htmlTemplate: string, rfq: RFQ): string {
     let result = htmlTemplate;
     this.getTags().forEach(tag => {
-      result = result.split(`{{ ${tag.key} }}`).join(rfq[tag.key]);
+      if (tag.key === 'currDate') {
+        result = result.split(`{{ ${tag.key} }}`).join(Utilities.formatDate(new Date(), 'yyyy/MM/dd hh:mm tt'));
+      } else {
+        result = result.split(`{{ ${tag.key} }}`).join(rfq[tag.key]);
+      }
     });
     return result;
   }

@@ -40,7 +40,7 @@ export class RepFormComponent extends BaseComponent implements OnInit {
     // Edit The Rep
     if (!this.isNewRecord) {
       this.showLoading('Loading');
-      const rep$ = await this.repService.put(item.id, item);
+      const rep$ = await this.repService.put(item.id, this.rep);
       rep$.subscribe((currentRep: REP) => {
         this.closeLoading();
         this.showSnackBar('Representative edited successfully', 'Success');
@@ -54,7 +54,7 @@ export class RepFormComponent extends BaseComponent implements OnInit {
     } else {
       // Adding new rep
       this.showLoading('Loading');
-      const rep$ = await this.repService.post(item);
+      const rep$ = await this.repService.post(this.rep);
       rep$.subscribe((rep: REP) => {
         this.closeLoading();
         this.showSnackBar('Representative added successfully', 'Success');

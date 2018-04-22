@@ -91,6 +91,10 @@ export class EmailTemplateComponent extends BaseComponent implements OnInit, OnD
     htmlInput.focus();
   }
 
+  onTempChange(temp) {
+    this.newRecord = false;
+  }
+
   newTemp() {
     this.newRecord = true;
     this.emailTmpService.changeCurrentItem({});
@@ -101,7 +105,7 @@ export class EmailTemplateComponent extends BaseComponent implements OnInit, OnD
   async saveTemp() {
     this.showLoading();
     if (this.newRecord) {
-      const mailPost$ = await this.emailTmpService.post(this.form.value);
+      const mailPost$ = await this.emailTmpService.post(this.template);
       this.mailPostSubs = mailPost$.subscribe((mail: EmailTemplate) => {
         this.newRecord = false;
         // this.template = mail;
@@ -115,7 +119,7 @@ export class EmailTemplateComponent extends BaseComponent implements OnInit, OnD
         throw error;
       });
     } else {
-      const mailPut$ = await this.emailTmpService.put(this.template.id, this.form.value);
+      const mailPut$ = await this.emailTmpService.put(this.template.id, this.template);
       this.mailPutSubs = mailPut$.subscribe((mail: EmailTemplate) => {
         // this.template = mail;
         // this.emailTmpService.changeCurrentItem(mail);

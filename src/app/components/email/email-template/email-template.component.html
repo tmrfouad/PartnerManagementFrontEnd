@@ -1,7 +1,7 @@
 <div class="row scroll-wrapper scroll-wrapper-main">
   <div class="col-3">
     <list-view [dataService]="emailTmpService" [displayMembers]="'subject'"
-      [keyFiald]="'id'" (add)="newTemp()">
+      [keyFiald]="'id'" (add)="newTemp()" (change)="onTempChange($event)">
     </list-view>
   </div>
   <div class="col">
