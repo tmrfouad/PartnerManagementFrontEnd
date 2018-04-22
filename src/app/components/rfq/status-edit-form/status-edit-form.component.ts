@@ -110,8 +110,10 @@ export class StatusEditFormComponent extends BaseComponent implements OnInit, On
       await addStatus$.toPromise().then(async (newAction: RFQAction) => {
         this.showSnackBar('Action added successfully.', 'Success');
         this.getRep();
-        const emailtemp = await this.emailTemplateService.send(this.mailData.maildata);
-        emailtemp.subscribe((mailItem: MailData) => { this.mailData.maildata = mailItem; });
+        if (newAction.actionType === ActionType.EmailMessage) {
+          const emailtemp = await this.emailTemplateService.send(this.mailData.maildata);
+          emailtemp.subscribe((mailItem: MailData) => { this.mailData.maildata = mailItem; });
+        }
         this.rfqStatus = newAction;
         this.dialogRef.close({ result: 'saved', action: this.rfqStatus });
       }).catch(error => {
