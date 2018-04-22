@@ -51,7 +51,7 @@
       <textarea type="text" #Comment="ngModel" rows="5" [(ngModel)]="rfqStatus.comments" [readOnly]="data.mode == 'new'" required
         name="comments" class="form-control form-control-sm" [ngClass]=" {'form-control-plaintext' : data.mode === 'new'}">
         </textarea>
-      <input type="checkbox" required name="active" [(ngModel)]="rfqStatus.active" hidden />
+      <input type="checkbox" [required]="data.mode === 'new'" name="active" [(ngModel)]="rfqStatus.active" hidden />
       <div class="alert-danger" *ngIf="Comment.touched && Comment.invalid">
         <div *ngIf="Comment.errors['required']">
           <small>You can't leave this empty.</small>
