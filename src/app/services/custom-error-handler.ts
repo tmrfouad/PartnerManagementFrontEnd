@@ -1,9 +1,9 @@
-import { ErrorHandler, Injectable, Injector, style } from '@angular/core';
+import { ErrorHandler, Injectable, Injector, style, NgZone } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 
 @Injectable()
 export class CutomErrorHandler implements ErrorHandler {
-    constructor(private injector: Injector) {
+    constructor(private injector: Injector, private zone: NgZone) {
 
     }
     handleError(error): void {
@@ -91,15 +91,20 @@ export class CutomErrorHandler implements ErrorHandler {
             }
 
             const snakBar = this.injector.get(MatSnackBar);
-            snakBar.open(errMsg, 'Error', {
-                verticalPosition: 'bottom',
-                duration: 5000,
-                panelClass: 'snack-bar-error'
+            if (this.zone) {
+                this.zone.run(() => {
+                    snakBar.open(errMsg, 'Error', {
+                        verticalPosition: 'bottom',
+                        duration: 5000,
+                        panelClass: 'snack-bar-error'
+                    });
             });
+        }
+
         } catch {
             throw error;
         }
-        // console.log('Error log :', error);
+        console.log('Error log :', error);
         // throw error;
     }
 }
