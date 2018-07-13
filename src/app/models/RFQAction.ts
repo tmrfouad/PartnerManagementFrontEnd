@@ -1,4 +1,4 @@
-import { ActionType } from './ActionType';
+import { ActionType } from './enumerations/ActionType';
 import { REP } from './REP';
 
 export interface RFQAction {

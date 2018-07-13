@@ -8,7 +8,7 @@ import { ActionTypeService } from '../../../services/action-type.service';
 import { StatusService } from '../../../services/status.service';
 import { RfqEditFormComponent } from '../rfq-edit-form/rfq-edit-form.component';
 import { StatusEditFormComponent } from '../status-edit-form/status-edit-form.component';
-import { ActionType } from './../../../models/ActionType';
+import { ActionType } from '../../../models/enumerations/ActionType';
 import { RFQ } from './../../../models/RFQ';
 import { RFQAction } from './../../../models/RFQAction';
 import { RfqService } from './../../../services/rfq.service';

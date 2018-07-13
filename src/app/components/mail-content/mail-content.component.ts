@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ActionType } from '../../models/ActionType';
+import { ActionType } from '../../models/enumerations/ActionType';
 import { MailContent } from '../../models/MailContent';
 import { MailData, MailMessageData, SmtpData } from '../../models/MailData';
 import { EmailSenderService } from '../../services/email-sender.service';

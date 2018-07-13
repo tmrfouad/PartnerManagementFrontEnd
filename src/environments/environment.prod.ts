@@ -5,6 +5,6 @@ export const environment = {
     authUrl: 'auth/tokens',
     orderUrl: 'ecommerce/orders'
   },
-  domainName: './api',
-  localDomainName: './'
+  domainName: 'https://partner-management-services.azurewebsites.net',
+  localDomainName: 'https://partner-management.azurewebsites.net/'
 };

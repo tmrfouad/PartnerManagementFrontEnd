@@ -10,17 +10,22 @@ export class CutomErrorHandler implements ErrorHandler {
         try {
             const errString: string = error.toString();
             const braces = Object.entries(errString).filter(c => c['1'] === '{' || c['1'] === '}');
-
             const errObjArray = [];
 
             if (braces.length === 0) {
                 const errStringNoTrace = errString.split(' at ')[0].replace('\n', ' ');
                 const errs = errStringNoTrace.split('Error: ');
+
                 let errorsConc = '';
+                let prevError = '';
                 for (let i = 0; i < errs.length; i++) {
                     const err = errs[i].trim();
                     if (!err) { continue; }
                     if (err === '') { continue; }
+                    if (err.startsWith('Uncaught')) { continue; }
+                    if (err === prevError) { continue; }
+
+                    prevError = err;
                     errorsConc += (errorsConc === '' ||
                         errorsConc.substring(errorsConc.length - 1, errorsConc.length) === ':' ? '' : '; ') + err;
                 }
@@ -98,8 +103,8 @@ export class CutomErrorHandler implements ErrorHandler {
                         duration: 5000,
                         panelClass: 'snack-bar-error'
                     });
-            });
-        }
+                });
+            }
 
         } catch {
             throw error;

@@ -6,7 +6,7 @@ import * as FileSaver from 'file-saver';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
-import { ActionType } from '../../../models/ActionType';
+import { ActionType } from '../../../models/enumerations/ActionType';
 import { MailData, MailMessageData } from '../../../models/MailData';
 import { RFQ } from '../../../models/RFQ';
 import { RFQAction } from '../../../models/RFQAction';

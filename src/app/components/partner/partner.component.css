@@ -1,0 +1,11 @@
+.scroll-wrapper-main {
+    margin-top: 135px
+}
+
+.navbar {
+    height: 50px;
+}
+
+.active {
+    background: #fff;
+}

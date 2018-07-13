@@ -12,7 +12,3 @@ a:not([href]):not([tabindex]):focus
     border-color: dimgray;
     color: white;
 }
-
-.scroll-wrapper {
-    margin: 0 0 0 10px;
-}

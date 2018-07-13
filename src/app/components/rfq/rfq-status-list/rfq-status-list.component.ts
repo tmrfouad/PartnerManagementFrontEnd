@@ -3,7 +3,7 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 
 import { RFQ } from '../../../models/RFQ';
 import { RFQAction } from '../../../models/RFQAction';
-import { ActionType } from './../../../models/ActionType';
+import { ActionType } from '../../../models/enumerations/ActionType';
 import { RfqService } from './../../../services/rfq.service';
 import { StatusEditFormComponent } from '../status-edit-form/status-edit-form.component';
 import { Subscription } from 'rxjs/Subscription';

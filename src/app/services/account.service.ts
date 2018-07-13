@@ -82,4 +82,28 @@ export class AccountService {
 
     return !isExpired;
   }
+
+  get isAdmin() {
+    const currentUser = this.currentUser;
+    if (!currentUser) {
+      return false;
+    }
+
+    const roles = currentUser.roles as string[];
+    const isAdmin = roles && roles.includes('Admin');
+
+    return isAdmin;
+  }
+
+  get isPartner() {
+    const currentUser = this.currentUser;
+    if (!currentUser) {
+      return false;
+    }
+
+    const roles = currentUser.roles as string[];
+    const isPartner = roles && roles.includes('Partner');
+
+    return isPartner;
+  }
 }

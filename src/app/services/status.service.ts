@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Status } from '../models/Status';
+import { Status } from '../models/enumerations/Status';
 
 @Injectable()
 export class StatusService {

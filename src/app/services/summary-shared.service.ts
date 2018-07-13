@@ -1,6 +1,6 @@
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Injectable } from '@angular/core';
-import { ActionType } from '../models/ActionType';
+import { ActionType } from '../models/enumerations/ActionType';
 import { SummaryDetails } from '../models/SummaryDetails';
 import { MailData } from '../models/MailData';
 import { RFQ } from '../models/RFQ';

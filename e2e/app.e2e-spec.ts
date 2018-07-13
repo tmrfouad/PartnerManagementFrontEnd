@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('acs-pp-customers-gate App', () => {
+describe('partner-management App', () => {
   let page: AppPage;
 
   beforeEach(() => {

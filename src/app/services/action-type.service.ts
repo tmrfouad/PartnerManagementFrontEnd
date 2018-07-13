@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActionType } from '../models/ActionType';
+import { ActionType } from '../models/enumerations/ActionType';
 
 @Injectable()
 export class ActionTypeService {

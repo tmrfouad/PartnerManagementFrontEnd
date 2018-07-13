@@ -82,12 +82,14 @@ export class RfqListComponent extends BaseComponent implements OnInit, OnDestroy
   }
 
   async refresh() {
+    this.isLoaded = false;
     const get$ = await this.rfqService.get();
     this.rfqListSubscription = get$.subscribe(rfqs => {
       if (rfqs) {
         this.rfqs = rfqs as RFQ[];
         this.applyFilter();
         this.selectRfq(0);
+        this.isLoaded = true;
       }
     });
   }

@@ -1,1 +1,1 @@
-# acs-pp-customers-gate
+# partner-management

@@ -1,5 +1,5 @@
 import { SummarySharedService } from './../../../services/summary-shared.service';
-import { ActionType } from './../../../models/ActionType';
+import { ActionType } from '../../../models/enumerations/ActionType';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActionTypeComment } from '../../../models/ActionTypeComment';
 import { SummaryDetails } from '../../../models/SummaryDetails';

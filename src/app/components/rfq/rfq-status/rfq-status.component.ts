@@ -2,7 +2,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { RfqService } from './../../../services/rfq.service';
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { RFQAction } from '../../../models/RFQAction';
-import { ActionType } from '../../../models/ActionType';
+import { ActionType } from '../../../models/enumerations/ActionType';
 
 @Component({
   // tslint:disable-next-line:component-selector
